@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\generalController;
+namespace App\Http\Controllers\masterApps\generalController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Validator;
 use App\Http\Controllers\Controller;
-use App\Models\userAccess\userAccess;
-use App\Models\General\userAccess\role;
+use App\Models\masterApps\General\userAccess\userAccess;
+use App\Models\masterApps\General\userAccess\role;
 use App\Mail\userAccess\VerifyUser;
 
 class userAccessController extends Controller

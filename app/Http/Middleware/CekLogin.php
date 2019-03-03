@@ -14,8 +14,15 @@ class CekLogin
         $userData = DB::table('users')->where('id', $id);
         if($userData->count() > 0){
             $isi = url()->full();    
-            $data = explode("http://localhost/promix-alpha/" , $isi);
+            $data = explode("http://localhost/sentul-apps/" , $isi);
             $data = explode('/',$data[1]);
+            $i = 0;
+            foreach($data as $d){
+                $i++;
+            }
+            if($i == '1'){
+                $data[1] = "";
+            }
             $cekHakAkses = DB::table('v_hak_akses')->where('link', $data[1]);
             if($cekHakAkses->count() > 0){
                 $cekHakAkses = $cekHakAkses->first();
@@ -58,10 +65,12 @@ class CekLogin
                             }
                         }
                     }
-                    
                 }
             }
-            $cekHakAkses = DB::table('hak_akses_aplikasi')->where('user_id', $id)->get();
+            Session::put('aplikasi', $data[0]);
+            
+            app()->instance('usersData', $userData->first());
+            $cekHakAkses = DB::table('hak_akses_menu')->where('user_id', $id)->get();
             $request->merge(['cekHakAkses' => $cekHakAkses]);
             return $next($request);
         } else{

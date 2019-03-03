@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\MobileController;
+namespace App\Http\Controllers\masterApps\MobileController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\General\UserAccess\userAccess;
+use App\Models\masterApps\General\UserAccess\userAccess;
 use Illuminate\Support\Facades\Hash;
+use DB;
 use Session;
 
 class MobileController extends Controller
 {
     public function index(){
-        return view('mobile/login');
+        return view('masterApps/mobile/login');
     }
     public function register(){
-        return view('mobile/register');
+        return view('masterApps/mobile/register');
     }
     public function dashboard(){
-        return view('mobile/admin/index');
+        return view('masterApps/mobile/admin/index');
     }
     public function login(Request $request){
         $email = $request->email;
@@ -38,7 +39,14 @@ class MobileController extends Controller
                                     return "Pindah Ke halaman Ganti password";
                                 }else{
                                     session()->put('login', $data->id);
-                                    return redirect('/super/form-user');
+                                    $hak_aplikasi = DB::table('hak_akses_aplikasi')->where('id_user', $data->id)->get();
+                                    if(count($hak_aplikasi) > "1"){
+                                        return redirect('home')->with('success', "Selamat Datang" . $data->fullname);
+                                    } else if(count($hak_aplikasi) == "1"){
+                                        return redirect('masterApps/form-user');
+                                    }else{
+                                        return redirect('login-form')->with('failed', 'Anda tidak memiliki akses apapun');
+                                    }
                                 }
                             } else{
                                 return redirect('login-form')->with('failed', 'Harap hubungi admin untuk melakukan verifikasi');

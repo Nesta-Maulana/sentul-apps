@@ -1,84 +1,83 @@
 <?php
 
-namespace App\Http\Controllers\MobileController;
+namespace App\Http\Controllers\masterApps\MobileController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\General\UserAccess\userAccess;
-use App\Models\General\UserAccess\role;
-use App\Models\Mobile\hakAkses;
-use App\Models\Mobile\menu;
-use App\Models\Mobile\hakAksesAplikasi;
+use App\Models\masterApps\General\userAccess\userAccess;
+use App\Models\masterApps\General\userAccess\role;
+use App\Models\masterApps\Mobile\hakAkses;
+use App\Models\masterApps\Mobile\menu;
+use App\Models\masterApps\Mobile\hakAksesAplikasi;
+use App\Models\masterApps\Mobile\hakAksesUserAplikasi;
+use App\Models\masterApps\Mobile\aplikasi;
 use Session;
 use DB;
 
 class superAdminController extends Controller
 {
     private $menu;
-    public function __construct(){
-        // $this->middleware(function ($request, $next) {
-        //     $idUser = Session::get('login');
-        //     Session::put('login', $idUser);
-        // });
+    private $username;
+
+    public function __construct(Request $request){
+        $this->middleware(function ($request, $next) {
+            $this->username = resolve('usersData');
+            $this->username =  $this->username->fullname;
+            $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
+            ->where('parent_id', '0')
+            ->where('lihat', '1')
+            ->where('aplikasi', 'Master Apps')
+            ->get();
+            return $next($request);
+        });
+    }
+
+    public function index(){
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->get();
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('masterApps.mobile.home', ['menus' => $this->menu, 'username' => $this->username, 'hakAkses' => $data]);
     }
 
     public function menu(Request $request){
-        $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
-        ->where('parent_id', '0')
-        ->where('lihat', '1')->get();
-
+        $aplikasi = aplikasi::get();
         $icons = DB::table('icons')->get();
         $parents = DB::table('menus')->where('parent_id', '0')->get();
         $allMenu = DB::table('menus')->get();
-        return view('mobile.superAdmin.formMenu', ['icons' => $icons, 'menus' => $this->menu, 'parents' => $parents, 'allMenu' => $allMenu]);
+        return view('masterApps.mobile.superAdmin.formMenu', ['icons' => $icons, 'menus' => $this->menu, 'parents' => $parents, 'allMenu' => $allMenu, 'username' => $this->username, 'aplikasi' => $aplikasi]);
     }
     public function urutan($id){
         $urutan = DB::table('menus')->where('parent_id', $id)->get();
         return $urutan;
     } 
     public function pmb(){
-        $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
-        ->where('parent_id', '0')
-        ->where('lihat', '1')->get();
-
-        return view('mobile.superAdmin.formPmb', ['menus' => $this->menu]);
+        return view('masterApps.mobile.superAdmin.formPmb', ['menus' => $this->menu, 'username' => $this->username]);
     }
     public function user(){
-        $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
-            ->where('parent_id', '0')
-            ->where('lihat', '1')->get();
-
         $users = new userAccess;
         $countUnverify = DB::table('users')->where('verifiedByAdmin', '0')->count();
         $countLogin = $users::where('status', '=', '1')->count();
         $countVerify = DB::table('users')->where('verifiedByAdmin', '1')->count();
         $user = DB::table('users')->where('rolesId', '!=', '1')->paginate(10);
 
-        return view('mobile.superAdmin.formUser', ['user' => $user, 'countUnverify' => $countUnverify, 
-        'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu]);
+        return view('masterApps.mobile.superAdmin.formUser', ['user' => $user, 'countUnverify' => $countUnverify, 
+        'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu, 'username' => $this->username]);
     }
 
     public function hakAkses(){
-        $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
-        ->where('parent_id', '0')
-        ->where('lihat', '1')->get();
-
         $hakAkses = hakAkses::all();
         $user = userAccess::all();
-        return view('mobile.superAdmin.formHakAkses', ['menus' => $this->menu, 'hakAkses' => $hakAkses, 'users' => $user]);
+        return view('masterApps.mobile.superAdmin.formHakAkses', ['menus' => $this->menu, 'hakAkses' => $hakAkses, 'users' => $user, 'username' => $this->username]);
     }
 
     public function brand(){
-        $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
-        ->where('parent_id', '0')
-        ->where('lihat', '1')->get();
 
-        return view('mobile.superAdmin.formbrand', ['menus' => $this->menu]);
+        return view('masterApps.mobile.superAdmin.formbrand', ['menus' => $this->menu, 'username' => $this->username]);
     }
     public function roles(){
-        $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
-        ->where('parent_id', '0')
-        ->where('lihat', '1')->get();
 
         $roles = new role();
         $roles = $roles->all();
@@ -87,14 +86,14 @@ class superAdminController extends Controller
         for($i = 1; $i <= $roles2; $i++){
             $cek[$i] = DB::table('users')->where('rolesId', $i)->count();
         }
-        return view('mobile.superAdmin.formroles', ['roles' => $roles], ['users' => $cek, 'menus' => $this->menu]);
+        return view('masterApps.mobile.superAdmin.formroles', ['roles' => $roles], ['users' => $cek, 'menus' => $this->menu, 'username' => $this->username]);
     }
     public function verify($id){
         $data = DB::table('users')
         ->where('id', $id)
         ->update(['verifiedByAdmin' => "1"]);
 
-        return redirect('/super/form-user');
+        return redirect('master-apps/form-user');
     }
     public function edit($id)
     {
@@ -103,14 +102,14 @@ class superAdminController extends Controller
         $edit = new userAccess;
         $edit = $edit->find($id);//DB::table('users')->where('id', $id)->get();
         $output = [$edit,$roles];
-        return $output;//view('mobile.superAdmin.addUser', ['d' => $edit]);
+        return $output;//view('masterApps.mobile.superAdmin.addUser', ['d' => $edit]);
     }
     public function save(Request $request){
         $save = new role();
         $save->role = $request->role;
         $save->status = $request->status;
         $save->save();
-        return redirect('super/form-roles')->with(['flash' => "Data ditambahkan"]);
+        return redirect('master-apps/form-roles')->with(['flash' => "Data ditambahkan"]);
     }
     public function update(Request $request){
 
@@ -130,14 +129,14 @@ class superAdminController extends Controller
         }
 
         
-        return redirect('super/form-user')->with(['flash' => 'Data Berhasil diupdate']);
+        return redirect('master-apps/form-user')->with(['flash' => 'Data Berhasil diupdate']);
     }
     public function updateRoles(Request $request){
         DB::table('roles')->where('id', $request->id)->update([
             'role' => $request->role,
             'status' => $request->status,
         ]);
-        return redirect('super/form-roles')->with(['flash' => 'Data Berhasil diupdate']);
+        return redirect('master-apps/form-roles')->with(['flash' => 'Data Berhasil diupdate']);
     }
     public function editRoles($id){
         $roles = new role;
@@ -154,6 +153,7 @@ class superAdminController extends Controller
                 'icon' => $request->icon,
                 'link' => $request->link,
                 'status' => $request->status,
+                'aplikasi_id' => $request->aplikasi,
                 'posisi' => $request->urutan,
             ]);
         }else{
@@ -163,26 +163,19 @@ class superAdminController extends Controller
                 'icon' => $request->icon,
                 'link' => $request->link,
                 'status' => $request->status,
+                'aplikasi_id' => $request->aplikasi,
                 'posisi' => $request->urutan
             ]);
-            // menu::find($request->menu);
 
-            // DB::table('hak_akses_aplikasi')->insert([
-            //     'id_user' => Session::get('login'),
-            //     'menu' => $request->menu,
-            //     'icon' => $request->icon,
-            //     'link' => $request->link,
-            //     'status' => $request->status,
-            //     'posisi' => $request->urutan
-            // ]);
         }
-        return redirect('super/form-menu');
+        return redirect('master-apps/form-menu');
     }
     public function editMenu($id){
         $edit = DB::table('menus')->where('id', $id)->get();
         $editMenu = DB::table('menus')->get();
         $editIcon = DB::table('icons')->get();
-        $output = [$edit, $editIcon, $editMenu];
+        $aplikasi = aplikasi::all();
+        $output = [$edit, $editIcon, $editMenu, $aplikasi];
         return $output;
     }
     public function dataHakAkses($id){

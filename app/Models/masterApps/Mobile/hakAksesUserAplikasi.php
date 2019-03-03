@@ -4,7 +4,7 @@ namespace App\Models\masterApps\Mobile;
 
 use Illuminate\Database\Eloquent\Model;
 
-class hakAksesAplikasi extends Model
+class hakAksesUserAplikasi extends Model
 {
-    protected $table = 'hak_akses_menu';
+    protected $table = 'hak_akses_aplikasi';
 }
