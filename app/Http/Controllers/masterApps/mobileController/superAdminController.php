@@ -11,6 +11,9 @@ use App\Models\masterApps\Mobile\menu;
 use App\Models\masterApps\Mobile\hakAksesAplikasi;
 use App\Models\masterApps\Mobile\hakAksesUserAplikasi;
 use App\Models\masterApps\Mobile\aplikasi;
+use App\Models\utilityOnline\kategori;
+use App\Models\utilityOnline\bagian;
+use App\Models\utilityOnline\workcenter;
 use Session;
 use DB;
 
@@ -74,11 +77,9 @@ class superAdminController extends Controller
     }
 
     public function brand(){
-
         return view('masterApps.mobile.superAdmin.formbrand', ['menus' => $this->menu, 'username' => $this->username]);
     }
     public function roles(){
-
         $roles = new role();
         $roles = $roles->all();
         $roles1 = $roles->all();
@@ -87,6 +88,88 @@ class superAdminController extends Controller
             $cek[$i] = DB::table('users')->where('rolesId', $i)->count();
         }
         return view('masterApps.mobile.superAdmin.formroles', ['roles' => $roles], ['users' => $cek, 'menus' => $this->menu, 'username' => $this->username]);
+    }
+    public function company(){
+        return view("masterApps.Mobile.superAdmin.company", ['menus' => $this->menu, 'username' => $this->username]);
+    }
+    public function kategori(){
+        $kategori = kategori::all();
+        return view("masterApps.Mobile.superAdmin.kategori", ['kategori' => $kategori, 'menus' => $this->menu, 'username' => $this->username]);
+    }
+    public function workcenter(){
+        $kategori = kategori::all();
+        $workcenter = workcenter::all();
+        return view("masterApps.Mobile.superAdmin.workcenter", ['menus' => $this->menu, 'username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter]);
+    }
+    public function bagian(){
+        $workcenter = workcenter::all();
+        $bagian = bagian::all();
+        return view("masterApps.Mobile.superAdmin.bagian", ['menus' => $this->menu, 'username' => $this->username, 'workcenter' => $workcenter, 'bagian' => $bagian]);
+    }
+    public function dataBagian(Request $request){
+        if($request->id){
+            $bagian = bagian::find($request->id);
+            $bagian->workcenter_id = $request->workcenter;
+            $bagian->status = $request->status;
+            $bagian->bagian = $request->bagian;
+            $bagian->satuan = $request->satuan;
+            $bagian->spek_min = $request->spek_min;
+            $bagian->spek_max = $request->spek_max;
+            $bagian->save();
+            return redirect('master-apps/bagian')->with('success', 'Data Berhasil DiUpdate');
+        }else{
+           bagian::create([
+               'workcenter_id' => $request->workcenter,
+               'status' => $request->status,
+               'bagian' => $request->bagian,
+               'satuan' => $request->satuan,
+               'spek_min' => $request->spek_min,
+               'spek_max' => $request->spek_max,
+           ]);
+           return redirect('master-apps/bagian')->with('success', 'Data Berhasil ditambahkan');
+        }
+    }
+    public function dataKategori(Request $request){
+        if($request->id){
+            $kategori = kategori::find($request->id);
+            $kategori->kategori = $request->kategori;
+            $kategori->save();
+            return redirect('master-apps/kategori')->with('success', 'Data Berhasil DiUpdate');
+        }else{
+            kategori::create([
+                'kategori' => $request->kategori
+            ]);
+            return redirect('master-apps/kategori')->with('success', 'Data Berhasil Ditambahkan');
+        }
+    }
+    public function dataWorkcenter(Request $request){
+        if($request->id){
+            
+        }else{
+            workcenter::create([
+                'workcenter' => $request->workcenter,
+                'status' => $request->status,
+                'kategori_id' => $request->kategori
+            ]);
+            return redirect('master-apps/workcenter')->with('success', 'Data Berhasil Ditambahkan');
+        }
+    }
+    public function dataCompany(){
+        if($request->id){
+            
+        }else{
+            
+        }
+    }
+    public function editKategori($id){
+        $editKategori = kategori::find($id);
+        return $editKategori;
+    }
+    public function editWorkcenter($id){
+        $editWorkcenter = workcenter::find($id);
+        $kategori = kategori::all();
+        $output = [$editWorkcenter, $kategori];
+        return $output;
     }
     public function verify($id){
         $data = DB::table('users')
@@ -157,26 +240,58 @@ class superAdminController extends Controller
                 'posisi' => $request->urutan,
             ]);
         }else{
-            DB::table('menus')->insert([
+            $menu = DB::table('menus')
+                ->latest()
+                ->first();
+            $menu = menu::Create([
                 'parent_id' => $request->parent,
                 'menu' => $request->menu,
                 'icon' => $request->icon,
                 'link' => $request->link,
-                'status' => $request->status,
                 'aplikasi_id' => $request->aplikasi,
+                'status' => $request->status,
                 'posisi' => $request->urutan
             ]);
-
+            $user = userAccess::all();
+            foreach ($user as $value) 
+            {
+                $cekakses = DB::table('hak_akses_menu')->select('*')->where('user_id',$value->id)->where('menu_id',$menu->id)->count();
+                if($cekakses == 0)
+                {
+                     hakAksesAplikasi::create([
+                        'user_id' =>$value->id,
+                        'menu_id' => $menu->id,
+                        'lihat' => '0',
+                        'tambah' => '0',
+                        'ubah' => '0',
+                        'hapus' => '0',
+                     ]);
+                }
+            }
+            // DB::table('menus')->insert([
+            //     'parent_id' => $request->parent,
+            //     'menu' => $request->menu,
+            //     'icon' => $request->icon,
+            //     'link' => $request->link,
+            //     'aplikasi_id' => $request->aplikasi,
+            //     'status' => $request->status,
+            //     'posisi' => $request->urutan
+            // ]);
+            // SELECT * FROM menus ORDER BY id DESC LIMIT 1
+            
         }
         return redirect('master-apps/form-menu');
     }
-    public function editMenu($id){
+    public function editMenu($id, $aplikasi){
         $edit = DB::table('menus')->where('id', $id)->get();
-        $editMenu = DB::table('menus')->get();
+        $editMenu = DB::table('menus')->where('aplikasi_id', $aplikasi)->get();
         $editIcon = DB::table('icons')->get();
         $aplikasi = aplikasi::all();
         $output = [$edit, $editIcon, $editMenu, $aplikasi];
         return $output;
+    }
+    public function parent($parent){
+        return menu::where('aplikasi_id', $parent)->get();
     }
     public function dataHakAkses($id){
         $dataHakAkses = DB::table('v_hak_akses')->where('user_id', $id)->get();
@@ -265,7 +380,7 @@ class superAdminController extends Controller
                     hakAksesAplikasi::where('menu_id', $id)->update([
                         $apa => $isinya,
                     ]);
-                    return $id;              
+                    return $id;
                 }
             }
         }
@@ -303,4 +418,4 @@ class superAdminController extends Controller
             }
         }
     }
-} 
+}

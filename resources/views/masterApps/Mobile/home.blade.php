@@ -22,14 +22,5 @@
 @endif
 
 
-<script>
-const flashdata = $('.success').data('flashdata');
-if(flashdata){
-    swal({
-    title: "Failed",
-    text: flashdata,
-    type: "success",
-});
-}
-</script>
+
 @endsection

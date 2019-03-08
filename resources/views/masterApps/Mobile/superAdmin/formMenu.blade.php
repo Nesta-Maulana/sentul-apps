@@ -52,6 +52,8 @@
                     <div class="form-group mt-4">
                         <label for="aplikasi">Aplikasi :</label>
                         <select name="aplikasi" id="aplikasi" class="form-control">
+                        <option value="" selected disabled>-- PILIH APLIKASI --</option>
+                        
                             @foreach($aplikasi as $aps)
                                 <option value="{{ $aps->id }}"> {{ $aps->aplikasi }} </option>
                             @endforeach
@@ -75,7 +77,7 @@
                             <label for="parent">Parent :</label>
                             <select name="parent" id="parent" class="form-control">
                                 <option value="" disabled selected>-- PILIH PARENT --</option>
-                                <option value="0">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;-- Jadikan Parent --</option>
+                                <option value="0">&emsp;&emsp;&emsp;&emsp;-- Jadikan Parent --</option>
                                 @foreach($parents as $parent)
                                 <?php  
                                     $b = "SELECT COUNT(id) from menus WHERE parent_id='$parent->id'";
@@ -153,7 +155,7 @@
                                     @endif
                                 @endforeach
                                 <td>
-                                    <button class="btn btn-primary edit" id="edit" data-id="{{ $menu->id }}">Edit</button>
+                                    <button class="btn btn-primary edit" id="edit" data-id="{{ $menu->id }}" data-aplikasi="{{$menu->aplikasi_id}}">Edit</button>
                                 </td>
                                 <?php $i++ ?>
                             </tr>
@@ -192,7 +194,23 @@ $(document).ready(function(){
     $('#update').hide();
     $('#batal').hide();
 
-    
+    $('#aplikasi').change(function () {
+        var parent = $('#aplikasi').val();
+        $.ajax({
+            url: 'form-menu/parent/' + parent,
+            method: 'GET',
+            dataType:'JSON',
+            success: function(data){
+                var optionparent = '<option disabled selected>-- PILIH PARENT --</option>', $comboparent = $('#parent');
+                optionparent+= '<option value="0"> -- JADIKAN PARENT -- </option>';
+                for (index = 0; index < data.length; index++) 
+                {   
+                    optionparent+='<option  value="'+data[index].id+'" data-icon="' + data[index].icon + '">'+data[index].menu+'</option>';
+                }
+                $comboparent.html(optionparent).on('change');
+            }
+        });
+    });
 
     window.setInterval(function () {
         var cek = $('#interval').val();
@@ -207,14 +225,14 @@ $(document).ready(function(){
     }, 200);
 
     function setMargin(){
-                if($(window).width() >= 992){
-                    $('.tabel-menu').removeClass('margin-top-mobile');
-                    $('.tabel-menu').addClass('margin-top');
-                }else{
-                    $('.tabel-menu').removeClass('margin-top');
-                    $('.tabel-menu').addClass('margin-top-mobile');
-                }
-            }
+        if($(window).width() >= 992){
+            $('.tabel-menu').removeClass('margin-top-mobile');
+            $('.tabel-menu').addClass('margin-top');
+        }else{
+            $('.tabel-menu').removeClass('margin-top');
+            $('.tabel-menu').addClass('margin-top-mobile');
+        }
+    }
 
     window.setInterval(function(){
         if($(window).width() <= 558){
@@ -232,12 +250,14 @@ $(document).ready(function(){
         $('#update').show();
         $('#batal').show();
     const id = $(this).data('id');
-     $.ajax({
-            url: 'form-menu/edit/' + id,
+    const aplikasi = $(this).data('aplikasi');
+
+    $.ajax({
+            url: 'form-menu/edit/' + id + '/' + aplikasi,
             method: 'GET',
             dataType:'JSON',
             success: function(data)
-            {     
+            {
                 $('#menu').val(data[0][0]['menu']);
                 $('#id').val(data[0][0]['id']);
                 $('#urutan').val(data[0][0]['posisi']);
@@ -328,7 +348,6 @@ $(document).ready(function(){
         });
     });
 
-
     function iformat(icon) {
         var originalOption = icon.element;
         return $('<span><i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '</span>');
@@ -349,4 +368,3 @@ $(document).ready(function(){
 
 </script>
 @endsection
- 

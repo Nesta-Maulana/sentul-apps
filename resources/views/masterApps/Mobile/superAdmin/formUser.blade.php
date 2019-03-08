@@ -70,14 +70,14 @@
     <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
         <thead>
-        <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Roles</th>
-            <th>Status</th>
-            <th>Verified</th>
-            <th>Action</th>
-        </tr>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Status</th>
+                <th>Verified</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
         @foreach($user as $s)
@@ -118,7 +118,6 @@
         @endforeach
         </table>
     </div>
-    
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -167,11 +166,7 @@
     
 <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 
-
 <script>
-
-
-
 window.setInterval(function(){
     
         if($(window).width() <= 1000){
@@ -181,7 +176,7 @@ window.setInterval(function(){
         }
     }, 200);
 
-    jQuery( document ).ready( function( $ ) {
+    jQuery( document ).ready( function($) {
    $('#exampleModal').on('show.bs.modal', function(e) {
 
    var id = $(e.relatedTarget).data('id');
@@ -216,8 +211,7 @@ window.setInterval(function(){
             }
          });
 
-
-});
+    });
 });
 </script>
 @endsection

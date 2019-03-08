@@ -42,7 +42,7 @@ Route::middleware('ceklogin')->group(function (){
     Route::get('/master-apps/form-pmb', 'masterApps\MobileController\superAdminController@pmb');
     Route::get('/master-apps/form-hak-akses/update/{id}/{isinya}/{apa}/{idUser}', 'masterApps\MobileController\superAdminController@updateHakAkses');
     Route::get('/master-apps/form-hak-akses/{id}', 'masterApps\MobileController\superAdminController@dataHakAkses');
-    Route::get('/master-apps/form-menu/edit/{id}', 'masterApps\MobileController\superAdminController@editMenu');
+    Route::get('/master-apps/form-menu/edit/{id}/{aplikasi}', 'masterApps\MobileController\superAdminController@editMenu');
     Route::get('/master-apps/form-menu/urutan/{id}', 'masterApps\MobileController\superAdminController@urutan');
     Route::get('/master-apps/form-user/verify/{id}', 'masterApps\MobileController\superAdminController@verify'); 
     Route::get('/master-apps/form-user/edit/{id}', 'masterApps\MobileController\superAdminController@edit') ;
@@ -51,10 +51,20 @@ Route::middleware('ceklogin')->group(function (){
     Route::post('/master-apps/form-roles/save', 'masterApps\MobileController\superAdminController@save');
     Route::post('/master-apps/form-roles/update', 'masterApps\MobileController\superAdminController@updateRoles');
     Route::post('/master-apps/form-menu/data', 'masterApps\MobileController\superAdminController@dataMenu');
+    Route::get('/master-apps/form-menu/parent/{parent}', 'masterApps\MobileController\superAdminController@parent');
+
+    // Utility Online
+    Route::get('/master-apps', 'masterApps\mobileController\superAdminController@index');
+    Route::get('/master-apps/water', 'masterApps\mobileController\superAdminController@water');
+    Route::get('/master-apps/database', 'masterApps\mobileController\superAdminController@database');
+    Route::get('/master-apps/company', 'masterApps\mobileController\superAdminController@company');
+    Route::get('/master-apps/kategori', 'masterApps\mobileController\superAdminController@kategori');
+    Route::get('/master-apps/workcenter', 'masterApps\mobileController\superAdminController@workcenter');
+    Route::post('/master-apps/workcenter/data', 'masterApps\mobileController\superAdminController@dataWorkcenter');
+    Route::get('/master-apps/workcenter/edit/{id}', 'masterApps\mobileController\superAdminController@editWorkcenter');
+    Route::get('/master-apps/bagian', 'masterApps\mobileController\superAdminController@bagian');
+    Route::post('/master-apps/kategori/data', 'masterApps\mobileController\superAdminController@dataKategori');
+    Route::get('/master-apps/kategori/edit/{id}', 'masterApps\mobileController\superAdminController@editKategori');
+    Route::post('/master-apps/bagian/data', 'masterApps\mobileController\superAdminController@dataBagian');
+    Route::get('/master-apps/bagian/edit/{id}', 'masterApps\mobileController\superAdminController@editBagian');
 });
-
-
-// Utility Online
-Route::get('/utility-online', 'utilityOnline\mainController@index');
-Route::get('/utility-online/water', 'utilityOnline\mainController@water');
-Route::get('/utility-online/database', 'utilityOnline\mainController@database');
