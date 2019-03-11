@@ -144,7 +144,12 @@ class superAdminController extends Controller
     }
     public function dataWorkcenter(Request $request){
         if($request->id){
-            
+            $workcenter = workcenter::find($request->id);
+            $workcenter->workcenter = $request->workcenter;
+            $workcenter->kategori_id = $request->kategori;
+            $workcenter->status = $request->status;
+            $workcenter->save();
+            return redirect('master-apps/workcenter')->with('success', 'Data Berhasil DiUpdate');
         }else{
             workcenter::create([
                 'workcenter' => $request->workcenter,

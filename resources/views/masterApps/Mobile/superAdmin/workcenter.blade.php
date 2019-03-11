@@ -40,7 +40,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <button class="btn btn-primary pr-5 pt-2 pb-2 pl-5 ml-3 d-flex-justify-content-center text-center">SIMPAN</button>
+                            <button class="btn btn-primary pr-5 pt-2 pb-2 pl-5 ml-3 d-flex-justify-content-center text-center" id="simpan">SIMPAN</button>
+                            <button class="btn btn-primary pr-5 pt-2 pb-2 pl-5 ml-3" id="update">Update</button>
+                            <a class="btn btn-danger pr-5 pt-2 pb-2 pl-5 ml-3 text-white" id="batal"> Batal </a>
                         </div>
                     </form>
 
@@ -75,16 +77,48 @@
 <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 <script>
 
+
+$('#update').hide();
+$('#batal').hide();
+$('#simpan').show();
+
+
+$('#batal').click(function () {
+    $('#update').hide();
+    $('#batal').hide();
+    $('#simpan').show();
+    $('#workcenter').val("");
+    $('#status').val("");
+    $('#kategori').val("");
+})
+
 $(".edit").click(function () {
+    $('#update').show();
+    $('#batal').show();
+    $('#simpan').hide();
     var id = $(this).data('id');
     $.ajax({
         url: 'workcenter/edit/' + id,
         method: 'GET',
         dataType: 'JSON',
         success: function (data) {
-            
+            $('#id').val(data[0].id);
             $('#workcenter').val(data[0].workcenter);
             $("#status option[value= '" + data[0].status + "']").prop('selected', true);
+            var optionroles = '<option disabled>-- PILIH PARENT --</option>', $comboroles = $('#kategori');
+                for (index = 0; index < data[1].length; index++) 
+                {
+                    if (data[1][index].id == data[0].kategori_id) 
+                    {
+                        
+                        optionroles+='<option  value="'+data[1][index].id+'" selected>'+data[1][index].kategori+'</option>';   
+                    }
+                    else
+                    {
+                        optionroles+='<option  value="'+data[1][index].id+'">'+data[1][index].kategori+'</option>';   
+                    }
+                }
+                $comboroles.html(optionroles).on('change');
         }
     });
 });
