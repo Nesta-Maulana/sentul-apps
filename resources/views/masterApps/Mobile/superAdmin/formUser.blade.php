@@ -10,10 +10,6 @@
 @endsection
 @section('content')
 
-
-@if ($message = Session::get('failed'))
-    <div class="failed" data-flashdata="{{ $message }}"></div>
-@endif
 <div class="row">
     <!-- ./col -->
     <div class="col-lg-3 col-xs-6">

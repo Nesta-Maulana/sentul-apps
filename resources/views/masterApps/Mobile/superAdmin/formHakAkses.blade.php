@@ -3,9 +3,7 @@
     Form Hak Akses
 @endsection
 @section('content')
-@if ($message = Session::get('failed'))
-    <div class="failed" data-flashdata="{{ $message }}"></div>
-@endif
+
     <div class="box">
         <div class="container">
             <div class="box-header">
@@ -15,6 +13,7 @@
                         <h4>
                             <div class="form-group">
                                 <select name="hakUser" id="hakUser" class="form-control">
+                                    <option value="" selected disabled>-- PILIH USER -- </option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}" data-id="{{ $user->id }}">{{ $user->fullname }}</option>
                                     @endforeach
@@ -59,6 +58,7 @@
                     dataType: 'JSON',
                     success: function(data)
                     {
+                        $('#coba tr').empty();
                         var no = 1;
                         for (let index = 0; index < data.length; index++) 
                         {

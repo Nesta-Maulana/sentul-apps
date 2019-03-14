@@ -89,20 +89,20 @@
         </li> --}}
     </ul>
     <div class="bg-white shade tab-content" id="content contentnya">
-    @include('mobile.superAdmin.mesin.phetermisasi')
-    @include('mobile.superAdmin.mesin.milktankyb')
-    @include('mobile.superAdmin.mesin.mixingtankyb')
-    @include('mobile.superAdmin.mesin.pheyb')
-    @include('mobile.superAdmin.mesin.incubationtank')
-    @include('mobile.superAdmin.mesin.phecooler')
-    @include('mobile.superAdmin.mesin.at')
-    @include('mobile.superAdmin.mesin.cst')
-    @include('mobile.superAdmin.mesin.mixingtankrm')
-    @include('mobile.superAdmin.mesin.pherm')
-    @include('mobile.superAdmin.mesin.storagetankyb')
-    @include('mobile.superAdmin.mesin.storagetankrm')
-    @include('mobile.superAdmin.mesin.uht')
-    @include('mobile.superAdmin.mesin.xxxtank')
+    @include('masterApps.Mobile.superAdmin.mesin.phetermisasi')
+    @include('masterApps.Mobile.superAdmin.mesin.milktankyb')
+    @include('masterApps.Mobile.superAdmin.mesin.mixingtankyb')
+    @include('masterApps.Mobile.superAdmin.mesin.pheyb')
+    @include('masterApps.Mobile.superAdmin.mesin.incubationtank')
+    @include('masterApps.Mobile.superAdmin.mesin.phecooler')
+    @include('masterApps.Mobile.superAdmin.mesin.at')
+    @include('masterApps.Mobile.superAdmin.mesin.cst')
+    @include('masterApps.Mobile.superAdmin.mesin.mixingtankrm')
+    @include('masterApps.Mobile.superAdmin.mesin.pherm')
+    @include('masterApps.Mobile.superAdmin.mesin.storagetankyb')
+    @include('masterApps.Mobile.superAdmin.mesin.storagetankrm')
+    @include('masterApps.Mobile.superAdmin.mesin.uht')
+    @include('masterApps.Mobile.superAdmin.mesin.xxxtank')
     </div>
 </div>
 <div id="datawo"></div>

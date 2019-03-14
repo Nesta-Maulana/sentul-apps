@@ -14,6 +14,11 @@ use App\Models\masterApps\Mobile\aplikasi;
 use App\Models\utilityOnline\kategori;
 use App\Models\utilityOnline\bagian;
 use App\Models\utilityOnline\workcenter;
+use App\Models\utilityOnline\company;
+use App\Models\utilityOnline\rasioHead;
+use App\Models\utilityOnline\rasio;
+use App\Models\utilityOnline\kategoriPencatatan;
+use App\Models\utilityOnline\satuan;
 use Session;
 use DB;
 
@@ -70,14 +75,78 @@ class superAdminController extends Controller
         'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu, 'username' => $this->username]);
     }
 
+    public function brand(){
+        return view('masterApps.mobile.superAdmin.formbrand', ['menus' => $this->menu, 'username' => $this->username]);
+    }
+
     public function hakAkses(){
         $hakAkses = hakAkses::all();
         $user = userAccess::all();
         return view('masterApps.mobile.superAdmin.formHakAkses', ['menus' => $this->menu, 'hakAkses' => $hakAkses, 'users' => $user, 'username' => $this->username]);
     }
 
-    public function brand(){
-        return view('masterApps.mobile.superAdmin.formbrand', ['menus' => $this->menu, 'username' => $this->username]);
+    public function rasio(){
+        $kategori = kategori::all();
+        $workcenter = workcenter::all();
+        $bagian = bagian::all();
+        $company = company::all();
+        return view('masterApps.mobile.superAdmin.rasio', ['menus' => $this->menu, 'username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'bagian' => $bagian, 'company' => $company]);
+    }
+    public function satuan(){
+        $satuan = satuan::all();
+        return view('masterApps.mobile.superAdmin.satuan', ['menus' => $this->menu, 'username' => $this->username, 'satuan' => $satuan]);
+    }
+    public function editSatuan($id){
+        $editSatuan = satuan::find($id);
+        return $editSatuan;
+    }
+    public function dataSatuan(Request $request){
+        if($request->id){
+            $satuan = satuan::find($request->id);
+            $satuan->satuan = $request->satuan;
+            $satuan->status = $request->status;
+            $satuan->save();
+            return redirect('master-apps/satuan')->with('success', 'Data Berhasil DiUpdate');
+        }else{
+           satuan::create([
+               'satuan' => $request->satuan,
+               'status' => $request->status,
+           ]);
+           return redirect('master-apps/satuan')->with('success', 'Data Berhasil ditambahkan');
+        }
+    }
+    public function rasioWorkcenter($id){
+        $workcenter = workcenter::where('kategori_id', $id)->get();
+        return $workcenter;
+    }
+    public function rasioBagian($id){
+        $bagian = bagian::where('workcenter_id', $id)->get();
+        return $bagian;
+    }
+    public function rasioHeadSave(Request $request){
+        rasioHead::create([
+            'bagian_id' => $request->bagian,
+            'status' => '1'
+        ]);
+        $rasio = rasioHead::latest()->first();
+        return $rasio;
+    }
+    public function rasioSave(Request $request){
+
+        $messages = [
+            'between' => 'Input rasio minimal 0 dan maksimal 100',
+        ];
+         
+        $this->validate($request,[
+            'rasio' => 'integer|between:0,100',
+        ],$messages);
+
+        rasio::create([
+            'rasio_head_id' => $request->id,
+            'company_id' => $request->company,
+            'nilai' => $request->rasio
+        ]);
+        return redirect('master-apps/rasio')->with('success', 'Data Berhasil Ditambahkan');
     }
     public function roles(){
         $roles = new role();
@@ -90,7 +159,8 @@ class superAdminController extends Controller
         return view('masterApps.mobile.superAdmin.formroles', ['roles' => $roles], ['users' => $cek, 'menus' => $this->menu, 'username' => $this->username]);
     }
     public function company(){
-        return view("masterApps.Mobile.superAdmin.company", ['menus' => $this->menu, 'username' => $this->username]);
+        $company = company::all();
+        return view("masterApps.Mobile.superAdmin.company", ['menus' => $this->menu, 'username' => $this->username, 'company' => $company]);
     }
     public function kategori(){
         $kategori = kategori::all();
@@ -104,7 +174,9 @@ class superAdminController extends Controller
     public function bagian(){
         $workcenter = workcenter::all();
         $bagian = bagian::all();
-        return view("masterApps.Mobile.superAdmin.bagian", ['menus' => $this->menu, 'username' => $this->username, 'workcenter' => $workcenter, 'bagian' => $bagian]);
+        $satuan = satuan::all();
+        $kategoriPencatatan = kategoriPencatatan::all();
+        return view("masterApps.Mobile.superAdmin.bagian", ['menus' => $this->menu, 'username' => $this->username, 'workcenter' => $workcenter, 'bagian' => $bagian, 'satuan' => $satuan]);
     }
     public function dataBagian(Request $request){
         if($request->id){
@@ -122,7 +194,7 @@ class superAdminController extends Controller
                'workcenter_id' => $request->workcenter,
                'status' => $request->status,
                'bagian' => $request->bagian,
-               'satuan' => $request->satuan,
+               'satuan_id' => $request->satuan,
                'spek_min' => $request->spek_min,
                'spek_max' => $request->spek_max,
            ]);
@@ -159,11 +231,19 @@ class superAdminController extends Controller
             return redirect('master-apps/workcenter')->with('success', 'Data Berhasil Ditambahkan');
         }
     }
-    public function dataCompany(){
+    public function dataCompany(Request $request){
         if($request->id){
-            
+            $company = company::find($request->id);
+            $company->company = $request->company;
+            $company->status = $request->status;
+            $company->save();
+            return redirect('master-apps/company')->with('success', 'Data Berhasil DiUpdate');
         }else{
-            
+            company::create([
+                'company' => $request->company,
+                'status' => $request->status
+            ]);
+            return redirect('master-apps/company')->with('success', 'Data Berhasil Ditambahkan');
         }
     }
     public function editKategori($id){
@@ -175,6 +255,16 @@ class superAdminController extends Controller
         $kategori = kategori::all();
         $output = [$editWorkcenter, $kategori];
         return $output;
+    }
+    public function editBagian($id){
+        $editBagian = bagian::find($id);
+        $workcenter = workcenter::all();
+        $output = [$editBagian, $workcenter];
+        return $output;
+    }
+    public function editCompany($id){
+        $company = company::find($id);
+        return $company;
     }
     public function verify($id){
         $data = DB::table('users')
@@ -316,7 +406,7 @@ class superAdminController extends Controller
             if($apa != "lihat"){
                 $cektipe = hakAkses::where('id', $id)->first();
                 if($cektipe->$apa == "0"){
-                    hakAksesAplikasi::where('menu_id', $id)->update([
+                    hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                         "lihat" => "1", 
                     ]);
                 }
@@ -332,15 +422,15 @@ class superAdminController extends Controller
                     $cekparent = hakAksesAplikasi::where('menu_id',$menus->parent_id)->where('user_id',$idUser)->first();
                     if ($cekparent->lihat == '0') 
                     {
-                        hakAksesAplikasi::where('menu_id', $cekparent->id)->update([
+                        hakAksesAplikasi::where('menu_id', $cekparent->id)->where('user_id', $idUser)->update([
                             'lihat' => "1",
                         ]);
-                        hakAksesAplikasi::where('menu_id', $id)->update([
+                        hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                             $apa => $isinya,
                         ]);
                         return $id;
                     }else{
-                        hakAksesAplikasi::where('menu_id', $id)->update([
+                        hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                             $apa => $isinya,
                         ]);
                         return $id;
@@ -348,7 +438,7 @@ class superAdminController extends Controller
                 }
                 else
                 {
-                    hakAksesAplikasi::where('menu_id', $id)->update([
+                    hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                         $apa => $isinya,
                     ]);
                     return $id;              
@@ -366,15 +456,15 @@ class superAdminController extends Controller
                     $cekparent = hakAksesAplikasi::where('menu_id',$menus->parent_id)->where('user_id',$idUser)->first();
                     if ($cekparent->lihat == '0') 
                     {
-                        hakAksesAplikasi::where('menu_id', $cekparent->id)->update([
+                        hakAksesAplikasi::where('menu_id', $cekparent->id)->where('user_id', $idUser)->update([
                             'lihat' => "1",
                         ]);
-                        hakAksesAplikasi::where('menu_id', $id)->update([
+                        hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                             $apa => $isinya,
                         ]);
                         return $id;
                     }else{
-                        hakAksesAplikasi::where('menu_id', $id)->update([
+                        hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                             $apa => $isinya,
                         ]);
                         return $id;
@@ -382,7 +472,7 @@ class superAdminController extends Controller
                 }
                 else
                 {
-                    hakAksesAplikasi::where('menu_id', $id)->update([
+                    hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                         $apa => $isinya,
                     ]);
                     return $id;
@@ -406,17 +496,17 @@ class superAdminController extends Controller
                 }
             }
             if($tampung > 0){
-                hakAksesAplikasi::where('menu_id', $id)->update([
+                hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                     $apa => $isinya,
                 ]);
                 foreach ($menu as $m) {
-                    hakAksesAplikasi::where('menu_id', $m->id)->update([
+                    hakAksesAplikasi::where('menu_id', $m->id)->where('user_id', $idUser)->update([
                         'lihat' => "0",
                     ]);
                 }
                 return $id;  
             }else{
-                hakAksesAplikasi::where('menu_id', $id)->update([
+                hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                     $apa => $isinya,
                 ]);
                 return $id;  

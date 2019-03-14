@@ -1,0 +1,14 @@
+.css-input { 
+    border-color:#cccccc;
+    border-style:solid; 
+    font-size:14px; 
+    text-align:center; 
+    border-width:1px; 
+    border-radius:20px; 
+    box-shadow:outset 0px 0px 3px 0px rgba(42,42,42,.75); 
+    width: 300px;
+    padding:10px;  
+} 
+.css-input:focus {
+    outline:none; 
+} 

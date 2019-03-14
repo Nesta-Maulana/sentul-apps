@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2019 at 09:32 AM
+-- Generation Time: Mar 13, 2019 at 04:56 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -60,6 +60,14 @@ CREATE TABLE `company` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`id`, `company`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'PT. Nutrifood Indonesia', '1', '2019-03-12 00:58:00', '2019-03-12 00:58:00'),
+(2, 'Heavenly Blush', '1', '2019-03-12 00:58:09', '2019-03-12 00:58:09');
 
 -- --------------------------------------------------------
 
@@ -121,7 +129,22 @@ INSERT INTO `hak_akses_menu` (`id`, `user_id`, `menu_id`, `tambah`, `lihat`, `ub
 (13, 24, 22, '0', '0', '0', '0', '2019-03-04 18:58:04', '2019-03-04 18:58:04'),
 (14, 22, 23, '0', '0', '0', '0', '2019-03-05 02:26:58', '2019-03-05 02:26:58'),
 (15, 23, 23, '0', '0', '0', '0', '2019-03-05 02:26:58', '2019-03-05 02:26:58'),
-(16, 24, 23, '1', '1', '1', '0', '2019-03-05 02:26:58', '2019-03-05 02:26:58');
+(16, 24, 23, '1', '1', '1', '0', '2019-03-05 02:26:58', '2019-03-05 02:26:58'),
+(17, 22, 24, '0', '1', '1', '0', '2019-03-10 19:23:19', '2019-03-10 19:24:17'),
+(18, 23, 24, '0', '1', '1', '0', '2019-03-10 19:23:19', '2019-03-10 19:24:17'),
+(19, 24, 24, '1', '1', '1', '0', '2019-03-10 19:23:19', '2019-03-12 00:17:16'),
+(20, 22, 25, '1', '1', '1', '0', '2019-03-10 19:38:33', '2019-03-10 19:38:33'),
+(21, 23, 25, '1', '1', '1', '0', '2019-03-10 19:38:33', '2019-03-10 19:38:33'),
+(22, 24, 25, '1', '1', '1', '0', '2019-03-10 19:38:33', '2019-03-10 19:38:33'),
+(23, 22, 26, '1', '1', '0', '0', '2019-03-10 19:47:48', '2019-03-10 19:48:14'),
+(24, 23, 26, '1', '1', '0', '0', '2019-03-10 19:47:48', '2019-03-10 19:48:14'),
+(25, 24, 26, '1', '1', '0', '0', '2019-03-10 19:47:48', '2019-03-11 01:13:17'),
+(26, 22, 27, '0', '0', '0', '0', '2019-03-12 19:17:02', '2019-03-12 19:17:02'),
+(27, 23, 27, '0', '0', '0', '0', '2019-03-12 19:17:02', '2019-03-12 19:17:02'),
+(28, 24, 27, '0', '1', '1', '0', '2019-03-12 19:17:02', '2019-03-12 19:19:33'),
+(29, 22, 28, '0', '0', '0', '0', '2019-03-12 19:22:02', '2019-03-12 19:22:02'),
+(30, 23, 28, '0', '0', '0', '0', '2019-03-12 19:22:02', '2019-03-12 19:22:02'),
+(31, 24, 28, '0', '1', '0', '0', '2019-03-12 19:22:02', '2019-03-12 19:22:15');
 
 -- --------------------------------------------------------
 
@@ -964,7 +987,12 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu`, `icon`, `link`, `status`, `posis
 (20, 0, 'Cek', 'fa-address-book', '-', '1', '1', 1, '2019-03-04 18:54:56', '2019-03-04 18:54:56'),
 (21, 0, 'Cek', 'fa-500px', '-', '1', '1', 2, '2019-03-04 18:55:41', '2019-03-04 18:55:41'),
 (22, 0, 'Cek', 'fa-align-right', '-', '1', '1', 2, '2019-03-04 18:58:04', '2019-03-04 18:58:04'),
-(23, 0, 'Form Kategori', 'fa-bookmark', 'kategori', '1', '1', 1, '2019-03-05 02:26:58', '2019-03-05 02:26:58');
+(23, 0, 'Form Kategori', 'fa-bookmark', 'kategori', '1', '1', 1, '2019-03-05 02:26:58', '2019-03-05 02:26:58'),
+(24, 0, 'Form WorkCenter', 'fa-bank', 'workcenter', '1', '1', 1, '2019-03-10 19:23:19', '2019-03-10 19:23:19'),
+(25, 0, 'Form Bagian', 'fa-archive', 'bagian', '1', '1', 1, '2019-03-10 19:38:33', '2019-03-10 19:38:33'),
+(26, 0, 'Form Company', 'fa-bandcamp', 'company', '1', '1', 1, '2019-03-10 19:47:48', '2019-03-10 19:47:48'),
+(27, 4, 'Form Satuan', 'fa-minus-square-o', 'satuan', '1', '0', 1, '2019-03-12 19:17:01', '2019-03-12 19:17:01'),
+(28, 4, 'Form Rasio', 'fa-circle-o-notch', 'rasio', '1', '1', 1, '2019-03-12 19:22:02', '2019-03-12 19:22:02');
 
 -- --------------------------------------------------------
 
@@ -1146,7 +1174,7 @@ ALTER TABLE `aplikasi`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `hak_akses_aplikasi`
@@ -1158,7 +1186,7 @@ ALTER TABLE `hak_akses_aplikasi`
 -- AUTO_INCREMENT for table `hak_akses_menu`
 --
 ALTER TABLE `hak_akses_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `icons`
@@ -1170,7 +1198,7 @@ ALTER TABLE `icons`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `migrations`

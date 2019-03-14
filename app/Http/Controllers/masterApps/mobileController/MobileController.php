@@ -12,7 +12,20 @@ use Session;
 class MobileController extends Controller
 {
     public function index(){
+        if(Session::get('login')){
+            return redirect(url()->previous())->with('failed', 'Anda harus logout terlebih dahulu');
+        }
         return view('masterApps/mobile/login');
+    }
+    public function logout(){
+        Session::pull('login', null);
+        Session::pull('aplikasi', null);
+        Session::pull('tambah', null);
+        Session::pull('ubah', null);
+        Session::pull('hapus', null);
+        Session::pull('lihat', null);
+
+        return redirect('/');
     }
     public function register(){
         return view('masterApps/mobile/register');

@@ -6,9 +6,6 @@
     Kategori
 @endsection
 @section('content')
-    @if ($message = Session::get('success'))
-        <div class="success" data-flashdata="{{ $message }}"></div>
-    @endif
     <input id="interval" type="hidden" data-tambah="{{ Session::get('tambah') }}"/>
     <div class="container">
         <div class="row">
@@ -58,7 +55,7 @@
             </div>
         </div>
     </div>
-    <style>
+<style>
 .margin-top{
     margin-top: -70px !important;
 }
@@ -66,31 +63,30 @@
     margin-top: -150px !important;
 }
 </style>
-<script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
+
 <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 <script>
-    const flashdata = $('.success').data('flashdata');
-    if(flashdata){
-        swal({
-            title: "Success",
-            text: flashdata,
-            type: "success",
-        });
-    }
-
     $(document).ready(function () {
         $('#batal').hide();
         $('#update').hide();
         window.setInterval(function () {
-        var cek = $('#interval').val();
-        var tambah = $('#interval').data('tambah');
-        if(cek == "" && tambah == "hidden"){
-            var myVar = setInterval( setMargin(), 200);
-        }else {
-            clearInterval(myVar);
-            $('.tabel-menu').removeClass('margin-top-mobile');
-            $('.tabel-menu').removeClass('margin-top');
-        }
+            var cek = $('#interval').val();
+            var tambah = $('#interval').data('tambah');
+            if(cek == "" && tambah == "hidden"){
+                var myVar = setInterval( setMargin(), 200);
+            }else {
+                clearInterval(myVar);
+                $('.tabel-menu').removeClass('margin-top-mobile');
+                $('.tabel-menu').removeClass('margin-top');
+            }
+        }, 200);
+
+        window.setInterval(function(){
+            if($(window).width() <= 240){
+                $('.table').addClass('table-responsive');
+            }else{
+                $('.table').removeClass('table-responsive');
+            }
         }, 200);
 
         function setMargin(){

@@ -9,14 +9,8 @@
     active
 @endsection
 @section('content')
-
-@if ($message = Session::get('failed'))
-    <div class="failed" data-flashdata="{{ $message }}"></div>
-@endif
-
 <section class="content">
       <div class="row">
-        
       <?php $i = 0 ?>
       <?php $j = 1 ?>
 
@@ -141,16 +135,7 @@
 
 <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 <script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
-<script>
-const flashdata = $('.failed').data('flashdata');
-if(flashdata){
-    swal({
-    title: "Failed",
-    text: flashdata,
-    type: "error",
-});
-}
-</script>
+
 
 <script>
 

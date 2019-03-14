@@ -10,10 +10,6 @@
 @endsection
 @section('content')
 
-@if ($message = Session::get('failed'))
-    <div class="failed" data-flashdata="{{ $message }}"></div>
-@endif
-
 <input id="interval" type="hidden" data-tambah="{{ Session::get('tambah') }}"/>
 
 <?php $conn = mysqli_connect('localhost', "root", "", "promix"); ?>

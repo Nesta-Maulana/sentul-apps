@@ -15,6 +15,7 @@ $conn = mysqli_connect('localhost', "root", "", "promix");
   <link rel="stylesheet" href="{!! asset('masterApps/mobileStyle/superAdmin/bower_components/Ionicons/css/ionicons.min.css') !!}">
   <link rel="stylesheet" href="{!! asset('masterApps/mobileStyle/superAdmin/dist/css/AdminLTE.min.css') !!}">
   <link rel="stylesheet" href="{!! asset('masterApps/mobileStyle/superAdmin/dist/css/skins/skin-blue.min.css') !!}">
+  <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
   <style>
   .hidden
   {
@@ -23,6 +24,7 @@ $conn = mysqli_connect('localhost', "root", "", "promix");
   </style>
     <!-- My Css -->
     <link rel="stylesheet" href="{!! asset('masterApps/mobileStyle/superAdmin/css/style.css') !!}">
+    <link rel="stylesheet" href="{!! asset('masterApps/mobileStyle/css/input-style.css') !!}">
 
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -41,7 +43,7 @@ $conn = mysqli_connect('localhost', "root", "", "promix");
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini mt-1"><img src="{!! asset('masterApps/generalStyle/images/logo/mixpro-logo.png') !!}" width="50" height="40" alt=""></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg" style="margin-top: 10px"><img src="{!! asset('masterApps/generalStyle/images/logo/mixpro-logo.png') !!}" class="mb-1" width="50" height="40" alt="">&ensp;<b>MOLLIE</b></span>
+      <span class="logo-lg" style="margin-top: 10px"><img src="{!! asset('masterApps/generalStyle/images/logo/mixpro-logo.png') !!}" class="mb-1" width="50" height="40" alt="">&ensp;<b>SISY</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -62,7 +64,7 @@ $conn = mysqli_connect('localhost', "root", "", "promix");
                 </a>
                 <div class="dropdown-menu mt-4 rounded-0 p-1 bg" style="background : #3c8dbc" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item text-white drop" href="#">Edit Profile</a>
-                    <a class="dropdown-item text-white drop" href="#">Logout</a>
+                    <a class="dropdown-item text-white drop" href="/sentul-apps/logout">Logout</a>
                 </div>
             </div>
       </div>
@@ -130,7 +132,7 @@ $conn = mysqli_connect('localhost', "root", "", "promix");
                                     <ul class='treeview-menu'>
                                         
                                             @while($a = mysqli_fetch_assoc($anak))
-                                                <li class=""><a href="{{ $a['link'] }}"><i class="fa {{ $a['icon'] }}"></i> <span>{{ $a['menu'] }}</span></a></li>
+                                                <li class=  ""><a href="{{ $a['link'] }}"><i class="fa {{ $a['icon'] }}"></i> <span>{{ $a['menu'] }}</span></a></li>
                                             @endwhile
                                     </ul>
                                 </li>
@@ -164,8 +166,13 @@ $conn = mysqli_connect('localhost', "root", "", "promix");
 
     <!-- Main content -->
     <section class="content container-fluid">
-
-      @yield('content')
+        @if ($message = Session::get('success'))
+            <div class="success" data-flashdata="{{ $message }}"></div>
+        @endif
+        @if ($message = Session::get('failed'))
+            <div class="failed" data-flashdata="{{ $message }}"></div>
+        @endif
+        @yield('content')
 
     </section>
     <!-- /.content -->
@@ -192,19 +199,37 @@ $conn = mysqli_connect('localhost', "root", "", "promix");
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script src="{!! asset('masterApps/mobileStyle/superAdmin/dist/js/adminlte.min.js') !!}"></script>
 <script src="{!! asset('masterApps/generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
 
 <script>
+  const flashdatas = $('.failed').data('flashdata');
+    if(flashdatas){
+        swal({
+            title: "Failed",
+            text: flashdatas,
+            type: "error",
+        });
+    }
+    const flashdata = $('.success').data('flashdata');
+    if(flashdata){
+        swal({
+            title: "Success",
+            text: flashdata,
+            type: "success",
+        });
+    }
     $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
+        $('#myInput').trigger('focus')
     });
     $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-  $('#example').tooltip();
-});
-$(function () {
-    $('[data-toggles="tooltip"]').tooltip();
-  $('#example').tooltip();
-});
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#example').tooltip();
+    });
+    $(function () {
+        $('[data-toggles="tooltip"]').tooltip();
+        $('#example').tooltip();
+    });
 </script>
 </body>
 </html>

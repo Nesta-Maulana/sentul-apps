@@ -23,10 +23,10 @@
             <a class="nav-item nav-link text-success" href="#">User Guide</a>
             <a class="nav-item nav-link text-success" href="#">Help</a>
         </div>
-        <div class="navbar-nav ml-auto">
+        <div class="navbar-nav ml-auto mr-5">
             <div class="dropdown">
-                <a class="dropdown-toggle text-success" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Hello, User
+                <a class="dropdown-toggle text-success mr-2" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hello, {{ $username }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="#">Profile</a>
@@ -38,11 +38,12 @@
 </nav>
 <div class="text-white" style="background: #aef64a;">
     <span class="justify-content-end d-flex mr-3 pb-1">
-        <i class="fa fa-home text-success">Utility Online</i>
+        <i class="fa fa-home text-success mr-5">Utility Online</i>
     </span>
 </div>
     @yield('content')
 
+<script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script src="{{ asset('utilityOnline/js/particles.min.js') }}" ></script>
