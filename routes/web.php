@@ -79,5 +79,5 @@ Route::middleware('ceklogin')->group(function (){
     Route::get('/utility-online/water', 'utilityOnline\mainController@water');
     Route::post('/utility-online/water/simpan', 'utilityOnline\mainController@waterSimpan');
     Route::get('/utility-online/water/workcenter/{id}', 'utilityOnline\mainController@waterWorkcenter');
-    Route::get('/utility-online/database', 'utilityOnline\mainController@database');
+    Route::get('/utility-online/database', 'utilityOnline\mainController@database'); ass
 });
