@@ -60,6 +60,12 @@ class mainController extends Controller
         
         return $bagian;
     }
+
+    public function listrik(){
+        $workcenter = workcenter::all();
+        return view('utilityOnline.listrik', ['username' => $this->username, 'workcenter' => $workcenter]);
+    }
+
     public function database(){
         return view("utilityOnline.database", ['username' => $this->username]);
     }

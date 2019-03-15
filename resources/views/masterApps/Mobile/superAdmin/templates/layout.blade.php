@@ -1,5 +1,5 @@
 <?php 
-$conn = mysqli_connect('localhost', "root", "", "promix");
+$conn = mysqli_connect('localhost', "root", "", "master_apps");
 
 ?>
 
@@ -191,7 +191,7 @@ $conn = mysqli_connect('localhost', "root", "", "promix");
 
 
 <!-- REQUIRED JS SCRIPTS -->
-
+ 
 
 
 <script src="{!! asset('masterApps/generalStyle/js/bootstrap.min.js') !!}"></script>

@@ -14,7 +14,7 @@ class CekLogin
         $userData = DB::table('users')->where('id', $id);
         if($userData->count() > 0){
             $isi = url()->full();    
-            $data = explode("http://localhost/sentul-apps/" , $isi);
+            $data = explode($_SERVER['APP_URL'] , $isi);
             $data = explode('/',$data[1]);
             $i = 0;
             foreach($data as $d){

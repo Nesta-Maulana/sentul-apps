@@ -12,7 +12,7 @@
 
 <input id="interval" type="hidden" data-tambah="{{ Session::get('tambah') }}"/>
 
-<?php $conn = mysqli_connect('localhost', "root", "", "promix"); ?>
+<?php $conn = mysqli_connect('localhost', "root", "", "master_apps"); ?>
 
 <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
 <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
