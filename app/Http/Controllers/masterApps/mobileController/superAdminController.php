@@ -42,6 +42,12 @@ class superAdminController extends Controller
 
     public function index(){
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->count();
+        if($hakAksesAplikasi == "1"){
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
         $i = 0;
         foreach ($hakAksesUserAplikasi as $h) {
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
@@ -133,6 +139,7 @@ class superAdminController extends Controller
     }
     public function rasioSave(Request $request){
 
+        
         $messages = [
             'between' => 'Input rasio minimal 0 dan maksimal 100',
         ];
@@ -176,15 +183,16 @@ class superAdminController extends Controller
         $bagian = bagian::all();
         $satuan = satuan::all();
         $kategoriPencatatan = kategoriPencatatan::all();
-        return view("masterApps.Mobile.superAdmin.bagian", ['menus' => $this->menu, 'username' => $this->username, 'workcenter' => $workcenter, 'bagian' => $bagian, 'satuan' => $satuan]);
+        return view("masterApps.Mobile.superAdmin.bagian", ['menus' => $this->menu, 'username' => $this->username, 'workcenter' => $workcenter, 'bagian' => $bagian, 'satuan' => $satuan, 'kategoriPencatatan' => $kategoriPencatatan]);
     }
     public function dataBagian(Request $request){
         if($request->id){
             $bagian = bagian::find($request->id);
             $bagian->workcenter_id = $request->workcenter;
             $bagian->status = $request->status;
+            $bagian->kategori_pencatatan_id = $request->kategori_pencatatan;
             $bagian->bagian = $request->bagian;
-            $bagian->satuan = $request->satuan;
+            $bagian->satuan_id = $request->satuan;
             $bagian->spek_min = $request->spek_min;
             $bagian->spek_max = $request->spek_max;
             $bagian->save();
@@ -192,6 +200,7 @@ class superAdminController extends Controller
         }else{
            bagian::create([
                'workcenter_id' => $request->workcenter,
+               'kategori_pencatatan_id' => $request->kategori_pencatatan,
                'status' => $request->status,
                'bagian' => $request->bagian,
                'satuan_id' => $request->satuan,
@@ -259,7 +268,9 @@ class superAdminController extends Controller
     public function editBagian($id){
         $editBagian = bagian::find($id);
         $workcenter = workcenter::all();
-        $output = [$editBagian, $workcenter];
+        $kategoriPencatatan = kategoriPencatatan::all();
+        $satuan = satuan::all();
+        $output = [$editBagian, $workcenter, $kategoriPencatatan, $satuan];
         return $output;
     }
     public function editCompany($id){

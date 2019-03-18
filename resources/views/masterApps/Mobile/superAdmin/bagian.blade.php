@@ -57,6 +57,9 @@
                     <label for="">Kategori Pencatatan :</label>
                     <select name="kategori_pencatatan" id="kategori_pencatatan" class="form-control">
                         <option value="" selected disabled> -- PILIH KATEGORI PENCATATAN --</option>
+                        @foreach($kategoriPencatatan as $k)
+                            <option value="{{ $k->id }}">{{ $k->kategori_pencatatan }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -103,7 +106,11 @@
                     @endforeach
                     <td>{{ $b->spek_min }}</td>
                     <td>{{ $b->spek_max }}</td>
-                    <td>{{ $b->kategori_pencatatan_id }}</td>
+                    @foreach($kategoriPencatatan as $k)
+                        @if($b->kategori_pencatatan_id == $k->id)
+                            <td>{{ $k->kategori_pencatatan }}</td>
+                        @endif
+                    @endforeach
                     <td><button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $b->id }}"><i class="fa fa-edit"></i> Edit</button></td>
                 </tr>
                 <?php $i++ ?>
@@ -127,7 +134,7 @@ $('#batal').hide();
 $('#update').hide();
 
 window.setInterval(function(){
-    if($(window).width() <= 950){
+    if($(window).width() <= 1100){
         $('.table').addClass('table-responsive');
     }else{
         $('.table').removeClass('table-responsive');
@@ -210,6 +217,36 @@ $('.edit').click(function () {
                     }
                 }
                 $comboroles.html(optionroles).on('change');
+
+                var optionroless = '<option disabled>-- PILIH PARENT --</option>', $comboroless = $('#kategori_pencatatan');
+                for (index = 0; index < data[2].length; index++) 
+                {
+                    if (data[0].kategori_pencatatan_id == data[2][index].id) 
+                    {
+                        
+                        optionroless+='<option  value="'+data[2][index].id+'" selected>'+data[2][index].kategori_pencatatan+'</option>';   
+                    }
+                    else
+                    {
+                        optionroless+='<option  value="'+data[2][index].id+'">'+data[2][index].kategori_pencatatan+'</option>';   
+                    }
+                }
+                $comboroless.html(optionroless).on('change');
+
+                var optionrolesss = '<option disabled>-- PILIH PARENT --</option>', $comborolesss = $('#satuan');
+                for (index = 0; index < data[3].length; index++) 
+                {
+                    if (data[0].satuan_id == data[3][index].id) 
+                    {
+                        
+                        optionrolesss+='<option  value="'+data[3][index].id+'" selected>'+data[3][index].satuan+'</option>';   
+                    }
+                    else
+                    {
+                        optionrolesss+='<option  value="'+data[3][index].id+'">'+data[3][index].satuan+'</option>';   
+                    }
+                }
+                $comborolesss.html(optionrolesss).on('change');
         }
     });
 })

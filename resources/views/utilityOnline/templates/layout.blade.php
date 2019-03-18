@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/style.css')!!}">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
+    <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 </head>
 <body >
 <nav class="navbar navbar-expand-lg navbar-dark bg-light bbotom">
@@ -30,7 +31,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="/sentul-apps/logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -46,7 +47,11 @@
 <script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="{{ asset('utilityOnline/js/particles.min.js') }}" ></script>
 <script src="{{ asset('utilityOnline/js/app.js') }}"></script>
+<script>
+    $('.select2').select2();
+</script>
 </body>
 </html>

@@ -11,7 +11,7 @@
             <h3 class="text-white mb-4">Water</h3>
             <div class="form-group">
                 <label for="workcenter" class="text-white">Pilih Jenis : </label>
-                <select name="workcenter" id="workcenter" class="form-control">
+                <select name="workcenter" id="workcenter" class="form-control select2   ">
                     <option value="" selected disabled>-- PILIH WORKCENTER --</option>
                     @foreach($workcenter as $k)
                         <option value="{{ $k->id }}" >{{ $k->workcenter }}</option>

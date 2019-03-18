@@ -17,10 +17,7 @@
     </div>
 </div>
 
-@if ($message = Session::get('success'))
-    <div class="success" data-flashdata="{{ $message }}"></div>
+@if ($message = Session::get('failed'))
+    <div class="failed" data-flashdata="{{ $message }}"></div>
 @endif
-
-
-
 @endsection

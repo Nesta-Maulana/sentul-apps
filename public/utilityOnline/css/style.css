@@ -11,24 +11,20 @@ canvas {
     display: block;
     vertical-align: bottom;
 }
-
 #particles-js {
     position: absolute;
     width: 100%;
     height: 160%;
     background: #000e1c;
 }
-
 .teks{
 	background: rgba(176, 255, 66, 0.69);
 }
-
 h1 {
 	font-size: 1.5em;
 	font-weight: 700;
 	letter-spacing: -1px;
 }
-
 .tombol{
     background: #35DE5C !important;
     background-image: -webkit-linear-gradient(top, #35DE5C, #085705) !important;
@@ -52,8 +48,6 @@ h1 {
     display: inline-block !important;
     cursor: pointer !important;
 }
-    
-
 .tombol:hover {
     background: #085705 !important;
     background-image: -webkit-linear-gradient(top, #085705, #35DE5C) !important;
@@ -82,7 +76,9 @@ h1 {
     height: 200px;
     width: 400px;
 }
-
+a:hover{
+    text-decoration: none !important;
+}
 @media only screen and (max-width: 600px){
 	.tombol{
         width: 300px !important;
