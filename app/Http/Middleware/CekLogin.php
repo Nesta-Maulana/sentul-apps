@@ -13,7 +13,7 @@ class CekLogin
         $id = Session::get('login');
         $userData = DB::table('users')->where('id', $id);
         if($userData->count() > 0){
-            $isi = url()->full();    
+            $isi = url()->full();
             $data = explode($_SERVER['APP_URL'] , $isi);
             $data = explode('/',$data[1]);
             $i = 0;

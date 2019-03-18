@@ -95,7 +95,10 @@ class mainController extends Controller
     }
 
     public function database(){
-        return view("utilityOnline.database", ['username' => $this->username]);
+        $kategori = kategori::all();
+        $workcenter = workcenter::all();
+        $bagian = bagian::all();
+        return view("utilityOnline.database", ['username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'bagian' => $bagian]);
     }
 
     public function gas(){
