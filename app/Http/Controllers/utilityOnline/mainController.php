@@ -26,7 +26,7 @@ class mainController extends Controller
         return view('utilityOnline.index', ['username' => $this->username]);
     }
     public function water(){
-        $workcenter = workcenter::all();
+        $workcenter = workcenter::where('kategori_id', '1')->get();
         $bagian = bagian::all();
         return view("utilityOnline.water", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username]);
     }
@@ -63,11 +63,71 @@ class mainController extends Controller
 
     public function listrik(){
         $workcenter = workcenter::all();
+        $workcenter = workcenter::where('kategori_id', '2')->get();
         return view('utilityOnline.listrik', ['username' => $this->username, 'workcenter' => $workcenter]);
+    }
+
+    public function listrikWorkcenter($id){
+        $now = \Carbon\Carbon::today('Asia/Jakarta');
+        // $bagian = bagian::where('workcenter_id', $id)->get();
+        // $pengamatan = pengamatan::whereDate('created_at', $now)->get();
+        // $output = [$pengamatan, $bagian];
+        $bagian = bagian::where('workcenter_id', $id)->get();
+        foreach ($bagian as  $value) 
+        {
+            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                    ->select('pengamatan.*','bagian.*')
+                    ->where('pengamatan.id_bagian',$value->id)
+                    ->whereDate('pengamatan.created_at',$now)
+                    ->first();
+            $value->pengamatan = $pengamatanbagian;
+        }
+        
+        return $bagian;
+    }
+    public function listrikSimpan( Request $request ){
+        pengamatan::create([
+            'id_bagian' => $request->idBagian,
+            'nilai_meteran' => $request->input,
+            'user_id' => Session::get('login'),
+        ]);
+        return ['Berhasil'];
     }
 
     public function database(){
         return view("utilityOnline.database", ['username' => $this->username]);
+    }
+
+    public function gas(){
+        $workcenter = workcenter::all();
+        $workcenter = workcenter::where('kategori_id', '3')->get();
+        return view('utilityOnline.gas', ['username' => $this->username, 'workcenter' => $workcenter]);
+    }
+    public function gasWorkcenter($id){
+        $now = \Carbon\Carbon::today('Asia/Jakarta');
+        // $bagian = bagian::where('workcenter_id', $id)->get();
+        // $pengamatan = pengamatan::whereDate('created_at', $now)->get();
+        // $output = [$pengamatan, $bagian];
+        $bagian = bagian::where('workcenter_id', $id)->get();
+        foreach ($bagian as  $value) 
+        {
+            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                    ->select('pengamatan.*','bagian.*')
+                    ->where('pengamatan.id_bagian',$value->id)
+                    ->whereDate('pengamatan.created_at',$now)
+                    ->first();
+            $value->pengamatan = $pengamatanbagian;
+        }
+        
+        return $bagian;
+    }
+    public function gasSimpan(Request $request){
+        pengamatan::create([
+            'id_bagian' => $request->idBagian,
+            'nilai_meteran' => $request->input,
+            'user_id' => Session::get('login'),
+        ]);
+        return ['Berhasil'];
     }
     
 }

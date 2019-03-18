@@ -80,5 +80,10 @@ Route::middleware('ceklogin')->group(function (){
     Route::post('/utility-online/water/simpan', 'utilityOnline\mainController@waterSimpan');
     Route::get('/utility-online/water/workcenter/{id}', 'utilityOnline\mainController@waterWorkcenter');
     Route::get('/utility-online/listrik', 'utilityOnline\mainController@listrik');
+    Route::get('/utility-online/listrik/workcenter/{id}', 'utilityOnline\mainController@listrikWorkcenter');
+    Route::post('/utility-online/listrik/simpan', 'utilityOnline\mainController@listrikSimpan');
     Route::get('/utility-online/database', 'utilityOnline\mainController@database');
+    Route::get('/utility-online/gas', 'utilityOnline\mainController@gas');
+    Route::get('/utility-online/gas/workcenter/{id}', 'utilityOnline\mainController@gasWorkcenter');
+    Route::post('/utility-online/gas/simpan', 'utilityOnline\mainController@gasSimpan');
 });

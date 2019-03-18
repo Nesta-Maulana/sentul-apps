@@ -22,8 +22,10 @@ class CekLogin
             }
             if($i == '1'){
                 $data[1] = "";
+            }else if($i == '2'){
+                $data[2] = "";
             }
-            $cekHakAkses = DB::table('v_hak_akses')->where('link', $data[1])->where('user_id', $id);
+            $cekHakAkses = DB::table('v_hak_akses')->where('link', $data[2])->where('user_id', $id);
             if($cekHakAkses->count() > 0){
                 $cekHakAkses = $cekHakAkses->first();
                 if($cekHakAkses->lihat == "0"){

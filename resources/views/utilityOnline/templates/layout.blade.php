@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/style.css')!!}">
     <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 </head>
 <body >
 <nav class="navbar navbar-expand-lg navbar-dark bg-light bbotom">
@@ -31,7 +31,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="/sentul-apps/logout">Logout</a>
                 </div>
             </div>
         </div>

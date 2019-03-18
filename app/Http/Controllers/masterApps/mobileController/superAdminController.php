@@ -42,6 +42,12 @@ class superAdminController extends Controller
 
     public function index(){
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->count();
+        if($hakAksesAplikasi == "1"){
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
         $i = 0;
         foreach ($hakAksesUserAplikasi as $h) {
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();

@@ -53,10 +53,10 @@ class MobileController extends Controller
                                 }else{
                                     session()->put('login', $data->id);
                                     $hak_aplikasi = DB::table('hak_akses_aplikasi')->where('id_user', $data->id)->get();
-                                    if(count($hak_aplikasi) > "1"){
+                                    if(count($hak_aplikasi) > "1"){ 
                                         return redirect('home')->with('success', "Selamat Datang" . $data->fullname);
                                     } else if(count($hak_aplikasi) == "1"){
-                                        return redirect('masterApps/form-user');
+                                        return redirect('home')->with('success', "Selamat Datang" . $data->fullname);
                                     }else{
                                         return redirect('login-form')->with('failed', 'Anda tidak memiliki akses apapun');
                                     }
