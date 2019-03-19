@@ -1,0 +1,24 @@
+.nav-link:hover::after{
+    content: '';
+    display: block;
+    border-bottom: 3px solid #fff;
+    animation-name: link;
+    width: 70%;
+    animation-iteration-count: 1;
+    animation-duration: 0.3s;
+    padding-bottom: 5px;
+    margin-bottom: -10px;
+}
+@keyframes link{
+    from{
+        width: 0%;
+    }to{
+        width: 70%;
+    }
+}
+a:hover{
+    text-decoration: none;
+}
+.main-color{
+    background-color: #66883f !important;
+}

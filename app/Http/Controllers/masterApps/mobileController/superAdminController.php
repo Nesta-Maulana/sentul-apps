@@ -56,6 +56,10 @@ class superAdminController extends Controller
         return view('masterApps.mobile.home', ['menus' => $this->menu, 'username' => $this->username, 'hakAkses' => $data]);
     }
 
+    public function home(){
+        return view('masterApps.mobile.superAdmin.home', ['menus' => $this->menu, 'username' => $this->username]);
+    }
+
     public function menu(Request $request){
         $aplikasi = aplikasi::get();
         $icons = DB::table('icons')->get();

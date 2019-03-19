@@ -1,4 +1,4 @@
-    c@extends('masterApps.mobile.templates.layout')
+@extends('masterApps.mobile.templates.layout')
 @section('judul')
     Register
 @endsection

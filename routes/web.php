@@ -31,11 +31,14 @@ Route::get('/login-form', 'masterApps\MobileController\MobileController@index');
 Route::post('/login-form', 'masterApps\MobileController\MobileController@login');
 Route::get('/register-form', 'masterApps\MobileController\MobileController@register');
 Route::get('/admin/dashboard', 'masterApps\MobileController\MobileController@dashboard');
-
+Route::get('/master-apps', function(){
+    return redirect('/master-apps/home');
+});
 Route::middleware('ceklogin')->group(function (){
     Route::get('/logout', 'masterApps\MobileController\MobileController@logout');
     Route::get('/home', 'masterApps\MobileController\superAdminController@index');
-    Route::get('/master-apps/form-menu', 'masterApps\MobileController\superAdminController@menu'); 
+    Route::get('/master-apps/home', 'masterApps\MobileController\superAdminController@home');
+    Route::get('/master-apps/form-menu', 'masterApps\MobileController\superAdminController@menu');
     Route::get('/master-apps/form-user', 'masterApps\MobileController\superAdminController@user');
     Route::get('/master-apps/form-brand', 'masterApps\MobileController\superAdminController@brand');
     Route::get('/master-apps/form-roles', 'masterApps\MobileController\superAdminController@roles');
@@ -83,7 +86,15 @@ Route::middleware('ceklogin')->group(function (){
     Route::get('/utility-online/listrik/workcenter/{id}', 'utilityOnline\mainController@listrikWorkcenter');
     Route::post('/utility-online/listrik/simpan', 'utilityOnline\mainController@listrikSimpan');
     Route::get('/utility-online/database', 'utilityOnline\mainController@database');
+    Route::get('/utility-online/database/workcenter/{id}', 'utilityOnline\mainController@databaseWorkcenter');
+    Route::get('/utility-online/database/bagian/{id}/{tanggal}', 'utilityOnline\mainController@databaseBagian');
+    Route::get('/utility-online/database/edit/{id}', 'utilityOnline\mainController@editDatabase');
+    Route::post('/utility-online/database/update', 'utilityOnline\mainController@updateDatabase');
+    Route::post('/utility-online/database/simpan', 'utilityOnline\mainController@simpanDatabase');
     Route::get('/utility-online/gas', 'utilityOnline\mainController@gas');
     Route::get('/utility-online/gas/workcenter/{id}', 'utilityOnline\mainController@gasWorkcenter');
     Route::post('/utility-online/gas/simpan', 'utilityOnline\mainController@gasSimpan');
+
+    // Rollie
+    Route::get('/rollie/cpp', 'rollie\rollieController@cpp');
 });

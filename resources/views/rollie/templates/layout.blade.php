@@ -8,26 +8,32 @@
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.min.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
-    <link rel="stylesheet" href="{!!asset('utilityOnline/css/style.css')!!}">
+    <link rel="stylesheet" href="{!!asset('rollie/css/style.css')!!}">
     <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
     <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 </head>
 <body >
-<nav class="navbar navbar-expand-lg navbar-dark bg-light bbotom">
-    <a class="navbar-brand text-success" href="#">Utility Online</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg" style="background: #66883f">
+    <a class="navbar-brand ml-3" href="#">ROLLIE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon bg-success"></span>
+        <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="collapse navbar-collapse ml-3" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link text-success" href="#">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link text-success" href="#">User Guide</a>
-            <a class="nav-item nav-link text-success" href="#">Help</a>
+            <a class="nav-item nav-link active" href="#">CPP</a>
+            <a class="nav-item nav-link" href="#">Analisa Kimia FG</a>
+            <a class="nav-item nav-link" href="#">RKJ</a>
+            <a class="nav-item nav-link" href="#">Package Integrity</a>
+            <a class="nav-item nav-link" href="#">Analisa Mikro</a>
+            <a class="nav-item nav-link" href="#">Sortasi</a>
+            <a class="nav-item nav-link" href="#">RPR</a>
+            <a class="nav-item nav-link" href="#">Report</a>
+            <a class="nav-item nav-link" href="#">QA</a>
         </div>
         <div class="navbar-nav ml-auto mr-5">
             <div class="dropdown">
-                <a class="dropdown-toggle text-success mr-2" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Hello, {{ $username }}
+                <a class="dropdown-toggle mr-2 text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hello, USER
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="#">Profile</a>
@@ -37,13 +43,7 @@
         </div>
     </div>
 </nav>
-<div class="text-white" style="background: #aef64a;">
-    <span class="justify-content-end d-flex mr-3 pb-1">
-        <i class="fa fa-home text-success mr-5">Utility Online</i>
-    </span>
-</div>
-    @yield('content')
-
+@yield('content')
 <script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>

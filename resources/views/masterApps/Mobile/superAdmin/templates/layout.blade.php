@@ -16,6 +16,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <link rel="stylesheet" href="{!! asset('masterApps/mobileStyle/superAdmin/dist/css/AdminLTE.min.css') !!}">
   <link rel="stylesheet" href="{!! asset('masterApps/mobileStyle/superAdmin/dist/css/skins/skin-blue.min.css') !!}">
   <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
   <style>
   .hidden
   {
@@ -39,7 +40,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <header class="main-header hero">
 
     <!-- Logo -->
-    <a href="#" class="logo" style="padding-bottom: 70px;">
+    <a href="/sentul-apps/master-apps" class="logo" style="padding-bottom: 70px;">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini mt-1"><img src="{!! asset('masterApps/generalStyle/images/logo/mixpro-logo.png') !!}" width="50" height="40" alt=""></span>
       <!-- logo for regular state and mobile devices -->
@@ -201,8 +202,9 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 <script src="{!! asset('masterApps/generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
-
+<script src="{!! asset('masterApps/mobileStyle/js/wow.min.js') !!}"></script>
 <script>
+  new WOW().init();
   const flashdatas = $('.failed').data('flashdata');
     if(flashdatas){
         swal({

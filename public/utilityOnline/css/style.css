@@ -20,6 +20,7 @@ canvas {
 .teks{
 	background: rgba(176, 255, 66, 0.69);
 }
+
 h1 {
 	font-size: 1.5em;
 	font-weight: 700;
@@ -76,9 +77,6 @@ h1 {
     height: 200px;
     width: 400px;
 }
-a:hover{
-    text-decoration: none !important;
-}
 @media only screen and (max-width: 600px){
 	.tombol{
         width: 300px !important;
@@ -93,5 +91,26 @@ a:hover{
         font-size: 0.75em;
         font-weight: 700;
         letter-spacing: -1px;
+    }
+}
+a:hover{
+    text-decoration: none;
+}
+.nav-link:hover::after{
+    content: '';
+    display: block;
+    border-bottom: 3px solid #35DE5C;
+    animation-name: link;
+    width: 70%;
+    animation-iteration-count: 1;
+    animation-duration: 0.3s;
+    padding-bottom: 5px;
+    margin-bottom: -10px;
+}
+@keyframes link{
+    from{
+        width: 0%;
+    }to{
+        width: 70%;
     }
 }

@@ -77,18 +77,12 @@
                     optionroles+='</tr>';
                 }
                 $comboroles.html(optionroles).on('change');
-                // $('.simpan').click(function () {
-                //     var id = $(this).data('id');
-                //     var input = $('#input'+id).val();
-                //     console.log(input);
-                // });
             }
         });
 
     })
     function simpan(input,idbagian)
     {
-        // console.log(input+" == "+idbagian);
         if(input == ""){
             swal({
                 title: "Wajib Diisi",

@@ -100,6 +100,61 @@ class mainController extends Controller
         $bagian = bagian::all();
         return view("utilityOnline.database", ['username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'bagian' => $bagian]);
     }
+    public function databaseWorkcenter($id){
+        $workcenter = workcenter::where('kategori_id', $id)->get();
+        return $workcenter;
+    }
+
+    public function databaseBagian($id, $tanggal){
+        $now = \Carbon\Carbon::today('Asia/Jakarta');
+        $bagian = bagian::where('workcenter_id', $id)->get();
+        foreach ($bagian as  $value) 
+        {
+            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                    ->select('pengamatan.*','bagian.*')
+                    ->where('pengamatan.id_bagian',$value->id)
+                    ->whereDate('pengamatan.created_at',$tanggal)
+                    ->first();
+            $value->pengamatan = $pengamatanbagian;
+        }
+        
+        return $bagian;
+    }
+
+    public function editDatabase($id){
+        $now = \Carbon\Carbon::today('Asia/Jakarta');
+        $bagian = bagian::where('id', $id)->get();
+        foreach ($bagian as  $value) 
+        {
+            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                    ->select('pengamatan.*','bagian.*')
+                    ->where('pengamatan.id_bagian',$value->id)
+                    ->whereDate('pengamatan.created_at',$now)
+                    ->first();
+            $value->pengamatan = $pengamatanbagian;
+        }
+        
+        return $bagian;
+    }
+
+    public function updateDatabase(Request $request){
+        $now = \Carbon\Carbon::today('Asia/Jakarta');
+        $pengamatan = pengamatan::where('id_bagian', $request->id)->whereDate('created_at', $now)->first();
+        // $pengamatan = $pengamatan::whereDate('created_at', $now);
+        $pengamatan->nilai_meteran = $request->nilai;
+        $pengamatan->save();
+        return $now;
+    }
+
+    public function simpanDatabase(Request $request){
+        $now = \Carbon\Carbon::today('Asia/Jakarta');
+        pengamatan::create([
+            'nilai_meteran' => $request->nilai,
+            'user_id' => Session::get('login'),
+            'id_bagian' => $request->idBagian,
+        ]);
+        return $now;
+    }
 
     public function gas(){
         $workcenter = workcenter::all();
@@ -108,9 +163,6 @@ class mainController extends Controller
     }
     public function gasWorkcenter($id){
         $now = \Carbon\Carbon::today('Asia/Jakarta');
-        // $bagian = bagian::where('workcenter_id', $id)->get();
-        // $pengamatan = pengamatan::whereDate('created_at', $now)->get();
-        // $output = [$pengamatan, $bagian];
         $bagian = bagian::where('workcenter_id', $id)->get();
         foreach ($bagian as  $value) 
         {

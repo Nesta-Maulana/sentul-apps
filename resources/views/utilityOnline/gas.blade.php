@@ -55,9 +55,11 @@
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
+                    
                     var optionroles = '', $comboroles = $('#table');
                     for (index = 0; index < data.length; index++) 
                     {
+                    
                         var no = index + 1;
                         optionroles+='<tr>';
                         optionroles+='<td>' +no+ '</td>';
