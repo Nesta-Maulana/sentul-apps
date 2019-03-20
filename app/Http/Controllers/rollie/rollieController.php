@@ -10,4 +10,7 @@ class rollieController extends Controller
     public function cpp(){
         return view('rollie.cpp');
     }
+    public function analisaKimia(){
+        return view('rollie.analisa_kimia');
+    }
 }

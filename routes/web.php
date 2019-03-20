@@ -99,4 +99,5 @@ Route::middleware('ceklogin')->group(function (){
 
     // Rollie
     Route::get('/rollie/cpp', 'rollie\rollieController@cpp');
+    Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia');
 });

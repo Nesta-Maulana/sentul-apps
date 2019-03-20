@@ -229,7 +229,8 @@
                             optionroles+='<td>'+ data[index].pengamatan.nilai_meteran +'</td>'
                             optionroles+='<td> <button class="btn btn-primary edit" data-id="' + data[index].pengamatan.id + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
                         }else{
-                            optionroles+='<td> No Value </td>'
+                            optionroles+='<td> No Value </td>';
+                            optionroles+='<td><button class="btn btn-primary edit" data-idBagian="'+ data[index].id +'" data-bagian="'+ data[index].bagian +'" data-id="" data-toggle="modal" data-target="#exampleModal">Edit</button></td>';
                         }
                         // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[index].pengamatan.id + '">Edit</button> </td>';
                         optionroles+='</tr>';
