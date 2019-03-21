@@ -49,10 +49,11 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 		<link rel="shortcut icon" href="{{ asset('rollie/img/logo/favicon.ico')}}" />
         <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.min.css')!!}">
-		<link href="{{ asset('assets/dataTables/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
-  <link href="{{ asset('assets/dataTables/css/fixedColumns.dataTables.min.css')}}" rel="stylesheet">
+		<link href="{{ asset('dataTables/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('dataTables/css/fixedColumns.dataTables.min.css')}}" rel="stylesheet">
 
 	</head>
+
 	<!-- end::Head -->
     <!-- end::Body -->
 	<body  class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
@@ -120,9 +121,72 @@ License: You must have a valid license purchased only from themeforest(the above
 							<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
 								<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
 									<div class="m-stack__item m-topbar__nav-wrapper">
-										<ul class="m-topbar__nav m-nav m-nav--inline">
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
-												<a href="#" class="m-nav__link m-dropdown__toggle">
+										<ul class="m-topbar__nav m-nav m-nav--inline d-flex justify-content-start">
+											<!-- <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img">
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														CPP
+													</span>
+												</a>
+											</li>
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														Analisa Kimia FG
+													</span>
+												</a>
+											</li>
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														RKJ
+													</span>
+												</a>
+											</li>
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														Package Integrity
+													</span>
+												</a>
+											</li>
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														PPQ-FQ
+													</span>
+												</a>
+											</li>
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														Analisa Mikro
+													</span>
+												</a>
+											</li>
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														CPP
+													</span>
+												</a>
+											</li>
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														CPP
+													</span>
+												</a>
+											</li>
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
+												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
+													<span class="m-topbar__welcome">
+														CPP
+													</span>
+												</a>
+											</li> -->
+											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click" id="user">
+												<a href="#" class="m-nav__link m-dropdown__toggle" style="float: right">
 													<span class="m-topbar__userpic m--hide">
 														<img src="{{ asset('rollie/img/users/user4.jpg')}}" class="m--img-rounded m--marginless m--img-centered" alt=""/>
 													</span>
@@ -196,7 +260,7 @@ License: You must have a valid license purchased only from themeforest(the above
 												<div class="m-dropdown__wrapper">
 													<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
 													<div class="m-dropdown__inner">
-														<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/quick_actions_bg.jpg); background-size: cover;">
+														<div class="m-dropdown__header m--align-center" style="background: url(app/media/img/misc/quick_actions_bg.jpg); background-size: cover;">
 															<span class="m-dropdown__header-title">
 																Quick Actions
 															</span>
@@ -227,7 +291,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light "  >
 									<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
 										<li class="m-menu__item @yield('active-cpp')"  aria-haspopup="true">
-											<a  href="cpp" class="m-menu__link ">
+											<a  href="/sentul-apps/rollie/cpp" class="m-menu__link ">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													CPP
@@ -235,7 +299,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</a>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel @yield('active-analisa-kimia')"  m-menu-submenu-toggle="click" aria-haspopup="true">
-											<a href="analisa-kimia-fg" class="m-menu__link m-menu__toggle">
+											<a href="/sentul-apps/rollie/analisa-kimia-fg" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													Analisa Kimia FG
@@ -247,7 +311,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel @yield('active-rkj')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="javascript:;" class="m-menu__link m-menu__toggle">
+											<a  href="/sentul-apps/rollie/rkj" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													RKJ
@@ -401,13 +465,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="{{ asset('utilityOnline/js/particles.min.js') }}" ></script>
-    <script src="{{ asset('utilityOnline/js/app.js') }}"></script>
     <script src="{!! asset('masterApps/mobileStyle/js/wow.min.js') !!}"></script>
-	<script src=" {{ asset('assets/dataTables/js/jquery.dataTables.min.js') }} "></script>
-  <script src="{{asset('assets/dataTables/js/jquery.dataTables2.min.js')}}"></script>
-  <script src="{{asset('assets/dataTables/js/dataTables.bootstrap.min.js')}}"></script>
-  <script src="{{asset('assets/dataTables/js/dataTables.fixedColumns.min.js')}}"></script>
+	<script src=" {{ asset('dataTables/js/jquery.dataTables.min.js') }} "></script>
+  <script src="{{asset('dataTables/js/jquery.dataTables2.min.js')}}"></script>
+  <script src="{{asset('dataTables/js/dataTables.bootstrap.min.js')}}"></script>
+  <script src="{{asset('dataTables/js/dataTables.fixedColumns.min.js')}}"></script>
     <script>
         $('.select2').select2();
         $('#myModal').on('shown.bs.modal', function () {
@@ -429,3 +491,4 @@ License: You must have a valid license purchased only from themeforest(the above
 </body>
 <!-- end::Body -->
 </html>
+

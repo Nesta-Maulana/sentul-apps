@@ -1,18 +1,17 @@
 @extends('rollie.templates.layout2')
 @section('title')
-    Rollie | Analisa Kimia FG
+    Rollie | CPP
 @endsection
 @section('active-home')
     m-menu__item--active
 @endsection
-@section('active-analisa-kimia')
+@section('active-rkj')
     m-menu__item--active
 @endsection
 @section('subheader')
-    <h2 class="text-center">ROLLIE | Analisa Kimia FG</h2>
+    <h2 class="text-center">ROLLIE | RKJ</h2>
 @endsection
 @section('content')
-    <div class="m-portlet">
-    <a href="analisa-kimia-fg/analisa">GO</a>
-    </div>
+    <a href="/sentul-apps/rollie/rkj/input">GO</a>
+
 @endsection

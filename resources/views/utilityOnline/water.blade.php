@@ -65,7 +65,7 @@
                     // console.log(data[0][data[index].id]);
                     if(data[index].pengamatan !== null)
                     {
-                        optionroles+='<td><input type="text" onload="cek()" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[index].id +'" value="'+ data[index].pengamatan.nilai_meteran +'" /></td>';
+                        optionroles+='<td><input type="text" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[index].id +'" value="'+ data[index].pengamatan.nilai_meteran +'" /></td>';
                         cek(data[index].id);
                     }
                     else{

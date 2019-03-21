@@ -57,7 +57,6 @@ class mainController extends Controller
                     ->first();
             $value->pengamatan = $pengamatanbagian;
         }
-        
         return $bagian;
     }
 
@@ -162,7 +161,7 @@ class mainController extends Controller
         return view('utilityOnline.gas', ['username' => $this->username, 'workcenter' => $workcenter]);
     }
     public function gasWorkcenter($id){
-        $now = \Carbon\Carbon::today('Asia/Jakarta');
+        $now = \Carbon\Carbon::today('Asia/Jakarta');   
         $bagian = bagian::where('workcenter_id', $id)->get();
         foreach ($bagian as  $value) 
         {
