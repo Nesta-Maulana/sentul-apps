@@ -43,7 +43,6 @@ class rollieController extends Controller
         //         }
         //     }
         // }
-        return "";
         return view('rollie.cpp');
     }
     public function analisaKimia(){
@@ -58,5 +57,16 @@ class rollieController extends Controller
     public function rkjInput(){
         return view('rollie.rkjInput');
     }
-    
+    public function packageIntegrity(){
+        return view('rollie.packageIntegrity');
+    }
+    public function ppq(){
+        return view('rollie.ppq');
+    }
+    public function analisaMikro(){
+        return view('rollie.analisaMikro');
+    }
+    public function sortasi(){
+        return view('rollie.sortasi');
+    }
 }

@@ -103,4 +103,8 @@ Route::middleware('ceklogin')->group(function (){
     Route::get('/rollie/analisa-kimia-fg/analisa', 'rollie\rollieController@analisaKimiaAnalisa');
     Route::get('/rollie/rkj', 'rollie\rollieController@rkj');
     Route::get('/rollie/rkj/input', 'rollie\rollieController@rkjInput');
+    Route::get('/rollie/package-integrity', 'rollie\rollieController@packageIntegrity');
+    Route::get('/rollie/ppq-fg', 'rollie\rollieController@ppq');
+    Route::get('/rollie/analisa-mikro', 'rollie\rollieController@analisaMikro');
+    Route::get('/rollie/sortasi', 'rollie\rollieController@sortasi');
 });

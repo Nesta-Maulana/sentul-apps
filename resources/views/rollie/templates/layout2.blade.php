@@ -122,69 +122,6 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
 									<div class="m-stack__item m-topbar__nav-wrapper">
 										<ul class="m-topbar__nav m-nav m-nav--inline d-flex justify-content-start">
-											<!-- <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img">
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														CPP
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														Analisa Kimia FG
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														RKJ
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														Package Integrity
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														PPQ-FQ
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														Analisa Mikro
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														CPP
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														CPP
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img " >
-												<a href="/sentul-apps/rollie/cpp" class="m-nav__link text-primary">
-													<span class="m-topbar__welcome">
-														CPP
-													</span>
-												</a>
-											</li> -->
 											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click" id="user">
 												<a href="#" class="m-nav__link m-dropdown__toggle" style="float: right">
 													<span class="m-topbar__userpic m--hide">
@@ -325,7 +262,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-package')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="javascript:;" class="m-menu__link m-menu__toggle">
+											<a  href="/sentul-apps/rollie/package-integrity" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													Package Integrity
@@ -339,7 +276,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-ppq')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="javascript:;" class="m-menu__link m-menu__toggle">
+											<a  href="/sentul-apps/rollie/ppq-fg" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													PPQ-FG
@@ -353,7 +290,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-mikro')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="javascript:;" class="m-menu__link m-menu__toggle">
+											<a  href="/sentul-apps/rollie/analisa-mikro" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													Analisa Mikro
@@ -367,7 +304,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-sortasi')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="javascript:;" class="m-menu__link m-menu__toggle">
+											<a  href="/sentul-apps/rollie/sortasi" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													Sortasi
@@ -381,7 +318,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-rpr')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="javascript:;" class="m-menu__link m-menu__toggle">
+											<a  href="/sentul-apps/rollie/rpr" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													RPR
@@ -395,7 +332,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-report')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="javascript:;" class="m-menu__link m-menu__toggle">
+											<a  href="/sentul-apps/rollie/reports" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													Reports
@@ -409,7 +346,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-qa')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="javascript:;" class="m-menu__link m-menu__toggle">
+											<a  href="/sentul-apps/rollie/qa" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													QA
