@@ -12,13 +12,17 @@
 <section class="content">
       <div class="row">
       <?php $i = 0 ?>
-      <?php $j = 1 ?>
+      <?php $j = 3 ?>
 
         @foreach($users as $s)    
         
-        <?php if($j % 2 == 0) { ?>
+        <?php if($j % 3 == "0") { ?>
           <?php $warna = "green" ?>
-        <?php } else { ?>
+        <?php }
+        else if($j % 3 == "1"){
+            $warna = "blue";
+        }
+         else { ?>
           <?php $warna = "red" ?>
         <?php }?>
 

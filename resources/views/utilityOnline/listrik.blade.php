@@ -13,12 +13,9 @@
                     <div class="col-lg-4 p-3 teks text-white">
                         <label for="workcenter">Workcenter :</label>
                         <br>
-                        <select name="workcenter" id="workcenter" class="form-control select2">
-                            <option value="" selected disabled>-- PILIH WORKCENTER --</option>
-                            @foreach($workcenter as $w)
-                                <option value="{{ $w->id }}">{{ $w->workcenter }}</option>
-                            @endforeach
-                        </select>
+                        @foreach($workcenter as $w)
+                            <button data-id="{{ $w->id }}" class="btn btn-success d-flex justify-content-center workcenter form-control">{{ $w->workcenter }}</button><br>
+                        @endforeach
                     </div>
                     <div class="col-lg-8 teks ">
                         <!--Table-->
@@ -44,14 +41,19 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
     
 <script>
     $(document).ready(function () {
-        $('#workcenter').change(function () {
-            var id = $('#workcenter option:selected').val();
-            $.ajax({
-                url: 'listrik/workcenter/' + id,
+        $('.workcenter').click(function () {
+            var id = $(this).data('id');
+            workcenter(id);
+        });
+    });
+
+    function workcenter(id) {
+        $.ajax({
+                url: '/sentul-apps/utility-online/listrik/workcenter/' + id,
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
@@ -78,8 +80,8 @@
                     $comboroles.html(optionroles).on('change');
                 }
             });
-        });
-    });
+    }
+
     function simpan(input,idbagian)
     {
         if(input == ""){
@@ -126,4 +128,9 @@
         }, 1);
     }
 </script>
+@if($id)
+    <script>
+        workcenter({{ $id }})
+    </script>
+@endif
 @endsection

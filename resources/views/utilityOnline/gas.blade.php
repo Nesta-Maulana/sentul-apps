@@ -8,17 +8,15 @@
     <div class="container">
         <div class="row teks mt-5">
             <div class="col teks">
-            <h1 class="font-weight-bold d-flex justify-content-center text-white mt-2" style="font-size: 40px"><i class="fa fa-star"></i>&ensp;Gas&ensp;<i class="fa fa-star"></i></h1>
+            <h1 class="font-weight-bold d-flex justify-content-center text-white mt-2" style="font-size: 40px">&ensp;Gas&ensp;</h1>
                 <div class="row">
                     <div class="col-lg-4 p-3 teks text-white">
                         <label for="workcenter">Workcenter :</label>
                         <br>
-                        <select name="workcenter" id="workcenter" class="form-control select2">
-                            <option value="" selected disabled>-- PILIH WORKCENTER --</option>
                             @foreach($workcenter as $w)
-                                <option value="{{ $w->id }}">{{ $w->workcenter }}</option>
+                                <button data-id="{{ $w->id }}" class="btn btn-success d-flex justify-content-center workcenter form-control">{{ $w->workcenter }}</button><br>
                             @endforeach
-                        </select>
+                
                     </div>
                     <div class="col-lg-8 teks ">
                         <!--Table-->
@@ -48,10 +46,14 @@
     <script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
 <script>
     $(document).ready(function () {
-        $('#workcenter').change(function () {
-            var id = $('#workcenter option:selected').val();
-            $.ajax({
-                url: 'gas/workcenter/' + id,
+        $('.workcenter').click(function () {
+            var id = $(this).data('id');
+            workcenter(id);
+        });
+    });
+    function workcenter(id) {
+        $.ajax({
+                url: '/sentul-apps/utility-online/gas/workcenter/' + id,
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
@@ -80,8 +82,7 @@
                     $comboroles.html(optionroles).on('change');
                 }
             });
-        });
-    });
+    }
     function simpan(input,idbagian)
     {
         if(input == ""){
@@ -128,4 +129,9 @@
         }, 1);
     }
 </script>
+@if($id)
+        <script>
+            workcenter({{ $id }})
+        </script>
+@endif
 @endsection

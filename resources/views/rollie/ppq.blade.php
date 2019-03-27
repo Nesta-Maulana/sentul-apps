@@ -8,6 +8,9 @@
 @section('active-ppq')
     m-menu__item--active
 @endsection
+@section('subheader')
+    <h2 class="text-center">ROLLIE | PPQ - FG</h2>
+@endsection
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -47,11 +50,11 @@
                         </div>
                         <div class="form-group">
                             <label for="">Nomor PPQ</label>
-                            <input type="text" class="form-control" readonly="true">
+                            <input type="text" class="form-control" readonly="true" placeholder="Nomor PPQ">
                         </div>
                         <div class="form-group">
                             <label for="">Kode Oracle</label>
-                            <input type="text" class="form-control" readonly="true">
+                            <input type="text" class="form-control" readonly="true" placeholder="Kode Oracle">
                         </div>
                         <div class="form-group">
                             <label for="">Nomor LOT</label>
@@ -62,7 +65,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="">Jam Filling Awal PPQ : </label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" placeholder="Jam Filiing Awal">
                         </div>
                         <div class="form-group">
                             <label for="">Jam Filling Akhir PPQ : </label>

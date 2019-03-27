@@ -69,4 +69,10 @@ class rollieController extends Controller
     public function sortasi(){
         return view('rollie.sortasi');
     }
+    public function rpr(){
+        return view('rollie.rpr');
+    }
+    public function report(){
+        return view('rollie.report');
+    }
 }

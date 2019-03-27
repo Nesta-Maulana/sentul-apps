@@ -82,9 +82,10 @@ Route::middleware('ceklogin')->group(function (){
     Route::get('/utility-online/water', 'utilityOnline\mainController@water');
     Route::post('/utility-online/water/simpan', 'utilityOnline\mainController@waterSimpan');
     Route::get('/utility-online/water/workcenter/{id}', 'utilityOnline\mainController@waterWorkcenter');
-
+    Route::get('/utility-online/water/{id}', 'utilityOnline\mainController@waterId');
     Route::get('/utility-online/database', 'utilityOnline\mainController@database'); 
     Route::get('/utility-online/listrik', 'utilityOnline\mainController@listrik');
+    Route::get('/utility-online/listrik/{id}', 'utilityOnline\mainController@listrikId');
     Route::get('/utility-online/listrik/workcenter/{id}', 'utilityOnline\mainController@listrikWorkcenter');
     Route::post('/utility-online/listrik/simpan', 'utilityOnline\mainController@listrikSimpan');
     Route::get('/utility-online/database', 'utilityOnline\mainController@database');
@@ -94,6 +95,7 @@ Route::middleware('ceklogin')->group(function (){
     Route::post('/utility-online/database/update', 'utilityOnline\mainController@updateDatabase');
     Route::post('/utility-online/database/simpan', 'utilityOnline\mainController@simpanDatabase');
     Route::get('/utility-online/gas', 'utilityOnline\mainController@gas');
+    Route::get('/utility-online/gas/{id}', 'utilityOnline\mainController@gasId');
     Route::get('/utility-online/gas/workcenter/{id}', 'utilityOnline\mainController@gasWorkcenter');
     Route::post('/utility-online/gas/simpan', 'utilityOnline\mainController@gasSimpan');
 
@@ -107,4 +109,6 @@ Route::middleware('ceklogin')->group(function (){
     Route::get('/rollie/ppq-fg', 'rollie\rollieController@ppq');
     Route::get('/rollie/analisa-mikro', 'rollie\rollieController@analisaMikro');
     Route::get('/rollie/sortasi', 'rollie\rollieController@sortasi');
+    Route::get('/rollie/rpr', 'rollie\rollieController@rpr');
+    Route::get('/rollie/reports', 'rollie\rollieController@report');
 });

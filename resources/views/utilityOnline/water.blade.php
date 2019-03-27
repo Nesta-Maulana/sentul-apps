@@ -6,50 +6,53 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div id="particles-js"></div>
 <div class="container">
-    <div class="row mt-5 justify-content-center">
-        <div class="col-lg-4 teks rounded-top-left pt-3">
-            <h3 class="text-white mb-4">Water</h3>
-            <div class="form-group">
-                <label for="workcenter" class="text-white">Pilih Jenis : </label>
-                <select name="workcenter" id="workcenter" class="form-control select2   ">
-                    <option value="" selected disabled>-- PILIH WORKCENTER --</option>
-                    @foreach($workcenter as $k)
-                        <option value="{{ $k->id }}" >{{ $k->workcenter }}</option>
-                    @endforeach
-                </select>
+        <div class="row teks mt-5">
+            <div class="col teks">
+            <h1 class="font-weight-bold d-flex justify-content-center text-white mt-2" style="font-size: 40px">Water</h1>
+                <div class="row">
+                    <div class="col-lg-4 p-3 teks text-white">
+                        <label for="workcenter">Workcenter :</label>
+                        <br>
+                            @foreach($workcenter as $w)
+                                <button data-id="{{ $w->id }}" class="btn btn-success d-flex justify-content-center workcenter form-control">{{ $w->workcenter }}</button><br>
+                            @endforeach
+                
+                    </div>
+                    <div class="col-lg-8 teks ">
+                        <!--Table-->
+                        <table id="tablePreview" class="table bg-white table-striped table-hover mt-3">
+                            <!--Table head-->
+                            <thead class="thead-dark">
+                                <tr>
+                                <th>#</th>
+                                <th>Bagian</th>
+                                <th>Input</th>
+                                <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <!--Table head-->
+                            <!--Table body-->
+                            <tbody id="table">
+                                
+                            </tbody>
+                            <!--Table body-->
+                        </table>
+                        <!--Table-->
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-4 teks rounded-top-right"></div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-8 teks rounded-top-right rounded-bottoms align-middle pt-2">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Bagian</th>
-                    <th scope="col">Input</th>
-                    <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-secondary text-white" id="table">
-                    <form action="">
-                        {{ csrf_field() }}
-                    </form>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-1"></div>
-    </div>
-</div>
-
 <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
 <script>
-    $('#workcenter').change(function () {
-        var id = $('#workcenter option:selected').val();
+    $('.workcenter').click(function () {
+        var id = $(this).data('id');
+        workcenter(id);
+    })
+
+    function workcenter(id) {
         $.ajax({
-            url: 'water/workcenter/' + id,
+            url: '/sentul-apps/utility-online/water/workcenter/' + id,
             method: 'GET',
             dataType: 'JSON',
             success: function (data) {
@@ -78,15 +81,15 @@
                 }
                 $comboroles.html(optionroles).on('change');
             }
-        });
+        })
+    }
 
-    })
     function simpan(input,idbagian)
     {
         if(input == ""){
             swal({
-                title: "Wajib Diisi",
-                text: "!!",
+                title: "Wajib Diisi !!",
+                text: "",
                 type: 'error'
             });
             return false
@@ -95,7 +98,7 @@
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: 'water/simpan',
+            url: '/sentul-apps/utility-online/water/simpan',
             method: 'POST',
             dataType: 'JSON',
             data: { 'input': input, 'idBagian': idbagian},
@@ -118,7 +121,7 @@
     }
     function cek(id) {
         setTimeout(function () {
-            console.log("asdf");
+            // console.log("asdf");
             
             var inp = '#input'+id;
             var simpan = '#simpan'+id;
@@ -130,4 +133,9 @@
         }, 1);
     }
 </script>
+    @if($id)
+        <script>
+            workcenter({{ $id }})
+        </script>
+    @endif
 @endsection

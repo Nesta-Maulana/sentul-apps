@@ -8,6 +8,9 @@
 @section('active-home')
     m-menu__item--active
 @endsection
+@section('subheader')
+    <h2 class="text-center">ROLLIE | Package Integrigty</h2>
+@endsection
 @section('content')
 
 <button class="btn btn-primary" data-id="' + data[index].pengamatan.id + '" data-toggle="modal" data-target="#exampleModal">Import</button>
