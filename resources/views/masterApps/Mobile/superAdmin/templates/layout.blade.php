@@ -94,7 +94,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
         <li class="header"><br></li>
         <!-- Optionally, you can add icons to the links -->
 
-        @foreach($menus as $menu)  
+        @foreach($menus as $menu)
             <?php  
                 $cekchild = "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";
                 $cekchild = mysqli_query($conn, $cekchild);

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use App\Models\masterApps\Mobile\aplikasi;
+use App\Models\masterApps\Mobile\hakAksesUserAplikasi;
 use Closure;
 use Session;
 use DB;
@@ -10,10 +11,14 @@ class CekLogin
 {
     public function handle($request, Closure $next)
     {
+        
         $id = Session::get('login');
+
         $userData = DB::table('users')->where('id', $id);
         if($userData->count() > 0){
             $isi = url()->full();
+        
+
             $data = explode($_SERVER['APP_URL'] , $isi);
             $data = explode('/',$data[1]);
             $i = 0;
@@ -25,6 +30,22 @@ class CekLogin
             }else if($i == '2'){
                 $data[2] = "";
             }
+            
+            $aplikasi = hakAksesUserAplikasi::where('id_user', $id)->get();
+            foreach ($aplikasi as $a) {
+                $hakAplikasi = aplikasi::where('id', $a->id_aplikasi)->first();
+                if($data[1] == $hakAplikasi->link){
+                    
+                    
+                }else{
+                    if(hakAksesUserAplikasi::where('id_aplikasi', $a->id)->where('id_user', Session::get('login'))->count() > 0){
+                        
+                    }else{
+                        return redirect(url()->previous())->with('failed', 'Anda tidak memiliki akses terhadap aplikasi ini');
+                    }
+                }
+            }
+
             $cekHakAkses = DB::table('v_hak_akses')->where('link', $data[2])->where('user_id', $id);
             if($cekHakAkses->count() > 0){
                 $cekHakAkses = $cekHakAkses->first();

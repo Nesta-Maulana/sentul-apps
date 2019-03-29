@@ -11,6 +11,7 @@ use App\Models\masterApps\Mobile\menu;
 use App\Models\masterApps\Mobile\hakAksesAplikasi;
 use App\Models\masterApps\Mobile\hakAksesUserAplikasi;
 use App\Models\masterApps\Mobile\aplikasi;
+use App\Models\masterApps\Mobile\karyawan;
 use App\Models\utilityOnline\kategori;
 use App\Models\utilityOnline\bagian;
 use App\Models\utilityOnline\workcenter;
@@ -30,12 +31,14 @@ class superAdminController extends Controller
     public function __construct(Request $request){
         $this->middleware(function ($request, $next) {
             $this->username = resolve('usersData');
+            $this->username = karyawan::where('nik', '123456789')->first();            
             $this->username =  $this->username->fullname;
             $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
             ->where('parent_id', '0')
             ->where('lihat', '1')
             ->where('aplikasi', 'Master Apps')
             ->get();
+            
             return $next($request);
         });
     }
@@ -76,13 +79,14 @@ class superAdminController extends Controller
     }
     public function user(){
         $users = new userAccess;
+        $karyawan = karyawan::all();
         $countUnverify = DB::table('users')->where('verifiedByAdmin', '0')->count();
         $countLogin = $users::where('status', '=', '1')->count();
         $countVerify = DB::table('users')->where('verifiedByAdmin', '1')->count();
         $user = DB::table('users')->where('rolesId', '!=', '1')->paginate(10);
 
         return view('masterApps.mobile.superAdmin.formUser', ['user' => $user, 'countUnverify' => $countUnverify, 
-        'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu, 'username' => $this->username]);
+        'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu, 'username' => $this->username, 'karyawan' => $karyawan]);
     }
 
     public function brand(){
@@ -92,7 +96,8 @@ class superAdminController extends Controller
     public function hakAkses(){
         $hakAkses = hakAkses::all();
         $user = userAccess::all();
-        return view('masterApps.mobile.superAdmin.formHakAkses', ['menus' => $this->menu, 'hakAkses' => $hakAkses, 'users' => $user, 'username' => $this->username]);
+        $karyawan = karyawan::all();
+        return view('masterApps.mobile.superAdmin.formHakAkses', ['menus' => $this->menu, 'hakAkses' => $hakAkses, 'users' => $user, 'username' => $this->username, 'karyawan' => $karyawan]);
     }
 
     public function rasio(){
@@ -294,7 +299,10 @@ class superAdminController extends Controller
         $roles = $roles->all();
         $edit = new userAccess;
         $edit = $edit->find($id);//DB::table('users')->where('id', $id)->get();
-        $output = [$edit,$roles];
+        $nik = $edit->username;
+        $karyawan = karyawan::where('nik', $nik)->first();
+        
+        $output = [$edit,$roles, $karyawan];
         return $output;//view('masterApps.mobile.superAdmin.addUser', ['d' => $edit]);
     }
     public function save(Request $request){
@@ -308,16 +316,23 @@ class superAdminController extends Controller
 
         if($request->loginstatus == 1){
             DB::table('users')->where('id', $request->id)->update([
-                'email' => $request->email,
                 'status' => $request->loginstatus,
                 'rolesId' => $request->rolesId,
                 'passwordWrong' => "0",
             ]);
+            $karyawan = karyawan::where('nik', $request->nik);
+            $karyawan->update([
+                'email' => $request->email,
+            ]);
         } else{
             DB::table('users')->where('id', $request->id)->update([
-                'email' => $request->email,
+                
                 'status' => $request->loginstatus,
                 'rolesId' => $request->rolesId,
+            ]);
+            $karyawan = karyawan::where('nik', $request->nik);
+            $karyawan::update([
+                'email' => $request->email,
             ]);
         }
 

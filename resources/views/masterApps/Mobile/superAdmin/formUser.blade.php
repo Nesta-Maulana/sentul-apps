@@ -67,7 +67,7 @@
         <table id="example1" class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Full Name</th>
+                <th>NIK / Username</th>
                 <th>Email</th>
                 <th>Roles</th>
                 <th>Status</th>
@@ -78,8 +78,12 @@
         <tbody>
         @foreach($user as $s)
         <tr>
-                <td>{{ $s->fullname }}</td>
-                <td>{{ $s->email }}</td>
+                <td>{{ $s->username }}</td>
+                @foreach($karyawan as $k)
+                    @if($k->nik == $s->username)
+                        <td>{{ $k->email }}</td>
+                    @endif
+                @endforeach
                 @if($s->rolesId == "1")
                     <?php $roles = "Super Administrator" ?>
                 @elseif($s->rolesId == "2")
@@ -127,6 +131,7 @@
 	  <form action="form-user/update" method="post">
       <div class="modal-body" id="wow" >
       {{ csrf_field() }}
+      <input type="hidden" name='nik' id='nik'>
       <input type="hidden" name="id" id="key">
             <div class="form-group">
                 <label for="fullname">Full Name :</label>
@@ -184,9 +189,11 @@ window.setInterval(function(){
             dataType:'JSON',
             success: function(data)
             {
-                //console.log(data[0].fullname);
-                $("#fullname").val(data[0].fullname);
-                $("#email").val(data[0].email);
+                
+                console.log(data);
+                $('#nik').val(data[0].username);
+                $("#fullname").val(data[2].fullname);
+                $("#email").val(data[2].email);
                 $("#loginstatus option[value= '" + data[0].status + "']").prop('selected', true);
                 $("#roles").val(data[0].rolesId);
                 $("#key").val(data[0].id);

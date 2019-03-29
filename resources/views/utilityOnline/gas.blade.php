@@ -97,7 +97,7 @@
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: 'gas/simpan',
+            url: '/sentul-apps/utility-online/gas/simpan',
             method: 'POST',
             dataType: 'JSON',
             data: { 'input': input, 'idBagian': idbagian},

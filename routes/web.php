@@ -80,14 +80,14 @@ Route::middleware('ceklogin')->group(function (){
     // Utility Online
     Route::get('/utility-online', 'utilityOnline\mainController@index');
     Route::get('/utility-online/water', 'utilityOnline\mainController@water');
-    Route::post('/utility-online/water/simpan', 'utilityOnline\mainController@waterSimpan');
-    Route::get('/utility-online/water/workcenter/{id}', 'utilityOnline\mainController@waterWorkcenter');
+    Route::post('/utility-online/water/simpan', 'utilityOnline\mainController@bagianSimpan');
+    Route::get('/utility-online/water/workcenter/{id}', 'utilityOnline\mainController@showInput');
     Route::get('/utility-online/water/{id}', 'utilityOnline\mainController@waterId');
     Route::get('/utility-online/database', 'utilityOnline\mainController@database'); 
     Route::get('/utility-online/listrik', 'utilityOnline\mainController@listrik');
     Route::get('/utility-online/listrik/{id}', 'utilityOnline\mainController@listrikId');
-    Route::get('/utility-online/listrik/workcenter/{id}', 'utilityOnline\mainController@listrikWorkcenter');
-    Route::post('/utility-online/listrik/simpan', 'utilityOnline\mainController@listrikSimpan');
+    Route::get('/utility-online/listrik/workcenter/{id}', 'utilityOnline\mainController@showInput');
+    Route::post('/utility-online/listrik/simpan', 'utilityOnline\mainController@bagianSimpan');
     Route::get('/utility-online/database', 'utilityOnline\mainController@database');
     Route::get('/utility-online/database/workcenter/{id}', 'utilityOnline\mainController@databaseWorkcenter');
     Route::get('/utility-online/database/bagian/{id}/{tanggal}', 'utilityOnline\mainController@databaseBagian');
@@ -96,8 +96,8 @@ Route::middleware('ceklogin')->group(function (){
     Route::post('/utility-online/database/simpan', 'utilityOnline\mainController@simpanDatabase');
     Route::get('/utility-online/gas', 'utilityOnline\mainController@gas');
     Route::get('/utility-online/gas/{id}', 'utilityOnline\mainController@gasId');
-    Route::get('/utility-online/gas/workcenter/{id}', 'utilityOnline\mainController@gasWorkcenter');
-    Route::post('/utility-online/gas/simpan', 'utilityOnline\mainController@gasSimpan');
+    Route::get('/utility-online/gas/workcenter/{id}', 'utilityOnline\mainController@showInput');
+    Route::post('/utility-online/gas/simpan', 'utilityOnline\mainController@bagianSimpan');
 
     // Rollie
     Route::get('/rollie/cpp', 'rollie\rollieController@cpp');

@@ -10,6 +10,7 @@ use App\Models\utilityOnline\pengamatan;
 use App\Models\utilityOnline\bagian;
 use App\Models\utilityOnline\kategoriPencatatan;
 use App\Models\utilityOnline\penggunaan;
+use App\Models\masterApps\Mobile\karyawan;
 use DB;
 use Session;
 
@@ -20,6 +21,7 @@ class mainController extends Controller
     public function __construct(Request $request){
         $this->middleware(function ($request, $next) {
             $this->username = resolve('usersData');
+            $this->username = karyawan::where('nik', '123456789')->first();            
             $this->username =  $this->username->fullname;
             return $next($request);
         });
@@ -65,10 +67,7 @@ class mainController extends Controller
         $bagian = bagian::all();
         return view("utilityOnline.water", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username, 'id' => $id]);
     }
-    public function waterSimpan(Request $request){
-        // $now = \Carbon\Carbon::now('Asia/Jakarta')->format('d-m-Y');
-        // $bagian = response()->json($request->idBagian);
-        // $input = response()->json($request->input);
+    public function bagianSimpan(Request $request){
         $pengamatan = pengamatan::where('id_bagian', $request->idBagian)->latest()->first();
 
         if($pengamatan){
@@ -76,13 +75,13 @@ class mainController extends Controller
         }else{
             $nilai = $request->input;
         }
-        
-        $yesterday = \Carbon\Carbon::yesterday('Asia/Jakarta');
         pengamatan::create([
             'id_bagian' => $request->idBagian,
             'nilai_meteran' => $request->input,
             'user_id' => Session::get('login'),
         ]);
+        $yesterday = \Carbon\Carbon::yesterday('Asia/Jakarta');
+        
         penggunaan::create([
             'id_bagian' => $request->idBagian,
             'nilai' => $nilai,
@@ -90,23 +89,23 @@ class mainController extends Controller
         ]);
         return ['asdf'];
     }
-    public function waterWorkcenter($id){
-        $now = \Carbon\Carbon::today('Asia/Jakarta');
-        // $bagian = bagian::where('workcenter_id', $id)->get();
-        // $pengamatan = pengamatan::whereDate('created_at', $now)->get();
-        // $output = [$pengamatan, $bagian];
-        $bagian = bagian::where('workcenter_id', $id)->get();
-        foreach ($bagian as  $value) 
-        {
-            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
-                    ->select('pengamatan.*','bagian.*')
-                    ->where('pengamatan.id_bagian',$value->id)
-                    ->whereDate('pengamatan.created_at',$now)
-                    ->first();
-            $value->pengamatan = $pengamatanbagian;
-        }
-        return $bagian;
-    }
+    // public function waterWorkcenter($id){
+    //     $now = \Carbon\Carbon::today('Asia/Jakarta');
+    //     // $bagian = bagian::where('workcenter_id', $id)->get();
+    //     // $pengamatan = pengamatan::whereDate('created_at', $now)->get();
+    //     // $output = [$pengamatan, $bagian];
+    //     $bagian = bagian::where('workcenter_id', $id)->get();
+    //     foreach ($bagian as  $value) 
+    //     {
+    //         $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+    //                 ->select('pengamatan.*','bagian.*')
+    //                 ->where('pengamatan.id_bagian',$value->id)
+    //                 ->whereDate('pengamatan.created_at',$now)
+    //                 ->first();
+    //         $value->pengamatan = $pengamatanbagian;
+    //     }
+    //     return $bagian;
+    // }
 
     public function listrik(){
         $workcenter = workcenter::all();
@@ -114,38 +113,29 @@ class mainController extends Controller
         return view('utilityOnline.listrik', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => '']);
     }
 
-    public function listrikWorkcenter($id){
-        $now = \Carbon\Carbon::today('Asia/Jakarta');
-        // $bagian = bagian::where('workcenter_id', $id)->get();
-        // $pengamatan = pengamatan::whereDate('created_at', $now)->get();
-        // $output = [$pengamatan, $bagian];
-        $bagian = bagian::where('workcenter_id', $id)->get();
-        foreach ($bagian as  $value) 
-        {
-            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
-                    ->select('pengamatan.*','bagian.*')
-                    ->where('pengamatan.id_bagian',$value->id)
-                    ->whereDate('pengamatan.created_at',$now)
-                    ->first();
-            $value->pengamatan = $pengamatanbagian;
-        }
+    // public function listrikWorkcenter($id){
+    //     $now = \Carbon\Carbon::today('Asia/Jakarta');
+    //     // $bagian = bagian::where('workcenter_id', $id)->get();
+    //     // $pengamatan = pengamatan::whereDate('created_at', $now)->get();
+    //     // $output = [$pengamatan, $bagian];
+    //     $bagian = bagian::where('workcenter_id', $id)->get();
+    //     foreach ($bagian as  $value) 
+    //     {
+    //         $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+    //                 ->select('pengamatan.*','bagian.*')
+    //                 ->where('pengamatan.id_bagian',$value->id)
+    //                 ->whereDate('pengamatan.created_at',$now)
+    //                 ->first();
+    //         $value->pengamatan = $pengamatanbagian;
+    //     }
         
-        return $bagian;
-    }
+    //     return $bagian;
+    // }
     public function listrikId($id){
         $workcenter = workcenter::where('kategori_id', '2')->get();
         $bagian = bagian::all();
         return view("utilityOnline.listrik", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username, 'id' => $id]);
     }
-    public function listrikSimpan( Request $request ){
-        pengamatan::create([
-            'id_bagian' => $request->idBagian,
-            'nilai_meteran' => $request->input,
-            'user_id' => Session::get('login'),
-        ]);
-        return ['Berhasil'];
-    }
-
     public function database(){
         $kategori = kategori::all();
         $workcenter = workcenter::all();
@@ -213,16 +203,112 @@ class mainController extends Controller
         $workcenter = workcenter::where('kategori_id', '3')->get();
         return view('utilityOnline.gas', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => '']);
     }
-    public function gasWorkcenter($id){
-        $now = \Carbon\Carbon::today('Asia/Jakarta');   
+    public function showInput($id){
+        
         $bagian = bagian::where('workcenter_id', $id)->get();
         foreach ($bagian as  $value) 
         {
-            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
-                    ->select('pengamatan.*','bagian.*')
-                    ->where('pengamatan.id_bagian',$value->id)
-                    ->whereDate('pengamatan.created_at',$now)
-                    ->first();
+        
+            $date = \Carbon\Carbon::today('Asia/Jakarta');
+            $now = \Carbon\Carbon::now('Asia/Jakarta');
+            $time = $now->toTimeString();
+            if($value->kategori_pencatatan_id == '2'){
+                
+                if($time >= '06:00' && $time <= '13.59'){
+
+                    $cek = pengamatan::where('id_bagian',$value->id)->whereDate('created_at', $date)->count();
+                    if($cek < 1){
+                        $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', '31.02.2019')
+                                                    ->first();
+                    }else{
+                        $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at',$date)
+                                                    ->first();
+                    }
+                }else if($time >= '14:00' && $time <= '21:59'){
+                    
+                    $cek = pengamatan::where('id_bagian',$value->id)->whereDate('created_at', $date)->count();
+                    if($cek < 2){
+                        $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', '31.02.2019')
+                                                    ->first();
+                    }else if($cek == '2'){
+                        $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', $date)
+                                                    ->orderBy('pengamatan.created_at', 'desc')
+                                                    ->first();
+                    }else{
+                        $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', $date)
+                                                    ->get();
+                    }
+                }else if($time >= '22:00' || $time <= '05:59'){
+                    
+                    $cek = pengamatan::where('id_bagian',$value->id)->whereDate('created_at', $date)->count();
+                    
+                    if($cek == '0'){ 
+                        $date = \Carbon\Carbon::yesterday('Asia/Jakarta');
+                        $cekLagi = pengamatan::where('id_bagian',$value->id)->whereDate('created_at', $date)->count();
+                        
+                        if($cekLagi == '3'){
+                            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', '31.02.2019')
+                                                    ->first();
+                        }else{
+                            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', '31.02.2019')
+                                                    ->first();
+                        }
+                    }else if($cek == '3'){
+                        $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', $date)
+                                                    ->orderBy('pengamatan.created_at', 'desc')
+                                                    ->first();
+                    }else if($cek == '1'){
+                        $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', $date)
+                                                    ->orderBy('pengamatan.created_at', 'desc')
+                                                    ->first();
+                    }
+                    
+                    else{
+                        $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                                    ->select('pengamatan.*','bagian.*')
+                                                    ->where('pengamatan.id_bagian',$value->id)
+                                                    ->whereDate('pengamatan.created_at', '31.02.2019')
+                                                    ->first();
+                    }
+                }else{
+                    dd($time);
+                }
+                
+            }else{
+                
+                $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                                            ->select('pengamatan.*','bagian.*')
+                                            ->where('pengamatan.id_bagian',$value->id)
+                                            ->whereDate('pengamatan.created_at',$date)
+                                            ->first();
+            }
             $value->pengamatan = $pengamatanbagian;
         }
         
@@ -233,13 +319,6 @@ class mainController extends Controller
         $workcenter = workcenter::where('kategori_id', '3')->get();
         return view('utilityOnline.gas', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => $id]);
     }
-    public function gasSimpan(Request $request){
-        pengamatan::create([
-            'id_bagian' => $request->idBagian,
-            'nilai_meteran' => $request->input,
-            'user_id' => Session::get('login'),
-        ]);
-        return ['Berhasil'];
-    }
+
     
 }

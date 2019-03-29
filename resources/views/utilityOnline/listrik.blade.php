@@ -96,7 +96,7 @@
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: 'listrik/simpan',
+            url: '/sentul-apps/utility-online/listrik/simpan',
             method: 'POST',
             dataType: 'JSON',
             data: { 'input': input, 'idBagian': idbagian},

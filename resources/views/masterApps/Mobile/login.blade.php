@@ -16,11 +16,11 @@
                 <div class="container">
                     <img src="{!!asset('masterApps/mobileStyle/img/logo.png')!!}" class="img-fluid rounded-circle mx-auto d-block hero mb-5" width="120" height="120" alt="">
                     <div class="konten"></div> 
-                    <h1 class="title d-flex justify-content-center">SISI</h1>
+                    <h1 class="title d-flex justify-content-center">SYSI</h1>
                     <div class="konten mb-3"></div>
                     <div class="form-group">
                         <i class="fa fa-envelope label"></i> <label for="email" class="label" data_icon="u">Email address</label>
-                        <input type="email" name="email" class="form-control text" id="email" aria-describedby="emailHelp" placeholder="example : nestamaulana@nutrifood.co.id" autocomplete="off">
+                        <input type="text" name="email" class="form-control text" id="email" placeholder="example : 123456789" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-key text-black label"></i> <label class="label" for="exampleInputPassword1">Password</label>

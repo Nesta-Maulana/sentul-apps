@@ -15,7 +15,12 @@
                                 <select name="hakUser" id="hakUser" class="form-control">
                                     <option value="" selected disabled>-- PILIH USER -- </option>
                                     @foreach($users as $user)
-                                        <option value="{{ $user->id }}" data-id="{{ $user->id }}">{{ $user->fullname }}</option>
+
+                                        @foreach($karyawan as $k)
+                                            @if($k->nik == $user->username)
+                                                <option value="{{ $user->id }}" data-id="{{ $user->id }}">{{ $k->fullname }}</option>
+                                            @endif
+                                        @endforeach
                                     @endforeach
                                 </select>
                             </div>

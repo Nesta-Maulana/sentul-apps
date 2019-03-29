@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\masterApps\General\UserAccess\userAccess;
 use Illuminate\Support\Facades\Hash;
+use App\Models\masterApps\Mobile\aplikasi;
 use DB;
 use Session;
 
@@ -34,11 +35,11 @@ class MobileController extends Controller
         return view('masterApps/mobile/admin/index');
     }
     public function login(Request $request){
-        $email = $request->email;
+        $username = $request->email;
         $password = $request->password;
         $data = new userAccess();
-        if($data = $data::where('email', $email)->first()){
-            if($email === $data->email){
+        if($data = $data::where('username', $username)->first()){
+            if($username === $data->username){
                 if(Hash::check($password, $data->password)){
                     if($data->status == 0){
                         return redirect('login-form')->with('failed', 'Hubungi admin untuk melakukan verifikasi');
@@ -53,10 +54,14 @@ class MobileController extends Controller
                                 }else{
                                     session()->put('login', $data->id);
                                     $hak_aplikasi = DB::table('hak_akses_aplikasi')->where('id_user', $data->id)->get();
+                                    
                                     if(count($hak_aplikasi) > "1"){ 
                                         return redirect('home')->with('success', "Selamat Datang" . $data->fullname);
                                     } else if(count($hak_aplikasi) == "1"){
-                                        return redirect('home')->with('success', "Selamat Datang" . $data->fullname);
+                                        foreach ($hak_aplikasi as $h ) {
+                                            $aplikasi = aplikasi::where('id', $h->id_aplikasi)->first();
+                                        }
+                                        return redirect($aplikasi->link)->with('success', "Selamat Datang" . $data->fullname);
                                     }else{
                                         return redirect('login-form')->with('failed', 'Anda tidak memiliki akses apapun');
                                     }
@@ -87,10 +92,10 @@ class MobileController extends Controller
                     }
                 }
             }else{
-                return redirect('login-form')->with('failed', 'Email anda tidak terdaftar');
+                return redirect('login-form')->with('failed', 'Username yang anda masukkan tidak terdaftar');
             }
         }else{
-            return redirect('login-form')->with('failed', 'Email anda tidak terdaftar');
+            return redirect('login-form')->with('failed', 'Username yang anda masukkan tidak terdaftar');
         }
     }
 }
