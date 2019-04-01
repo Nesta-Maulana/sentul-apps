@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/style.css')!!}">
-    <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
-    <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
+    <link rel='stylesheet' href='{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}'>
+    <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 </head>
 <body >
 <nav class="navbar navbar-expand-lg navbar-dark bg-light bbotom">
@@ -44,13 +44,13 @@
 </div>
     @yield('content')
 
-<script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('generalStyle/js/popper.min.js') }}"></script>
+<script src="{{ asset('generalStyle/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('generalStyle/plugins/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('utilityOnline/js/particles.min.js') }}" ></script>
 <script src="{{ asset('utilityOnline/js/app.js') }}"></script>
-<script src="{!! asset('masterApps/mobileStyle/js/wow.min.js') !!}"></script>
+<script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
 <script>
     $('.select2').select2();
     $('#myModal').on('shown.bs.modal', function () {
