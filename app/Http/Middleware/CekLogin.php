@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Middleware;
-use App\Models\masterApps\Mobile\aplikasi;
-use App\Models\masterApps\Mobile\hakAksesUserAplikasi;
+use App\Models\masterApps\aplikasi;
+use App\Models\masterApps\hakAksesUserAplikasi;
 use Closure;
 use Session;
 use DB;

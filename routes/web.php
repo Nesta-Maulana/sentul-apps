@@ -10,7 +10,6 @@
 | contains the 'web' middleware group. Now create something great!
 |
 */
-Route::get('/','masterApps\mobileController\MobileController@index');
 
 // Route::get('/login-form','generalController\userAccessController@index')->name('user.masuk');
 Route::post('/user/login','masterApps\generalController\userAccessController@loginUser');
@@ -24,80 +23,99 @@ Route::get('/administrator/lpm','masterApps\generalController\Administrator\Admi
 Route::get('/administrator/pmb','masterApps\generalController\Administrator\AdministratorController@pmb');
 
 // Auth::routes();
-// Route::get('/home', 'HomeController@index')->name('home');
+/* Login */
+Route::get('/','userAccess\userAccessController@index');
+Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
+Route::post('/login-form', 'userAccess\userAccessController@login')->name('user-login');
+Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
 
-// Route Mobile
-Route::get('/login-form', 'masterApps\MobileController\MobileController@index');
-Route::post('/login-form', 'masterApps\MobileController\MobileController@login');
-Route::get('/register-form', 'masterApps\MobileController\MobileController@register');
-Route::get('/admin/dashboard', 'masterApps\MobileController\MobileController@dashboard');
+Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
 Route::get('/master-apps', function(){
     return redirect('/master-apps/home');
 });
-Route::middleware('ceklogin')->group(function (){
-    Route::get('/logout', 'masterApps\MobileController\MobileController@logout');
-    Route::get('/home', 'masterApps\MobileController\superAdminController@index');
-    Route::get('/master-apps/home', 'masterApps\MobileController\superAdminController@home');
-    Route::get('/master-apps/form-menu', 'masterApps\MobileController\superAdminController@menu');
-    Route::get('/master-apps/form-user', 'masterApps\MobileController\superAdminController@user');
-    Route::get('/master-apps/form-brand', 'masterApps\MobileController\superAdminController@brand');
-    Route::get('/master-apps/form-roles', 'masterApps\MobileController\superAdminController@roles');
-    Route::get('/master-apps/form-hak-akses', 'masterApps\MobileController\superAdminController@hakAkses');
-    Route::get('/master-apps/form-pmb', 'masterApps\MobileController\superAdminController@pmb');
-    Route::get('/master-apps/form-hak-akses/update/{id}/{isinya}/{apa}/{idUser}', 'masterApps\MobileController\superAdminController@updateHakAkses');
-    Route::get('/master-apps/form-hak-akses/{id}', 'masterApps\MobileController\superAdminController@dataHakAkses');
-    Route::get('/master-apps/form-menu/edit/{id}/{aplikasi}', 'masterApps\MobileController\superAdminController@editMenu');
-    Route::get('/master-apps/form-menu/urutan/{id}', 'masterApps\MobileController\superAdminController@urutan');
-    Route::get('/master-apps/form-user/verify/{id}', 'masterApps\MobileController\superAdminController@verify'); 
-    Route::get('/master-apps/form-user/edit/{id}', 'masterApps\MobileController\superAdminController@edit') ;
-    Route::get('/master-apps/form-roles/edit/{id}', 'masterApps\MobileController\superAdminController@editRoles');
-    Route::post('/master-apps/form-user/update', 'masterApps\MobileController\superAdminController@update');
-    Route::post('/master-apps/form-roles/save', 'masterApps\MobileController\superAdminController@save');
-    Route::post('/master-apps/form-roles/update', 'masterApps\MobileController\superAdminController@updateRoles');
-    Route::post('/master-apps/form-menu/data', 'masterApps\MobileController\superAdminController@dataMenu');
-    Route::get('/master-apps/form-menu/parent/{parent}', 'masterApps\MobileController\superAdminController@parent');
-    Route::get('/master-apps/company', 'masterApps\mobileController\superAdminController@company');
-    Route::get('/master-apps/company/edit/{id}', 'masterApps\mobileController\superAdminController@editCompany');
-    Route::post('/master-apps/company/data', 'masterApps\mobileController\superAdminController@dataCompany');
-    Route::get('/master-apps/kategori', 'masterApps\mobileController\superAdminController@kategori');
-    Route::get('/master-apps/workcenter', 'masterApps\mobileController\superAdminController@workcenter');
-    Route::post('/master-apps/workcenter/data', 'masterApps\mobileController\superAdminController@dataWorkcenter');
-    Route::get('/master-apps/workcenter/edit/{id}', 'masterApps\mobileController\superAdminController@editWorkcenter');
-    Route::get('/master-apps/bagian', 'masterApps\mobileController\superAdminController@bagian');
-    Route::post('/master-apps/kategori/data', 'masterApps\mobileController\superAdminController@dataKategori');
-    Route::get('/master-apps/kategori/edit/{id}', 'masterApps\mobileController\superAdminController@editKategori');
-    Route::post('/master-apps/bagian/data', 'masterApps\mobileController\superAdminController@dataBagian');
-    Route::get('/master-apps/bagian/edit/{id}', 'masterApps\mobileController\superAdminController@editBagian');
-    Route::get('/master-apps/rasio', 'masterApps\mobileController\superAdminController@rasio');
-    Route::get('/master-apps/rasio/workcenter/{id}', 'masterApps\mobileController\superAdminController@rasioWorkcenter');
-    Route::get('/master-apps/rasio/bagian/{id}', 'masterApps\mobileController\superAdminController@rasioBagian');
-    Route::post('/master-apps/rasio/rasio-head/save', 'masterApps\mobileController\superAdminController@rasioHeadSave');
-    Route::post('/master-apps/rasio/save', 'masterApps\mobileController\superAdminController@rasioSave');
-    Route::get('/master-apps/satuan', 'masterApps\mobileController\superAdminController@satuan');
-    Route::get('/master-apps/satuan/edit/{id}', 'masterApps\mobileController\superAdminController@editSatuan');
-    Route::post('/master-apps/satuan/data', 'masterApps\mobileController\superAdminController@dataSatuan');
+Route::get('/logout', 'userAccess\userAccessController@logout');
+
+
+Route::middleware('ceklogin')->group(function ()
+{
+    Route::get('/home', 'masterApps\superAdminController@index');
+    
+    Route::get('/master-apps/home', 'masterApps\superAdminController@home');
+    
+    Route::get('/master-apps/form-menu', 'masterApps\superAdminController@menu');
+    Route::get('/master-apps/form-menu/edit/{id}/{aplikasi}', 'masterApps\superAdminController@editMenu');
+    Route::get('/master-apps/form-menu/urutan/{id}', 'masterApps\superAdminController@urutan');
+    Route::post('/master-apps/form-menu/data', 'masterApps\superAdminController@dataMenu');
+    Route::get('/master-apps/form-menu/parent/{parent}', 'masterApps\superAdminController@parent');
+    
+    Route::get('/master-apps/form-user', 'masterApps\superAdminController@user');
+    Route::get('/master-apps/form-user/verify/{id}', 'masterApps\superAdminController@verify'); 
+    Route::get('/master-apps/form-user/edit/{id}', 'masterApps\superAdminController@edit') ;
+    Route::post('/master-apps/form-user/update', 'masterApps\superAdminController@update');
+    
+    Route::get('/master-apps/form-brand', 'masterApps\superAdminController@brand');
+    
+    Route::get('/master-apps/form-roles', 'masterApps\superAdminController@roles');
+    Route::get('/master-apps/form-roles/edit/{id}', 'masterApps\superAdminController@editRoles');
+    Route::post('/master-apps/form-roles/save', 'masterApps\superAdminController@save');
+    Route::post('/master-apps/form-roles/update', 'masterApps\superAdminController@updateRoles');
+    
+    Route::get('/master-apps/form-hak-akses', 'masterApps\superAdminController@hakAkses');
+    Route::get('/master-apps/form-hak-akses/update/{id}/{isinya}/{apa}/{idUser}', 'masterApps\superAdminController@updateHakAkses');
+    Route::get('/master-apps/form-hak-akses/{id}', 'masterApps\superAdminController@dataHakAkses');
+    
+    Route::get('/master-apps/form-pmb', 'masterApps\superAdminController@pmb');
+    
+    Route::get('/master-apps/rasio', 'masterApps\superAdminController@rasio');
+    Route::get('/master-apps/rasio/workcenter/{id}', 'masterApps\superAdminController@rasioWorkcenter');
+    Route::get('/master-apps/rasio/bagian/{id}', 'masterApps\superAdminController@rasioBagian');
+    Route::post('/master-apps/rasio/rasio-head/save', 'masterApps\superAdminController@rasioHeadSave');
+    Route::post('/master-apps/rasio/save', 'masterApps\superAdminController@rasioSave');
+    
+    Route::get('/master-apps/satuan', 'masterApps\superAdminController@satuan');
+    Route::get('/master-apps/satuan/edit/{id}', 'masterApps\superAdminController@editSatuan');
+    Route::post('/master-apps/satuan/data', 'masterApps\superAdminController@dataSatuan');
+ 
+    Route::get('/master-apps/kategori', 'masterApps\superAdminController@kategori');
+    Route::post('/master-apps/kategori/data', 'masterApps\superAdminController@dataKategori');
+    Route::get('/master-apps/kategori/edit/{id}', 'masterApps\superAdminController@editKategori');
+    
+    Route::get('/master-apps/company', 'masterApps\superAdminController@company');
+    Route::get('/master-apps/company/edit/{id}', 'masterApps\superAdminController@editCompany');
+    Route::post('/master-apps/company/data', 'masterApps\superAdminController@dataCompany');
+    
+    Route::get('/master-apps/workcenter', 'masterApps\superAdminController@workcenter');
+    Route::post('/master-apps/workcenter/data', 'masterApps\superAdminController@dataWorkcenter');
+    Route::get('/master-apps/workcenter/edit/{id}', 'masterApps\superAdminController@editWorkcenter');
+    
+    Route::get('/master-apps/bagian', 'masterApps\superAdminController@bagian');
+    Route::post('/master-apps/bagian/data', 'masterApps\superAdminController@dataBagian');
+    Route::get('/master-apps/bagian/edit/{id}', 'masterApps\superAdminController@editBagian');
 
     // Utility Online
-    Route::get('/utility-online', 'utilityOnline\mainController@index');
-    Route::get('/utility-online/water', 'utilityOnline\mainController@water');
-    Route::post('/utility-online/water/simpan', 'utilityOnline\mainController@bagianSimpan');
-    Route::get('/utility-online/water/workcenter/{id}', 'utilityOnline\mainController@showInput');
-    Route::get('/utility-online/water/{id}', 'utilityOnline\mainController@waterId');
-    Route::get('/utility-online/database', 'utilityOnline\mainController@database'); 
-    Route::get('/utility-online/listrik', 'utilityOnline\mainController@listrik');
-    Route::get('/utility-online/listrik/{id}', 'utilityOnline\mainController@listrikId');
-    Route::get('/utility-online/listrik/workcenter/{id}', 'utilityOnline\mainController@showInput');
-    Route::post('/utility-online/listrik/simpan', 'utilityOnline\mainController@bagianSimpan');
-    Route::get('/utility-online/database', 'utilityOnline\mainController@database');
-    Route::get('/utility-online/database/workcenter/{id}', 'utilityOnline\mainController@databaseWorkcenter');
-    Route::get('/utility-online/database/bagian/{id}/{tanggal}', 'utilityOnline\mainController@databaseBagian');
-    Route::get('/utility-online/database/edit/{id}', 'utilityOnline\mainController@editDatabase');
-    Route::post('/utility-online/database/update', 'utilityOnline\mainController@updateDatabase');
-    Route::post('/utility-online/database/simpan', 'utilityOnline\mainController@simpanDatabase');
-    Route::get('/utility-online/gas', 'utilityOnline\mainController@gas');
-    Route::get('/utility-online/gas/{id}', 'utilityOnline\mainController@gasId');
-    Route::get('/utility-online/gas/workcenter/{id}', 'utilityOnline\mainController@showInput');
-    Route::post('/utility-online/gas/simpan', 'utilityOnline\mainController@bagianSimpan');
+    Route::get('/utility-online', 'utilityOnline\mainUtilityController@index');
+    Route::get('/utility-online/water', 'utilityOnline\mainUtilityController@water');
+    Route::post('/utility-online/water/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
+    Route::get('/utility-online/water/workcenter/{id}', 'utilityOnline\mainUtilityController@showInput');
+    Route::get('/utility-online/water/{id}', 'utilityOnline\mainUtilityController@waterId');
+    
+    Route::get('/utility-online/database', 'utilityOnline\mainUtilityController@database'); 
+    Route::get('/utility-online/database', 'utilityOnline\mainUtilityController@database');
+    Route::get('/utility-online/database/workcenter/{id}', 'utilityOnline\mainUtilityController@databaseWorkcenter');
+    Route::get('/utility-online/database/bagian/{id}/{tanggal}', 'utilityOnline\mainUtilityController@databaseBagian');
+    Route::get('/utility-online/database/edit/{id}', 'utilityOnline\mainUtilityController@editDatabase');
+    Route::post('/utility-online/database/update', 'utilityOnline\mainUtilityController@updateDatabase');
+    Route::post('/utility-online/database/simpan', 'utilityOnline\mainUtilityController@simpanDatabase');
+    
+    Route::get('/utility-online/listrik', 'utilityOnline\mainUtilityController@listrik');
+    Route::get('/utility-online/listrik/{id}', 'utilityOnline\mainUtilityController@listrikId');
+    Route::get('/utility-online/listrik/workcenter/{id}', 'utilityOnline\mainUtilityController@showInput');
+    Route::post('/utility-online/listrik/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
+    
+    Route::get('/utility-online/gas', 'utilityOnline\mainUtilityController@gas');
+    Route::get('/utility-online/gas/{id}', 'utilityOnline\mainUtilityController@gasId');
+    Route::get('/utility-online/gas/workcenter/{id}', 'utilityOnline\mainUtilityController@showInput');
+    Route::post('/utility-online/gas/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
 
     // Rollie
     Route::get('/rollie/cpp', 'rollie\rollieController@cpp');
