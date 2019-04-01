@@ -20,8 +20,9 @@ class mainUtilityController extends Controller
 
     public function __construct(Request $request){
         $this->middleware(function ($request, $next) {
-            $this->username = resolve('usersData');
-            $this->username = karyawan::where('nik', '123456789')->first();            
+            $this->user = resolve('usersData');
+            
+            $this->username = karyawan::where('nik', $this->user->username)->first();            
             $this->username =  $this->username->fullname;
             return $next($request);
         });

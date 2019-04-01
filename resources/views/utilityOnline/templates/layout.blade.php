@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/style.css')!!}">
-    <link rel='stylesheet' href='{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}'>
+    <link rel='stylesheet' href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
     <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 </head>
 <body >
@@ -42,6 +42,12 @@
         <i class="fa fa-home text-success mr-5">Utility Online</i>
     </span>
 </div>
+    @if ($message = Session::get('success'))
+        <div class="success" data-flashdata="{{ $message }}"></div>
+    @endif
+    @if ($message = Session::get('failed'))
+        <div class="failed" data-flashdata="{{ $message }}"></div>
+    @endif
     @yield('content')
 
 <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
@@ -52,6 +58,22 @@
 <script src="{{ asset('utilityOnline/js/app.js') }}"></script>
 <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
 <script>
+  const flashdatas = $('.failed').data('flashdata');
+    if(flashdatas){
+        swal({
+            title: "Failed",
+            text: flashdatas,
+            type: "error",
+        });
+    }
+    const flashdata = $('.success').data('flashdata');
+    if(flashdata){
+        swal({
+            title: "Success",
+            text: flashdata,
+            type: "success",
+        });
+    }
     $('.select2').select2();
     $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')

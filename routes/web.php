@@ -24,22 +24,21 @@ Route::get('/administrator/pmb','masterApps\generalController\Administrator\Admi
 
 // Auth::routes();
 /* Login */
-Route::get('/','userAccess\userAccessController@index');
-Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
+Route::get('/','userAccess\userAccessController@index')->name('halaman-login');
+// Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
+// Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
 Route::post('/login-form', 'userAccess\userAccessController@login')->name('user-login');
-Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
 
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
-Route::get('/master-apps', function(){
-    return redirect('/master-apps/home');
-});
+
 Route::get('/logout', 'userAccess\userAccessController@logout');
 
 
 Route::middleware('ceklogin')->group(function ()
 {
-    Route::get('/home', 'masterApps\superAdminController@index');
-    
+
+    Route::get('/home', 'masterApps\superAdminController@index');    
+    Route::get('/master-apps', 'masterApps\superAdminController@home');
     Route::get('/master-apps/home', 'masterApps\superAdminController@home');
     
     Route::get('/master-apps/form-menu', 'masterApps\superAdminController@menu');
@@ -118,7 +117,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/utility-online/gas/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
 
     // Rollie
-    Route::get('/rollie/cpp', 'rollie\rollieController@cpp');
+    Route::get('/rollie', 'rollie\rollieController@cpp');
     Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia');
     Route::get('/rollie/analisa-kimia-fg/analisa', 'rollie\rollieController@analisaKimiaAnalisa');
     Route::get('/rollie/rkj', 'rollie\rollieController@rkj');

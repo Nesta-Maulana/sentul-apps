@@ -17,7 +17,7 @@ class userAccessController extends Controller
         {
             return redirect(url()->previous())->with('failed', 'Anda harus logout terlebih dahulu');
         }
-        return view('userAccess.login');
+        return view('userAccess.loginRegister');
     }
     public function logout(){
         Session::pull('login', null);
@@ -28,14 +28,15 @@ class userAccessController extends Controller
         Session::pull('lihat', null);
         return redirect('/');
     }
-    public function register(){
-        return view('userAccess.register');
-    }
+    // public function register(){
+    //     return view('userAccess.register');
+    // }
     public function dashboard(){
         return view('userAccess.admin.index');
     }
     public function login(Request $request){
-        $username = $request->email;
+        
+        $username = $request->username;
         $password = $request->password;
         $data = new userAccess();
         if($data = $data::where('username', $username)->first()){
@@ -56,11 +57,19 @@ class userAccessController extends Controller
                                     $hak_aplikasi = DB::table('hak_akses_aplikasi')->where('id_user', $data->id)->get();
                                     
                                     if(count($hak_aplikasi) > "1"){ 
+                                        $user = userAccess::find(Session::get('login'));
+                                        $user->update([
+                                            'passwordWrong' => '0' 
+                                        ]);
                                         return redirect('home')->with('success', "Selamat Datang" . $data->fullname);
                                     } else if(count($hak_aplikasi) == "1"){
                                         foreach ($hak_aplikasi as $h ) {
                                             $aplikasi = aplikasi::where('id', $h->id_aplikasi)->first();
                                         }
+                                        $user = userAccess::find(Session::get('login'));
+                                        $user->update([
+                                            'passwordWrong' => '0' 
+                                        ]);
                                         return redirect($aplikasi->link)->with('success', "Selamat Datang" . $data->fullname);
                                     }else{
                                         return redirect(route('halaman-login'))->with('failed', 'Anda tidak memiliki akses apapun');
