@@ -32,19 +32,19 @@ class CekLogin
             }
             
             $aplikasi = hakAksesUserAplikasi::where('id_user', $id)->get();
-            foreach ($aplikasi as $a) {
-                $hakAplikasi = aplikasi::where('id', $a->id_aplikasi)->first();
-                if($data[1] == $hakAplikasi->link){
+            // foreach ($aplikasi as $a) {
+            //     $hakAplikasi = aplikasi::where('id', $a->id_aplikasi)->first();
+            //     if($data[1] == $hakAplikasi->link){
                     
                     
-                }else{
-                    if(hakAksesUserAplikasi::where('id_aplikasi', $a->id)->where('id_user', Session::get('login'))->count() > 0){
+            //     }else{
+            //         if(hakAksesUserAplikasi::where('id_aplikasi', $a->id)->where('id_user', Session::get('login'))->count() > 0){
                         
-                    }else{
-                        return redirect(url()->previous())->with('failed', 'Anda tidak memiliki akses terhadap aplikasi ini');
-                    }
-                }
-            }
+            //         }else{
+            //             return redirect(url()->previous())->with('failed', 'Anda tidak memiliki akses terhadap aplikasi ini');
+            //         }
+            //     }
+            // }
 
             $cekHakAkses = DB::table('v_hak_akses')->where('link', $data[2])->where('user_id', $id);
             if($cekHakAkses->count() > 0){
