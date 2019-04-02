@@ -88,32 +88,36 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
           <!--  Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
-      </div>
+      </div> 
 
       <!-- Sidebar Menu -->
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header"><br></li>
         <!-- Optionally, you can add icons to the links -->
-
+      <?php $idUser = Session::get('login') ?>
+      
         @foreach($menus as $menu)
             <?php  
                 $cekchild = "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";
                 $cekchild = mysqli_query($conn, $cekchild);
                 $cekchilds = mysqli_fetch_array($cekchild); 
+
             ?>
             @if($cekchilds[0] == 0)
                 <li class="@yield('active')"><a href="{{ $menu->link }}"><i class="fa {{ $menu->icon }}"></i> <span>{{ $menu->menu }}</span></a></li>
             @else
-            <li class=" treeview @yield('active-menu') @yield('active-roles') @yield('active-user')">
-                <a href='#' class='active'><i class='fa fa-link'></i> <span>{{ $menu->menu }}</span>
+            <li class=" treeview">
+                <a href='#' class='active'><i class='fa {{ $menu->icon }}'></i> <span>{{ $menu->menu }}</span>
                         <span class='pull-right-container'>
                             <i class='fa fa-angle-left pull-right'></i>
                     </span>
                 </a>
                 <ul class='treeview-menu'>
                     <?php
-                        $childs = mysqli_query($conn, "SELECT * from v_hak_akses WHERE parent_id='$menu->id' AND lihat='1'");
+
+                        $childs = mysqli_query($conn, "SELECT * from v_hak_akses WHERE parent_id='$menu->id' AND lihat='1' AND user_id='$idUser'");
                     ?>
+                    
                         <?php $i=0 ?>
                         @while($c = mysqli_fetch_assoc($childs))
                             <?php $cek = mysqli_query($conn, "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$c[id]' AND lihat='1'") ?>
@@ -127,12 +131,12 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
                                                 <i class='fa fa-angle-left pull-right'></i>
                                         </span>
                                     </a>
-                                    <?php                    
-                                        $sql = "SELECT * FROM v_hak_akses WHERE parent_id='$c[id]' AND lihat='1'";
-                                        $anak = mysqli_query($conn, $sql)
+                                    <?php
+                                        $sql = "SELECT * FROM v_hak_akses WHERE parent_id='$c[id]' AND lihat='1' AND user_id='$idUser'";
+                                        $anak = mysqli_query($conn, $sql);
                                     ?>
                                     <ul class='treeview-menu'>
-                                        
+                                    
                                             @while($a = mysqli_fetch_assoc($anak))
                                                 <li class=""><a href="/sentul-apps/master-apps/{{ $a['link'] }}"><i class="fa {{ $a['icon'] }}"></i> <span>{{ $a['menu'] }}</span></a></li>
                                             @endwhile

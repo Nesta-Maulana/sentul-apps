@@ -39,6 +39,7 @@ class superAdminController extends Controller
             ->where('parent_id', '0')
             ->where('lihat', '1')
             ->where('aplikasi', 'Master Apps')
+            ->orderBy('posisi', 'asc')
             ->get();
             
             return $next($request);
@@ -69,11 +70,11 @@ class superAdminController extends Controller
         $aplikasi = aplikasi::get();
         $icons = DB::table('icons')->get();
         $parents = DB::table('menus')->where('parent_id', '0')->get();
-        $allMenu = DB::table('menus')->get();
+        $allMenu = DB::table('menus')->orderBy('parent_id', 'asc')->get();
         return view('masterApps.formMenu', ['icons' => $icons, 'menus' => $this->menu, 'parents' => $parents, 'allMenu' => $allMenu, 'username' => $this->username, 'aplikasi' => $aplikasi]);
     }
     public function urutan($id){
-        $urutan = DB::table('menus')->where('parent_id', $id)->get();
+        $urutan = DB::table('menus')->where('parent_id', $id)->orderBy('posisi', 'asc')->get();
         return $urutan;
     } 
     public function pmb(){
@@ -418,7 +419,23 @@ class superAdminController extends Controller
         return $output;
     }
     public function parent($parent){
-        return menu::where('aplikasi_id', $parent)->get();
+        $parents = menu::where('aplikasi_id', $parent)->where('parent_id', '!=' , '0')->get();
+        foreach ($parents as $p ) {
+            $cek = menu::where('parent_id', $p->id)->count();
+            if ($cek > 0 ) {
+                $cek2 = menu::where('parent_id', $p->id)->get();
+                
+                foreach ($cek2 as $c ) {
+                    foreach ($parents as $p ) {
+                        if ($c->menu == $p->menu) {
+                            $p->where('menu', $c->menu)->delete();
+                        }
+                    }
+                }
+            }
+        }
+        return $parents;
+
     }
     public function dataHakAkses($id){
         $dataHakAkses = DB::table('v_hak_akses')->where('user_id', $id)->get();

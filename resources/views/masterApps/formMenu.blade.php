@@ -73,7 +73,7 @@
                             <label for="parent">Parent :</label>
                             <select name="parent" id="parent" class="form-control">
                                 <option value="" disabled selected>-- PILIH PARENT --</option>
-                                <option value="0">&emsp;&emsp;&emsp;&emsp;-- Jadikan Parent --</option>
+                                <option value="0">JADIKAN PARENT</option>
                                 @foreach($parents as $parent)
                                 <?php  
                                     $b = "SELECT COUNT(id) from menus WHERE parent_id='$parent->id'";
@@ -88,17 +88,14 @@
                                         $anak = mysqli_query($conn, $sql)
                                     ?>
                                         <option value="{{ $parent->id }}" data-icon="{{$parent->icon}}">{{ $parent->menu }}</option>
+                                    
                                         @while($a = mysqli_fetch_assoc($anak))
-                                            <?php $query = mysqli_query($conn, "SELECT COUNT(id) FROM menus WHERE parent_id = '$a[id]'") ?>
+                                            <?php $query = mysqli_query($conn, "SELECT * FROM menus WHERE parent_id = '$a[id]'") ?>
                                             <?php $query = mysqli_fetch_array($query) ?>
                                             @if($query[0] == 0)
                                                 <option value="{{ $a['id'] }}" data-icon="{{$a['icon']}}">&emsp;&emsp;{{ $a['menu'] }}</option>
                                             @else
-                                                <?php $sql = mysqli_query($conn, "SELECT * FROM menus WHERE parent_id = '$a[id]'") ?>
                                                 <option value="{{ $a['id'] }}" data-icon="{{$a['icon']}}">&emsp;&emsp;<i class="fa {{ $a['icon'] }}"></i>{{ $a['menu'] }}</option>
-                                                @while($s = mysqli_fetch_assoc($sql))
-                                                    <option  value="{{ $s['id'] }}" data-icon="{{$s['icon']}}">&emsp;&emsp;&emsp;&emsp;{{ $s['menu'] }}</option>
-                                                @endwhile
                                             @endif
                                         @endwhile
                                     @endif
@@ -137,7 +134,17 @@
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $menu->menu }}</td>
-                                <td>{{ $menu->parent_id }}</td>
+                                
+                                    @if($menu->parent_id == '0')
+                                        <td>Parent</td>
+                                    @else
+                                        @foreach($allMenu as $m)
+                                            @if($menu->parent_id == $m->id)
+                                                <td>{{ $m->menu }}</td>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                
                                 <td>{{ $menu->link }}</td>
                                 <td>{{ $menu->posisi }}</td>
                                 @if($menu->status == 0)
@@ -259,7 +266,7 @@ $(document).ready(function(){
                 $('#urutan').val(data[0][0]['posisi']);
                 $('#link').val(data[0][0]['link']);
                 $("#status option[value= '" + data[0][0].status + "']").prop('selected', true);
-                var optionroless = '<option disabled>-- PILIH PARENT --</option>', $comboroless = $('#aplikasi');
+                var optionroless = '<option disabled>-- PILIH APLIKASI --</option>', $comboroless = $('#aplikasi');
                 for (index = 0; index < data[3].length; index++) 
                 {
                     if (data[3][index].id == data[0][0].aplikasi_id) 
@@ -275,6 +282,7 @@ $(document).ready(function(){
                 $comboroless.html(optionroless).on('change');
 
                 var optionroles = '<option disabled>-- PILIH PARENT --</option>', $comboroles = $('#icons');
+                
                 for (index = 0; index < data[1].length; index++) 
                 {
                     if (data[1][index].icons == data[0][0].icon) 
@@ -290,6 +298,7 @@ $(document).ready(function(){
                 $comboroles.html(optionroles).on('change');
                 var i = 0;
                 var optionparent = '<option disabled>-- PILIH PARENT --</option>', $comboparent = $('#parent');
+                optionparent += '<option value="0">Jadikan Parent</option>';
                 for (index = 0; index < data[2].length; index++) 
                 {   
                     if (data[2][index].id == data[0][0].parent_id) 
@@ -334,11 +343,13 @@ $(document).ready(function(){
             {  
                 if(data.length==0)
                 {
+                    
                     $('#urutan').val('0');
                 }
                 else
                 {
-                    $('#urutan').val((data[0].posisi*1)+1);
+                    var j = data.length*1-1
+                    $('#urutan').val((data[j].posisi*1)+1);
                 }
             }
         });

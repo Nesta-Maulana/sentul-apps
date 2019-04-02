@@ -56,17 +56,17 @@ class mainUtilityController extends Controller
         foreach ($gas as $g ) {
             $g->pengamatan = pengamatan::whereDate('created_at', $now)->get();
         }
-        return view('utilityOnline.index', ['username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'kategoriPencatatan' => $kategoriPencatatan, 'water' => $water, 'gas' => $gas, 'listrik' => $listrik,]);
+        return view('utilityOnline.operator.index', ['username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'kategoriPencatatan' => $kategoriPencatatan, 'water' => $water, 'gas' => $gas, 'listrik' => $listrik,]);
     }
     public function water(){
         $workcenter = workcenter::where('kategori_id', '1')->get();
         $bagian = bagian::all();
-        return view("utilityOnline.water", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username, 'id' => '']);
+        return view("utilityOnline.operator.water", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username, 'id' => '']);
     }
     public function waterId($id){
         $workcenter = workcenter::where('kategori_id', '1')->get();
         $bagian = bagian::all();
-        return view("utilityOnline.water", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username, 'id' => $id]);
+        return view("utilityOnline.operator.water", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username, 'id' => $id]);
     }
     public function bagianSimpan(Request $request){
         $pengamatan = pengamatan::where('id_bagian', $request->idBagian)->latest()->first();
@@ -111,7 +111,7 @@ class mainUtilityController extends Controller
     public function listrik(){
         $workcenter = workcenter::all();
         $workcenter = workcenter::where('kategori_id', '2')->get();
-        return view('utilityOnline.listrik', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => '']);
+        return view('utilityOnline.operator.listrik', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => '']);
     }
 
     // public function listrikWorkcenter($id){
@@ -135,13 +135,13 @@ class mainUtilityController extends Controller
     public function listrikId($id){
         $workcenter = workcenter::where('kategori_id', '2')->get();
         $bagian = bagian::all();
-        return view("utilityOnline.listrik", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username, 'id' => $id]);
+        return view("utilityOnline.operator.listrik", ['workcenter' => $workcenter, 'bagian' => $bagian, 'username' => $this->username, 'id' => $id]);
     }
     public function database(){
         $kategori = kategori::all();
         $workcenter = workcenter::all();
         $bagian = bagian::all();
-        return view("utilityOnline.database", ['username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'bagian' => $bagian]);
+        return view("utilityOnline.operator.database", ['username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'bagian' => $bagian]);
     }
     public function databaseWorkcenter($id){
         $workcenter = workcenter::where('kategori_id', $id)->get();
@@ -202,7 +202,7 @@ class mainUtilityController extends Controller
     public function gas(){
         $workcenter = workcenter::all();
         $workcenter = workcenter::where('kategori_id', '3')->get();
-        return view('utilityOnline.gas', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => '']);
+        return view('utilityOnline.operator.gas', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => '']);
     }
     public function showInput($id){
         
@@ -318,7 +318,7 @@ class mainUtilityController extends Controller
     public function gasId($id){
         $workcenter = workcenter::all();
         $workcenter = workcenter::where('kategori_id', '3')->get();
-        return view('utilityOnline.gas', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => $id]);
+        return view('utilityOnline.operator.gas', ['username' => $this->username, 'workcenter' => $workcenter, 'id' => $id]);
     }
 
     
