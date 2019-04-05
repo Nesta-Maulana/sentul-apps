@@ -190,7 +190,7 @@ window.setInterval(function(){
             success: function(data)
             {
                 
-                console.log(data);
+                
                 $('#nik').val(data[0].username);
                 $("#fullname").val(data[2].fullname);
                 $("#email").val(data[2].email);

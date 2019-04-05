@@ -117,6 +117,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/utility-online/gas/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
 
     Route::get('/utility-online/admin', 'utilityOnline\adminUtilityController@index');
+    Route::get('/utility-online/admin/report', 'utilityOnline\adminUtilityController@report');
 
     // Rollie
     Route::get('/rollie', 'rollie\rollieController@cpp');

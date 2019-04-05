@@ -419,7 +419,7 @@ class superAdminController extends Controller
         return $output;
     }
     public function parent($parent){
-        $parents = menu::where('aplikasi_id', $parent)->where('parent_id', '!=' , '0')->get();
+        $parents = menu::where('aplikasi_id', $parent)->get();
         foreach ($parents as $p ) {
             $cek = menu::where('parent_id', $p->id)->count();
             if ($cek > 0 ) {
