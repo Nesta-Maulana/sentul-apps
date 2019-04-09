@@ -1,18 +1,5 @@
 <!DOCTYPE html>
-<!-- 
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en" >
-	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
 		<title>
@@ -21,37 +8,34 @@ License: You must have a valid license purchased only from themeforest(the above
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!--begin::Web font -->
-		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-		<script>
-          WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
-		</script>
-		<!--end::Web font -->
-        <!--begin::Base Styles -->  
-        <!--begin::Page Vendors -->
+		<link rel="shortcut icon" href="{{ asset('rollie/img/logo/favicon.ico')}}" />
+
 		<link href="{{ asset('rollie/css/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<!--end::Page Vendors -->
 		<link href="{{ asset('rollie/css/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('rollie/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('rollie/css/custom.css')}}" rel="stylesheet" type="text/css" />
-	
-		<!--end::Base Styles -->
 
-        <!-- My CSS -->
-        <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.css')!!}">
-        <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
-        <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
-        <script src="{!! asset('masterApps/mobileStyle/superAdmin/js/jquery-3.3.1.min.js') !!}"></script>
-		<link rel="shortcut icon" href="{{ asset('rollie/img/logo/favicon.ico')}}" />
         <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.min.css')!!}">
-		<link href="{{ asset('dataTables/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
-  <link href="{{ asset('dataTables/css/fixedColumns.dataTables.min.css')}}" rel="stylesheet">
+		<link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.css')!!}">
+        
+        <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
 
+						
+		<script src="{{ asset('rollie/js/webfont.js')}}"></script>
+	  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+		<script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
+		<link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
+		<link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
+		<script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+        <script type="text/javascript">
+	        $('.timepicker').datetimepicker({
+				format: 'YYYY-MM-DD HH:mm:ss'
+        	}); 
+		</script>  
+
+
+		
 	</head>
 
 	<!-- end::Head -->
@@ -381,13 +365,13 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                 </div>
             </div>
-            <!--begin:: Widgets/Stats-->
             <div class="m-content" >
-                
                     @yield('content')    
-                
             </div>
+	<script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 
+	<script src="{!! asset('rollie/js/select2.js') !!}"></script>
+	{{-- <script src="{!! asset('generalStyle/plugins/datetime-picker/js/bootstrap.min.js') !!}"></script> --}}
 	<script src="{{ asset('rollie/js/vendors.bundle.js')}}" type="text/javascript"></script>
 	<script src="{{ asset('rollie/js/scripts.bundle.js')}}" type="text/javascript"></script>
 	<!--end::Base Scripts -->   
@@ -398,32 +382,19 @@ License: You must have a valid license purchased only from themeforest(the above
 	<script src="{{ asset('rollie/js/dashboard.js')}}" type="text/javascript"></script>
 	<!--end::Page Snippets -->
     <!-- My JS -->
-    <script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="{!! asset('masterApps/mobileStyle/js/wow.min.js') !!}"></script>
-	<script src=" {{ asset('dataTables/js/jquery.dataTables.min.js') }} "></script>
-  <script src="{{asset('dataTables/js/jquery.dataTables2.min.js')}}"></script>
-  <script src="{{asset('dataTables/js/dataTables.bootstrap.min.js')}}"></script>
-  <script src="{{asset('dataTables/js/dataTables.fixedColumns.min.js')}}"></script>
+    <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('generalStyle/js/popper.min.js') }}"></script>
+    <script src="{{ asset('generalStyle/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('rollie/js/html-table.js') }}"></script>
+    <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+
+
     <script>
-        $('.select2').select2();
+
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
         });
 		new WOW().init();
-		$('#analisa-kimia-table').DataTable({
-    'paging'      : true,
-    'lengthChange': true,
-    'searching'   : true,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : false,
-    'responsive' :true,
-    'scrollX' : true,
-    'processing' :true,
-  });
     </script>
 </body>
 <!-- end::Body -->

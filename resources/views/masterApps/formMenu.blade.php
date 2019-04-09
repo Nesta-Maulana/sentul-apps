@@ -14,8 +14,8 @@
 
 <?php $conn = mysqli_connect('localhost', "root", "", "master_apps"); ?>
 
-<link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
-<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+{{-- <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'> --}}
+<!-- <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'> -->
 
 <div class="box d-flex data-menu {{ Session::get('tambah') }}">
     <div class="container">
@@ -180,7 +180,7 @@
 </style>
 
 <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+{{-- <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> --}}
 
 <script>
 function batal(){

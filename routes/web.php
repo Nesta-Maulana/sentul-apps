@@ -25,8 +25,8 @@ Route::get('/administrator/pmb','masterApps\generalController\Administrator\Admi
 // Auth::routes();
 /* Login */
 Route::get('/','userAccess\userAccessController@index')->name('halaman-login');
-// Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
-// Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
+Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
+Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
 Route::post('/login-form', 'userAccess\userAccessController@login')->name('user-login');
 
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
