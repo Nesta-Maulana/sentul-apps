@@ -28,6 +28,7 @@
                                 <th>Bagian</th>
                                 <th>Input</th>
                                 <th>Aksi</th>
+                                <th>Satuan</th>
                                 </tr>
                             </thead>
                             <!--Table head-->
@@ -59,24 +60,28 @@
                 success: function (data) {
                     
                     var optionroles = '', $comboroles = $('#table');
-                    for (index = 0; index < data.length; index++) 
+                    for (index = 0; index < data[0].length; index++) 
                     {
                     
                         var no = index + 1;
                         optionroles+='<tr>';
                         optionroles+='<td>' +no+ '</td>';
-                        optionroles+='<td>'+data[index].bagian+'</td>';  
-                        if(data[index].pengamatan !== null)
+                        optionroles+='<td>'+data[0][index].bagian+'</td>';  
+                        if(data[0][index].pengamatan !== null)
                         {
-                            optionroles+='<td><input type="text" onload="cek()" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[index].id +'" value="'+ data[index].pengamatan.nilai_meteran +'" /></td>';
-                            cek(data[index].id);
+                            optionroles+='<td><input type="text" onload="cek()" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[0][index].id +'" value="'+ data[0][index].pengamatan.nilai_meteran +'" /></td>';
+                            cek(data[0][index].id);
                         }
                         else{
-                            optionroles+='<td><input type="text" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[index].id +'"/></td>';
+                            optionroles+='<td><input type="text" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[0][index].id +'"/></td>';
                         }
-
-                        optionroles+='<td style="display:none"><input type="text" value="'+data[index].id+'" id="idbagian'+ data[index].id +'"/></td>'
-                        optionroles+='<td><button class="btn btn-primary simpan" id="simpan'+data[index].id+'" onclick="simpan($(\'#input'+data[index].id+'\').val(),$(\'#idbagian'+data[index].id+'\').val())">Simpan</button></td>'
+                        for (let i = 0; i < data[1].length; i++) {
+                            if (data[0][index].satuan_id == data[1][i].id) {
+                                optionroles+='<td>'+data[1][i].satuan+'</td>';
+                            }
+                        }
+                        optionroles+='<td style="display:none"><input type="text" value="'+data[0][index].id+'" id="idbagian'+ data[0][index].id +'"/></td>'
+                        optionroles+='<td><button class="btn btn-primary simpan" id="simpan'+data[0][index].id+'" onclick="simpan($(\'#input'+data[0][index].id+'\').val(),$(\'#idbagian'+data[0][index].id+'\').val())">Simpan</button></td>'
                         optionroles+='</tr>';
                     }
                     $comboroles.html(optionroles).on('change');

@@ -28,9 +28,9 @@
                             <tr>
                             <?php $i=1 ?>
                                 @foreach($water as $b)
-                                    <tr>
-                                        <td>{{ $i }}</td>
-                                        @if($b->pengamatan)
+                                        @if(!$b->pengamatan)
+                                        <tr>
+                                            <td>{{ $i }}</td>
                                             <td><a href="utility-online/water/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
                                             @foreach($workcenter as $w)
                                                 @if($b->workcenter_id == $w->id)
@@ -42,9 +42,9 @@
                                                     <td>{{ $k->kategori_pencatatan }}</td>
                                                 @endif
                                             @endforeach
+                                        </tr>   
+                                        <?php $i++ ?>
                                         @endif
-                                    </tr>
-                                    <?php $i++ ?>
                                 @endforeach
                             </tr>
                         </tbody>
@@ -66,7 +66,7 @@
                             <tr>
                                 @foreach($listrik as $b)
                                     <tr>
-                                        @if($b->pengamatan)
+                                        @if(!$b->pengamatan)
                                             <td><a href="utility-online/listrik/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
                                             @foreach($workcenter as $w)
                                                 @if($b->workcenter_id == $w->id)
@@ -100,9 +100,10 @@
                                 <td class="text-center">Pengecekan</td>
                             </tr>
                             <tr>
+                            
                                 @foreach($gas as $b)
                                     <tr>
-                                        @if($b->pengamatan)
+                                        @if(!$b->pengamatan)
                                             <td><a href="utility-online/gas/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
                                             @foreach($workcenter as $w)
                                                 @if($b->workcenter_id == $w->id)
@@ -114,6 +115,8 @@
                                                     <td>{{ $k->kategori_pencatatan }}</td>
                                                 @endif
                                             @endforeach
+                                        @else
+                                        
                                         @endif
                                     </tr>
                                     <?php $i++ ?>
@@ -126,20 +129,18 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-4 mt-4 justify-content-center d-flex">
-            <a class="text-white" href="utility-online/water"><button class="btn btn-success tombol"><h1 class="judul">Air</h1></button></a>
-        </div>
-        <div class="col-lg-4 mt-4 justify-content-center d-flex">
-            <a class="text-white" href="utility-online/listrik"><button class="btn btn-success tombol"><h1 class="judul">Listrik</h4></button></a>
-        </div>
-        <div class="col-lg-4 mt-4 justify-content-center d-flex">
-            <a class="text-white" href="utility-online/gas"><button class="btn btn-success tombol"><h1 class="judul">Gas</h1></button></a>
-        </div>
-        <div class="col-lg-4 mt-4 justify-content-center d-flex">
-            <a class="text-white" href="utility-online/database"><button class="btn btn-success tombol"><h1 class="judul">Database</h1></button></a>
-        </div>
+<div class="row justify-content-center">
+    <div class="col-lg-4 mt-4 justify-content-center d-flex">
+        <a class="text-white" href="utility-online/water"><button class="btn btn-success tombol"><h1 class="judul">Air</h1></button></a>
+    </div>
+    <div class="col-lg-4 mt-4 justify-content-center d-flex">
+        <a class="text-white" href="utility-online/listrik"><button class="btn btn-success tombol"><h1 class="judul">Listrik</h4></button></a>
+    </div>
+    <div class="col-lg-4 mt-4 justify-content-center d-flex">
+        <a class="text-white" href="utility-online/gas"><button class="btn btn-success tombol"><h1 class="judul">Gas</h1></button></a>
+    </div>
+    <div class="col-lg-4 mt-4 justify-content-center d-flex">
+        <a class="text-white" href="utility-online/database"><button class="btn btn-success tombol"><h1 class="judul">Database</h1></button></a>
     </div>
 </div>
 @endsection

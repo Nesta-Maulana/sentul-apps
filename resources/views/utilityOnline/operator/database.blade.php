@@ -41,6 +41,7 @@
                                 <th>#</th>
                                 <th>Bagian</th>
                                 <th>Input</th>
+                                <th>Satuan</th>
                                 <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -116,21 +117,31 @@
                                 dataType: 'JSON',
                                 success: function (data) {
                                     var optionroles = '', $comboroles = $('#table');
-                                    for (index = 0; index < data.length; index++) 
+                                    for (index = 0; index < data[0].length; index++) 
                                     {
                                         var no = index+1;
                                         optionroles+='<tr>';
                                         optionroles+='<td>'+ no +'</td>';
-                                        optionroles+='<td>'+ data[index].bagian +'</td>';
-                                        // optionroles+='<td>'+ data[index].pengamatan.nilai_meteran +'</td>';
-                                        if(data[index].pengamatan){
-                                            optionroles+='<td>'+ data[index].pengamatan.nilai_meteran +'</td>'
-                                            optionroles+='<td> <button class="btn btn-primary edit" data-id="' + data[index].pengamatan.id + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
+                                        optionroles+='<td>'+ data[0][index].bagian +'</td>';
+                                        // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
+                                        if(data[0][index].pengamatan){
+                                            optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>'
+                                            for (let i = 0; i < data[1].length; i++) {
+                                                if (data[0][index].satuan_id == data[1][i].id) {
+                                                    optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                                }
+                                            }
+                                            optionroles+='<td> <button class="btn btn-primary edit" data-id="' + data[0][index].pengamatan.id + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
                                         }else{
                                             optionroles+='<td> No Value </td>';
-                                            optionroles+='<td><button class="btn btn-primary edit" data-idBagian="'+ data[index].id +'" data-bagian="'+ data[index].bagian +'" data-id="" data-toggle="modal" data-target="#exampleModal">Edit</button></td>';
+                                            for (let i = 0; i < data[1].length; i++) {
+                                                if (data[0][index].satuan_id == data[1][i].id) {
+                                                    optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                                }
+                                            }
+                                            optionroles+='<td><button class="btn btn-primary edit" data-idBagian="'+ data[0][index].id +'" data-bagian="'+ data[0][index].bagian +'" data-id="" data-toggle="modal" data-target="#exampleModal">Edit</button></td>';
                                         }
-                                        // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[index].pengamatan.id + '">Edit</button> </td>';
+                                        // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[0][index].pengamatan.id + '">Edit</button> </td>';
                                         optionroles+='</tr>';
                                     }
                                     $comboroles.html(optionroles).on('change');

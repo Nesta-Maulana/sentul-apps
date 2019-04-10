@@ -21,10 +21,12 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')}}">
-
+  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/daterangepicker.css')}}">
+  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/bootstrap-timepicker.min.css')}}">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/style.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/components.css')}}">
+  <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
 </head>
 
 <body>
@@ -72,7 +74,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
                     <div class="d-sm-none d-lg-inline-block">Hi, {{$username}}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-title">Kamu login sebagai QC Controller</div>
+                    <div class="dropdown-title">Kamu login sebagai .....</div>
                     <a href="features-profile.html" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> Profile
                     </a>
@@ -87,16 +89,16 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
     <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-                <a href="dashboard-ecommerce.html">Stisla</a>
+                <a href="dashboard-ecommerce.html">UTILITY ONLINE</a>
             </div>
             <div class="sidebar-brand sidebar-brand-sm">
-                <a href="dashboard-ecommerce.html">St</a>
+                <a href="dashboard-ecommerce.html">ULLIE</a>
             </div>
             <ul class="sidebar-menu">
 
                 <li class="menu-header">Main</li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Reports</span></a>                        
+                    <li class="dropdown @yield('active-report')">
+                        <a href="/sentul-apps/utility-online/admin/report" class="nav-link"><i class="fas fa-columns"></i> <span>Reports</span></a>                        
                     </li>
                 <li class="menu-header">Menu</li>
                 <?php $idUser = Session::get('login') ?>
@@ -152,69 +154,18 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
     <!-- Main Content -->
     <div class="main-content">
         <section class="section">
-        <!--<div class="section-header">
-        <h1>Dashboard</h1>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                    <i class="far fa-user"></i>
-                </div>
-                <div class="card-wrap">
-                    <div class="card-header">
-                    <h4>Total Admin</h4>
-                    </div>
-                    <div class="card-body">
-                    10
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                <div class="card-icon bg-danger">
-                    <i class="far fa-newspaper"></i>
-                </div>
-                <div class="card-wrap">
-                    <div class="card-header">
-                    <h4>News</h4>
-                    </div>
-                    <div class="card-body">
-                    42
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                <div class="card-icon bg-warning">
-                    <i class="far fa-file"></i>
-                </div>
-                <div class="card-wrap">
-                    <div class="card-header">
-                    <h4>Reports</h4>
-                    </div>
-                    <div class="card-body">
-                    1,201
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>-->
-    
-        @if ($message = Session::get('success'))
-            <div class="success" data-flashdata="{{ $message }}"></div>
-        @endif
-        @if ($message = Session::get('failed'))
-            <div class="failed" data-flashdata="{{ $message }}"></div>
-        @endif
-        @yield('content')
+            @if ($message = Session::get('success'))
+                <div class="success" data-flashdata="{{ $message }}"></div>
+            @endif
+            @if ($message = Session::get('failed'))
+                <div class="failed" data-flashdata="{{ $message }}"></div>
+            @endif
+            @yield('content')
         </section>
     </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright PT.Nutrifood &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
         </div>
         <div class="footer-right">
           v1.0.0
@@ -224,7 +175,6 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   </div>
 
   <!-- General JS Scripts -->
-  <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
   <script src="{{ asset('utilityOnline/admin/js/popper.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/tooltip.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -235,8 +185,8 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <!-- JS Libraies -->
   <script src="{{ asset('utilityOnline/admin/modules/simple-weather/jquery.simpleWeather.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/chart.min.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/modules/jqvmap/dist/jquery.vmap.min.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+  <!-- <script src="{{ asset('utilityOnline/admin/modules/jqvmap/dist/jquery.vmap.min.js')}}"></script> -->
+  <!-- <script src="{{ asset('utilityOnline/admin/modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script> -->
   <script src="{{ asset('utilityOnline/admin/modules/summernote/summernote-bs4.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
 
@@ -252,9 +202,11 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/jquery-ui/jquery-ui.min.js')}}"></script>
-
+  <script src="{{ asset('utilityOnline/admin/js/daterangepicker.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/js/bootstrap-datetimepicker.min.js')}}"></script>
   <!-- Page Specific JS File -->
   <script src="{{ asset('utilityOnline/admin/js/page/modules-datatables.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/js/page/modules-chartjs.js')}}"></script>
   <script>
     const flashdatas = $('.failed').data('flashdata');
     if(flashdatas){
@@ -273,5 +225,53 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
         });
     }
   </script>
+  <script>
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        // startDate: moment().subtract(29, 'days'),
+        // endDate  : moment()
+      },
+      function (start, end) {
+        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        // $('#inputMulai').val(start.format('YYYY-MM-DD'));
+        // $('#inputSampai').val(end.format('YYYY-MM-DD'));
+        $.ajax({
+            url: 'report/' + start.format('YYYY-MM-DD') + '/' +end.format('YYYY-MM-DD'),
+            method: 'GET',
+            dataType: 'JSON',
+            success: function (data) {
+                $('#table-1').DataTable().destroy();
+                $('#isi').empty();
+                var no = 1;
+                for (let index = 0; index < data[0].length; index++) 
+                {
+                
+                    var $table = "<tr>";
+                    $table += "<td>" + no + "</td>";
+                    for(let i = 0; i < data[1].length; i++){
+                        if(data[0][index].id_bagian == data[1][i].id){
+                            $table += "<td>"+data[1][i].bagian+"</td>";
+                        }
+                    }
+                    $table += "<td>"+data[0][index].nilai+"</td>";
+                    $table += "<td>"+data[0][index].tgl_penggunaan+"</td>";
+                    $table+="</tr>";
+                    no++;
+                    $("#isi").append($table);     
+                }
+                $('#table-1').DataTable().draw();
+            }
+        })
+      })
+      
+</script>
 </body>
 </html>

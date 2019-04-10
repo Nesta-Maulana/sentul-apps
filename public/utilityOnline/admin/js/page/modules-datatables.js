@@ -28,4 +28,8 @@ $("[data-checkboxes]").each(function() {
   });
 });
 
-$("#table-1").dataTable({});
+$("#table-1").dataTable({
+  "columnDefs": [
+    { "sortable": false, "targets": [2] }
+  ]
+});

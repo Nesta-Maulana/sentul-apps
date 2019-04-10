@@ -24,13 +24,11 @@ Route::get('/administrator/pmb','masterApps\generalController\Administrator\Admi
 
 // Auth::routes();
 /* Login */
-Route::get('/','userAccess\userAccessController@index')->name('halaman-login');
-// Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
 // Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
+Route::get('/','userAccess\userAccessController@index')->name('halaman-login');
+Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
 Route::post('/login-form', 'userAccess\userAccessController@login')->name('user-login');
-
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
-
 Route::get('/logout', 'userAccess\userAccessController@logout');
 
 
@@ -118,6 +116,8 @@ Route::middleware('ceklogin')->group(function ()
 
     Route::get('/utility-online/admin', 'utilityOnline\adminUtilityController@index');
     Route::get('/utility-online/admin/report', 'utilityOnline\adminUtilityController@report');
+    Route::get('/utility-online/admin/report/detail/{id}/{tgl}', 'utilityOnline\adminUtilityController@detailReport');
+    Route::get('/utility-online/admin/report/{from}/{to}', 'utilityOnline\adminUtilityController@reportDate');
 
     // Rollie
     Route::get('/rollie', 'rollie\rollieController@cpp');

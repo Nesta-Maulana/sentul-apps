@@ -17,7 +17,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <link rel="stylesheet" href="{!! asset('masterApps/dist/css/skins/skin-blue.min.css') !!}">
   <link rel="stylesheet" href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
 
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ asset('masterApps/dist/css/animate.min.css') }}">
   <style>
   .hidden
   {
