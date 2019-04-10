@@ -33019,7 +33019,7 @@ th>.m-checkbox.m-checkbox--single {
 .form-control,
 .form-control[readonly] {
     border-color: #ebedf2;
-    color: #575962
+    color: #001682
 }
 
 .form-control::-moz-placeholder,
@@ -44134,7 +44134,7 @@ select.m-select2 {
 }
 
 .m-login.m-login--5 .m-login__wrapper-2 .m-login__contanier .m-login__form .m-form__group .form-control::-moz-placeholder {
-    color: #9496a0;
+    color: #fff;
     opacity: 1
 }
 
@@ -54668,4 +54668,9 @@ body.m-content--skin-light2 {
     .m-footer .m-footer__nav .m-nav__item {
         padding: 0 0 0 5px
     }
+}
+
+.text-nesta::placeholder {
+  color: red;
+  opacity: 1;
 }

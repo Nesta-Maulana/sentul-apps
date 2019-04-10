@@ -53,14 +53,11 @@
 						<form class="m-login__form m-form" action="login-form" method="post">
                         {{ csrf_field() }}
                         <div class="form-group m-form__group">
-								<input
-									style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; "
-									class="form-control m-input" type="text" placeholder="Username" name="username"
+								<input style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " class="form-control m-input text-nesta" type="text" placeholder="Username" name="username"
 									autocomplete="off" autofocus>
 							</div>
 							<div class="form-group m-form__group">
-								<input class="form-control m-input m-login__form-input--last"
-									style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; "
+								<input class="form-control m-input m-login__form-input--last text-nesta" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; "
 									type="Password" placeholder="Password" name="password">
 							</div>
 							<div class="m-login__form-action">
