@@ -110,50 +110,33 @@
         <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
             <div class="row align-items-center">
                  <div class="col-md-6">
-                    <div class="m-form__group m-form__group--inline">
-                        <div class="m-form__label">
-                            <label>
-                                Nomor Wo :
-                            </label>
-                        </div>
-                        <div class="m-form__control">
-                            <select class="form-control m-bootstrap-select" id="nomor_wo">
-                                <option value="">
-                                    All
-                                </option>
-                                <option value="G1904702003">
-                                    G1904702003
-                                </option>
-                            </select>
-                        </div>
+                    <div class="row form-inline">
+                        <label for="nomor_wo_filter" class="col-lg-2">Nomor Wo </label>
+                        <select class="col-lg-6 form-control m-bootstrap-select " id="nomor_wo_filter">
+                            <option value="">
+                                All
+                            </option>
+                            <option value="G1904702003">
+                                G1904702003
+                            </option>
+                        </select>
                     </div>
                     <div class="d-md-none m--margin-bottom-10"></div>
                 </div>
-                <div class="col-md-4">
-                    <div class="m-form__group m-form__group--inline">
-                        <div class="m-form__label">
-                            <label class="m-label m-label--single">
-                                Mesin Filling:
-                            </label>
-                        </div>
-                        <div class="m-form__control">
-                            <select class="form-control m-bootstrap-select" id="mesinfilling">
-                                <option value="">
-                                    All
-                                </option>
-                                <option value="A3">
-                                    A3
-                                </option>
-                            </select>
-                        </div>
+                <div class="col-md-6">
+                    <div class="row form-inline">
+                        <label for="mesin_filling_filter" class="col-lg-2">Mesin Filling </label>
+                        <select class="col-lg-6 form-control m-bootstrap-select " id="mesin_filling_filter">
+                            <option value="">
+                                All
+                            </option>
+                            <option value="A3">
+                                A3
+                            </option>
+                        </select>
                     </div>
                     <div class="d-md-none m--margin-bottom-10"></div>
                 </div>
-                {{-- <div class="col-xl-8 order-2 order-xl-1">
-                    <div class="form-group m-form__group row align-items-center">
-                       
-                    </div>
-                </div> --}}
             </div>
         </div>
         <div class="row p-3">

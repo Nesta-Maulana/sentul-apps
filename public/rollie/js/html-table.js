@@ -21,15 +21,15 @@ var DatatableHtmlTableDemo= {
             ]
         }
         ),
-        $("#nomor_wo").on("change", function() {
+        $("#nomor_wo_filter").on("change", function() {
             e.search($(this).val().toLowerCase(), "Nomor Wo")
         }
         ),
-        $("#m_form_type").on("change", function() {
-            e.search($(this).val().toLowerCase(), "Type")
+        $("#mesin_filling_filter").on("change", function() {
+            e.search($(this).val().toLowerCase(), "Mesin Filling")
         }
         ),
-        $("#nomor_wo, #mesinfilling").select2()
+        $("#nomor_wo_filter, #mesin_filling_filter").select2()
     }
 }
 
