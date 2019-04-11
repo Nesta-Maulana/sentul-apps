@@ -368,20 +368,19 @@
             <div class="m-content" >
                     @yield('content')    
             </div>
+            @if ($message = Session::get('success'))
+	    	    <div class="success" data-flashdata="{{ $message }}"></div>
+		    @endif
+		    @if ($message = Session::get('failed'))
+		        <div class="failed" data-flashdata="{{ $message }}"></div>
+		    @endif
 	<script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 
 	<script src="{!! asset('rollie/js/select2.js') !!}"></script>
-	{{-- <script src="{!! asset('generalStyle/plugins/datetime-picker/js/bootstrap.min.js') !!}"></script> --}}
 	<script src="{{ asset('rollie/js/vendors.bundle.js')}}" type="text/javascript"></script>
 	<script src="{{ asset('rollie/js/scripts.bundle.js')}}" type="text/javascript"></script>
-	<!--end::Base Scripts -->   
-        <!--begin::Page Vendors -->
 	<script src="{{ asset('rollie/js/fullcalendar.bundle.js')}}" type="text/javascript"></script>
-	<!--end::Page Vendors -->  
-        <!--begin::Page Snippets -->
 	<script src="{{ asset('rollie/js/dashboard.js')}}" type="text/javascript"></script>
-	<!--end::Page Snippets -->
-    <!-- My JS -->
     <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('generalStyle/js/popper.min.js') }}"></script>
     <script src="{{ asset('generalStyle/js/bootstrap.min.js') }}"></script>
@@ -390,7 +389,22 @@
 
 
     <script>
-
+		const flashdatas = $('.failed').data('flashdata');
+	    if(flashdatas){
+	        swal({
+	            title: "Proses Gagal",
+	            text: flashdatas,
+	            type: "error",
+	        });
+	    }
+	    const flashdata = $('.success').data('flashdata');
+	    if(flashdata){
+	        swal({
+	            title: "Proses Berhasil",
+	            text: flashdata,
+	            type: "success",
+	        });
+	    }
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
         });
