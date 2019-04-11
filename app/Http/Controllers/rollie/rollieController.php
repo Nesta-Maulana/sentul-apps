@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\rollie;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\resourceController;
 use DB;
 
-class rollieController extends Controller
+class rollieController extends resourceController
 {
     public function cpp(){
-        return view('rollie.cpp');
+        $brix       = app('App\Http\Controllers\resourceController')->enkripsi('brix');
+        $prisma     = app('App\Http\Controllers\resourceController')->enkripsi('prisma');
+        return view('rollie.cpp')->withbrix($brix)->withprisma($prisma);
     }
     public function analisaKimia(){
         return view('rollie.analisa_kimia');

@@ -15,14 +15,14 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="m-portlet">
-                <h3 class="d-flex justify-content-center p-3 text-white" style="background: #716aca;">
-                    INPUT CPP
+                <h3 class="d-flex justify-content-center p-3 text-white " style="background: linear-gradient(135deg, #5867dd 30%, #36a3f7 100%)">
+                    Lihat CPP
                 </h3>
                 <div class="row p-3">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="nama_produk">Nama Produk</label>
-                            <select class="form-control m-select2 select2" id="m_select2_1" name="param">
+                            <select class="form-control m-select2 select2" id="nama_produk_cpp" name="nama_produk_cpp">
                                 <option value="-" selected disabled>Pilih Produk</option>
                                 <option value="Produk1">Produk 2</option>
                                 <option value="Produk1">Produk 3</option>
@@ -38,7 +38,7 @@
 
                         <div class="form-group">
                             <label for="tanggal_produksi">Tanggal Produksi</label>
-                            <select class="form-control m-select2 select2" id="m_select2_2" name="param">
+                            <select class="form-control m-select2 select2" id="tanggal_produksi_cpp" name="tanggal_produksi_cpp">
                                 <option value="-" selected disabled>Pilih Tanggal Produksi</option>
                                 <option value="Tanggal Produksi 1">Tanggal Produksi 2</option>
                                 <option value="Tanggal Produksi 1">Tanggal Produksi 3</option>
@@ -76,13 +76,12 @@
                             <input type="text" id="status_produk" readonly class="form-control">
                         </div>
                     </div>
-                    <button class="btn text-white ml-3" style="background: #716aca">Simpan</button>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 ">
             <div class="m-portlet">
-                <h3 class="d-flex justify-content-center pt-3 pb-3 text-white" style="background: #716aca;" >
+                <h3 class="d-flex justify-content-center pt-3 pb-3 text-white" style="background: linear-gradient(135deg, #5867dd 30%, #36a3f7 100%)" >
                     Upload CPP File (.xlsx)
                 </h3>
                 <div class="row p-3">
@@ -90,11 +89,17 @@
                         <i class="fa fa-file-excel-o d-flex justify-content-center" style="font-size: 100px;"></i>
                     </div>
                     <div class="col-lg-8">
-                        <input type="file">
-                        <select name="" id="" class="form-control mt-2">
-                            <option value="">BRIX</option>
-                            <option value="">PRISMA</option>
-                        </select>
+                        {!! Form::open(['route'=>'import-cpp','enctype'=>'multipart/form-data']) !!}
+                            {!! Form::file('cppfile', ['required'=>'required']) !!}
+                            <select name="cpptype" class="form-control mt-2">
+                                <option value="Pilih" selected disabled required>Pilih Jenis Cpp</option>
+                                <option value="<?=$brix?>" >Brix</option>
+                                <option value="<?=$prisma?>">Prisma</option>
+                            </select>
+                            {{-- {!! Form::select('cpptype', ['Pilih'=>'Pilih Jenis Cpp',$brix=>'Brix',$prisma=>'Prisma'],'Pilih',['class'=>'form-control mt-2']) !!} --}}
+                            {!! Form::submit('Upload Cpp', ['class'=>'btn m-btn m-btn--gradient-from-primary m-btn--gradient-to-info form-control','style'=>'margin-top:8px;']) !!}
+                        {!! Form::close() !!}
+                        </form>
                     </div>
                 </div>
             </div>
@@ -102,7 +107,7 @@
     </div>
     <div class="m-portlet">
         <div class="col-lg-12">
-        <h3 class="d-flex justify-content-center p-3 text-white font-weight-bold" style="background: #716aca">
+        <h3 class="d-flex justify-content-center p-3 text-white font-weight-bold" style="background:linear-gradient(135deg, #5867dd 30%, #36a3f7 100%)">
             Table CPP
         </h3>
 

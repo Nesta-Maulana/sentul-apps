@@ -121,6 +121,8 @@ Route::middleware('ceklogin')->group(function ()
 
     // Rollie
     Route::get('/rollie', 'rollie\rollieController@cpp');
+    Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');
+    
     Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia');
     Route::get('/rollie/analisa-kimia-fg/analisa', 'rollie\rollieController@analisaKimiaAnalisa');
     Route::get('/rollie/rkj', 'rollie\rollieController@rkj');
