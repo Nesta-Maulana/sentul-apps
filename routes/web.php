@@ -100,7 +100,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/database', 'utilityOnline\mainUtilityController@database');
     Route::get('/utility-online/database/workcenter/{id}', 'utilityOnline\mainUtilityController@databaseWorkcenter');
     Route::get('/utility-online/database/bagian/{id}/{tanggal}', 'utilityOnline\mainUtilityController@databaseBagian');
-    Route::get('/utility-online/database/edit/{id}', 'utilityOnline\mainUtilityController@editDatabase');
+    Route::get('/utility-online/database/edit/{id}/{tgl}', 'utilityOnline\mainUtilityController@editDatabase');
     Route::post('/utility-online/database/update', 'utilityOnline\mainUtilityController@updateDatabase');
     Route::post('/utility-online/database/simpan', 'utilityOnline\mainUtilityController@simpanDatabase');
     

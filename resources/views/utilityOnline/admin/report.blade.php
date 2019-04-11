@@ -15,13 +15,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Reports</h4>
+                <h4>Reports Penggunaan</h4>
             </div>
             <div class="row mt-2">
                 <div class="col-lg-9"></div>
                 <div class="col-lg-3">
                     <div class="input-group">
-                        <button type="button" class="btn btn-default pull-right" id="daterange-btn" name="inputRange" style="right: 0 !important;">
+                        <button type="button" class="btn btn-default pull-right ml-2" id="daterange-btn" name="inputRange" style="right: 0 !important;">
                             <span>
                                 <i class="fa fa-calendar"></i> Date range picker
                             </span>
@@ -70,6 +70,9 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
+            <div class="card-header">
+                <h4>Reports Pengamatan</h4>
+            </div>
             <div class="row">
                 <div class="col-lg-3 m-2">
                     <label for="tanggal">Tanggal : </label>
@@ -201,28 +204,51 @@
                                     var optionroles = '', $comboroles = $('#table');
                                     for (index = 0; index < data[0].length; index++) 
                                     {
-                                        var no = index+1;
-                                        optionroles+='<tr>';
-                                        optionroles+='<td>'+ no +'</td>';
-                                        optionroles+='<td>'+ data[0][index].bagian +'</td>';
-                                        if(data[0][index].pengamatan){
-                                            optionroles+='<td class="text-primary text-weight-bold">'+ data[0][index].pengamatan.nilai_meteran +'</td>'
-                                            for (let i = 0; i < data[1].length; i++) {
-                                                if (data[0][index].satuan_id == data[1][i].id) {
-                                                    optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                        if(data[0][index].pengamatan.length > 0){
+                                            for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
+                                            {   
+                                            
+                                                // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
+                                                if(data[0][index].pengamatan[indek])
+                                                {
+                                                    console.log(data[0][index].pengamatan[indek].pengamatan_id);
+                                                    
+                                                    var nomor = nomor+1;
+                                                    optionroles+='<tr>';
+                                                    optionroles+='<td>'+ nomor +'</td>';
+                                                    optionroles+='<td>'+ data[0][index].pengamatan[indek].bagian +'</td>';
+                                                    optionroles+='<td>'+ data[0][index].pengamatan[indek].nilai_meteran +'</td>'
+                                                    for (let i = 0; i < data[1].length; i++) {
+                                                        if (data[0][index].satuan_id == data[1][i].id) {
+                                                            optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                                        }
+                                                    }
+                                                    optionroles+='<td><button class="btn btn-primary edit" data-id="' + data[0][index].pengamatan[indek].pengamatan_id + '" data-tgl="' + data[0][index].pengamatan[indek].created_at + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
+                                                }
+                                                else
+                                                {
+                                                    
                                                 }
                                             }
                                         }else{
+                                            var nomor = nomor+1;
+                                            optionroles+='<tr>';
+                                            optionroles+='<td>'+ nomor +'</td>';
+                                            optionroles+='<td>'+ data[0][index].bagian +'</td>';
                                             optionroles+='<td> No Value </td>';
-                                            for (let i = 0; i < data[1].length; i++) {
+                                            for (let i = 0; i < data[1].length; i++) 
+                                            {
                                                 if (data[0][index].satuan_id == data[1][i].id) {
                                                     optionroles+='<td>'+data[1][i].satuan+'</td>';
                                                 }
                                             }
+                                            optionroles+='<td><button class="btn btn-primary edit" data-idBagian="'+ data[0][index].id +'" data-bagian="'+ data[0][index].bagian +'" data-id="" data-toggle="modal" data-target="#exampleModal">Edit</button></td>';
                                         }
+                                        
+                                        
+                                        // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[0][index].pengamatan.id + '">Edit</button> </td>';
                                         optionroles+='</tr>';
                                     }
-                                
                                     $comboroles.html(optionroles).on('change');
                                 }
                             });

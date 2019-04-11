@@ -47,6 +47,7 @@ class superAdminController extends Controller
     }
 
     public function index(){
+        
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->count();
         if($hakAksesAplikasi == "1"){
@@ -82,14 +83,13 @@ class superAdminController extends Controller
     }
     public function user(){
         $users = new userAccess;
-        $karyawan = karyawan::all();
+        $user = $users->where('rolesId', '!=', '1')->get();
         $countUnverify = DB::table('users')->where('verifiedByAdmin', '0')->count();
         $countLogin = $users::where('status', '=', '1')->count();
         $countVerify = DB::table('users')->where('verifiedByAdmin', '1')->count();
-        $user = DB::table('users')->where('rolesId', '!=', '1')->paginate(10);
 
         return view('masterApps.formUser', ['user' => $user, 'countUnverify' => $countUnverify, 
-        'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu, 'username' => $this->username, 'karyawan' => $karyawan]);
+        'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu, 'username' => $this->username]);
     }
 
     public function brand(){
@@ -170,7 +170,16 @@ class superAdminController extends Controller
     public function roles(){
         $roles = new role();
         $roles = $roles->all();
-        $roles1 = $roles->all();
+        // foreach ($roles as $r ) {
+        //     $user = $r->user;
+        // }
+        // foreach ($roles as $role) 
+        // {
+        //     foreach ($role->user as $value) 
+        //     {
+        //         echo $value->username;
+        //     }
+        // }
         $roles2 = $roles->count();
         for($i = 1; $i <= $roles2; $i++){
             $cek[$i] = DB::table('users')->where('rolesId', $i)->count();
@@ -256,12 +265,14 @@ class superAdminController extends Controller
         if($request->id){
             $company = company::find($request->id);
             $company->company = $request->company;
+            $company->singkatan = $request->singkatan;
             $company->status = $request->status;
             $company->save();
             return redirect('master-apps/company')->with('success', 'Data Berhasil DiUpdate');
         }else{
             company::create([
                 'company' => $request->company,
+                'singkatan' => $request->singkatan,
                 'status' => $request->status
             ]);
             return redirect('master-apps/company')->with('success', 'Data Berhasil Ditambahkan');

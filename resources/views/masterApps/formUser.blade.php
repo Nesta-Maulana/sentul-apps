@@ -79,22 +79,8 @@
         @foreach($user as $s)
         <tr>
                 <td>{{ $s->username }}</td>
-                @foreach($karyawan as $k)
-                    @if($k->nik == $s->username)
-                        <td>{{ $k->email }}</td>
-                    @endif
-                @endforeach
-                @if($s->rolesId == "1")
-                    <?php $roles = "Super Administrator" ?>
-                @elseif($s->rolesId == "2")
-                    <?php $roles = "Administrator" ?>
-                @elseif($s->rolesId == "3")
-                    <?php $roles = "R & D Produk" ?>
-                @else
-                    <?php $roles = "Roles tidak terdaftar" ?>
-                @endif
-                <!-- Roles -->
-                <td>{{ $roles }}</td>
+                <td>{{ $s->karyawan->email }}</td>
+                <td>{{ $s->role->role }}</td>
                 <!-- End Roles -->
                 @if($s->status == "1")
                     <?php $status = "ON" ?>

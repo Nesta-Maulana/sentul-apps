@@ -9,4 +9,8 @@ class workcenter extends Model
     protected $connection = 'mysql2';
     protected $table="workcenter";
     protected $fillable = ['kategori_id', 'workcenter', 'status'];
+
+    public function kategori(){
+        return $this->belongsTo('App\Models\utilityOnline\kategori', 'kategori_id');
+    }
 }

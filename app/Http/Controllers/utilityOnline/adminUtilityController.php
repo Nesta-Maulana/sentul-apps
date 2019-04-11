@@ -4,6 +4,7 @@ namespace App\Http\Controllers\utilityOnline;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\userAccess\userAccess;
 use App\Models\userAccess\role;
 use App\Models\masterApps\hakAkses;
@@ -74,7 +75,7 @@ class adminUtilityController extends Controller
                                             ->first();
                 $tglPenggunaan = Carbon::yesterday();
             }
-        $report = penggunaan::all();
+        $report = penggunaan::orderBy('tgl_penggunaan', 'desc')->get();
         $bagian = bagian::all();
         $kategori = kategori::all();
         $workcenter = workcenter::all();
@@ -87,9 +88,11 @@ class adminUtilityController extends Controller
         if (!$plantUtility) {
             array_add($coolingTower, 'nilai', '0' - $pengamatanbagian->nilai);
         } else{
+            // $coolingTower = collect(['nilai' => $plantUtility->nilai - $pengamatanbagian->nilai]) + $coolingTower;
             array_add($coolingTower, 'nilai', $plantUtility->nilai - $pengamatanbagian->nilai);
         }
         array_add($report, $pengamatanCount, $coolingTower);
+        // dd($report);
         return view('utilityOnline.admin.report', ['menus' => $this->menu, 'username' => $this->username, 'report' => $report, 'bagian' => $bagian, 'pengamatan' => $pengamatan, 'kategori' => $kategori,'workcenter' => $workcenter]);
     }
     public function reportDate($from, $to){

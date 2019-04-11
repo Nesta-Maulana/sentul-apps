@@ -177,52 +177,109 @@ class mainUtilityController extends Controller
     }
 
     public function databaseBagian($id, $tanggal){
-        $now = Carbon::today('Asia/Jakarta');
+        $now = Carbon::now('Asia/Jakarta');
+        $time = $now->toTimeString();
+        $tomorrow = Carbon::tomorrow('Asia/Jakarta');
+        $date = $now->toDateString();
         $bagian = bagian::where('workcenter_id', $id)->get();
-        foreach ($bagian as  $value) 
+        foreach ($bagian as  $value)  
         {
-            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
-                    ->select('pengamatan.*','bagian.*')
-                    ->where('pengamatan.id_bagian',$value->id)
-                    ->whereDate('pengamatan.created_at',$tanggal)
-                    ->first();
+            if ($value->kategori_pencatatan_id == '2') 
+            {
+                $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                ->select('bagian.*','pengamatan.*','pengamatan.id as pengamatan_id')
+                ->where('pengamatan.id_bagian',$value->id)
+                ->whereDate('pengamatan.created_at',$tanggal)
+                ->get();
+                // dd($pengamatanbagian);  
+                foreach ($pengamatanbagian as $pengamatan) 
+                {
+                    $create = explode(' ',$pengamatan->created_at);
+                    $time   = $create[1];
+                    
+                    if($time >= '06:00' && $time <= '13:59')
+                    {
+                        $pengamatan->bagian = $value->bagian." Shift 1";
+                    }
+                    else if($time >= '14:00' && $time <= '21:59')
+                    {
+                        $pengamatan->bagian = $value->bagian." Shift 2";
+                    }
+                    else if($time >= '22:00' || $time <= '05:59')
+                    {
+                        $pengamatan->bagian = $value->bagian." Shift 3";
+                    }
+                }
+                
+            }
+            else if($value->kategori_pencatatan_id == '1')
+            {
+                $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+                ->select('pengamatan.*','bagian.*','pengamatan.id as pengamatan_id')
+                ->where('pengamatan.id_bagian',$value->id)
+                ->whereDate('pengamatan.created_at',$tanggal)
+                ->get();
+                foreach ($pengamatanbagian as $pengamatan) 
+                {
+                    $pengamatan->bagian = $value->bagian;
+                }
+            }
+
             $value->pengamatan = $pengamatanbagian;
         }
+        
         $satuan = satuan::all();
         return [$bagian, $satuan];
     }
 
-    public function editDatabase($id){
-        $now = Carbon::today('Asia/Jakarta');
-        $bagian = bagian::where('id', $id)->get();
-        foreach ($bagian as  $value) 
-        {
-            $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
-                    ->select('pengamatan.*','bagian.*')
-                    ->where('pengamatan.id_bagian',$value->id)
-                    ->whereDate('pengamatan.created_at',$now)
-                    ->first();
-            $value->pengamatan = $pengamatanbagian;
-        }
+    public function editDatabase($id, $tgl){
+        // Kirim tanggal nya ja jgn cuman id
+        // $bagian = bagian::where('id', $idBagian)->get();
+        // dd($idBagian);
+        // foreach ($bagian as  $value) 
+        // {
+        //     $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
+        //             ->select('bagian.*', 'pengamatan.*')
+        //             ->where('pengamatan.id_bagian',$id)
+        //             ->first();
+            
+        //     $value->pengamatan = $pengamatanbagian;
+        // }
         
-        return $bagian;
+        // return $bagian;
+
+        // dd($id);
+        $pengamatan = pengamatan::where('id', $id)->get();
+        foreach ($pengamatan as $p ) {
+            $pengamatanbagian = bagian::rightjoin('pengamatan', 'pengamatan.id_bagian', 'bagian.id')
+                                            ->select('bagian.bagian', 'pengamatan.*')
+                                            ->where('pengamatan.id',$id)
+                                            ->first();
+            $p->bagian = $pengamatanbagian;
+        }
+        return $pengamatan;
     }
 
     public function updateDatabase(Request $request){
         $now = Carbon::today('Asia/Jakarta');
-        $pengamatan = pengamatan::where('id_bagian', $request->id)->whereDate('created_at', $now)->first();
+        $time = $now->toTimeString();
+        $pengamatan = pengamatan::where('id', $request->id)->whereDate('created_at', $request->tgl)->first();
         $pengamatan->nilai_meteran = $request->nilai;
+        $pengamatan->created_at = $request->tgl . ' ' . $time;
         $pengamatan->save();
         return $now;
     }
 
     public function simpanDatabase(Request $request){
-        $now = Carbon::today('Asia/Jakarta');
-        pengamatan::create([
-            'nilai_meteran' => $request->nilai,
-            'user_id' => Session::get('login'),
-            'id_bagian' => $request->idBagian,
-        ]);
+        
+        $now = Carbon::now('Asia/Jakarta');
+        $time = $now->toTimeString();
+        $pengamatan = new pengamatan();
+        $pengamatan->nilai_meteran = $request->nilai;
+        $pengamatan->user_id = Session::get('login');
+        $pengamatan->id_bagian = $request->idBagian;
+        $pengamatan->created_at = $request->tgl . ' ' . $time;
+        $pengamatan->save(['timestamps' => false]);
         return $now;
     }
 

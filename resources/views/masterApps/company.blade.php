@@ -20,6 +20,10 @@
                         <input type="text" id="company" name="company" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
+                        <label for="">Singkatan</label>
+                        <input type="text" id="singkatan" name="singkatan" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
                         <label for="status">Status :</label>
                         <select name="status" id="status" class="form-control">
                             <option value="" selected disabled>-- PILIH STATUS --</option>
@@ -38,6 +42,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Company</th>
+                        <th scope="col">Singkatan</th>
                         <th scope="col">Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -48,6 +53,7 @@
                         <tr>
                             <td>{{ $i }}</td>
                             <td>{{ $c->company }}</td>
+                            <td>{{ $c->singkatan }}</td>
                             @if($c->status == "1")
                                 <td>Aktif</td>
                             @else
@@ -138,6 +144,7 @@
             success: function (data) {
                 $('#id').val(data.id);
                 $('#company').val(data.company);
+                $('#singkatan').val(data.singkatan);
                 $("#status option[value= '" + data.status + "']").prop('selected', true);
             }
         });

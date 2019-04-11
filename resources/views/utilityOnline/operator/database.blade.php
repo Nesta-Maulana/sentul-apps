@@ -64,6 +64,7 @@
                 <div class="modal-header">
                     <input type="hidden" name="id" id="id">
                     <input type="hidden" name="idBagian" id="idBagian">
+                    <input type="hidden" name="tgl" id="tgl">
                     <h5 class="modal-title" id="exampleModalLabel">Form Edit</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -76,7 +77,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-danger text-white" data-dismiss="modal">Close</a>
+                    <a type="button" class="btn btn-danger text-white" id="batal" data-dismiss="modal">Close</a>
                     <button class="btn btn-primary" id="simpan" onclick="simpan()" data-dismiss="modal">Save changes</button>
                 </div>
             </div>
@@ -86,6 +87,7 @@
         $('#kategori').attr('disabled', true);
         $('#workcenter').attr('disabled', true);
         $('#tanggal').change(function () {
+            $('#tgl').val($('#tanggal').val());
             $('#kategori').attr('disabled', false);
             if($('#workcenter option:selected').val() == ""){
 
@@ -117,30 +119,51 @@
                                 dataType: 'JSON',
                                 success: function (data) {
                                     var optionroles = '', $comboroles = $('#table');
+                                    var nomor  = 0;
                                     for (index = 0; index < data[0].length; index++) 
                                     {
-                                        var no = index+1;
-                                        optionroles+='<tr>';
-                                        optionroles+='<td>'+ no +'</td>';
-                                        optionroles+='<td>'+ data[0][index].bagian +'</td>';
-                                        // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
-                                        if(data[0][index].pengamatan){
-                                            optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>'
-                                            for (let i = 0; i < data[1].length; i++) {
-                                                if (data[0][index].satuan_id == data[1][i].id) {
-                                                    optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                        if(data[0][index].pengamatan.length > 0){
+                                            for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
+                                            {   
+                                            
+                                                // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
+                                                if(data[0][index].pengamatan[indek])
+                                                {
+                                                    console.log(data[0][index].pengamatan[indek].pengamatan_id);
+                                                    
+                                                    var nomor = nomor+1;
+                                                    optionroles+='<tr>';
+                                                    optionroles+='<td>'+ nomor +'</td>';
+                                                    optionroles+='<td>'+ data[0][index].pengamatan[indek].bagian +'</td>';
+                                                    optionroles+='<td>'+ data[0][index].pengamatan[indek].nilai_meteran +'</td>'
+                                                    for (let i = 0; i < data[1].length; i++) {
+                                                        if (data[0][index].satuan_id == data[1][i].id) {
+                                                            optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                                        }
+                                                    }
+                                                    optionroles+='<td><button class="btn btn-primary edit" data-id="' + data[0][index].pengamatan[indek].pengamatan_id + '" data-tgl="' + data[0][index].pengamatan[indek].created_at + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
+                                                }
+                                                else
+                                                {
+                                                    
                                                 }
                                             }
-                                            optionroles+='<td> <button class="btn btn-primary edit" data-id="' + data[0][index].pengamatan.id + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
                                         }else{
+                                            var nomor = nomor+1;
+                                            optionroles+='<tr>';
+                                            optionroles+='<td>'+ nomor +'</td>';
+                                            optionroles+='<td>'+ data[0][index].bagian +'</td>';
                                             optionroles+='<td> No Value </td>';
-                                            for (let i = 0; i < data[1].length; i++) {
+                                            for (let i = 0; i < data[1].length; i++) 
+                                            {
                                                 if (data[0][index].satuan_id == data[1][i].id) {
                                                     optionroles+='<td>'+data[1][i].satuan+'</td>';
                                                 }
                                             }
                                             optionroles+='<td><button class="btn btn-primary edit" data-idBagian="'+ data[0][index].id +'" data-bagian="'+ data[0][index].bagian +'" data-id="" data-toggle="modal" data-target="#exampleModal">Edit</button></td>';
                                         }
+                                        
+                                        
                                         // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[0][index].pengamatan.id + '">Edit</button> </td>';
                                         optionroles+='</tr>';
                                     }
@@ -148,19 +171,23 @@
 
                                     $('.edit').click(function () {
                                         var id = $(this).data('id');
+                                        var idBagian = $(this).data('idBagian');
+                                        var tgl = $(this).data('tgl');
                                         if(id != ""){
+                                            console.log('ada');
+                                            
                                             $.ajax({
-                                                url: 'database/edit/'+id,
+                                                url: 'database/edit/'+id+'/'+tgl,
                                                 method: 'GET',
                                                 dataType: 'JSON',
                                                 success: function (data) {
-                                                    $('#edit_bagian').text(data[0].bagian);
-                                                    $('#nilai').val(data[0].pengamatan.nilai_meteran);
-                                                    $('#id').val(data[0].pengamatan.id);
-
-                                                } 
+                                                    $('#edit_bagian').text(data[0].bagian.bagian);
+                                                    $('#nilai').val(data[0].nilai_meteran);
+                                                    $('#id').val(data[0].id);
+                                                }
                                             })
                                         }else{
+                                            console.log('g ada');
                                             var bagian = $(this).data('bagian');
                                             var idBagian = $(this).data('idbagian');
                                             $('#edit_bagian').text(bagian);
@@ -185,7 +212,7 @@
                     method: 'POST',
                     dataType: 'JSON',
                     data: {
-                        'nilai': $('#nilai').val(), 'id': $('#id').val()
+                        'nilai': $('#nilai').val(), 'id': $('#id').val(), 'tgl': $('#tgl').val()
                     },
                     success: function (data) {
                         reload();
@@ -207,7 +234,7 @@
                     method: 'POST',
                     dataType: 'JSON',
                     data: {
-                        'nilai': $('#nilai').val(), 'idBagian': idBagian
+                        'nilai': $('#nilai').val(), 'idBagian': idBagian, 'tgl': $('#tgl').val()
                     },
                     success: function (data) {
                         reload();
@@ -220,6 +247,7 @@
                 })
             }
         }
+
         function reload(){
             var id = $("#workcenter option:selected").val();
             var tanggal = $("#tanggal").val();
@@ -229,38 +257,77 @@
                 dataType: 'JSON',
                 success: function (data) {
                     var optionroles = '', $comboroles = $('#table');
-                    for (index = 0; index < data.length; index++) 
+                    var nomor  = 0;
+                    for (index = 0; index < data[0].length; index++) 
                     {
-                        var no = index+1;
-                        optionroles+='<tr>';
-                        optionroles+='<td>'+ no +'</td>';
-                        optionroles+='<td>'+ data[index].bagian +'</td>';
-                        // optionroles+='<td>'+ data[index].pengamatan.nilai_meteran +'</td>';
-                        if(data[index].pengamatan){
-                            optionroles+='<td>'+ data[index].pengamatan.nilai_meteran +'</td>'
-                            optionroles+='<td> <button class="btn btn-primary edit" data-id="' + data[index].pengamatan.id + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
+                        if(data[0][index].pengamatan.length > 0){
+                            for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
+                            {   
+                            
+                                // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
+                                if(data[0][index].pengamatan[indek])
+                                {
+                                    var nomor = nomor+1;
+                                    optionroles+='<tr>';
+                                    optionroles+='<td>'+ nomor +'</td>';
+                                    optionroles+='<td>'+ data[0][index].pengamatan[indek].bagian +'</td>';
+                                    optionroles+='<td>'+ data[0][index].pengamatan[indek].nilai_meteran +'</td>'
+                                    for (let i = 0; i < data[1].length; i++) {
+                                        if (data[0][index].satuan_id == data[1][i].id) {
+                                            optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                        }
+                                    }
+                                    optionroles+='<td><button class="btn btn-primary edit" data-id="' + data[0][index].pengamatan[indek].pengamatan_id + '" data-tgl="' + data[0][index].pengamatan[indek].created_at + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
+                                }
+                                else
+                                {
+                                    
+                                }
+                            }
                         }else{
+                            var nomor = nomor+1;
+                            optionroles+='<tr>';
+                            optionroles+='<td>'+ nomor +'</td>';
+                            optionroles+='<td>'+ data[0][index].bagian +'</td>';
                             optionroles+='<td> No Value </td>';
-                            optionroles+='<td><button class="btn btn-primary edit" data-idBagian="'+ data[index].id +'" data-bagian="'+ data[index].bagian +'" data-id="" data-toggle="modal" data-target="#exampleModal">Edit</button></td>';
+                            for (let i = 0; i < data[1].length; i++) 
+                            {
+                                if (data[0][index].satuan_id == data[1][i].id) {
+                                    optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                }
+                            }
+                            optionroles+='<td><button class="btn btn-primary edit" data-idBagian="'+ data[0][index].id +'" data-bagian="'+ data[0][index].bagian +'" data-id="" data-toggle="modal" data-target="#exampleModal">Edit</button></td>';
                         }
-                        // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[index].pengamatan.id + '">Edit</button> </td>';
+                        
+                        
+                        // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[0][index].pengamatan.id + '">Edit</button> </td>';
                         optionroles+='</tr>';
                     }
                     $comboroles.html(optionroles).on('change');
+
                     $('.edit').click(function () {
                         var id = $(this).data('id');
-                        $.ajax({
-                            url: 'database/edit/'+id,
-                            method: 'GET',
-                            dataType: 'JSON',
-                            success: function (data) {
-                                $('#edit_bagian').text(data[0].bagian);
-                                $('#nilai').val(data[0].pengamatan.nilai_meteran);
-                                $('#id').val(data[0].pengamatan.id);
-                                
-
-                            } 
-                        })
+                        var idBagian = $(this).data('idBagian');
+                        var tgl = $(this).data('tgl');
+                        if(id != ""){
+                            $.ajax({
+                                url: 'database/edit/'+id+'/'+tgl,
+                                method: 'GET',
+                                dataType: 'JSON',
+                                success: function (data) {
+                                    $('#edit_bagian').text(data[0].bagian.bagian);
+                                    $('#nilai').val(data[0].nilai_meteran);
+                                    $('#id').val(data[0].id);
+                                }
+                            })
+                        }else{
+                            var bagian = $(this).data('bagian');
+                            var idBagian = $(this).data('idbagian');
+                            $('#edit_bagian').text(bagian);
+                            $('#idBagian').val(idBagian);
+                            $('#nilai').val(" ");
+                        
+                        }
                     })
                 }
             });

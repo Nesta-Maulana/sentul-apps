@@ -87,11 +87,7 @@
             @foreach($bagian as $b)
                 <tr>
                     <td>{{ $i }}</td>
-                    @foreach($workcenter as $work)
-                        @if($b->workcenter_id == $work->id)
-                            <td>{{ $work->workcenter }}</td>
-                        @endif 
-                    @endforeach
+                    <td>{{ $b->workcenter->workcenter }}</td>
                     <td>{{ $b->bagian }}</td>
                     <!-- <td>{{ $b->status }}</td> -->
                     @if($b->status == "1")
@@ -99,18 +95,10 @@
                     @else
                         <td>Tidak Aktif</td>
                     @endif
-                    @foreach($satuan as $s)
-                        @if($b->satuan_id == $s->id)
-                            <td>{{ $s->satuan }}</td>
-                        @endif 
-                    @endforeach
+                    <td>{{ $b->satuan->satuan }}</td>
                     <td>{{ $b->spek_min }}</td>
                     <td>{{ $b->spek_max }}</td>
-                    @foreach($kategoriPencatatan as $k)
-                        @if($b->kategori_pencatatan_id == $k->id)
-                            <td>{{ $k->kategori_pencatatan }}</td>
-                        @endif
-                    @endforeach
+                    <td>{{ $b->kategoriPencatatan->kategori_pencatatan }}</td>
                     <td><button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $b->id }}"><i class="fa fa-edit"></i> Edit</button></td>
                 </tr>
                 <?php $i++ ?>

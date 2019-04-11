@@ -61,13 +61,7 @@
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>{{ $w->workcenter }}</td>
-                                    @foreach($kategori as $k)
-
-                                        @if($w->kategori_id == $k->id)
-                                            <td>{{ $k->kategori }}</td>
-                                        @endif
-
-                                    @endforeach
+                                    <td>{{ $w->kategori->kategori }}</td>
                                     <td>{{ $w->status }}</td>
                                     <td><button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $w->id }}"><i class="fa fa-edit"></i> Edit</button></td>
                                 </tr>
