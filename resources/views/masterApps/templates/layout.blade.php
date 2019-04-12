@@ -18,6 +18,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <link rel="stylesheet" href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
 
   <link rel="stylesheet" type="text/css" href="{{ asset('masterApps/dist/css/animate.min.css') }}">
+  <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
   <style>
   .hidden
   {
@@ -199,8 +200,6 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 <!-- REQUIRED JS SCRIPTS -->
  
 
-
-<script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
 <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
 <script src="{!! asset('masterApps/dist/js/adminlte.min.js') !!}"></script>

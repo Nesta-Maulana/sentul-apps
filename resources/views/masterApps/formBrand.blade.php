@@ -33,7 +33,8 @@
                     </div>
                     <div class="p-2">
                         <button class=" btn btn-primary simpan">Simpan</button>
-                        <a href="#" class="btn btn-danger edit">Edit</a>
+                        <button class=" btn btn-primary update">Update</button>
+                        <a href="#" class="btn btn-danger batal">Batal</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -69,16 +70,39 @@
     </div>
 </div>
 <script>
+    $('.update').hide();
+    $('.batal').hide();
     function edit(id){
-        
         $.ajax({
             url: '/sentul-apps/master-apps/brand/edit/' + id,
             method: 'GET',
             dataType: 'JSON',
             success: function (data) {
-                console.log(data);
+                $('#brand').val(data[0].brand);
+                var optionparent = '<option disabled>-- PILIH PLAN --</option>';
+                for (index = 0; index < data[1].length; index++) 
+                {   
+                    if(data[1][index].id == data[0].plan_id){
+                        optionparent+='<option selected value="'+data[1][index].id+'">'+data[1][index].plan+'</option>';
+                    }else{
+                        optionparent+='<option  value="'+data[1][index].id+'">'+data[1][index].plan+'</option>';
+                    }
+                }
+                $('#plan').html(optionparent).on('change');
+                $('.update').show();
+                $('.batal').show();
+                $('.simpan').hide();
+                $('#id').val(data[0].id);
             }
         })
     }
+    $('.batal').click(function () {
+        $('#brand').val("");
+        $('#plan').val("");
+        $('#id').val("");
+        $('.update').hide();
+        $('.batal').hide();
+        $('.simpan').show();
+    })
 </script>
 @endsection

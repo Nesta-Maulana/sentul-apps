@@ -59,11 +59,12 @@
                         <tbody>
                             <?php $i=1 ?>
                             @foreach($plans as $plan)
+                            <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($plan->id) ?>
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>{{ $plan->plan }}</td>
                                     <td>{{ $plan->company->company }}</td>
-                                    <td><a href="#" class="btn btn-primary edit">Edit</a></td>
+                                    <td><a href="#" class="btn btn-primary edit" onclick="edit('{{$id}}')">Edit</a></td>
                                 </tr>
                                 <?php $i++ ?>
                             @endforeach
@@ -74,5 +75,45 @@
          {!! Form::close() !!}
     </div>
 </div>
+<script>
+    $('.update').hide();
+    $('.batal').hide();
+    function edit(id){
+        $.ajax({
+            url: '/sentul-apps/master-apps/plan/edit/' + id,
+            method: 'GET',
+            dataType: 'JSON',
+            success: function (data) {
+                $('#plan').val(data[0].plan);
+                $('#alamat').val(data[0].alamat);
+                $("#status option[value= '" + data[0].status + "']").prop('selected', true);
 
+                var optionparent = '<option disabled>-- PILIH COMPANY --</option>';
+                for (index = 0; index < data[1].length; index++) 
+                {   
+                    if(data[1][index].id == data[0].company_id){
+                        optionparent+='<option selected value="'+data[1][index].id+'">'+data[1][index].company+'</option>';
+                    }else{
+                        optionparent+='<option  value="'+data[1][index].id+'">'+data[1][index].company+'</option>';
+                    }
+                }
+                $('#company').html(optionparent).on('change');
+                $('.update').show();
+                $('.batal').show();
+                $('.simpan').hide();
+                $('#id').val(data.id);
+            }
+        })
+    }
+    $('.batal').click(function () {
+        $('#plan').val("");
+        $('#id').val("");
+        $('#status').val("");
+        $('#alamat').val("");
+        $('#company').val('');
+        $('.update').hide();
+        $('.batal').hide();
+        $('.simpan').show();
+    })
+</script>
 @endsection

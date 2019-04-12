@@ -105,13 +105,17 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/master-apps/produk/data', 'masterApps\superAdminController@dataProduk')->name('produk-data');
     Route::get('/master-apps/produk/edit/{id}', 'masterApps\superAdminController@editProduk');
 
-    Route::get('/master-apps/jenis_produk', 'masterApps\superAdminController@jenis_produk');
-    Route::post('/master-apps/jenis_produk/data', 'masterApps\superAdminController@dataJenisProduk')->name('jenis-produk-data');
-    Route::get('/master-apps/jenis_produk/edit/{id}', 'masterApps\superAdminController@editJenisProduk');
+    Route::get('/master-apps/jenis-produk', 'masterApps\superAdminController@jenisProduk');
+    Route::post('/master-apps/jenis-produk/data', 'masterApps\superAdminController@dataJenisProduk')->name('jenis-produk-data');
+    Route::get('/master-apps/jenis-produk/edit/{id}', 'masterApps\superAdminController@editJenisProduk');
 
     Route::get('/master-apps/mesin-filling', 'masterApps\superAdminController@mesinFilling');
     Route::post('/master-apps/mesin-filling/data', 'masterApps\superAdminController@dataMesinFilling')->name('mesin-filling-data');
     Route::get('/master-apps/mesin-filling/edit/{id}', 'masterApps\superAdminController@editMesinFilling');
+
+    Route::get('/master-apps/mesin-filling-head-detail', 'masterApps\superAdminController@mesinFillingHeadDetail');
+    Route::post('/master-apps/mesin-filling-head/save', 'masterApps\superAdminController@mesinFillingHeadSave');
+    Route::get('/master-apps/mesin-filling-head-detail/edit/{id}', 'masterApps\superAdminController@editMesinFillingHeadDetail');
 
     // Utility Online
     Route::get('/utility-online', 'utilityOnline\mainUtilityController@index');

@@ -17,6 +17,8 @@ use App\Models\masterApps\jenisProduk;
 use App\Models\masterApps\produk;
 use App\Models\masterApps\brand;
 use App\Models\masterApps\mesinFilling;
+use App\Models\masterApps\mesinFillingHead;
+use App\Models\masterApps\mesinFillingDetail;
 use App\Models\utilityOnline\kategori;
 use App\Models\utilityOnline\bagian;
 use App\Models\utilityOnline\workcenter;
@@ -104,14 +106,23 @@ class superAdminController extends resourceController
     }
 
     public function editBrand($id){
-        return brand::find($id);
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        $plan = plan::all();
+        return [brand::find($id), $plan];
     }
 
     public function dataBrand(Request $request){
-        brand::create([
-            'brand' => $request->brand,
-            'plan_id' => $request->plan
-        ]);
+        if ($request->id) {
+            $brand = brand::find($request->id);
+            $brand->brand = $request->brand;
+            $brand->plan_id = $request->plan;
+            $brand->save();
+        }else{
+            brand::create([
+                'brand' => $request->brand,
+                'plan_id' => $request->plan
+            ]);
+        }
         return back()->with('success', 'Data Berhasil Ditambahkan');
     }
 
@@ -120,6 +131,13 @@ class superAdminController extends resourceController
         $company = company::all();
         $plan = plan::all();
         return view('masterApps.plan', ['menus' => $this->menu, 'username' => $this->username, 'companies' => $company, 'plans' => $plan]);
+    }
+
+    public function editPlan($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        $editPlan = plan::find($id);
+        $companies = company::all();
+        return [$editPlan, $companies];
     }
 
     public function dataPlan(Request $request){
@@ -133,7 +151,26 @@ class superAdminController extends resourceController
     }
 
     public function jenisProduk(){
-        return view('masterApps.plan', ['menus' => $this->menu, 'username' => $this->username]);
+        $products = jenisProduk::all();
+        return view('masterApps.jenisProduk', ['menus' => $this->menu, 'username' => $this->username, 'products' => $products]);
+    }
+
+    public function editJenisProduk($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        return jenisProduk::find($id);
+    }
+
+    public function dataJenisProduk(Request $request){
+        if($request->id){
+            $jenisProduk = jenisProduk::find($request->id);
+            $jenisProduk->jenis_produk = $request->jenisProduk;
+            $jenisProduk->save();
+        }else{
+            jenisProduk::create([
+                'jenis_produk' => $request->jenisProduk
+            ]);
+        }
+        return back()->with('success', 'Data Berhasil Ditambahkan');
     }
 
     public function hakAkses(){
@@ -152,11 +189,50 @@ class superAdminController extends resourceController
         return view('masterApps.mesinFilling', ['menus' => $this->menu, 'username' => $this->username, 'mesinFilling' => $mesinFilling]);
     }
 
+    public function editMesinFilling($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        return mesinFilling::find($id);
+    }
+
     public function dataMesinFilling(Request $request){
-        mesinFilling::create([
-            'nama_mesin' => $request->mesin,
-            'kode_mesin' => $request->kodeMesin
+        if ($request->id) {
+            $mesinFilling = mesinFilling::find($request->id);
+            $mesinFilling->nama_mesin = $request->mesin;
+            $mesinFilling->kode_mesin = $request->kodeMesin;
+            $mesinFilling->status = $request->status;
+            $mesinFilling->save();
+        }else{
+            mesinFilling::create([
+                'nama_mesin' => $request->mesin,
+                'kode_mesin' => $request->kodeMesin
+            ]);
+        }
+        return back()->with('success', 'Berhasil Ditambahkan');
+    }
+
+    public function mesinFillingHeadDetail(){
+        $mesin = mesinFilling::all();
+        return view('masterApps.mesinFillingHeadDetail', ['menus' => $this->menu, 'username' => $this->username, 'mesin' => $mesin]);
+    }
+
+    public function mesinFillingHeadSave(Request $request){
+        
+        mesinFillingHead::create([
+            'nama_kelompok' => $request->nama_kelompok,
+            'status' => $request->status
         ]);
+        return ['berhasil'];
+    }
+
+    public function dataMesinFillingHeadDetail(Request $request){
+        if ($request->id) {
+            
+        }else{
+            mesinFillingHead::create([
+                'nama_kelompok' => $request->kelompok,
+                'status' => $request->status
+            ]);
+        }
         return back()->with('success', 'Berhasil Ditambahkan');
     }
 
@@ -207,8 +283,6 @@ class superAdminController extends resourceController
         return $rasio;
     }
     public function rasioSave(Request $request){
-
-        
         $messages = [
             'between' => 'Input rasio minimal 0 dan maksimal 100',
         ];
