@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\masterApps;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\resourceController;
 use App\Models\userAccess\userAccess;
 use App\Models\userAccess\role;
 use App\Models\masterApps\hakAkses;
@@ -12,6 +12,11 @@ use App\Models\masterApps\hakAksesAplikasi;
 use App\Models\masterApps\hakAksesUserAplikasi;
 use App\Models\masterApps\aplikasi;
 use App\Models\masterApps\karyawan;
+use App\Models\masterApps\plan;
+use App\Models\masterApps\jenisProduk;
+use App\Models\masterApps\produk;
+use App\Models\masterApps\brand;
+use App\Models\masterApps\mesinFilling;
 use App\Models\utilityOnline\kategori;
 use App\Models\utilityOnline\bagian;
 use App\Models\utilityOnline\workcenter;
@@ -23,7 +28,7 @@ use App\Models\utilityOnline\satuan;
 use Session;
 use DB;
 
-class superAdminController extends Controller
+class superAdminController extends resourceController
 {
     private $menu;
     private $username;
@@ -90,10 +95,45 @@ class superAdminController extends Controller
 
         return view('masterApps.formUser', ['user' => $user, 'countUnverify' => $countUnverify, 
         'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu, 'username' => $this->username]);
-    }
+    } 
 
     public function brand(){
-        return view('masterApps.formbrand', ['menus' => $this->menu, 'username' => $this->username]);
+        $brands = brand::all();
+        $plan = plan::all();
+        return view('masterApps.formbrand', ['menus' => $this->menu, 'username' => $this->username, 'brands' => $brands, 'plans' => $plan]);
+    }
+
+    public function editBrand($id){
+        return brand::find($id);
+    }
+
+    public function dataBrand(Request $request){
+        brand::create([
+            'brand' => $request->brand,
+            'plan_id' => $request->plan
+        ]);
+        return back()->with('success', 'Data Berhasil Ditambahkan');
+    }
+
+
+    public function plan(){
+        $company = company::all();
+        $plan = plan::all();
+        return view('masterApps.plan', ['menus' => $this->menu, 'username' => $this->username, 'companies' => $company, 'plans' => $plan]);
+    }
+
+    public function dataPlan(Request $request){
+        plan::create([
+            'plan' => $request->plan,
+            'company_id' => $request->company,
+            'alamat' => $request->alamat,
+            'status' => $request->status,
+        ]);
+        return back()->with('success', 'Berhasil Menambahkan');
+    }
+
+    public function jenisProduk(){
+        return view('masterApps.plan', ['menus' => $this->menu, 'username' => $this->username]);
     }
 
     public function hakAkses(){
@@ -101,6 +141,23 @@ class superAdminController extends Controller
         $user = userAccess::all();
         $karyawan = karyawan::all();
         return view('masterApps.formHakAkses', ['menus' => $this->menu, 'hakAkses' => $hakAkses, 'users' => $user, 'username' => $this->username, 'karyawan' => $karyawan]);
+    }
+
+    public function produk(){
+        return view('masterApps.produk', ['menus' => $this->menu, 'username' => $this->username]);
+    }
+
+    public function mesinFilling(){
+        $mesinFilling = mesinFilling::all();
+        return view('masterApps.mesinFilling', ['menus' => $this->menu, 'username' => $this->username, 'mesinFilling' => $mesinFilling]);
+    }
+
+    public function dataMesinFilling(Request $request){
+        mesinFilling::create([
+            'nama_mesin' => $request->mesin,
+            'kode_mesin' => $request->kodeMesin
+        ]);
+        return back()->with('success', 'Berhasil Ditambahkan');
     }
 
     public function rasio(){

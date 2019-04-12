@@ -237,6 +237,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
         $('[data-toggles="tooltip"]').tooltip();
         $('#example').tooltip();
     });
+    $('.select2').select2();
 </script>
 </body>
 </html>

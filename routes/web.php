@@ -89,6 +89,30 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/master-apps/bagian/data', 'masterApps\superAdminController@dataBagian');
     Route::get('/master-apps/bagian/edit/{id}', 'masterApps\superAdminController@editBagian');
 
+    Route::get('/master-apps/brand', 'masterApps\superAdminController@brand');
+    Route::post('/master-apps/bagian/data', 'masterApps\superAdminController@dataBrand')->name('brand-data');
+    Route::get('/master-apps/bagian/edit/{id}', 'masterApps\superAdminController@editBagian');
+
+    Route::get('/master-apps/brand', 'masterApps\superAdminController@brand');
+    Route::post('/master-apps/brand/data', 'masterApps\superAdminController@dataBrand');
+    Route::get('/master-apps/brand/edit/{id}', 'masterApps\superAdminController@editBrand');
+    
+    Route::get('/master-apps/plan', 'masterApps\superAdminController@plan');
+    Route::post('/master-apps/plan/data', 'masterApps\superAdminController@dataPlan')->name('plan-data');
+    Route::get('/master-apps/plan/edit/{id}', 'masterApps\superAdminController@editPlan');
+
+    Route::get('/master-apps/produk', 'masterApps\superAdminController@produk');
+    Route::post('/master-apps/produk/data', 'masterApps\superAdminController@dataProduk')->name('produk-data');
+    Route::get('/master-apps/produk/edit/{id}', 'masterApps\superAdminController@editProduk');
+
+    Route::get('/master-apps/jenis_produk', 'masterApps\superAdminController@jenis_produk');
+    Route::post('/master-apps/jenis_produk/data', 'masterApps\superAdminController@dataJenisProduk')->name('jenis-produk-data');
+    Route::get('/master-apps/jenis_produk/edit/{id}', 'masterApps\superAdminController@editJenisProduk');
+
+    Route::get('/master-apps/mesin-filling', 'masterApps\superAdminController@mesinFilling');
+    Route::post('/master-apps/mesin-filling/data', 'masterApps\superAdminController@dataMesinFilling')->name('mesin-filling-data');
+    Route::get('/master-apps/mesin-filling/edit/{id}', 'masterApps\superAdminController@editMesinFilling');
+
     // Utility Online
     Route::get('/utility-online', 'utilityOnline\mainUtilityController@index');
     Route::get('/utility-online/water', 'utilityOnline\mainUtilityController@water');

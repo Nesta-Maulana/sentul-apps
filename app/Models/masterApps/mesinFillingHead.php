@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class mesinFillingHead extends Model
 {
     protected $table = 'kelompok_mesin_filling_head';
-    protected $fillable = ['nama_kelompok', 'status'];
+    protected $guarded = ['id'];
 }

@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class plan extends Model
 {
     protected $table="plan";
-    protected $fillable = ['plan', 'company_id', 'alamat'];
+    protected $guarded = ['id'];
+
+    public function company(){
+        return $this->belongsTo('App\Models\utilityOnline\company', 'company_id');
+    }
 }
