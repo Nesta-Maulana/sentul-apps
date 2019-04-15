@@ -13,55 +13,56 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="m-portlet">
                 <h3 class="d-flex justify-content-center p-2 text-white" style="background: #716aca;">Detail Produk</h3>
-                <div class="p-2">
-                    <div class="form-group">
-                        <label for="">Nama Produk</label>
-                        <input class="form-control" type="text">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="p-2">
+                            <div class="form-group">
+                                <label for="">Nama Produk</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tgl Produksi</label>
+                                <input class="form-control" type="date">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nomor WO</label>
+                                <textarea class="form-control" name="" id="" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nomor LOT</label>
+                                <textarea class="form-control" name="" id="" rows="3"></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Tgl Produksi</label>
-                        <input class="form-control" type="date">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Nomor WO</label>
-                        <textarea class="form-control" name="" id="" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Nomor LOT</label>
-                        <textarea class="form-control" name="" id="" rows="3"></textarea>
+                    <div class="col-lg-6">
+                        <div class="p-2">
+                            <div class="form-group">
+                                <label for="">Kode Oracle</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Spek TS Minimal</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Spek TS Maximal</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Spek TS PH Minimal</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Spek TS Maximal</label>
+                                <input class="form-control" type="text">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="m-portlet">
-                <h3 class="d-flex justify-content-center p-2 text-white" style="background: #716aca;">Analisa Kimia FG</h3>
-                <div class="p-2">
-                    <div class="form-group">
-                        <label for="">Kode Oracle</label>
-                        <input class="form-control" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Spek TS Minimal</label>
-                        <input class="form-control" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Spek TS Maximal</label>
-                        <input class="form-control" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Spek TS PH Minimal</label>
-                        <input class="form-control" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Spek TS Maximal</label>
-                        <input class="form-control" type="text">
-                    </div>
-                </div>
-            </div>
+            </div>  
         </div>
     </div>
     <div class="row">
