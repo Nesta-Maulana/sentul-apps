@@ -181,7 +181,53 @@ class superAdminController extends resourceController
     }
 
     public function produk(){
-        return view('masterApps.produk', ['menus' => $this->menu, 'username' => $this->username]);
+        $brands = brand::all();
+        $jenisProducts = jenisProduk::all();
+        $mesinFillingHeads = mesinFillingHead::all();
+        $products = produk::all();
+        return view('masterApps.produk', ['menus' => $this->menu, 'username' => $this->username, 'brands' => $brands, 'jenisProducts' => $jenisProducts, 'mesinFillingHeads' => $mesinFillingHeads, 'products' => $products]);
+    }
+    public function editProduk($id){
+        $editProduk = produk::find($id);
+        $brands = brand::all();
+        $jenisProducts = jenisProduk::all();
+        $mesinFillingHeads = mesinFillingHead::all();
+        return [$editProduk, $brands, $jenisProducts, $mesinFillingHeads];   
+    }
+    public function dataProduk(Request $request){
+        if(!$request->id){
+            produk::create([
+                'brand_id' => $request->brand,
+                'nama_produk' => $request->namaProduk,
+                'kode_oracle' => $request->kodeOracle,
+                'spek_ts_min' => $request->spekTsMin,
+                'spek_ts_max' => $request->spekTsMax,
+                'spek_ph_min' => $request->spekPhMin,
+                'spek_ph_max' => $request->spekPhMax,
+                'sla' => $request->sla,
+                'waktu_analisa_mikro' => $request->waktuAnalisaMikro,
+                'kelompok_mesin_filling_head_id' => $request->kelompokMesinFillingHead,
+                'jenis_produk_id' => $request->jenisProduk,
+                'status' => $request->status,
+            ]);
+            return back()->with('success', 'Berhasil Menambahkan');
+        }else{
+            $produk = produk::find($request->id);
+            $produk->brand_id = $request->brand;
+            $produk->nama_produk = $request->namaProduk;
+            $produk->kode_oracle = $request->kodeOracle;
+            $produk->spek_ts_min = $request->spekTsMin;
+            $produk->spek_ts_max = $request->spekTsMax;
+            $produk->spek_ph_max = $request->spekPhMax;
+            $produk->spek_ph_min = $request->spekPhMin;
+            $produk->sla = $request->sla;
+            $produk->waktu_analisa_mikro = $request->waktuAnalisaMikro;
+            $produk->kelompok_mesin_filling_head_id = $request->kelompokMesinFillingHead;
+            $produk->jenis_produk_id = $request->jenisProduk;
+            $produk->status = $request->status;
+            $produk->save();
+            return back()->with('success', 'Berhasil Mengupdate');
+        }
     }
 
     public function mesinFilling(){
