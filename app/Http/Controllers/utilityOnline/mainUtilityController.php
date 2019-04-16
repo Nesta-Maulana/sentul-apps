@@ -30,7 +30,8 @@ class mainUtilityController extends Controller
             return $next($request);
         });
     }
-    public function index(){
+    public function index()
+    {
         $kategori = kategori::all();
         $now = Carbon::today('Asia/Jakarta');
         
@@ -51,7 +52,8 @@ class mainUtilityController extends Controller
                     ->select('bagian.*')
                     ->get();
         $kategoriPencatatan = kategoriPencatatan::all();
-        foreach ($water as $w ) {
+        foreach ($water as $w ) 
+        {
             $nilai = pengamatan::where('id_bagian', $w->id)->whereDate('created_at', $now)->first();
             if($nilai){
                 $w->pengamatan = $nilai->nilai_meteran;

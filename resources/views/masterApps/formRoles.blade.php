@@ -138,7 +138,7 @@
 </section>
 
 <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
-<script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
+ 
 
 
 <script>

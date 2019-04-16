@@ -45,7 +45,7 @@
         </div>
     </div>
     <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
-    <script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
+    {{--   --}}
     <script>
         $(document).ready(function () {
             window.setInterval(function(){
@@ -114,10 +114,10 @@
                 });
             });
         });
-        function ubahakses(id,isinya, apa, idUser) 
+        function ubahakses(id,status,aksi, idUser) 
         {
             $.ajax({
-                url: 'form-hak-akses/update/' +id+ '/'+isinya+'/'+apa+'/'+idUser,
+                url: 'form-hak-akses/update/' +id+ '/'+status+'/'+aksi+'/'+idUser,
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {

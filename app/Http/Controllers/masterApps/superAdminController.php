@@ -575,6 +575,7 @@ class superAdminController extends resourceController
                 'posisi' => $request->urutan,
             ]);
         }else{
+                
             $menu = DB::table('menus')
                 ->latest()
                 ->first();
@@ -625,23 +626,39 @@ class superAdminController extends resourceController
         $output = [$edit, $editIcon, $editMenu, $aplikasi];
         return $output;
     }
-    public function parent($parent){
-        $parents = menu::where('aplikasi_id', $parent)->get();
-        foreach ($parents as $p ) {
+    public function parent($aplikasi_id){
+        $parents = menu::where('aplikasi_id', $aplikasi_id)->where('parent_id','0')->get();
+        $menu    = array(); 
+        foreach ($parents as $parent) 
+        {
+            array_push($menu,$parent);
+            $cek2 = menu::where('parent_id', $parent->id)->get();    
+            foreach ($cek2 as  $cek) 
+            {
+                array_push($menu,$cek);
+            
+            }
+        }
+   /*     foreach ($parents as $p ) 
+        {
             $cek = menu::where('parent_id', $p->id)->count();
-            if ($cek > 0 ) {
-                $cek2 = menu::where('parent_id', $p->id)->get();
-                
-                foreach ($cek2 as $c ) {
-                    foreach ($parents as $p ) {
-                        if ($c->menu == $p->menu) {
+            if ($cek > 0 ) 
+            {
+                $cek2 = menu::where('parent_id', $p->id)->get();    
+                foreach ($cek2 as $c ) 
+                {
+                    foreach ($parents as $p ) 
+                    {
+                        if ($c->menu == $p->menu) 
+                        {
                             $p->where('menu', $c->menu)->delete();
                         }
                     }
                 }
             }
         }
-        return $parents;
+    */
+        return $menu;
 
     }
     public function dataHakAkses($id){
@@ -655,13 +672,14 @@ class superAdminController extends resourceController
         }
         return $dataHakAkses;
     }
-    public function updateHakAkses($id, $isinya, $apa, $idUser)
+    public function updateHakAkses($id, $status, $aksi, $idUser)
     {
-        if($isinya == '1')
+        if($status == '1')
         {
-            if($apa != "lihat"){
-                $cektipe = hakAkses::where('id', $id)->first();
-                if($cektipe->$apa == "0"){
+            if($aksi != "lihat")
+            {
+                $cektipe = hakAkses::where('id', $id)->where('user_id', $idUser)->first();
+                if($cektipe->$aksi == "0"){
                     hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                         "lihat" => "1", 
                     ]);
@@ -671,23 +689,23 @@ class superAdminController extends resourceController
                 $hakAkses   = $hakAkses->find($id);
 
                 $menus      = new Menu;
-                $menus       = $menus->where('menu',$hakAkses->menu)->first();
-
+                $menus      = $menus->where('menu',$hakAkses->menu)->first();
                 if($menus->parent_id != '0')
                 {
                     $cekparent = hakAksesAplikasi::where('menu_id',$menus->parent_id)->where('user_id',$idUser)->first();
+
                     if ($cekparent->lihat == '0') 
                     {
                         hakAksesAplikasi::where('menu_id', $cekparent->id)->where('user_id', $idUser)->update([
                             'lihat' => "1",
                         ]);
                         hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
-                            $apa => $isinya,
+                            $aksi => $status,
                         ]);
                         return $id;
                     }else{
                         hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
-                            $apa => $isinya,
+                            $aksi => $status,
                         ]);
                         return $id;
                     }
@@ -695,11 +713,13 @@ class superAdminController extends resourceController
                 else
                 {
                     hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
-                        $apa => $isinya,
+                        $aksi => $status,
                     ]);
                     return $id;              
                 }
-            }else{
+            }
+            else
+            {
                 // if ubah jadi aktif
                 $hakAkses   =  new hakAkses;
                 $hakAkses   = $hakAkses->find($id);
@@ -716,12 +736,12 @@ class superAdminController extends resourceController
                             'lihat' => "1",
                         ]);
                         hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
-                            $apa => $isinya,
+                            $aksi => $status,
                         ]);
                         return $id;
                     }else{
                         hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
-                            $apa => $isinya,
+                            $aksi => $status,
                         ]);
                         return $id;
                     }
@@ -729,7 +749,7 @@ class superAdminController extends resourceController
                 else
                 {
                     hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
-                        $apa => $isinya,
+                        $aksi => $status,
                     ]);
                     return $id;
                 }
@@ -753,7 +773,7 @@ class superAdminController extends resourceController
             }
             if($tampung > 0){
                 hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
-                    $apa => $isinya,
+                    $aksi => $status,
                 ]);
                 foreach ($menu as $m) {
                     hakAksesAplikasi::where('menu_id', $m->id)->where('user_id', $idUser)->update([
@@ -763,7 +783,7 @@ class superAdminController extends resourceController
                 return $id;  
             }else{
                 hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
-                    $apa => $isinya,
+                    $aksi => $status,
                 ]);
                 return $id;  
             }

@@ -50,8 +50,8 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-body table-responsive">
-                        <table class="m-datatable" id="table-analisa-kimia" width="100%">
-                            <thead>
+                        <table class="m-datatable table table-striped table-bordered" id="table-analisa-kimia" width="100%">
+                            <thead class="text-center">
                                 <tr>
                                     <th title="Field #1">
                                         Nama Produk
@@ -62,7 +62,7 @@
                                     <th title="Field #3">
                                         Status Analisa Kimia
                                     </th>
-                                    <th title="Field #4">
+                                    <th title="Field #4" >
                                         Aksi
                                     </th>
                                 </tr>
@@ -73,18 +73,33 @@
                             		<td>2019-04-15</td>
                             		<td>Belum Analisa</td>
                             		<td>
-                            			<input type="submit" class="btn m-btn btn-warning text-white" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
+                            			<input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
 									</td>
                             	</tr>
-
                             	<tr>
                             		<td>HiLo Orange</td>
                             		<td>2019-04-23</td>
                             		<td>Belum Analisa</td>
                             		<td>
-                            			<input type="submit" class="btn m-btn btn-warning text-white" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
+                                        <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
                             		</td>
                             	</tr>
+                                <tr>
+                                    <td>HiLo Orange</td>
+                                    <td>2019-04-23</td>
+                                    <td>Belum Analisa</td>
+                                    <td>
+                                        <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>HiLo Orange</td>
+                                    <td>2019-04-23</td>
+                                    <td>Belum Analisa</td>
+                                    <td>
+                                        <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -92,7 +107,4 @@
             </div>
         </div>
     </div>
-	<div class="m-portlet">
-		<a href="analisa-kimia-fg/analisa">GO</a>
-	</div>
 @endsection

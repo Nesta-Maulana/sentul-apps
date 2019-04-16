@@ -9,35 +9,33 @@
 <input id="interval" type="hidden" data-tambah="{{ Session::get('tambah') }}"/>
 <div class="container">
     <div class="row">
-        <div class="col ml-2 teks pt-3 rounded">
-        <form action="company/data" class="data-menu {{ Session::get('tambah') }}" method="post">
-            {{ csrf_field() }}
-            <input type="hidden" name="id" id="id">
-            <div class="row">
-                <div class="col-lg-4 ">
-                    <div class="form-group">
-                        <label for="">Company :</label>
-                        <input type="text" id="company" name="company" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Singkatan</label>
-                        <input type="text" id="singkatan" name="singkatan" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status :</label>
-                        <select name="status" id="status" class="form-control">
-                            <option value="" selected disabled>-- PILIH STATUS --</option>
-                            <option value="1">Aktif</option>
-                            <option value="0">Tidak Aktif</option>
-                        </select>
-                    </div>
+        <div class="col-lg-6 data-menu {{ Session::get('tambah') }}">
+            <form action="company/data" class="data-menu {{ Session::get('tambah') }}" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" name="id" id="id">
+                <div class="form-group">
+                    <label for="">Company :</label>
+                    <input type="text" id="company" name="company" class="form-control" autocomplete="off">
                 </div>
-            </div>
-            <button class="btn btn-primary mt-2 mb-3" id="simpan">Simpan</button>
-            <button class="text-white btn btn-primary mt-2 mb-3" id="update">Update</button>
-            <a class="text-white btn btn-danger mt-2 mb-3" id="batal">Batal</a>
-        </form>
-            <table class="table bg-white tabel-menu">
+                <div class="form-group">
+                    <label for="">Singkatan</label>
+                    <input type="text" id="singkatan" name="singkatan" class="form-control" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status :</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="" selected disabled>-- PILIH STATUS --</option>
+                        <option value="1">Aktif</option>
+                        <option value="0">Tidak Aktif</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary mt-2 mb-3" id="simpan">Simpan</button>
+                <button class="text-white btn btn-primary mt-2 mb-3" id="update">Update</button>
+                <a class="text-white btn btn-danger mt-2 mb-3" id="batal">Batal</a>
+            </form>
+        </div>
+        <div class="col-lg-6">
+             <table class="table bg-white tabel-menu" id="table-company">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -76,13 +74,13 @@
     margin-top: -240px !important;
 }
 </style>
-<script src="{{ asset('masterApps/mobileStyle/js/sweetalert2.all.min.js') }}"></script>
+ 
 <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 <script>
     
     $('#update').hide();
     $('#batal').hide();
-    window.setInterval(function(){
+/*    window.setInterval(function(){
         if($(window).width() <= 369){
             $('.table').addClass('table-responsive');
         }else{
@@ -110,7 +108,7 @@
             $('.tabel-menu').removeClass('margin-top');
             $('.tabel-menu').addClass('margin-top-mobile');
         }
-    }
+    }*/
 
     $('#batal').click(function () {
         if($('#interval').data('tambah') == 'hidden'){

@@ -11,9 +11,6 @@
 @section('content')
 <div class="box d-flex data-menu {{ Session::get('tambah') }}">
     <div class="container">
-        <div class="box-header">
-            
-        </div>
         {!! Form::open(['route' => 'produk-data', 'method' => 'POST']) !!}
             <input type="hidden" name="id" id="id">
             <div class="row">
@@ -93,22 +90,24 @@
                     <button href="#" class="btn btn-primary update">update</button>
                     <a href="#" class="btn btn-danger batal">Batal</a>
                 </div>            
-                <table class="table text-center table-bordered table-striped">
-                    <thead class="dark">
+            </div>
+                <table class="display nowrap" id="table-produk" width= "100%">
+                    <thead >
                         <tr>
-                            <td>#</td>
-                            <td>Brand</td>
-                            <td>Nama Produk</td>
-                            <td>Kode Oracle</td>
-                            <td>Spek TS Min</td>
-                            <td>Spek TS Max</td>
-                            <td>Spek PH Min</td>
-                            <td>Spek PH Max</td>
-                            <td>Sla (dalam Hari)</td>
-                            <td>Waktu Analisa Mikro</td>
-                            <td>Kelompok Mesin Filling Head</td>
-                            <td>Jenis Produk</td>
-                            <td>Status</td>
+                            <th>#</th>
+                            <th>Brand</th>
+                            <th>Nama Produk</th>
+                            <th>Kode Oracle</th>
+                            <th>Spek TS Min</th>
+                            <th>Spek TS Max</th>
+                            <th>Spek PH Min</th>
+                            <th>Spek PH Max</th>
+                            <th>Sla (dalam Hari)</th>
+                            <th>Waktu Analisa Mikro</th>
+                            <th>Kelompok Mesin Filling Head</th>
+                            <th>Jenis Produk</th>
+                            <th>Status</th>
+                            <th>aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,7 +137,6 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
         {!! Form::close() !!}
     </div>
 </div>
