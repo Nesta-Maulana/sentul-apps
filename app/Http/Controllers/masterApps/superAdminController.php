@@ -263,23 +263,42 @@ class superAdminController extends resourceController
 
     public function mesinFillingHeadSave(Request $request){
         
-        mesinFillingHead::create([
-            'nama_kelompok' => $request->nama_kelompok,
+        
+        $cari   = mesinFillingHead::where('nama_kelompok',$request->nama_kelompok)->select('id')->count();
+        if($cari > 0)
+        {
+            $data = [
+                'success' => false,
+                'message' => 'Kelompok Mesin Filling Sudah Ada'
+            ];
+        }
+        else
+        {
+            $data = [
+                'success' => true,
+                'message' => 'Data Berhasil Ditambahkan'
+            ];
+        }
+
+        return $data;
+    }
+    public function mesinFillingHeadDetailSave(Request $request)
+    {
+        $head = mesinFillingHead::create([
+            'nama_kelompok' => $request->kelompok,
             'status' => $request->status
         ]);
-        return ['berhasil'];
-    }
+        for ($i=0; $i < count($request->company); $i++) 
+        {
 
-    public function dataMesinFillingHeadDetail(Request $request){
-        if ($request->id) {
-            
-        }else{
-            mesinFillingHead::create([
-                'nama_kelompok' => $request->kelompok,
-                'status' => $request->status
+            mesinFillingDetail::create([
+                'kelompok_mesin_filling_head_id' => $head->id,
+                'mesin_filling_id' => $request->company[$i]
             ]);
         }
-        return back()->with('success', 'Berhasil Ditambahkan');
+
+        return back()->with('success', 'Data Berhasil Ditambahkan');
+
     }
 
     public function rasio(){

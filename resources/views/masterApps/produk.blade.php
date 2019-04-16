@@ -196,7 +196,7 @@
                 $("#status option[value= '" + data[0].status + "']").prop('selected', true);
             }
         })
-    }
+    }   
     $('.batal').click(function () {
         $('#id').val("");
         $('#namaProduk').val(" ");
