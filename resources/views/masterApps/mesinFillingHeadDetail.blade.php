@@ -9,61 +9,59 @@
     active
 @endsection
 @section('content')
-<div class="container">
-    <div class="box-header">
-        
+
+{{ csrf_field() }}
+{!! Form::open(['route' => 'mesin-filling-head-detail-save', 'method' => 'POST']) !!}
+
+<div class="row">
+    <div class="col-lg-5">
+        <div class="box p-2">
+            <input type="hidden" name="id" id="id">
+            <div class="form-group">
+                <label for="kelompok">Nama Kelompok : </label>
+                <input type="text" name="kelompok" class="form-control" id="kelompok">
+            </div>
+            <div class="form-group">
+                <label for="status">Status : </label>
+                <select name="status" id="status" class="form-control">
+                    <option value="" disabled selected>-- PILIH STATUS --</option>
+                    <option value="1">Aktif</option>
+                    <option value="0">Tidak Aktif</option>
+                </select>
+            </div>
+            <div class="p-2">
+                <a class=" btn btn-primary simpan text-white" id="save" onclick="save()">Simpan</a>
+            </div>
+            <a class="btn btn-primary mb-2 text-white" id="tambahCompany" onclick="tambahCompany()">Tambah Company</a>
+        </div>
     </div>
-    {{ csrf_field() }}
-        <input type="hidden" name="id" id="id">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label for="kelompok">Nama Kelompok : </label>
-                    <input type="text" name="kelompok" class="form-control" id="kelompok">
-                </div>
-                <div class="form-group">
-                    <label for="status">Status : </label>
-                    <select name="status" id="status" class="form-control">
-                        <option value="" disabled selected>-- PILIH STATUS --</option>
-                        <option value="1">Aktif</option>
-                        <option value="0">Tidak Aktif</option>
-                    </select>
-                </div>
-                <div class="p-2">
-                    <button class=" btn btn-primary simpan" id="save" onclick="save()">Simpan</button>
-                </div>
+    <div class="col-lg-7">
+        <div class="box d-flex data-menu {{ Session::get('tambah') }}">
+            <div class="box-body table-responsive no-padding" id="mesinFillingDetail">
+                    <table class="table table-hover" id="mesin-table">
+                        <tr>
+                            <!-- <th>NO.</th> -->
+                            <th>Mesin Filing</th>
+                        </tr>
+                        <tr>
+                            <!-- <td></td> -->
+                            <td>
+                                <select class="css-input select2" name="company[]" id="company1">
+                                    <option value="" selected disabled>-- PILIH MESIN --</option>
+                                    @foreach($mesin as $m)
+                                        <option value="{{ $m->id }}"> {{ $m->nama_mesin }} </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <button class="btn btn-primary m-3 float-right">Simpan</button>
+                {!! Form::close() !!}
             </div>
         </div>
-        <button class="btn btn-primary mb-2" id="tambahCompany" onclick="tambahCompany()">Tambah Company</button>
-    
-</div>
-<div class="box d-flex data-menu {{ Session::get('tambah') }}">
-    <div class="box-body table-responsive no-padding" id="mesinFillingDetail">
-        <table class="table table-hover" id="mesin-table">
-            <tr>
-                <th>NO.</th>
-                <th>Company</th>
-                <th>Rasio</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>
-                    <select name="company" class="css-input select2" id="company">
-                        <option value="" selected disabled>-- PILIH MESIN --</option>
-                        @foreach($mesin as $m)
-                            <option value="{{ $m->id }}"> {{ $m->nama_mesin }} </option>
-                        @endforeach
-                    </select>
-                </td>
-                <td>
-                    <input type="number" class="form-control input-rasio" name="rasio" min="0" max="100">
-                </td>
-            </tr>
-        </table>
-        <button class="btn btn-primary m-3 float-right">Simpan</button>
     </div>
 </div>
-</div>
+
 
 <script>
 $(document).ready(function () {
@@ -76,15 +74,29 @@ $(document).ready(function () {
             method: 'POST',
             data: {'_token': $('input[name=_token]').val(), 'nama_kelompok': $('#kelompok').val(), 'status': $('#status').val()},
             dataType: 'JSON',
-            success: function (data) {
-                swal({
+            success: function (data)
+            {
+                if(data.success == true)
+                {
+                    swal({
                     title: "Success",
-                    text: "Berhasil Menambahkan",
+                    text: data.message,
                     type: "success",
-                });
-                $('#mesinFillingDetail').show();
-                $('#tambahCompany').show();
-                $('#id').val(data.id);
+                    });
+                    $('#mesinFillingDetail').show();
+                    $('#tambahCompany').show();
+                    $('#id').val(data.id);
+                    $('#kelompok').prop('readonly',true);
+                }
+                else
+                {
+                    swal({
+                        title: "GAGAL",
+                        text: data.message,
+                        type: "error",
+                    });
+                }
+
             }
         });
     }
@@ -100,14 +112,10 @@ $(document).ready(function () {
             $trLast.find('.css-input').select2(); // Re-instrument original row
             $trNew.find('.css-input').select2(); // Instrument clone
             $trLast.after($trNew);
-            $i = 1;
-            $input = $trNew.find('input').attr({
-                'id': function(_, id) { return id + $i },
-                'name': function(_, name) { return name + $i }
-            });
+            $i = document.getElementById(tablenya).getElementsByTagName("select").length;
             $input = $trNew.find('select').attr({
                 'id': function(_, id) { return id + $i },
-                'name': function(_, name) { return name + $i },
+                // 'name': function(_, name) { return name + $i },
             });
 
             $i++;

@@ -115,6 +115,7 @@ Route::middleware('ceklogin')->group(function ()
 
     Route::get('/master-apps/mesin-filling-head-detail', 'masterApps\superAdminController@mesinFillingHeadDetail');
     Route::post('/master-apps/mesin-filling-head/save', 'masterApps\superAdminController@mesinFillingHeadSave');
+    Route::post('/master-apps/mesin-filling-head-detail/save', 'masterApps\superAdminController@mesinFillingHeadDetailSave')->name('mesin-filling-head-detail-save');
     Route::get('/master-apps/mesin-filling-head-detail/edit/{id}', 'masterApps\superAdminController@editMesinFillingHeadDetail');
 
     // Utility Online

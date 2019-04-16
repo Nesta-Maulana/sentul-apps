@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\masterApps;
 
 use Illuminate\Database\Eloquent\Model;
 
-class mesingFillingDetail extends Model
+class mesinFillingDetail extends Model
 {
     protected $table = 'kelompok_mesin_filling_detail';
     protected $guarded = ['id'];

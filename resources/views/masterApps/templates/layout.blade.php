@@ -22,7 +22,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <style>
   .hidden
   {
-        visibility: hidden;
+        display: none;
   }
   </style>
     <!-- My Css -->
