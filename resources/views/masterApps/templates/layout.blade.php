@@ -93,14 +93,16 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
       <!-- Sidebar Menu -->
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header"><br></li>
+
         <!-- Optionally, you can add icons to the links -->
       <?php $idUser = Session::get('login') ?>
-      
+        
         @foreach($menus as $menu)
             <?php  
                 $cekchild = "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";
                 $cekchild = mysqli_query($conn, $cekchild);
                 $cekchilds = mysqli_fetch_array($cekchild); 
+                
             ?>
             @if($cekchilds[0] == 0)
                 <li class="@yield('active')"><a href="{{ $menu->link }}"><i class="fa {{ $menu->icon }}"></i> <span>{{ $menu->menu }}</span></a></li>

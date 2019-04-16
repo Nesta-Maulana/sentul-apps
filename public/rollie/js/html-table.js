@@ -1,7 +1,7 @@
 var DatatableHtmlTableDemo= {
     init:function() {
         var e;
-        e=$("#table-cpp").mDatatable({
+        e = $("#table-cpp").mDatatable({
             data: {
                 saveState: {
                     cookie: !1
@@ -32,10 +32,42 @@ var DatatableHtmlTableDemo= {
         $("#nomor_wo_filter, #mesin_filling_filter").select2()
     }
 }
+var Tableanalisakimia= {
+    init:function() {
+        var e;
+        e = $("#table-analisa-kimia").mDatatable({
+            data: {
+                saveState: {
+                    cookie: !1
+                }
+            }
+            , search: {
+                input: $("#generalSearch")
+            }
+            , columns:[ 
+            {
+                field: "Tanggal Produksi", type: "date", format: "YYYY-MM-DD"
+            }, 
+            ]
+        }
+        ),
+        $("#nama_produk_filter").on("change", function() {
+            e.search($(this).val().toLowerCase(), "Nama Produk")
+        }
+        ),
+        $("#tanggal_produksi_filter").on("change", function() {
+            e.search($(this).val().toLowerCase(), "Tanggal Produksi")
+        }
+        ),
+        $("#nama_produk_filter, #tanggal_produksi_filter").select2()
+    }
+}
+
 
 ;
 jQuery(document).ready(function() {
-    DatatableHtmlTableDemo.init()
+    DatatableHtmlTableDemo.init();
+    Tableanalisakimia.init()
 }
 
 );

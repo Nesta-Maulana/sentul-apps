@@ -1,9 +1,14 @@
 var Select2= {
     init:function() {
-        $("#m_select2_1,#m_select2_2").select2( {
+        $("#nama_produk_cpp").select2( {
             placeholder: "Select a produk"
-        }
-        )
+        }),
+        $("#tanggal_produksi_cpp").select2( {
+            placeholder: "Select a produk"
+        }),
+        $("#nama_produk_rkj").select2( {
+            placeholder: "Select a produk"
+        })
     }
 }
 

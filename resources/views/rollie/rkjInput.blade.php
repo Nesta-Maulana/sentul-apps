@@ -33,60 +33,60 @@
                 <h3 class="p-2 text-white d-flex justify-content-center back-purple"> </h3>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-8">
             <div class="m-portlet">
                 <h3 class="p-2 text-white d-flex justify-content-center back-purple">Data Produk</h3>
-                <div class="p-2">
-                    <div class="form-group">
-                        <label for="">Nama Produk : </label>
-                        <select name="" id="" class="form-control">
-                            <option value="">Produk 1</option>
-                            <option value="">Produk 2</option>
-                        </select>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="p-2">
+                            <div class="form-group">
+                                <label for="">Nama Produk : </label>
+                                <select name="" id="nama_produk_rkj" class="form-control m-select2 select2">
+                                    <option value="">Produk 1</option>
+                                    <option value="">Produk 2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Kode Oracle :</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tgl Produksi :</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Batch Size :</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Kode Oracle :</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Tgl Produksi :</label>
-                        <input type="date" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Batch Size :</label>
-                        <input type="text" class="form-control">
+                    <div class="col-lg-6">
+                        <div class="p-2">
+                            <div class="form-group">
+                                <label for="">No WO : </label>
+                                <select name="" id="" class="form-control">
+                                    <option value="">WO 1</option>
+                                    <option value="">WO 2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Mesin Filling :</label>
+                                <select name="" id="" class="form-control">
+                                    <option value="">Mesin 1</option>
+                                    <option value="">Mesin 2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">No Lot :</label>
+                                <select name="" id="" class="form-control">
+                                    <option value="">Lot 1</option>
+                                    <option value="">Lot 2</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <h3 class="p-2 text-white d-flex justify-content-center back-purple"> </h3>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="m-portlet">
-                <h3 class="p-2 text-white d-flex justify-content-center back-purple"> </h3>
-                <div class="p-2">
-                    <div class="form-group">
-                        <label for="">No WO : </label>
-                        <select name="" id="" class="form-control">
-                            <option value="">WO 1</option>
-                            <option value="">WO 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Mesin Filling :</label>
-                        <select name="" id="" class="form-control">
-                            <option value="">Mesin 1</option>
-                            <option value="">Mesin 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">No Lot :</label>
-                        <select name="" id="" class="form-control">
-                            <option value="">Lot 1</option>
-                            <option value="">Lot 2</option>
-                        </select>
-                    </div>
-                </div>
-                <h3 class="p-2 text-white d-flex justify-content-center back-purple"> </h3>
+               <h3 class="p-2 text-white d-flex justify-content-center back-purple"> </h3>      
             </div>
         </div>
     </div>
@@ -113,7 +113,8 @@
                             </div> 
                             <div class="form-group">
                                 <label for="">Jumlah</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control col-lg-12">
+
                             </div> 
                             <div class="float-right">
                                 <button class="btn text-white p-3 back-purple">Input RKJ</button>
