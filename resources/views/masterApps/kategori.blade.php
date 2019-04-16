@@ -89,7 +89,8 @@
             }
         }, 200);
 
-        function setMargin(){
+        function setMargin()
+        {
             if($(window).width() >= 992){
                 $('.tabel-menu').removeClass('margin-top-mobile');
                 $('.tabel-menu').addClass('margin-top');

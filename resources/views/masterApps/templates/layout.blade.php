@@ -21,7 +21,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <style>
   .hidden
   {
-        visibility: hidden;
+        display:none;
   }
   </style>
     <!-- My Css -->
@@ -208,7 +208,35 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
 <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
 <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+
+  <script src="{!! asset('masterApps/js/datatable.min.js') !!}"></script>
+  <link rel="stylesheet" href="{{ asset('masterApps/css/datatable.min.css') }}">
 <script>
+  $(document).ready(function() 
+    {
+        $('#table-company').DataTable({
+          bFilter:false,
+          bInfo:false,
+          bLengthChange:false,
+          pageLength:3
+          
+        });
+        $('#table-satuan').DataTable({
+          bFilter:false,
+          bInfo:false,
+          bLengthChange:false,
+          pageLength:3
+        });
+
+        $('#table-produk').DataTable({
+          paging: false,
+          scrollY: 400,
+          scrollX: true,
+        });
+
+    } 
+  );
+ 
   new WOW().init();
   const flashdatas = $('.failed').data('flashdata');
     if(flashdatas){

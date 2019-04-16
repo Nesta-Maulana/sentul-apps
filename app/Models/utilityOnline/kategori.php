@@ -8,5 +8,5 @@ class kategori extends Model
 {
     protected $connection = 'mysql2';
     protected $table="kategori";
-    protected $fillable=['kategori'];
+    protected $fillable=['kategori','status'];
 }

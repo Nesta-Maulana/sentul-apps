@@ -121,42 +121,42 @@
 $('#batal').hide();
 $('#update').hide();
 
-window.setInterval(function(){
-    if($(window).width() <= 1100){
-        $('.table').addClass('table-responsive');
-    }else{
-        $('.table').removeClass('table-responsive');
-    }
-}, 100);
+// window.setInterval(function(){
+//     if($(window).width() <= 1100){
+//         $('.table').addClass('table-responsive');
+//     }else{
+//         $('.table').removeClass('table-responsive');
+//     }
+// }, 100);
 
-window.setInterval(function () {
-    var cek = $('#interval').val();
-    var tambah = $('#interval').data('tambah');
-    if(cek == "" && tambah == "hidden"){
-        var myVar = setInterval( setMargin(), 200);
-    }else {
-        clearInterval(myVar);
-        $('.tabel-menu').removeClass('margin-top-mobile');
-        $('.tabel-menu').removeClass('margin-top');
-    }
-}, 200);
-function setMargin(){
-    if($(window).width() >= 992){
-        $('.tabel-menu').removeClass('margin-top-mobile');
-        $('.tabel-menu').addClass('margin-top');
-    }else{
-        $('.tabel-menu').removeClass('margin-top');
-        $('.tabel-menu').addClass('margin-top-mobile');
-    }
-}
+// window.setInterval(function () {
+//     var cek = $('#interval').val();
+//     var tambah = $('#interval').data('tambah');
+//     if(cek == "" && tambah == "hidden"){
+//         var myVar = setInterval( setMargin(), 200);
+//     }else {
+//         clearInterval(myVar);
+//         $('.tabel-menu').removeClass('margin-top-mobile');
+//         $('.tabel-menu').removeClass('margin-top');
+//     }
+// }, 200);
+// function setMargin(){
+//     if($(window).width() >= 992){
+//         $('.tabel-menu').removeClass('margin-top-mobile');
+//         $('.tabel-menu').addClass('margin-top');
+//     }else{
+//         $('.tabel-menu').removeClass('margin-top');
+//         $('.tabel-menu').addClass('margin-top-mobile');
+//     }
+// }
 
 
 $('#batal').click(function () {
-    if($('#interval').data('tambah') == 'hidden'){
+    if($('#interval').data('tambah') == 'hidden')
+    {
         $('.data-menu').addClass('hidden');
-    }else{
-
     }
+    
     $('#interval').val("");
     $('#simpan').show();
     $('#batal').hide();

@@ -152,7 +152,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');
     
     Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia');
-    Route::get('/rollie/analisa-kimia-fg/analisa', 'rollie\rollieController@analisaKimiaAnalisa');
+    Route::get('/rollie/analisa-kimia-fg/analisa-produk/{id}', 'rollie\rollieController@analisaKimiaAnalisa')->name('analisa-produk');
     Route::get('/rollie/rkj', 'rollie\rollieController@rkj');
     Route::get('/rollie/rkj/input', 'rollie\rollieController@rkjInput');
     Route::get('/rollie/package-integrity', 'rollie\rollieController@packageIntegrity');

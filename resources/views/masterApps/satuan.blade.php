@@ -8,7 +8,7 @@
 @section('content')
     <input id="interval" type="hidden" data-tambah="{{ Session::get('tambah') }}"/>
     <div class="row">
-        <div class="col-lg-5 mb-3 data-menu {{ Session::get('tambah') }}">
+        <div class="col-lg-6 mb-3 data-menu {{ Session::get('tambah') }}">
             <form action="satuan/data" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" id="id" name="id">
@@ -29,20 +29,17 @@
                 <a class="btn btn-danger text-white" id="batal">Batal</a>
             </form>
         </div>
-    </div>
-    <div class="box tabel-menu">
-        <div class="box-header">
-            <h3 class="box-title">Table Satuan</h3>
-        </div>
-
-        <div class="box-body no-padding">
-            <table class="table table-striped">
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Satuan</th>
-                    <th>Status</th>
-                    <th style="width: 70px">Aksi</th>
-                </tr>
+        <div class="col-lg-6">
+            <table class="table table-striped" id="table-satuan">
+                <thead>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Satuan</th>
+                        <th>Status</th>
+                        <th style="width: 70px">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <?php $i=1 ?>
                 @foreach($satuan as $s)
                     <tr>
@@ -59,7 +56,8 @@
                     </tr>
                     <?php $i++ ?>
                 @endforeach
-            </table>
+                </tbody>
+            </table>  
         </div>
     </div>
     <style>
@@ -76,34 +74,34 @@
             $('#update').hide();
             $('#batal').hide();
 
-            window.setInterval(function(){
-                if($(window).width() <= 305){
-                    $('.table').addClass('table-responsive');
-                }else{
-                    $('.table').removeClass('table-responsive');
-                }
-            }, 100);
+            // window.setInterval(function(){
+            //     if($(window).width() <= 305){
+            //         $('.table').addClass('table-responsive');
+            //     }else{
+            //         $('.table').removeClass('table-responsive');
+            //     }
+            // }, 100);
 
-            window.setInterval(function () {
-                var cek = $('#interval').val();
-                var tambah = $('#interval').data('tambah');
-                if(cek == "" && tambah == "hidden"){
-                    var myVar = setInterval( setMargin(), 200);
-                }else {
-                    clearInterval(myVar);
-                    $('.tabel-menu').removeClass('margin-top-mobile');
-                    $('.tabel-menu').removeClass('margin-top');
-                }
-            }, 200);
-            function setMargin(){
-                if($(window).width() >= 992){
-                    $('.tabel-menu').removeClass('margin-top-mobile');
-                    $('.tabel-menu').addClass('margin-top');
-                }else{
-                    $('.tabel-menu').removeClass('margin-top');
-                    $('.tabel-menu').addClass('margin-top-mobile');
-                }
-            }
+            // window.setInterval(function () {
+            //     var cek = $('#interval').val();
+            //     var tambah = $('#interval').data('tambah');
+            //     if(cek == "" && tambah == "hidden"){
+            //         var myVar = setInterval( setMargin(), 200);
+            //     }else {
+            //         clearInterval(myVar);
+            //         $('.tabel-menu').removeClass('margin-top-mobile');
+            //         $('.tabel-menu').removeClass('margin-top');
+            //     }
+            // }, 200);
+            // function setMargin(){
+            //     if($(window).width() >= 992){
+            //         $('.tabel-menu').removeClass('margin-top-mobile');
+            //         $('.tabel-menu').addClass('margin-top');
+            //     }else{
+            //         $('.tabel-menu').removeClass('margin-top');
+            //         $('.tabel-menu').addClass('margin-top-mobile');
+            //     }
+            // }
 
             $('.edit').click(function () {
                 $('#interval').val("edit");
@@ -126,6 +124,9 @@
                 });
             });
             $('#batal').click(function () {
+                if($('#interval').data('tambah') == 'hidden'){
+                    $('.data-menu').addClass('hidden');
+                }
                 $('#interval').val("");
                 $('#satuan').val("");
                 $('#status').val("");

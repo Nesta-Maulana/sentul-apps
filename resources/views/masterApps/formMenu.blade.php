@@ -17,7 +17,7 @@
 {{-- <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
 <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'> --}}
 
-<div class="box d-flex data-menu {{ Session::get('tambah') }}">
+<div class="data-menu {{ Session::get('tambah') }}">
     <div class="container">
         <div class="box-header">
             <h3>Data Menu</h3>
@@ -215,7 +215,7 @@ $(document).ready(function(){
         });
     });
 
-    window.setInterval(function () {
+/*    window.setInterval(function () {
         var cek = $('#interval').val();
         var tambah = $('#interval').data('tambah');
         if(cek == "" && tambah == "hidden"){
@@ -243,8 +243,9 @@ $(document).ready(function(){
         }else{
             $('.table').removeClass('table-responsive');
         }
-    }, 200);
-    $("button").click(function () {
+    }, 200);*/
+    $("button").click(function () 
+    {
         $('#interval').val("edit");
         $('.data-menu').removeClass('hidden');
         $('.tabel-menu').removeClass('margin-top');
@@ -252,121 +253,121 @@ $(document).ready(function(){
         $('#simpan').hide();
         $('#update').show();
         $('#batal').show();
-    const id = $(this).data('id');
-    const aplikasi = $(this).data('aplikasi');
+        const id = $(this).data('id');
+        const aplikasi = $(this).data('aplikasi');
 
-    $.ajax({
-            url: 'form-menu/edit/' + id + '/' + aplikasi,
-            method: 'GET',
-            dataType:'JSON',
-            success: function(data)
-            {
-                $('#menu').val(data[0][0]['menu']);
-                $('#id').val(data[0][0]['id']);
-                $('#urutan').val(data[0][0]['posisi']);
-                $('#link').val(data[0][0]['link']);
-                $("#status option[value= '" + data[0][0].status + "']").prop('selected', true);
-                var optionroless = '<option disabled>-- PILIH APLIKASI --</option>', $comboroless = $('#aplikasi');
-                for (index = 0; index < data[3].length; index++) 
+        $.ajax({
+                url: 'form-menu/edit/' + id + '/' + aplikasi,
+                method: 'GET',
+                dataType:'JSON',
+                success: function(data)
                 {
-                    if (data[3][index].id == data[0][0].aplikasi_id) 
+                    $('#menu').val(data[0][0]['menu']);
+                    $('#id').val(data[0][0]['id']);
+                    $('#urutan').val(data[0][0]['posisi']);
+                    $('#link').val(data[0][0]['link']);
+                    $("#status option[value= '" + data[0][0].status + "']").prop('selected', true);
+                    var optionroless = '<option disabled>-- PILIH APLIKASI --</option>', $comboroless = $('#aplikasi');
+                    for (index = 0; index < data[3].length; index++) 
                     {
-                        
-                        optionroless+='<option  value="'+data[3][index].id+'" selected>'+data[3][index].aplikasi+'</option>';   
+                        if (data[3][index].id == data[0][0].aplikasi_id) 
+                        {
+                            
+                            optionroless+='<option  value="'+data[3][index].id+'" selected>'+data[3][index].aplikasi+'</option>';   
+                        }
+                        else
+                        {
+                            optionroless+='<option  value="'+data[3][index].id+'">'+data[3][index].aplikasi+'</option>';   
+                        }
                     }
-                    else
-                    {
-                        optionroless+='<option  value="'+data[3][index].id+'">'+data[3][index].aplikasi+'</option>';   
-                    }
-                }
-                $comboroless.html(optionroless).on('change');
+                    $comboroless.html(optionroless).on('change');
 
-                var optionroles = '<option disabled>-- PILIH PARENT --</option>', $comboroles = $('#icons');
-                
-                for (index = 0; index < data[1].length; index++) 
-                {
-                    if (data[1][index].icons == data[0][0].icon) 
+                    var optionroles = '<option disabled>-- PILIH PARENT --</option>', $comboroles = $('#icons');
+                    
+                    for (index = 0; index < data[1].length; index++) 
                     {
-                        
-                        optionroles+='<option  value="'+data[1][index].icons+'" selected>'+data[1][index].icons+'</option>';   
+                        if (data[1][index].icons == data[0][0].icon) 
+                        {
+                            
+                            optionroles+='<option  value="'+data[1][index].icons+'" selected>'+data[1][index].icons+'</option>';   
+                        }
+                        else
+                        {
+                            optionroles+='<option  value="'+data[1][index].icons+'">'+data[1][index].icons+'</option>';   
+                        }
                     }
-                    else
-                    {
-                        optionroles+='<option  value="'+data[1][index].icons+'">'+data[1][index].icons+'</option>';   
-                    }
-                }
-                $comboroles.html(optionroles).on('change');
-                var i = 0;
-                var optionparent = '<option disabled>-- PILIH PARENT --</option>', $comboparent = $('#parent');
-                optionparent += '<option value="0">Jadikan Parent</option>';
-                for (index = 0; index < data[2].length; index++) 
-                {   
-                    if (data[2][index].id == data[0][0].parent_id) 
-                    {
-                        optionparent+='<option  value="'+data[2][index].id+'" data-icon="' + data[2][index].icon + '" selected>'+data[2][index].menu+'</option>';
-                    } 
-                    else
-                    {
-                        
-                        if(data[2][index].parent_id == "0"){
-                            if(i == 0){
-                                optionparent+="<option value='0' selected> PARENT </option>"
-                                i++;
-                            } else{
+                    $comboroles.html(optionroles).on('change');
+                    var i = 0;
+                    var optionparent = '<option disabled>-- PILIH PARENT --</option>', $comboparent = $('#parent');
+                    optionparent += '<option value="0">Jadikan Parent</option>';
+                    for (index = 0; index < data[2].length; index++) 
+                    {   
+                        if (data[2][index].id == data[0][0].parent_id) 
+                        {
+                            optionparent+='<option  value="'+data[2][index].id+'" data-icon="' + data[2][index].icon + '" selected>'+data[2][index].menu+'</option>';
+                        } 
+                        else
+                        {
+                            
+                            if(data[2][index].parent_id == "0"){
+                                if(i == 0){
+                                    optionparent+="<option value='0' selected> PARENT </option>"
+                                    i++;
+                                } else{
+                                    if(data[2][index].id == data[0][0].id){
+
+                                    } else {
+                                        optionparent+='<option  value="'+data[2][index].id+'" data-icon="' + data[2][index].icon + '">'+data[2][index].menu+'</option>'; 
+                                    }
+                                }
+                            }else{
                                 if(data[2][index].id == data[0][0].id){
 
                                 } else {
-                                    optionparent+='<option  value="'+data[2][index].id+'" data-icon="' + data[2][index].icon + '">'+data[2][index].menu+'</option>'; 
+                                optionparent+='<option  value="'+data[2][index].id+'" data-icon="' + data[2][index].icon + '">'+data[2][index].menu+'</option>';   
                                 }
                             }
-                        }else{
-                            if(data[2][index].id == data[0][0].id){
-
-                            } else {
-                            optionparent+='<option  value="'+data[2][index].id+'" data-icon="' + data[2][index].icon + '">'+data[2][index].menu+'</option>';   
-                            }
+                            
                         }
+                    }
+                    $comboparent.html(optionparent).on('change');
+                }
+            });
+        });
+        $('#parent').change(function(){
+            id = $(this).val();
+            $.ajax({
+                url: 'form-menu/urutan/' + id,
+                method: 'GET',
+                dataType:'JSON',
+                success: function(data)
+                {  
+                    if(data.length==0)
+                    {
                         
+                        $('#urutan').val('0');
+                    }
+                    else
+                    {
+                        var j = data.length*1-1
+                        $('#urutan').val((data[j].posisi*1)+1);
                     }
                 }
-                $comboparent.html(optionparent).on('change');
-            }
+            });
         });
-    });
-    $('#parent').change(function(){
-        id = $(this).val();
-        $.ajax({
-            url: 'form-menu/urutan/' + id,
-            method: 'GET',
-            dataType:'JSON',
-            success: function(data)
-            {  
-                if(data.length==0)
-                {
-                    
-                    $('#urutan').val('0');
-                }
-                else
-                {
-                    var j = data.length*1-1
-                    $('#urutan').val((data[j].posisi*1)+1);
-                }
-            }
-        });
-    });
 
-    function iformat(icon) {
-        var originalOption = icon.element;
-         return $('<span><i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '</span>');
-    }
- 
-    $('#parent').select2({
-        width: "100%",
-        templateSelection: iformat,
-        templateResult: iformat,
-        allowHtml: true
+        function iformat(icon) {
+            var originalOption = icon.element;
+             return $('<span><i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '</span>');
+        }
+     
+        $('#parent').select2({
+            width: "100%",
+            templateSelection: iformat,
+            templateResult: iformat,
+            allowHtml: true
+        });
     });
-});
 
 </script>
 @endsection

@@ -671,10 +671,10 @@ class superAdminController extends resourceController
 
                 $menus      = new Menu;
                 $menus      = $menus->where('menu',$hakAkses->menu)->first();
-
-                if($menus->parent_id !== '0')
+                if($menus->parent_id != '0')
                 {
                     $cekparent = hakAksesAplikasi::where('menu_id',$menus->parent_id)->where('user_id',$idUser)->first();
+
                     if ($cekparent->lihat == '0') 
                     {
                         hakAksesAplikasi::where('menu_id', $cekparent->id)->where('user_id', $idUser)->update([
@@ -693,7 +693,6 @@ class superAdminController extends resourceController
                 }
                 else
                 {
-                    dd("KESINI NYA");
                     hakAksesAplikasi::where('menu_id', $id)->where('user_id', $idUser)->update([
                         $aksi => $status,
                     ]);
