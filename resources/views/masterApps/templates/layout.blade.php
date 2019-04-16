@@ -1,6 +1,5 @@
 <?php 
 $conn = mysqli_connect('localhost', "root", "", "master_apps");
-
 ?>
 
 <!DOCTYPE html>
@@ -102,7 +101,6 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
                 $cekchild = "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";
                 $cekchild = mysqli_query($conn, $cekchild);
                 $cekchilds = mysqli_fetch_array($cekchild); 
-
             ?>
             @if($cekchilds[0] == 0)
                 <li class="@yield('active')"><a href="{{ $menu->link }}"><i class="fa {{ $menu->icon }}"></i> <span>{{ $menu->menu }}</span></a></li>
@@ -115,7 +113,6 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
                 </a>
                 <ul class='treeview-menu'>
                     <?php
-
                         $childs = mysqli_query($conn, "SELECT * from v_hak_akses WHERE parent_id='$menu->id' AND lihat='1' AND user_id='$idUser'");
                     ?>
                     
@@ -200,6 +197,8 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 <!-- REQUIRED JS SCRIPTS -->
  
 
+
+<script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
 <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
 <script src="{!! asset('masterApps/dist/js/adminlte.min.js') !!}"></script>
