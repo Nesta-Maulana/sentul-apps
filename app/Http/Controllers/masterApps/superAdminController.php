@@ -141,13 +141,32 @@ class superAdminController extends resourceController
     }
 
     public function dataPlan(Request $request){
-        plan::create([
-            'plan' => $request->plan,
-            'company_id' => $request->company,
-            'alamat' => $request->alamat,
-            'status' => $request->status,
-        ]);
-        return back()->with('success', 'Berhasil Menambahkan');
+        if ($request->id) 
+        {
+            $plan       = plan::find($request->id);
+            $plan->plan = $request->plan; 
+            $plan->company_id = $request->company; 
+            $plan->alamat = $request->alamat; 
+            $plan->status = $request->status; 
+            $plan->save();
+        }
+        else
+        {
+            $plan = plan::create([
+                'plan' => $request->plan,
+                'company_id' => $request->company,
+                'alamat' => $request->alamat,
+                'status' => $request->status,
+            ]);
+            if ($plan) 
+            {    
+                return back()->with('success', 'Berhasil Menambahkan');
+            }
+            else
+            {
+                return back()->with('error', 'Berhasil Menambahkan');
+            }
+        }
     }
 
     public function jenisProduk(){

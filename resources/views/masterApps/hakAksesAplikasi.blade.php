@@ -28,16 +28,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=0 ?>
-                    <!-- @foreach($hakAksesAplikasi as $a)
-                        <?php $i++ ?>
-                        <tr>
-                            <td>{{ $i }}</td>
-                            <td>{{ $a->aplikasi->aplikasi }}</td>
-                            <td>{{ $a->user->karyawan->fullname }}</td>
-                            <td></td>
-                        </tr>
-                    @endforeach -->
                 </tbody>
             </table>
         </div>

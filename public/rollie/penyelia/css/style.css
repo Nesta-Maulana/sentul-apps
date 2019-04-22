@@ -259,7 +259,7 @@ ul.top-menu > li > .logout {
     height:17px;
     width:17px;
     display:inline-block;
-    background: url("../img/nav-expand.png") no-repeat top;
+    /*background: url("../img/nav-expand.png") no-repeat top;*/
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -268,7 +268,7 @@ ul.top-menu > li > .logout {
     top:15px;
 }
 .active .dcjq-icon {
-    background: url("../img/nav-expand.png") no-repeat bottom;
+    /*background: url("../img/nav-expand.png") no-repeat bottom;*/
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -3483,4 +3483,44 @@ ul.chat-available-user li a:hover {
 
 #copyrights a {
   color: #fff;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.btn--browse{
+    border: 1px solid gray;
+    border-left: 0;
+    border-radius: 0 2px 2px 0;
+    background-color: #ccc;
+    color: black;
+    height: 42px;
+    padding: 10px 14px;
+}
+
+.f-input{
+    height: 42px;
+    background-color: white;
+    border: 1px solid gray;
+    width: 100%;
+    max-width: 400px;
+    float: left;
+    padding: 0 14px;
+}
+
+.uploadnya{
+    margin-top: 10px
 }

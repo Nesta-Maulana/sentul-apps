@@ -10,7 +10,7 @@
     {!! Form::open(['route' => 'aplikasi-save', 'method' => 'POST']) !!}
         <input type="hidden" id="id" name="id">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 data-menu {{ Session::get('tambah') }}">
                 <div class="form-group">
                     <label for="aplikasi">Aplikasi : </label>
                     <input type="text" class="form-control" name="aplikasi" id="aplikasi">
@@ -44,7 +44,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
                             <?php $i=0 ?>
                             @foreach($aplikasi as $a)
                                 <?php $i++ ?>

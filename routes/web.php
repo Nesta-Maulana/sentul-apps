@@ -159,7 +159,8 @@ Route::middleware('ceklogin')->group(function ()
 
     // Rollie
     Route::get('/rollie', 'rollie\rollieController@cpp');
-    Route::get('/penyelia', 'rollie\penyeliaController@mtol');
+    Route::get('/penyelia', 'rollie\penyeliaController@index');
+    Route::get('/penyelia/jadwal-produksi', 'rollie\penyeliaController@index');
     Route::get('/rollie/operator/cpp', 'rollie\rollieOperatorController@cpp');
 
     Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');

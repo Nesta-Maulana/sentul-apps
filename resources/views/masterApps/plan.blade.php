@@ -46,8 +46,8 @@
                         <a href="#" class="btn btn-danger batal">Batal</a>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <table class="table text-center table-bordered table-striped">
+                <div class="col-lg-6 data-menu {{ Session::get('tambah') }}">
+                    <table class="table text-center table-bordered table-striped" id="table-plan">
                         <thead class="bg-dark text-white">
                             <tr>
                                 <td>#</td>
@@ -101,7 +101,7 @@
                 $('.update').show();
                 $('.batal').show();
                 $('.simpan').hide();
-                $('#id').val(data.id);
+                $('#id').val(data[0].id);
             }
         })
     }
