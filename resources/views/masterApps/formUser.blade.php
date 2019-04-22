@@ -97,7 +97,7 @@
 
                 @endif
                 <td>
-                        <input type="submit" class="btn btn-primary edit isi {{ Session::get('ubah') }}" id="isi"  data-toggle="modal" 
+                        <input type="submit" class="btn btn-primary edit isi {{ Session::get('ubah') }}" id="isi" data-toggle="modal" 
                         data-id="{{ $s->id }}" data-target="#exampleModal" value="Edit">
                 </td>
         </tr>

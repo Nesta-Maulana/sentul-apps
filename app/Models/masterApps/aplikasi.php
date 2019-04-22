@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class aplikasi extends Model
 {
     protected $table = "aplikasi";
+    protected $guarded = ['id'];
 }

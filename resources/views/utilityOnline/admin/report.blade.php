@@ -105,7 +105,7 @@
                             <th>Bagian</th>
                             <th>Input</th>
                             <th>Satuan</th>
-                        
+                            <th>Aksi</th>
                             </tr>
                         </thead>
                         <!--Table head-->
@@ -202,6 +202,7 @@
                                 dataType: 'JSON',
                                 success: function (data) {
                                     var optionroles = '', $comboroles = $('#table');
+                                    var nomor = 0;
                                     for (index = 0; index < data[0].length; index++) 
                                     {
                                         if(data[0][index].pengamatan.length > 0){
@@ -211,8 +212,6 @@
                                                 // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
                                                 if(data[0][index].pengamatan[indek])
                                                 {
-                                                    console.log(data[0][index].pengamatan[indek].pengamatan_id);
-                                                    
                                                     var nomor = nomor+1;
                                                     optionroles+='<tr>';
                                                     optionroles+='<td>'+ nomor +'</td>';

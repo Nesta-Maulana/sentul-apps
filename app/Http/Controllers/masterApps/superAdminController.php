@@ -55,8 +55,8 @@ class superAdminController extends resourceController
 
     public function index(){
         
-        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->get();
-        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->count();
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
         if($hakAksesAplikasi == "1"){
             $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
             $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
@@ -178,6 +178,64 @@ class superAdminController extends resourceController
         $user = userAccess::all();
         $karyawan = karyawan::all();
         return view('masterApps.formHakAkses', ['menus' => $this->menu, 'hakAkses' => $hakAkses, 'users' => $user, 'username' => $this->username, 'karyawan' => $karyawan]);
+    }
+
+    public function aplikasi(){
+        $aplikasi = aplikasi::all();
+        return view('masterApps.aplikasi', ['menus' => $this->menu, 'username' => $this->username, 'aplikasi' => $aplikasi]);
+    }
+
+    public function editAplikasi($id){
+        return aplikasi::find($id);
+    }
+
+    public function saveAplikasi(Request $request){
+        if($request->id){
+            $aplikasi = aplikasi::find($request->id);
+            $aplikasi->aplikasi = $request->aplikasi;
+            $aplikasi->status = $request->status;
+            $aplikasi->link = $request->link;
+            $aplikasi->save();
+            return back()->with('success','Berhasil Mengubah');
+        }else{
+            $aplikasi = aplikasi::create([
+                'aplikasi' => $request->aplikasi,
+                'status' => $request->status,
+                'link' => $request->link
+            ]);
+            $user = userAccess::all();
+            foreach ($user as $value) 
+            {
+                $cekakses = hakAksesUserAplikasi::select('*')->where('id_user',$value->id)->where('id_aplikasi',$aplikasi->id)->count();
+                if($cekakses == 0)
+                {
+                     hakAksesUserAplikasi::create([
+                        'id_user' =>$value->id,
+                        'id_aplikasi' => $aplikasi->id,
+                        'status' => '0',
+                     ]);
+                }
+            }
+            return back()->with('success','Berhasil Menambahkan');
+        }
+    }
+
+    public function hakAksesAplikasi(){
+        $hakAksesAplikasi = hakAksesUserAplikasi::all();
+        $users = userAccess::all();
+        return view('masterApps.hakAksesAplikasi', ['menus' => $this->menu, 'username' => $this->username, 'hakAksesAplikasi' => $hakAksesAplikasi, 'users' => $users]);
+    }
+
+    public function showHakAksesAplikasi($id){
+        $edit = hakAksesUserAplikasi::where('id_user',$id)->get();
+        return [$edit, aplikasi::all(), karyawan::all()];
+    }
+    
+    public function ubahHakAksesAplikasi($id, $aksi){
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::find($id);
+        $hakAksesUserAplikasi->status = $aksi;
+        $hakAksesUserAplikasi->save();
+        return ['berhasil'];
     }
 
     public function produk(){

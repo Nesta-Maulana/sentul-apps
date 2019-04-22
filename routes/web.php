@@ -97,6 +97,14 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/master-apps/brand/data', 'masterApps\superAdminController@dataBrand');
     Route::get('/master-apps/brand/edit/{id}', 'masterApps\superAdminController@editBrand');
     
+    Route::get('/master-apps/aplikasi', 'masterApps\superAdminController@aplikasi')->name('aplikasi');
+    Route::post('/master-apps/aplikasi/save', 'masterApps\superAdminController@saveAplikasi')->name('aplikasi-save');
+    Route::get('/master-apps/aplikasi/{id}', 'masterApps\superAdminController@editAplikasi');
+
+    Route::get('/master-apps/hak-akses-aplikasi', 'masterApps\superAdminController@hakAksesAplikasi')->name('hak-akses-aplikasi');
+    Route::get('/master-apps/hak-akses-aplikasi/user/{id}', 'masterApps\superAdminController@showHakAksesAplikasi');
+    Route::get('/master-apps/hak-akses-aplikasi/ubah-hak-akses/{id}/{aksi}', 'masterApps\superAdminController@ubahHakAksesAplikasi');
+
     Route::get('/master-apps/plan', 'masterApps\superAdminController@plan');
     Route::post('/master-apps/plan/data', 'masterApps\superAdminController@dataPlan')->name('plan-data');
     Route::get('/master-apps/plan/edit/{id}', 'masterApps\superAdminController@editPlan');
@@ -150,6 +158,9 @@ Route::middleware('ceklogin')->group(function ()
 
     // Rollie
     Route::get('/rollie', 'rollie\rollieController@cpp');
+    Route::get('/rollie/mtol', 'rollie\penyeliaController@mtol');
+    Route::get('/rollie/operator/cpp', 'rollie\rollieOperatorController@cpp');
+
     Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');
     
     Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia');
