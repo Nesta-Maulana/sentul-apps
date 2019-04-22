@@ -7,7 +7,13 @@ use App\Http\Controllers\Controller;
 
 class penyeliaController extends Controller
 {
-    public function mtol(){
+	public function index()
+	{
+        return view('rollie.penyelia.mtol');
+		
+	}
+    public function mtol()
+    {
         return view('rollie.penyelia.mtol');
     }
 }

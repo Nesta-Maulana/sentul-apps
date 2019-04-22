@@ -33,7 +33,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="box">
-                    <table class="table text-center table-bordered table-striped">
+                    <table class="table text-center table-bordered table-striped" id="table-aplikasi">
                         <thead class="bg-dark text-white">
                             <tr>
                                 <th>#</th>
@@ -44,6 +44,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <?php $i=0 ?>
                             @foreach($aplikasi as $a)
                                 <?php $i++ ?>
@@ -56,7 +57,9 @@
                                         <td>Aktif</td>
                                     @endif
                                     <td>{{ $a->link }}</td>
-                                    <td><a href="#" onclick="edit('{{ $a->id }}')" class="btn btn-primary edit text-white">Edit</a></td>
+                                    <td>
+                                        <a href="#" onclick="edit('{{ $a->id }}')" class="btn btn-primary edit text-white">Edit</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

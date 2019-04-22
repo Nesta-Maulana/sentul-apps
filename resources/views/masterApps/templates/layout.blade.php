@@ -232,6 +232,16 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
           paging: false,
           scrollY: 400,
           scrollX: true,
+          bFilter:false,
+          
+        });
+
+        $('#table-aplikasi').DataTable({
+          paging: false,
+          scrollY: 400,
+          scrollX: true,
+          bFilter:false,
+
         });
 
     } 
