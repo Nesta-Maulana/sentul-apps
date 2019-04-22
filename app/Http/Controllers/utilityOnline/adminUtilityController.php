@@ -103,4 +103,13 @@ class adminUtilityController extends Controller
     public function detailReport($id, $tgl){
         return view('utilityOnline.admin.detailReport', ['menus' => $this->menu, 'username' => $this->username]);
     }
+    public function report3Tgl($tgl){
+        $a = penggunaan::selectRaw('sum(nilai) as nilai')->whereIn('id_bagian', ['70', '71'])->first()->nilai;
+        $bagian = ['PLN' => $a]; //PLN
+        array_add($bagian, 'LWBP', penggunaan::where('id_bagian', '70')->first()->nilai / $a * 100);
+        // $bagian = ['LWBP' => penggunaan::where('id_bagian', '70')->first()->nilai / $a * 100 ]; //LWBP
+        // $bagian = ['WBP' => penggunaan::where('id_bagian', '71')->first()->nilai / $a * 100 ];
+        dd($bagian);
+        
+    }
 }

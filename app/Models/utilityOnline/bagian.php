@@ -8,7 +8,7 @@ class bagian extends Model
 {
     protected $connection = 'mysql2';
     protected $table = "bagian";
-    protected $fillable = ['workcenter_id', 'bagian', 'status', 'satuan_id', 'spek_min', 'spek_max', 'kategori_pencatatan_id'];
+    protected $guarded = ['id'];
 
     public function workcenter(){
         return $this->belongsTo('App\Models\utilityOnline\workcenter', 'workcenter_id');

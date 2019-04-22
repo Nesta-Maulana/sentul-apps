@@ -120,6 +120,59 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Reports 1.3</h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 m-2">
+                    <label for="tanggal-report-3">Tanggal : </label>
+                    <br>
+                    <input type="date" id="tanggal-report-3" class="form-control">
+                    <!-- <label for="kategori-report-3">Kategori :</label>
+                    <br>
+                    <select name="kategori-report-3" id="kategori-report-3" class="form-control select2">
+                        <option value="" selected disabled>-- PILIH KATEGORI --</option>
+                        @foreach($kategori as $k)
+                            <option value="{{ $k->id }}">{{ $k->kategori }}</option>
+                        @endforeach
+                    </select> -->
+                    <!-- <br>
+                    <label for="workcenter-report-3">Workcenter :</label>
+                    <br>
+                    <select name="workcenter-report-3" id="workcente-report-3" class="form-control select2">
+                        <option value="" selected disabled>-- PILIH WORKCENTER --</option>
+                        @foreach($workcenter as $w)
+                            <option value="{{ $w->id }}">{{ $w->workcenter }}</option>
+                        @endforeach
+                    </select> -->
+                </div>
+                <div class="col-lg-8">
+                    <table id="tablePreview" class="table bg-white table-striped table-hover mt-3">
+                        <!--Table head-->
+                        <thead class="thead-dark">
+                            <tr>
+                            <th>#</th>
+                            <th>Bagian</th>
+                            <th>Input</th>
+                            <th>Satuan</th>
+                            <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <!--Table head-->
+                        <!--Table body-->
+                        <tbody id="table-report-3">
+                            
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-12 col-md-6 col-lg-6">
@@ -256,6 +309,18 @@
                 });
             });
         });
+        $('#tanggal-report-3').change(function () {
+            var tgl = $('#tanggal-report-3').val();
+            $.ajax({
+                url: 'report-3/' + tgl,
+                method: 'GET',
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    
+                }
+            });
+        })
         
 </script>
 @endsection
