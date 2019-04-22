@@ -25,26 +25,32 @@
                         <input id="uploadBtn" type="file" class="upload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
                     </div>
                 </div>
-                <div class="add-row">
-                    <button class="btn btn-primary addRow">Tambah Row</button>
-                    <table class="table" id="tablenya">
-                        <thead class="bg-dark text-white text-center">
-                            <tr>
-                                <th>No</th>
-                                <th>No WO</th>
-                                <th>Nama Produk</th>
-                                <th>Plan Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="no">1</td>
-                                <td><input type="text" name="wo" class="form-control"></td>
-                                <td><input type="text" name="nama-produk" class="form-control"></td>
-                                <td><input type="text" name="plan-date" class="form-control"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="add-row" style="margin-top: 10px;">
+                    <div class="row">
+                        <div class="col-lg-12">                            
+                            <button class="btn btn-primary addRow ">Tambah Row</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table col-lg-11 offset-1" id="tablenya">
+                            <thead class="bg-dark text-white text-center">
+                                <tr>
+                                    <th>No</th>
+                                    <th>No WO</th>
+                                    <th>Nama Produk</th>
+                                    <th>Plan Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="no">1</td>
+                                    <td><input type="text" name="wo" class="form-control"></td>
+                                    <td><input type="text" name="nama-produk" class="form-control"></td>
+                                    <td><input type="text" name="plan-date" class="form-control"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
