@@ -1,7 +1,4 @@
-<?php 
-$conn = mysqli_connect('localhost', "root", "", "master_apps");
-
-?>
+<?php $conn = mysqli_connect('localhost', "root", "", "master_apps"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -90,8 +90,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/master-apps/bagian/edit/{id}', 'masterApps\superAdminController@editBagian');
 
     Route::get('/master-apps/brand', 'masterApps\superAdminController@brand');
-    Route::post('/master-apps/bagian/data', 'masterApps\superAdminController@dataBrand')->name('brand-data');
-    Route::get('/master-apps/bagian/edit/{id}', 'masterApps\superAdminController@editBagian');
+    Route::post('/master-apps/brand/data', 'masterApps\superAdminController@dataBrand')->name('brand-data');
+    Route::get('/master-apps/brand/edit/{id}', 'masterApps\superAdminController@editBagian');
 
     Route::get('/master-apps/brand', 'masterApps\superAdminController@brand');
     Route::post('/master-apps/brand/data', 'masterApps\superAdminController@dataBrand');
@@ -150,9 +150,10 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/gas/{id}', 'utilityOnline\mainUtilityController@gasId');
     Route::get('/utility-online/gas/workcenter/{id}', 'utilityOnline\mainUtilityController@showInput');
     Route::post('/utility-online/gas/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
-
+ 
     Route::get('/utility-online/admin', 'utilityOnline\adminUtilityController@index');
     Route::get('/utility-online/admin/report', 'utilityOnline\adminUtilityController@report');
+    Route::get('/utility-online/admin/report-3/{tgl}', 'utilityOnline\adminUtilityController@report3Tgl');
     Route::get('/utility-online/admin/report/detail/{id}/{tgl}', 'utilityOnline\adminUtilityController@detailReport');
     Route::get('/utility-online/admin/report/{from}/{to}', 'utilityOnline\adminUtilityController@reportDate');
 

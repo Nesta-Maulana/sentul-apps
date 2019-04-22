@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Apr 2019 pada 08.18
--- Versi server: 10.1.36-MariaDB
--- Versi PHP: 7.2.11
+-- Generation Time: Apr 22, 2019 at 03:58 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `agama`
+-- Table structure for table `agama`
 --
 
 CREATE TABLE `agama` (
@@ -36,7 +36,7 @@ CREATE TABLE `agama` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `agama`
+-- Dumping data for table `agama`
 --
 
 INSERT INTO `agama` (`id`, `agama`, `created_at`, `updated_at`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `agama` (`id`, `agama`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aplikasi`
+-- Table structure for table `aplikasi`
 --
 
 CREATE TABLE `aplikasi` (
@@ -59,19 +59,24 @@ CREATE TABLE `aplikasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `aplikasi`
+-- Dumping data for table `aplikasi`
 --
 
 INSERT INTO `aplikasi` (`id`, `aplikasi`, `link`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Master Apps', 'master-apps', '1', '2019-04-01 04:25:56', '0000-00-00 00:00:00'),
 (2, 'Utility Online', 'utility-online', '1', '2019-03-01 03:25:43', '0000-00-00 00:00:00'),
 (3, 'Rollie', 'rollie', '1', '2019-04-01 04:03:30', '0000-00-00 00:00:00'),
-(4, 'Vollie', 'vollie', '1', '2019-03-01 06:28:48', '0000-00-00 00:00:00');
+(4, 'Vollie', 'vollie', '1', '2019-03-01 06:28:48', '0000-00-00 00:00:00'),
+(5, 'Aplikasi 1 edit', 'aplikasi1', '1', '2019-04-16 07:51:42', '2019-04-16 07:51:42'),
+(6, 'Aplikasi 2', 'aplikasi2', '1', '2019-04-16 09:04:09', '2019-04-16 09:04:09'),
+(7, 'aplikasi 2', '-', '1', '2019-04-16 09:04:58', '2019-04-16 09:04:58'),
+(8, 'Aplikasi 3', '-', '1', '2019-04-16 09:05:31', '2019-04-16 09:05:31'),
+(9, 'Aplikasi 1', '-', '1', '2019-04-22 01:58:09', '2019-04-22 01:58:09');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `brand`
+-- Table structure for table `brand`
 --
 
 CREATE TABLE `brand` (
@@ -83,7 +88,7 @@ CREATE TABLE `brand` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `brand`
+-- Dumping data for table `brand`
 --
 
 INSERT INTO `brand` (`id`, `brand`, `plan_id`, `created_at`, `updated_at`) VALUES
@@ -95,7 +100,7 @@ INSERT INTO `brand` (`id`, `brand`, `plan_id`, `created_at`, `updated_at`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `company`
+-- Table structure for table `company`
 --
 
 CREATE TABLE `company` (
@@ -108,7 +113,7 @@ CREATE TABLE `company` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `company`
+-- Dumping data for table `company`
 --
 
 INSERT INTO `company` (`id`, `company`, `singkatan`, `status`, `created_at`, `updated_at`) VALUES
@@ -119,32 +124,40 @@ INSERT INTO `company` (`id`, `company`, `singkatan`, `status`, `created_at`, `up
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `hak_akses_aplikasi`
+-- Table structure for table `hak_akses_aplikasi`
 --
 
 CREATE TABLE `hak_akses_aplikasi` (
   `id` int(11) NOT NULL,
   `id_aplikasi` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
-  `status` enum('0','1') DEFAULT NULL
+  `status` enum('0','1') DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `hak_akses_aplikasi`
+-- Dumping data for table `hak_akses_aplikasi`
 --
 
-INSERT INTO `hak_akses_aplikasi` (`id`, `id_aplikasi`, `id_user`, `status`) VALUES
-(1, 1, 24, '1'),
-(2, 2, 24, '1'),
-(3, 3, 24, '1'),
-(4, 4, 24, '1'),
-(5, 2, 23, '1'),
-(6, 3, 23, '1');
+INSERT INTO `hak_akses_aplikasi` (`id`, `id_aplikasi`, `id_user`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 24, '1', '2019-04-16 08:45:45', '0000-00-00 00:00:00'),
+(2, 2, 24, '1', '2019-04-16 08:45:45', '0000-00-00 00:00:00'),
+(3, 3, 24, '1', '2019-04-16 08:45:45', '0000-00-00 00:00:00'),
+(4, 4, 24, '1', '2019-04-16 09:00:08', '2019-04-16 09:00:08'),
+(5, 2, 23, '0', '2019-04-16 08:57:32', '2019-04-16 08:57:32'),
+(6, 3, 23, '1', '2019-04-16 08:58:52', '2019-04-16 08:58:52'),
+(7, 8, 22, '0', '2019-04-16 09:05:31', '2019-04-16 09:05:31'),
+(8, 8, 23, '0', '2019-04-16 09:05:31', '2019-04-16 09:05:31'),
+(9, 8, 24, '0', '2019-04-16 09:05:31', '2019-04-16 09:05:31'),
+(10, 9, 22, '0', '2019-04-22 01:58:09', '2019-04-22 01:58:09'),
+(11, 9, 23, '0', '2019-04-22 01:58:09', '2019-04-22 01:58:09'),
+(12, 9, 24, '0', '2019-04-22 01:58:09', '2019-04-22 01:58:09');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `hak_akses_menu`
+-- Table structure for table `hak_akses_menu`
 --
 
 CREATE TABLE `hak_akses_menu` (
@@ -160,7 +173,7 @@ CREATE TABLE `hak_akses_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `hak_akses_menu`
+-- Dumping data for table `hak_akses_menu`
 --
 
 INSERT INTO `hak_akses_menu` (`id`, `user_id`, `menu_id`, `tambah`, `lihat`, `ubah`, `hapus`, `created_at`, `updated_at`) VALUES
@@ -184,7 +197,7 @@ INSERT INTO `hak_akses_menu` (`id`, `user_id`, `menu_id`, `tambah`, `lihat`, `ub
 (19, 24, 24, '1', '1', '1', '0', '2019-03-10 19:23:19', '2019-03-12 00:17:16'),
 (20, 22, 25, '1', '1', '1', '0', '2019-03-10 19:38:33', '2019-03-10 19:38:33'),
 (21, 23, 25, '1', '1', '1', '0', '2019-03-10 19:38:33', '2019-03-10 19:38:33'),
-(22, 24, 25, '0', '1', '1', '1', '2019-03-10 19:38:33', '2019-04-16 02:58:12'),
+(22, 24, 25, '1', '1', '1', '1', '2019-03-10 19:38:33', '2019-04-22 01:26:08'),
 (23, 22, 26, '1', '1', '0', '0', '2019-03-10 19:47:48', '2019-03-10 19:48:14'),
 (24, 23, 26, '1', '1', '0', '0', '2019-03-10 19:47:48', '2019-03-10 19:48:14'),
 (25, 24, 26, '1', '1', '1', '1', '2019-03-10 19:47:48', '2019-04-16 03:02:13'),
@@ -249,7 +262,7 @@ INSERT INTO `hak_akses_menu` (`id`, `user_id`, `menu_id`, `tambah`, `lihat`, `ub
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `icons`
+-- Table structure for table `icons`
 --
 
 CREATE TABLE `icons` (
@@ -258,7 +271,7 @@ CREATE TABLE `icons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `icons`
+-- Dumping data for table `icons`
 --
 
 INSERT INTO `icons` (`id`, `icons`) VALUES
@@ -1052,7 +1065,7 @@ INSERT INTO `icons` (`id`, `icons`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jenis_produk`
+-- Table structure for table `jenis_produk`
 --
 
 CREATE TABLE `jenis_produk` (
@@ -1063,7 +1076,7 @@ CREATE TABLE `jenis_produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `jenis_produk`
+-- Dumping data for table `jenis_produk`
 --
 
 INSERT INTO `jenis_produk` (`id`, `jenis_produk`, `created_at`, `updated_at`) VALUES
@@ -1073,7 +1086,7 @@ INSERT INTO `jenis_produk` (`id`, `jenis_produk`, `created_at`, `updated_at`) VA
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `karyawan`
+-- Table structure for table `karyawan`
 --
 
 CREATE TABLE `karyawan` (
@@ -1091,17 +1104,18 @@ CREATE TABLE `karyawan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `karyawan`
+-- Dumping data for table `karyawan`
 --
 
 INSERT INTO `karyawan` (`id`, `nik`, `fullname`, `jk`, `marital_status`, `tempat_lahir`, `agama_id`, `golongan_darah`, `email`, `created_at`, `updated_at`) VALUES
 (1, 123456789, 'Admin', '1', '0', 'Bogor', 1, 'AB', 'admin@gmail.com', '2019-03-29 06:11:35', '0000-00-00 00:00:00'),
-(2, 987654321, 'User', '1', '0', 'Jakarta', 1, 'O', 'user@outlook.com', '2019-03-29 06:31:18', '2019-03-29 06:31:18');
+(2, 987654321, 'User', '1', '0', 'Jakarta', 1, 'O', 'user@outlook.com', '2019-03-29 06:31:18', '2019-03-29 06:31:18'),
+(3, 456789, 'Nesta Maulana', '1', '0', 'Bogor', 1, 'A', 'nestamaulana165@gmail.com', '2019-04-16 08:05:56', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kelompok_mesin_filling_detail`
+-- Table structure for table `kelompok_mesin_filling_detail`
 --
 
 CREATE TABLE `kelompok_mesin_filling_detail` (
@@ -1115,7 +1129,7 @@ CREATE TABLE `kelompok_mesin_filling_detail` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kelompok_mesin_filling_head`
+-- Table structure for table `kelompok_mesin_filling_head`
 --
 
 CREATE TABLE `kelompok_mesin_filling_head` (
@@ -1127,7 +1141,7 @@ CREATE TABLE `kelompok_mesin_filling_head` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kelompok_mesin_filling_head`
+-- Dumping data for table `kelompok_mesin_filling_head`
 --
 
 INSERT INTO `kelompok_mesin_filling_head` (`id`, `nama_kelompok`, `status`, `created_at`, `updated_at`) VALUES
@@ -1143,7 +1157,7 @@ INSERT INTO `kelompok_mesin_filling_head` (`id`, `nama_kelompok`, `status`, `cre
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menus`
+-- Table structure for table `menus`
 --
 
 CREATE TABLE `menus` (
@@ -1160,7 +1174,7 @@ CREATE TABLE `menus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `menus`
+-- Dumping data for table `menus`
 --
 
 INSERT INTO `menus` (`id`, `parent_id`, `menu`, `icon`, `link`, `status`, `posisi`, `aplikasi_id`, `created_at`, `updated_at`) VALUES
@@ -1192,7 +1206,7 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu`, `icon`, `link`, `status`, `posis
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mesin_filling`
+-- Table structure for table `mesin_filling`
 --
 
 CREATE TABLE `mesin_filling` (
@@ -1205,7 +1219,7 @@ CREATE TABLE `mesin_filling` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `mesin_filling`
+-- Dumping data for table `mesin_filling`
 --
 
 INSERT INTO `mesin_filling` (`id`, `nama_mesin`, `kode_mesin`, `status`, `created_at`, `updated_at`) VALUES
@@ -1214,7 +1228,7 @@ INSERT INTO `mesin_filling` (`id`, `nama_mesin`, `kode_mesin`, `status`, `create
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -1224,7 +1238,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -1234,7 +1248,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `plan`
+-- Table structure for table `plan`
 --
 
 CREATE TABLE `plan` (
@@ -1248,7 +1262,7 @@ CREATE TABLE `plan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `plan`
+-- Dumping data for table `plan`
 --
 
 INSERT INTO `plan` (`id`, `plan`, `company_id`, `alamat`, `status`, `created_at`, `updated_at`) VALUES
@@ -1258,7 +1272,7 @@ INSERT INTO `plan` (`id`, `plan`, `company_id`, `alamat`, `status`, `created_at`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk`
+-- Table structure for table `produk`
 --
 
 CREATE TABLE `produk` (
@@ -1280,7 +1294,7 @@ CREATE TABLE `produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `produk`
+-- Dumping data for table `produk`
 --
 
 INSERT INTO `produk` (`id`, `brand_id`, `nama_produk`, `kode_oracle`, `spek_ts_min`, `spek_ts_max`, `spek_ph_min`, `spek_ph_max`, `sla`, `waktu_analisa_mikro`, `kelompok_mesin_filling_head_id`, `jenis_produk_id`, `status`, `created_at`, `updated_at`) VALUES
@@ -1290,7 +1304,7 @@ INSERT INTO `produk` (`id`, `brand_id`, `nama_produk`, `kode_oracle`, `spek_ts_m
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -1302,7 +1316,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `role`, `status`, `created_at`, `updated_at`) VALUES
@@ -1315,7 +1329,7 @@ INSERT INTO `roles` (`id`, `role`, `status`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -1333,19 +1347,19 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `rolesId`, `username`, `password`, `verified`, `verifiedByAdmin`, `lastUpdatePassword`, `passwordWrong`, `status`, `created_at`, `updated_at`) VALUES
-(22, 1, '', 'maulana', '0', '1', '2019-01-24', 1, '0', '2019-01-23 18:17:34', '2019-01-23 18:17:34'),
+(22, 1, '456789', 'maulana', '0', '1', '2019-01-24', 1, '0', '2019-01-23 18:17:34', '2019-01-23 18:17:34'),
 (23, 2, '987654321', '$2y$10$Ayz5ekHG0j9kt.5/MwY0quaTDL90AdQuzqcqb5wNSeGXhsCUU.1Nm', '1', '1', '2019-03-15', 0, '1', '2019-01-03 17:00:00', '2019-04-01 07:54:44'),
 (24, 2, '123456789', '$2y$10$Ayz5ekHG0j9kt.5/MwY0quaTDL90AdQuzqcqb5wNSeGXhsCUU.1Nm', '1', '1', '2019-03-31', 0, '1', '2015-02-13 02:12:11', '2019-04-11 00:57:31');
 
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `v_hak_akses`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `v_hak_akses`
+-- (See below for the actual view)
 --
 CREATE TABLE `v_hak_akses` (
 `id` int(11)
@@ -1366,7 +1380,7 @@ CREATE TABLE `v_hak_akses` (
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `v_hak_akses`
+-- Structure for view `v_hak_akses`
 --
 DROP TABLE IF EXISTS `v_hak_akses`;
 
@@ -1377,73 +1391,73 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
--- Indeks untuk tabel `agama`
+-- Indexes for table `agama`
 --
 ALTER TABLE `agama`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `aplikasi`
+-- Indexes for table `aplikasi`
 --
 ALTER TABLE `aplikasi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `brand`
+-- Indexes for table `brand`
 --
 ALTER TABLE `brand`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `company`
+-- Indexes for table `company`
 --
 ALTER TABLE `company`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `hak_akses_aplikasi`
+-- Indexes for table `hak_akses_aplikasi`
 --
 ALTER TABLE `hak_akses_aplikasi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `hak_akses_menu`
+-- Indexes for table `hak_akses_menu`
 --
 ALTER TABLE `hak_akses_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `icons`
+-- Indexes for table `icons`
 --
 ALTER TABLE `icons`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `jenis_produk`
+-- Indexes for table `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `karyawan`
+-- Indexes for table `karyawan`
 --
 ALTER TABLE `karyawan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kelompok_mesin_filling_detail`
+-- Indexes for table `kelompok_mesin_filling_detail`
 --
 ALTER TABLE `kelompok_mesin_filling_detail`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kelompok_mesin_filling_head`
+-- Indexes for table `kelompok_mesin_filling_head`
 --
 ALTER TABLE `kelompok_mesin_filling_head`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `menus`
+-- Indexes for table `menus`
 --
 ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`),
@@ -1451,150 +1465,150 @@ ALTER TABLE `menus`
   ADD KEY `aplikasi_id` (`aplikasi_id`);
 
 --
--- Indeks untuk tabel `mesin_filling`
+-- Indexes for table `mesin_filling`
 --
 ALTER TABLE `mesin_filling`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `plan`
+-- Indexes for table `plan`
 --
 ALTER TABLE `plan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `produk`
+-- Indexes for table `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `users_rolesid_index` (`rolesId`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `agama`
+-- AUTO_INCREMENT for table `agama`
 --
 ALTER TABLE `agama`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `aplikasi`
+-- AUTO_INCREMENT for table `aplikasi`
 --
 ALTER TABLE `aplikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `brand`
+-- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `company`
+-- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `hak_akses_aplikasi`
+-- AUTO_INCREMENT for table `hak_akses_aplikasi`
 --
 ALTER TABLE `hak_akses_aplikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT untuk tabel `hak_akses_menu`
+-- AUTO_INCREMENT for table `hak_akses_menu`
 --
 ALTER TABLE `hak_akses_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
--- AUTO_INCREMENT untuk tabel `icons`
+-- AUTO_INCREMENT for table `icons`
 --
 ALTER TABLE `icons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=787;
 
 --
--- AUTO_INCREMENT untuk tabel `jenis_produk`
+-- AUTO_INCREMENT for table `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `karyawan`
+-- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `kelompok_mesin_filling_detail`
+-- AUTO_INCREMENT for table `kelompok_mesin_filling_detail`
 --
 ALTER TABLE `kelompok_mesin_filling_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `kelompok_mesin_filling_head`
+-- AUTO_INCREMENT for table `kelompok_mesin_filling_head`
 --
 ALTER TABLE `kelompok_mesin_filling_head`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `menus`
+-- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT untuk tabel `mesin_filling`
+-- AUTO_INCREMENT for table `mesin_filling`
 --
 ALTER TABLE `mesin_filling`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `plan`
+-- AUTO_INCREMENT for table `plan`
 --
 ALTER TABLE `plan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `produk`
+-- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
