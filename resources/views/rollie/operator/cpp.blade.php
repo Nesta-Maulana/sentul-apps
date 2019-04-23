@@ -2,9 +2,6 @@
 @section('title')
     ROLLIE | CPP
 @endsection
-@section('subTitle')
-    CPP
-@endsection
 @section('content')
 
 <div class="row d-flex justify-content-center">

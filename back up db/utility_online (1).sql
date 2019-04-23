@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Apr 2019 pada 08.17
+-- Waktu pembuatan: 23 Apr 2019 pada 10.45
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -435,7 +435,7 @@ ALTER TABLE `rasio_detail`
 -- AUTO_INCREMENT untuk tabel `rasio_head`
 --
 ALTER TABLE `rasio_head`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `satuan`

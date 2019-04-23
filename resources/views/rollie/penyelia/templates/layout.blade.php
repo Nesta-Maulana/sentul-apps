@@ -133,14 +133,13 @@
                 @yield('content')
             </section>
         </section>
-
         <footer class="site-footer">
             <div class="text-center">
                 <p>
-                    &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
+                    &copy; Copyrights <strong>PT Nutrifood Indonesia</strong>. All Rights Reserved
                 </p>
                 <div class="credits">
-                    Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>
+                    Created with  by Nesta Maulana
                 </div>
             </div>
         </footer>
@@ -178,7 +177,9 @@
             bFilter:false,
             bInfo:false,
             bLengthChange:false,
-            pageLength:10
+            pageLength:10,
+            scrollY: 400,
+            scrollX: true,
 
         });
         $('#data-tables').dataTable({});

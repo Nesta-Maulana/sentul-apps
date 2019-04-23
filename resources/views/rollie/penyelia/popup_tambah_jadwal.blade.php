@@ -18,7 +18,6 @@
                 </div>
                 <div class="form-inline uploadnya row">
                     <label for="upload_mtol" class="col-lg-2">Upload Mtol : </label>
-                
                     <input id="uploadFile" class="f-input" readonly>
                     <div class="fileUpload btn btn--browse">
                         <span>Browse</span>
@@ -32,7 +31,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <table class="table col-lg-11 offset-1" id="tablenya">
+                        <table class="table text-center table-bordered table-striped col-lg-12" id="tablenya">
                             <thead class="bg-dark text-white text-center">
                                 <tr>
                                     <th>No</th>

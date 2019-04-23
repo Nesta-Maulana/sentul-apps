@@ -12,6 +12,7 @@ use App\Models\masterApps\hakAksesAplikasi;
 use App\Models\masterApps\hakAksesUserAplikasi;
 use App\Http\Controllers\Controller;
 use App\Models\masterApps\karyawan;
+use App\Models\masterApps\produk;
 use DB;
 use Session;
 
@@ -40,6 +41,7 @@ class penyeliaController extends resourceController
 	{
 		$hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
         if($hakAksesAplikasi == "1"){
             $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
             $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
