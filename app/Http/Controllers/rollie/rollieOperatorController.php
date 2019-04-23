@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 class rollieOperatorController extends Controller
 {
     public function cpp(){
-        return view('rollie.operator.cpp');
+        return view('rollie.operator.dashboard');
+        // return view('rollie.operator.cpp');
     }
 }

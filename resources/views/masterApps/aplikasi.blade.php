@@ -10,7 +10,7 @@
     {!! Form::open(['route' => 'aplikasi-save', 'method' => 'POST']) !!}
         <input type="hidden" id="id" name="id">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 data-menu {{ Session::get('tambah') }}">
                 <div class="form-group">
                     <label for="aplikasi">Aplikasi : </label>
                     <input type="text" class="form-control" name="aplikasi" id="aplikasi">
@@ -33,7 +33,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="box">
-                    <table class="table text-center table-bordered table-striped">
+                    <table class="table text-center table-bordered table-striped" id="table-aplikasi">
                         <thead class="bg-dark text-white">
                             <tr>
                                 <th>#</th>
@@ -56,7 +56,9 @@
                                         <td>Aktif</td>
                                     @endif
                                     <td>{{ $a->link }}</td>
-                                    <td><a href="#" onclick="edit('{{ $a->id }}')" class="btn btn-primary edit text-white">Edit</a></td>
+                                    <td>
+                                        <a href="#" onclick="edit('{{ $a->id }}')" class="btn btn-primary edit text-white">Edit</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

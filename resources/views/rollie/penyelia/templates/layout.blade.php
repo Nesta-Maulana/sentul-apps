@@ -1,118 +1,150 @@
+<?php 
+    $conn = mysqli_connect('localhost', "root", "", "master_apps");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="Dashboard">
-  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>@yield('title')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <title>@yield('title')</title>
+    <link href="{{ asset('userAccess/img/factory.png') }}" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.min.css')!!}">
+    <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.css')!!}">
+    <link href="{{ asset('rollie/penyelia/lib/font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('rollie/penyelia/css/zabuto_calendar.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('rollie/penyelia/lib/gritter/css/jquery.gritter.css')}}" />
+    <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
+    <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
+    <script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
+    <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+    <link href="{{ asset('rollie/penyelia/css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('rollie/penyelia/css/style-responsive.css')}}" rel="stylesheet">
 
-  <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="{!!asset('utilityOnline/css/bootstrap.min.css')!!}"> <!-- Bootstrap 4 -->
-  <!--external css-->
-  <link href="{{ asset('rollie/penyelia/lib/font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('rollie/penyelia/css/zabuto_calendar.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('rollie/penyelia/lib/gritter/css/jquery.gritter.css')}}" />
-  <!-- Custom styles for this template -->
-  <link href="{{ asset('rollie/penyelia/css/style.css')}}" rel="stylesheet">
-  <link href="{{ asset('rollie/penyelia/css/style-responsive.css')}}" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
-  <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
-  <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
-<script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
-
-
-  <!-- =======================================================
-    Template Name: Dashio
-    Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
-    Author: TemplateMag.com
-    License: https://templatemag.com/license/
-  ======================================================= -->
 </head>
 
 <body>
-  <section id="container">
-    <!--header start-->
-    <header class="header black-bg">
-        <div class="sidebar-toggle-box">
-            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-        </div>
-        <!--logo start-->
-        <a href="index.html" class="logo"><b>RO<span>LL</span>IE</b></a>
-        <!--logo end-->
-        <div class="top-menu">
-            <ul class="nav pull-right top-menu mt-4">
-                <li><a class="logout" href="login.html">Logout</a></li>
-            </ul>
-        </div>
-    </header>
-    <!--header end-->
-    <!-- **********************************************************************************************************************************************************
-        MAIN SIDEBAR MENU
-        *********************************************************************************************************************************************************** -->
-    <!--sidebar start-->
-    <aside>
-        <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            <ul class="sidebar-menu" id="nav-accordion">
-                <!-- <p class="centered"><a href="profile.html"><h4 class='text-center'>USER</h4></a></p> -->
-                <h5 class="centered">Sam Soffes</h5>
-                <p class="centered">Role</p>
-                <li class="mt">
-                    <a class="active" href="index.html">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-desktop"></i>
-                        <span>UI Elements</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="general.html">General</a></li>
-                        <li><a href="buttons.html">Buttons</a></li>
-                        <li><a href="panels.html">Panels</a></li>
-                        <li><a href="font_awesome.html">Font Awesome</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </aside>
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-            
-            @yield('content')
-
-        </section>
-    </section>
-
-    <footer class="site-footer">
-        <div class="text-center">
-            <p>
-                &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
-            </p>
-            <div class="credits">
-                <!--
-                    You are NOT allowed to delete the credit link to TemplateMag with free version.
-                    You can delete the credit link only if you bought the pro version.
-                    Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
-                    Licensing information: https://templatemag.com/license/
-                -->
-                Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>
+    <section id="container">
+        <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
             </div>
-        </div>
-    </footer>
-    <!--footer end-->
-  </section>
+            <a href="index.html" class="logo"><b>RO<span>LL</span>IE</b></a>
+            <div class="top-menu">
+                <!-- <ul class="nav pull-right top-menu mt-4">
+                    <li><a class="logout" href="login.html">Logout</a></li>
+                </ul> -->
+            </div>
+        </header>
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <hr>
+                    <p class="centered">
+                        <a href=""><img src="{{ asset('userAccess/img/user.png') }}" class="img-circle" style="border-radius: 50%;" width="80"></a>
+                    </p>
+                    <h6 class="centered text-white" >Hello , {{ $username->fullname }}</h6>
+                    <p class="centered text-white">You're Logged As {{ $username->user->role->role }}</p>
+                    <p class="centered " style="margin-top: -15px;">
+                        <a href="" class="text-gray-dark">Logout</a>
+                    </p>
+                    <hr>
+                    <li class="mt">
+                        <a class="@yield('active-dashboard')" href="index.html">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <?php $idUser = Session::get('login') ?>
+                    @foreach ($menus as $menu)
+                        <?php  
+                            $cekchild = "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";
+                            $cekchild = mysqli_query($conn, $cekchild);
+                            $cekchilds = mysqli_fetch_array($cekchild); 
+                        ?>
+                        @if ($cekchilds[0] == 0)
+                            <li>
+                                <a class="<?php if(Request::Route()->uri() == $menu->link){echo "active";} ?>" href="{{ $menu->link }}">
+                                    <i class="fa {{ $menu->icon }}"></i>
+                                    <span>{{ $menu->menu }}</span>
+                                </a>
+                            </li>
+                        @else
+                            
+                            <li class="sub-menu">
+                                <a href="javascript:;">
+                                    <i class="fa {{ $menu->icon }}"></i>
+                                    <span>{{ $menu->menu }}</span>
+                                </a>
+                                <ul class="sub">
+                                    <?php
+                                        $childs = mysqli_query($conn, "SELECT * from v_hak_akses WHERE parent_id='$menu->id' AND lihat='1' AND user_id='$idUser'");
+                                    ?>
+                                    <?php $i=0 ?>
+                                    @while($c = mysqli_fetch_assoc($childs))
+                                        <?php $cek = mysqli_query($conn, "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$c[id]' AND lihat='1'") ?>
+                                        <?php $cek = mysqli_fetch_array($cek) ?>
+                                        @if($cek[0] == 0)
+                                            <li>
+                                                <a class="<?php if(Request::Route()->uri() == $menu->link){echo "active";} ?>" href="{{ $menu->link }}">
+                                                    <i class="fa {{ $menu->icon }}"></i>
+                                                    <span>{{ $menu->menu }}</span>
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="sub-menu">
+                                                <a href="javascript:;">
+                                                    <i class="fa {{ $menu->icon }}"></i>
+                                                    <span>{{ $menu->menu }}</span>
+                                                </a>
+                                                    <?php
+                                                        $sql = "SELECT * FROM v_hak_akses WHERE parent_id='$c[id]' AND lihat='1' AND user_id='$idUser'";
+                                                        $anak = mysqli_query($conn, $sql);
+                                                    ?>
+                                                <ul class="sub">
+                                                      @while($a = mysqli_fetch_assoc($anak))
+                                                            <li>
+                                                                <a class="<?php if(Request::Route()->uri() == $menu->link){echo "active";} ?>" href="{{ $menu->link }}">
+                                                                    <i class="fa {{ $menu->icon }}"></i>
+                                                                    <span>{{ $menu->menu }}</span>
+                                                                </a>
+                                                            </li>               
+                                                      @endwhile
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endwhile
+                                </ul> 
+                            </li>
+                        @endif         
+                    @endforeach
+                </ul>
+            </div>
+        </aside>
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                @yield('content')
+            </section>
+        </section>
+        <footer class="site-footer">
+            <div class="text-center">
+                <p>
+                    &copy; Copyrights <strong>PT Nutrifood Indonesia</strong>. All Rights Reserved
+                </p>
+                <div class="credits">
+                    Created with  by Nesta Maulana
+                </div>
+            </div>
+        </footer>
+        <!--footer end-->
+    </section>
     <!-- DataTables -->
     <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
     <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -135,20 +167,32 @@
     <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
     <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
     <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
-    
-  <script>
-    var oTable = $('#data-tables-wo').dataTable({
-        "columnDefs": [
-            { "sortable": false, "targets": [5] }
-        ]
-    });
-    $('#data-tables').dataTable({});
-    
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').trigger('focus')
-    })
-  </script>
+
+    <script>
+        var oTable = $('#data-tables-wo').dataTable({
+            "columnDefs": [{
+                "sortable": false,
+                "targets": [5]
+            }],
+            bFilter:false,
+            bInfo:false,
+            bLengthChange:false,
+            pageLength:10,
+            scrollY: 400,
+            scrollX: true,
+
+        });
+        $('#data-tables').dataTable({});
+
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#myInput').trigger('focus')
+        })
+        document.getElementById("uploadBtn").onchange = function () 
+        {
+            document.getElementById("uploadFile").value = this.value.replace("C:\\fakepath\\", "");
+        };
+
+    </script>
 </body>
 
 </html>
-

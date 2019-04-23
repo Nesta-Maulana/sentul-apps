@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class brand extends Model
 {
+	protected $connection = 'mysql4';
     protected $table= "brand";
     protected $guarded = ['id'];
 

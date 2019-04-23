@@ -2,107 +2,106 @@
 @section('title')
     ROLLIE | MTOL
 @endsection
+@section('active-$menu->link')
+    active
+@endsection
+
 @section('content')
 
 <div class="bg-white rounded mt-5">
-    <h3 class="pt-2 text-center">Data tables</h3>
-    <hr>
-    <div class="d-flex justify-content-center">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus-square-o"></i> Tambah WO</button>
-    </div>
-    <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="data-tables-wo">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>No WO.</th>
-                <th>Nama Produk</th>
-                <th class="hidden-phone">Plan Date</th>
-                <th class="hidden-phone">Tanggal Realisasi</th>
-                <th class="hidden-phone">Revisi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for($i = 1; $i <=100; $i++)
-                <tr class="gradeX">
-                    <td>{{ $i }}</td>
-                    <td>Trident {{ $i }}</td>
-                    <td>Internet Explorer {{$i}}.0</td>
-                    <td class="hidden-phone">Win 9{{$i}}+</td>
-                    <td class="center hidden-phone">4</td>
-                    <td class="center hidden-phone">X</td>
-                </tr>
-            @endfor
-        </tbody>
-    </table>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="jenis">Pilih Jenis : </label>
-                    <select name="jenis" id="jenis" class="form-control jenis">
-                        <option value="" selected disabled>-- PILIH JENIS PENAMBAHAN --</option>
-                        <option value="1">Upload CPP</option>
-                        <option value="0">Tambah 1 Row</option>
-                    </select>
-                </div>
-                <div class="upload">
-                    <div class="form-group">
-                        <label for="">Upload : </label>
-                        <input type="file" name="file" id="file" class="form-control-file">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="content-panel">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="text-dark">
+                            <i class="fa fa-calendar"></i> Jadwal Produksi
+                        </h4>
+                    </div>
+                    <div class="col-md-5"></div>
+                    <div class="col-md-3">
+                        <h4 class="text-center text-danger" tool>
+                            <a data-toggle="modal" data-target="#tambah-jadwal">
+                                <i class="fa fa-plus-square-o"></i> Tambah WO
+                            </a>
+                        </h4>
                     </div>
                 </div>
-                <div class="add-row">
-                    <button class="btn btn-primary addRow">Tambah Row</button>
-                    <table class="table" id="tablenya">
-                        <thead class="bg-dark text-white text-center">
-                            <tr>
-                                <th>No</th>
-                                <th>No WO</th>
-                                <th>Nama Produk</th>
-                                <th>Plan Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="no">1</td>
-                                <td><input type="text" name="wo" class="form-control"></td>
-                                <td><input type="text" name="nama-produk" class="form-control"></td>
-                                <td><input type="text" name="plan-date" class="form-control"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <table cellpadding="0" cellspacing="0" border="0" class="display nowrap table" width= "100%" id="data-tables-wo">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th class="hidden-phone">Plan Date</th>
+                            <th>Nomor Wo</th>
+                            <th>Keterangan 1</th>
+                            <th>Keterangan 2</th>
+                            <th>Keterangan 3</th>
+                            <th>Kode Produk</th>
+                            <th>Nama Produk</th>
+                            <th>PH Plan Qty</th>
+                            <th>Status</th>
+                            <th>Lot FG</th>
+                            <th>Creation Date</th>
+                            <th>Actual Start Date</th>
+                            <th>Plan Complete Date</th>
+                            <th>Actual Complete Date</th>
+                            <th>Batch Close Date</th>
+                            <th>Actual Qty</th>
+                            <th>WIP PLAN Qty</th>
+                            <th>Di RTP</th>
+                            <th>Category</th>
+                            <th>Revisi Formula</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for($i = 1; $i <=100; $i++)
+                        <tr class="gradeX">
+                            <td>Data 1</td>
+                            <td>Data 2</td>
+                            <td>Data 3</td>
+                            <td>Data 4</td>
+                            <td>Data 5</td>
+                            <td>Data 6</td>
+                            <td>Data 7</td>
+                            <td>Data 8</td>
+                            <td>Data 9</td>
+                            <td>Data 10</td>
+                            <td>Data 11</td>
+                            <td>Data 12</td>
+                            <td>Data 13</td>
+                            <td>Data 14</td>
+                            <td>Data 15</td>
+                            <td>Data 16</td>
+                            <td>Data 17</td>
+                            <td>Data 18</td>
+                            <td>Data 19</td>
+                            <td>Data 20</td>
+                            <td>Data 21</td>
+                            <td>Data 22</td>
+                        </tr>
+                        @endfor
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+@include('rollie.penyelia.popup_tambah_jadwal')
+
 
 
 <script>
-    $('.upload').hide();
+    $('.uploadnya').hide();
     $('.add-row').hide();
     $('.jenis').change(function () {
         var isi = $('.jenis option:selected').val();
         if(isi == "1"){
             $('.add-row').hide();
-            $('.upload').show();
+            $('.uploadnya').show();
         }
         else if(isi == "0"){
-            $('.upload').hide();
+            $('.uploadnya').hide();
             $('.add-row').show();
         }
     });
