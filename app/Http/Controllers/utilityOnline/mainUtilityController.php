@@ -193,7 +193,7 @@ class mainUtilityController extends Controller
                 ->where('pengamatan.id_bagian',$value->id)
                 ->whereDate('pengamatan.created_at',$tanggal)
                 ->get();
-                // dd($pengamatanbagian);  
+                // dd($pengamatanbagian);
                 foreach ($pengamatanbagian as $pengamatan) 
                 {
                     $create = explode(' ',$pengamatan->created_at);

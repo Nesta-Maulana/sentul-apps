@@ -97,7 +97,6 @@
     $('.add-row').hide();
     $('.jenis').change(function () {
         var isi = $('.jenis option:selected').val();
-        
         if(isi == "1"){
             $('.add-row').hide();
             $('.upload').show();

@@ -101,7 +101,7 @@
                 $('.update').show();
                 $('.batal').show();
                 $('.simpan').hide();
-                $('#id').val(data.id);
+                $('#id').val(data[0].id);
             }
         })
     }

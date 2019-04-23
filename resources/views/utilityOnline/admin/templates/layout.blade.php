@@ -260,6 +260,7 @@
                     }
                     $table += "<td>"+data[0][index].nilai+"</td>";
                     $table += "<td>"+data[0][index].tgl_penggunaan+"</td>";
+                    $table += '<td><a href="report/detail/'+ data[0][index].id_bagian +'/'+ data[0][index].tgl_penggunaan +'" class="btn btn-primary text-white">Lihat Detail</a></td>';
                     $table+="</tr>";
                     no++;
                     $("#isi").append($table);     
