@@ -144,6 +144,12 @@
             </div>
         </footer>
         <!--footer end-->
+        @if ($message = Session::get('success'))
+          <div class="success" data-flashdata="{{ $message }}"></div>
+        @endif
+        @if ($message = Session::get('failed'))
+          <div class="failed" data-flashdata="{{ $message }}"></div>
+        @endif
     </section>
     <!-- DataTables -->
     <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
@@ -167,7 +173,29 @@
     <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
     <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
     <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
-
+    <script>
+        const flashdatas = $('.failed').data('flashdata');
+        if(flashdatas)
+        {
+            swal({
+                title: "Proses Gagal",
+                text: flashdatas,
+                type: "error",
+            });
+        }
+        
+        const flashdata = $('.success').data('flashdata');
+        if(flashdata)
+        {
+            swal({
+                title: "Proses Berhasil",
+                text: flashdata,
+                type: "success",
+            });
+        }
+        
+        new WOW().init();
+    </script>
     <script>
         var oTable = $('#data-tables-wo').dataTable({
             "columnDefs": [{

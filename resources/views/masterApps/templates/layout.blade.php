@@ -198,8 +198,6 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 
 <!-- REQUIRED JS SCRIPTS -->
  
-
-
 <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
 <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>

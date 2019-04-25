@@ -3524,3 +3524,10 @@ ul.chat-available-user li a:hover {
 .uploadnya{
     margin-top: 10px
 }
+
+.hilang{
+    display: none;
+}
+.muncul{
+    display:'';
+}

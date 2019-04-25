@@ -60,8 +60,25 @@ class rollieController extends resourceController
         $prisma     = app('App\Http\Controllers\resourceController')->enkripsi('prisma');
         return view('rollie.cpp',['brix'=>$brix,'prisma'=>$prisma,'menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'produk'=>$produk]);
     }
-    public function analisaKimia(){
-        return view('rollie.analisa_kimia');
+    public function analisaKimia()
+    {
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.analisa_kimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
     }
     public function analisaKimiaAnalisa(){
         return view('rollie.analisa_kimia_analisa');

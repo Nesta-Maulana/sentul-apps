@@ -14,7 +14,7 @@
         <div class="box-header">
             
         </div>
-        {!! Form::open(['route' => 'brand-data', 'method' => 'POST']) !!}
+        {!! Form::open(['url' =>'/master-apps/brand/data', 'method' => 'POST']) !!}
             <input type="hidden" name="id" id="id">
             <div class="row">
                 <div class="col-lg-6">
@@ -23,11 +23,11 @@
                         <input type="text" name="brand" id="brand" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="plan">Plan :</label>
-                        <select name="plan" id="plan" class="form-control">
+                        <label for="company">Company :</label>
+                        <select name="company" id="company" class="form-control">
                             <option value="" disabled selected>-- PILIH PLAN --</option>
-                            @foreach($plans as $plan)
-                                <option value="{{ $plan->id }}">{{ $plan->plan }}</option>
+                            @foreach($company as $compani)
+                                <option value="{{ $compani->id }}">{{ $compani->company }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -55,7 +55,7 @@
                                     
                                     <td>{{ $i }}</td>
                                     <td>{{ $brand->brand }}</td>
-                                    <td>{{ $brand->plan->plan }}</td>
+                                    <td>{{ $brand->company->company }}</td>
                                     <td>
                                         <a href="#" class="btn btn-primary edit" onclick="edit('{{ $id }}')">Edit</a>
                                     </td>
