@@ -13,6 +13,11 @@ use App\Models\masterApps\hakAksesUserAplikasi;
 use App\Http\Controllers\Controller;
 use App\Models\masterApps\karyawan;
 use App\Models\masterApps\produk;
+
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use App\Imports\Penyelia\mtolImport;
+
 use DB;
 use Session;
 
@@ -55,8 +60,38 @@ class penyeliaController extends resourceController
         return view('rollie.penyelia.mtol',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data]);
 
 	}
-    public function mtol()
+
+    public function importJadwalProduksi(Request $request)
     {
-        return view('rollie.penyelia.mtol');
+        // pengecekan jenis upload
+       if ($request->jenis_upload == '1') 
+       {
+            // ini untuk upload file
+            if ($request->hasFile('jadwalUpload'))
+            {
+                // validasi ekstensi XLS , XLSX 
+                $arrayekstensi  = ['xls','xlsx'];
+                if (in_array($request->jadwalUpload->getClientOriginalExtension(), $arrayekstensi)) 
+                {
+                    // Apabila ekstensi XLS /  XLSX
+                    $filejadwal     = $request->file('jadwalUpload');
+                    $uploadjadwal = Excel::import(new mtolImport, $filejadwal);
+                    dd($uploadjadwal);
+                }
+                else
+                {
+                    // apabila ekstensi bukan XLS , XLSX
+                    return back()->with('failed','Harap Attach File Excel Mtol dengan Format XLS atau XLSX');
+                }
+            }
+            else
+            {
+                return back()->with('failed','Harap Attach File Excel Mtol');
+            } 
+       }
+       else
+       {
+            // ini untuk table add
+       }
     }
 }

@@ -22,17 +22,8 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="nama_produk">Nama Produk</label>
-                            <select class="form-control m-select2 select2" id="nama_produk_cpp" name="nama_produk_cpp">
-                                <option value="-" selected disabled>Pilih Produk</option>
-                                <option value="Produk1">Produk 2</option>
-                                <option value="Produk1">Produk 3</option>
-                                <option value="Produk1">Produk 4</option>
-                                <option value="Produk1">Produk 5</option>
-                                <option value="Produk1">Produk 6</option>
-                                <option value="Produk1">Produk 7</option>
-                                <option value="Produk1">Produk 8</option>
-                            </select>
-                              
+                                
+                              {!! Form::select('nama_produk_cpp',$produk,'2',['class'=>'form-control m-select2 select2','id'=>'nama_produk_cpp']) !!}
                         </div>
                           
 

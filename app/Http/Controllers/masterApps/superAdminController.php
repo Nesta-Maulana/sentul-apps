@@ -102,26 +102,26 @@ class superAdminController extends resourceController
 
     public function brand(){
         $brands = brand::all();
-        $plan = plan::all();
-        return view('masterApps.formbrand', ['menus' => $this->menu, 'username' => $this->username, 'brands' => $brands, 'plans' => $plan]);
+        $company = company::all();
+        return view('masterApps.formbrand', ['menus' => $this->menu, 'username' => $this->username, 'brands' => $brands, 'company' => $company]);
     }
 
     public function editBrand($id){
         $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
-        $plan = plan::all();
-        return [brand::find($id), $plan];
+        $company = company::all();
+        return [brand::find($id), $company];
     }
 
     public function dataBrand(Request $request){
         if ($request->id) {
             $brand = brand::find($request->id);
             $brand->brand = $request->brand;
-            $brand->plan_id = $request->plan;
+            $brand->company_id = $request->company;
             $brand->save();
         }else{
             brand::create([
                 'brand' => $request->brand,
-                'plan_id' => $request->plan
+                'company_id' => $request->company
             ]);
         }
         return back()->with('success', 'Data Berhasil Ditambahkan');

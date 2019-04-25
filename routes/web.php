@@ -161,13 +161,14 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'exportUtilityController@export');
 
     // Rollie
-    Route::get('/rollie', 'rollie\rollieController@cpp');
     Route::get('/penyelia', 'rollie\penyeliaController@index');
     Route::get('/penyelia/jadwal-produksi', 'rollie\penyeliaController@index');
-    Route::get('/rollie/operator/cpp', 'rollie\rollieOperatorController@cpp');
+    Route::post('/penyelia/jadwal-produksi', 'rollie\penyeliaController@importJadwalProduksi')->name('import-jadwal-produksi');
 
-    Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');
     
+    Route::get('/rollie/operator/cpp', 'rollie\rollieOperatorController@cpp');
+    Route::get('/rollie', 'rollie\rollieController@cpp');
+    Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');
     Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia');
     Route::get('/rollie/analisa-kimia-fg/analisa-produk/{id}', 'rollie\rollieController@analisaKimiaAnalisa')->name('analisa-produk');
     Route::get('/rollie/rkj', 'rollie\rollieController@rkj');

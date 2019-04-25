@@ -38,17 +38,12 @@
 		
 	</head>
 
-	<!-- end::Head -->
-    <!-- end::Body -->
 	<body  class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
-		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
-			<!-- begin::Header -->
 			<header id="m_header" class="m-grid__item m-header "  minimize="minimize" minimize-offset="200" minimize-mobile-offset="200" >
 				<div class="m-header__top">
 					<div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
 						<div class="m-stack m-stack--ver m-stack--desktop">
-							<!-- begin::Brand -->
 							<div class="m-stack__item m-brand">
 								<div class="m-stack m-stack--ver m-stack--general m-stack--inline">
 									<div class="m-stack__item m-stack__item--middle m-brand__logo">
@@ -87,21 +82,15 @@
 												</li>
 											</ul>
 										</div>
-										<!-- begin::Responsive Header Menu Toggler-->
 										<a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
 											<span></span>
 										</a>
-										<!-- end::Responsive Header Menu Toggler-->
-										<!-- begin::Topbar Toggler-->
 										<a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
 											<i class="flaticon-more"></i>
 										</a>
-										<!--end::Topbar Toggler-->
 									</div>
 								</div>
 							</div>
-							<!-- end::Brand -->		
-				<!-- begin::Topbar -->
 							<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
 								<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
 									<div class="m-stack__item m-topbar__nav-wrapper">
@@ -115,7 +104,7 @@
 														Hello,&nbsp;
 													</span>
 													<span class="m-topbar__username">
-														Nick
+														{{ $username->fullname }}
 													</span>
 												</a>
 												<div class="m-dropdown__wrapper">
@@ -124,14 +113,22 @@
 														<div class="m-dropdown__header m--align-center back">
 															<div class="m-card-user m-card-user--skin-dark">
 																<div class="m-card-user__pic">
-																	<img src="{{ asset('rollie/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt=""/>
+																	@if ($username->jk == '0')
+																		@if ($username->agama->agama == 'Islam')
+																			<img src="{{ asset('generalStyle/images/users/muslim.jpg')}}" class="m--img-rounded m--marginless" alt=""/>
+																		@else
+																			<img src="{{ asset('generalStyle/images/users/woman.png')}}" class="m--img-rounded m--marginless" alt=""/>
+																		@endif
+																	@else
+																		<img src="{{ asset('generalStyle/images/users/men.png')}}" class="m--img-rounded m--marginless" alt=""/>
+																	@endif
 																</div>
 																<div class="m-card-user__details">
 																	<span class="m-card-user__name m--font-weight-500">
-																		Mark Andre
+																		{{ $username->fullname }}
 																	</span>
 																	<a href="" class="m-card-user__email m--font-weight-300 m-link">
-																		mark.andre@gmail.com
+																		{{ $username->email }}
 																	</a>
 																</div>
 															</div>
@@ -145,27 +142,15 @@
 																		</span>
 																	</li>
 																	<li class="m-nav__item">
-																		<a href="profile.html" class="m-nav__link">
+																		<a href="/sentul-apps/logout" class="m-nav__link">
 																			<i class="m-nav__link-icon flaticon-profile-1"></i>
 																			<span class="m-nav__link-title">
 																				<span class="m-nav__link-wrap">
 																					<span class="m-nav__link-text">
-																						My Profile
-																					</span>
-																					<span class="m-nav__link-badge">
-																						<span class="m-badge m-badge--success">
-																							2
-																						</span>
+																						Logout
 																					</span>
 																				</span>
 																			</span>
-																		</a>
-																	</li>
-																	
-																	<li class="m-nav__separator m-nav__separator--fit"></li>
-																	<li class="m-nav__item">
-																		<a href="snippets/pages/user/login-1.html" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
-																			Logout
 																		</a>
 																	</li>
 																</ul>
@@ -197,14 +182,12 @@
 									</div>
 								</div>
 							</div>
-							<!-- end::Topbar -->
 						</div>
 					</div>
 				</div>
 				<div class="m-header__bottom">
 					<div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
 						<div class="m-stack m-stack--ver m-stack--desktop">
-							<!-- begin::Horizontal Menu -->
 							<div class="m-stack__item m-stack__item--middle m-stack__item--fluid">
 								<button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-light " id="m_aside_header_menu_mobile_close_btn">
 									<i class="la la-close"></i>
@@ -339,19 +322,16 @@
 											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
 												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
 												<div class="m-menu__subnav">
-													
 												</div>
 											</div>
 										</li>
 									</ul>
 								</div>
 							</div>
-							<!-- end::Horizontal Menu -->	
 						</div>
 					</div>
 				</div>
-			</header>
-			<!-- end::Header -->		
+			</header>		
             <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop m-container m-container--responsive m-container--xxl m-page__container m-body" style="background: #f2f3f8">
 				<div class="m-grid__item m-grid__item--fluid m-wrapper">
 					<div class="m-subheader ">
@@ -366,7 +346,7 @@
                 </div>
             </div>
             <div class="m-content" >
-                    @yield('content')    
+                @yield('content')    
             </div>
             @if ($message = Session::get('success'))
 	    	    <div class="success" data-flashdata="{{ $message }}"></div>
