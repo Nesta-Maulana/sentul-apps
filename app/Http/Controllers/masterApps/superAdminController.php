@@ -16,6 +16,7 @@ use App\Models\masterApps\plan;
 use App\Models\masterApps\jenisProduk;
 use App\Models\masterApps\produk;
 use App\Models\masterApps\brand;
+use App\Models\masterApps\subBrand;
 use App\Models\masterApps\mesinFilling;
 use App\Models\masterApps\mesinFillingHead;
 use App\Models\masterApps\mesinFillingDetail;
@@ -865,5 +866,30 @@ class superAdminController extends resourceController
                 return $id;  
             }
         }
+    }
+    public function subBrand(){
+        $brands = brand::all();
+        $subBrands = subBrand::all();
+        return view('masterApps.subBrand', ['menus' => $this->menu, 'username' => $this->username, 'brands' => $brands, 'subBrands' => $subBrands]);
+    }
+    public function dataSubBrand(Request $request){
+        if($request->id){
+            $subBrand = subBrand::find($request->id);
+            $subBrand->brand_id = $request->brand;
+            $subBrand->sub_brand = $request->subBrand;
+            $subBrand->status = $request->status;
+            $subBrand->save();
+            return back()->with('success', 'Berhasil Mengubah');
+        }else{
+            subBrand::create([
+                'brand_id' => $request->brand,
+                'sub_brand' => $request->subBrand,
+                'status' => $request->status,
+            ]);
+            return back()->with('success', 'Berhasil Menambahkan');
+        }
+    }
+    public function editSubBrand($id){
+        return [subBrand::find($id), brand::all()];
     }
 }

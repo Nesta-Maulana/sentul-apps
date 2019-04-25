@@ -189,30 +189,69 @@ class mainUtilityController extends Controller
             if ($value->kategori_pencatatan_id == '2') 
             {
                 $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
-                ->select('bagian.*','pengamatan.*','pengamatan.id as pengamatan_id')
-                ->where('pengamatan.id_bagian',$value->id)
-                ->whereDate('pengamatan.created_at',$tanggal)
-                ->get();
+                                            ->select('bagian.*','pengamatan.*','pengamatan.id as pengamatan_id')
+                                            ->where('pengamatan.id_bagian',$value->id)
+                                            ->whereDate('pengamatan.created_at',$tanggal)
+                                            ->get();
                 // dd($pengamatanbagian);
+                $shift1 = 0;
+                $shift2 = 0;
+                $shift3 = 0;
                 foreach ($pengamatanbagian as $pengamatan) 
                 {
                     $create = explode(' ',$pengamatan->created_at);
                     $time   = $create[1];
-                    
                     if($time >= '06:00' && $time <= '13:59')
                     {
+                        
+                        $shift1++;
                         $pengamatan->bagian = $value->bagian." Shift 1";
                     }
                     else if($time >= '14:00' && $time <= '21:59')
                     {
+                        $shift2++;
                         $pengamatan->bagian = $value->bagian." Shift 2";
                     }
                     else if($time >= '22:00' || $time <= '05:59')
                     {
+                        $shift3++;
                         $pengamatan->bagian = $value->bagian." Shift 3";
                     }
                 }
-                
+                // dd($pengamatanbagian);
+                if($shift1 == 0 && $shift2 == 0 && $shift3==0)
+                {
+                    
+                }
+                else if($shift1 == 0 && $shift2 == 0)
+                {
+                    
+                }
+                else if($shift1 == 0 && $shift3 == 0)
+                {
+
+                }
+                else if($shift3 == 0 && $shift2 == 0)
+                {  
+                    // $pengamatan->
+                    // array_add($pengamatanbagian, );
+                }
+                else if ($shift1 == 0) 
+                {
+                    
+                }
+                else if ($shift2 == 0) 
+                {
+                    
+                }
+                else if ($shift3 == 0)
+                {
+                    
+                }
+                else 
+                {
+                    
+                }
             }
             else if($value->kategori_pencatatan_id == '1')
             {
@@ -226,10 +265,9 @@ class mainUtilityController extends Controller
                     $pengamatan->bagian = $value->bagian;
                 }
             }
-
             $value->pengamatan = $pengamatanbagian;
         }
-        
+        dd($bagian);
         $satuan = satuan::all();
         return [$bagian, $satuan];
     }

@@ -249,7 +249,7 @@ class adminUtilityController extends Controller
             $rgf = $ruby + $greek + $frc;
         }
         
-        $bagian = [ '0' => ['bagian' => 'PLN', 'nilai' => $a, 'satuan' => 'Mwh'], //PLN 
+        $bagian = [ '0' => ['bagian' => 'PLN', 'nilai' => $a * 3.2, 'satuan' => 'Mwh'], //PLN 
                     '1' => ['bagian' => 'LWBP', 'nilai' => $lbwp, 'satuan' => '%'], // LBWP
                     '2' => ['bagian' => 'WBP', 'nilai' => $wbp,  'satuan' => '%'], // WBP
                     '3' => ['bagian' => 'UPS Charging', 'nilai' => $ups, 'satuan' => 'Mwh'],

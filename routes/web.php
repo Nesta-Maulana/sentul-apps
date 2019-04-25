@@ -89,12 +89,12 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/master-apps/bagian/data', 'masterApps\superAdminController@dataBagian');
     Route::get('/master-apps/bagian/edit/{id}', 'masterApps\superAdminController@editBagian');
 
-    Route::get('/master-apps/brand', 'masterApps\superAdminController@brand');
-    Route::post('/master-apps/brand/data', 'masterApps\superAdminController@dataBrand')->name('brand-data');
-    Route::get('/master-apps/brand/edit/{id}', 'masterApps\superAdminController@editBagian');
+    Route::get('/master-apps/sub-brand', 'masterApps\superAdminController@subBrand');
+    Route::post('/master-apps/sub-brand/data', 'masterApps\superAdminController@dataSubBrand')->name('sub-brand-data');
+    Route::get('/master-apps/sub-brand/edit/{id}', 'masterApps\superAdminController@editSubBrand');
 
     Route::get('/master-apps/brand', 'masterApps\superAdminController@brand');
-    Route::post('/master-apps/brand/data', 'masterApps\superAdminController@dataBrand');
+    Route::post('/master-apps/brand/data', 'masterApps\superAdminController@dataBrand')->name('brand-data');
     Route::get('/master-apps/brand/edit/{id}', 'masterApps\superAdminController@editBrand');
     
     Route::get('/master-apps/aplikasi', 'masterApps\superAdminController@aplikasi')->name('aplikasi');
@@ -157,6 +157,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report-4/{tgl}', 'utilityOnline\adminUtilityController@report4Tgl');
     Route::get('/utility-online/admin/report/detail/{id}/{tgl}', 'utilityOnline\adminUtilityController@detailReport');
     Route::get('/utility-online/admin/report/{from}/{to}', 'utilityOnline\adminUtilityController@reportDate');
+    Route::get('/utility-online/admin/report/export', 'utilityOnline\exportImportUtilityController@export');
+    Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'exportUtilityController@export');
 
     // Rollie
     Route::get('/rollie', 'rollie\rollieController@cpp');

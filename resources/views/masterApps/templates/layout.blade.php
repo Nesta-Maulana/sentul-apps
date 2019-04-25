@@ -123,7 +123,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
                             <?php $cek = mysqli_query($conn, "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$c[id]' AND lihat='1'") ?>
                             <?php $cek = mysqli_fetch_array($cek) ?>
                             @if($cek[0] == 0)
-                                <li class=""><a href="/sentul-apps/master-apps/{{ $c['link'] }}"><i class="fa {{ $c['icon'] }}"></i> <span>{{ $c['menu'] }}</span></a></li>
+                                <li class=""><a href="{{ $c['link'] }}"><i class="fa {{ $c['icon'] }}"></i> <span>{{ $c['menu'] }}</span></a></li>
                             @else
                                 <li class="treeview">
                                     <a href='#' class='active'><i class="fa {{ $c['icon'] }}"></i> <span>{{ $c['menu'] }}</span>
@@ -138,7 +138,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
                                     <ul class='treeview-menu'>
                                     
                                             @while($a = mysqli_fetch_assoc($anak))
-                                                <li class=""><a href="/sentul-apps/master-apps/{{ $a['link'] }}"><i class="fa {{ $a['icon'] }}"></i> <span>{{ $a['menu'] }}</span></a></li>
+                                                <li class=""><a href="{{ $a['link'] }}"><i class="fa {{ $a['icon'] }}"></i> <span>{{ $a['menu'] }}</span></a></li>
                                             @endwhile
                                     </ul>
                                 </li>

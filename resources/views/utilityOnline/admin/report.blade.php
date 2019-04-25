@@ -11,11 +11,13 @@
         right: 0px !important;
     } 
 </style> -->
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="row mt-5">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Reports Penggunaan</h4>
+                <h4>Reports Penggunaan | </h4>
+                <a href="" class="btn btn-primary">Export</a>
             </div>
             <div class="row mt-2">
                 <div class="col-lg-9"></div>
@@ -71,7 +73,8 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4>Reports Pengamatan</h4>
+                <h4>Reports Pengamatan | </h4>
+                <a class="btn btn-primary export text-white" id="export-pengamatan">Export</a>
             </div>
             <div class="row">
                 <div class="col-lg-3 m-2">
@@ -105,7 +108,6 @@
                             <th>Bagian</th>
                             <th>Input</th>
                             <th>Satuan</th>
-                            <th>Aksi</th>
                             </tr>
                         </thead>
                         <!--Table head-->
@@ -271,6 +273,7 @@
                                 method: 'GET',
                                 dataType: 'JSON',
                                 success: function (data) {
+                                    // console.log(data);
                                     var optionroles = '', $comboroles = $('#table');
                                     var nomor = 0;
                                     for (index = 0; index < data[0].length; index++) 
@@ -292,7 +295,7 @@
                                                             optionroles+='<td>'+data[1][i].satuan+'</td>';
                                                         }
                                                     }
-                                                    optionroles+='<td><button class="btn btn-primary edit" data-id="' + data[0][index].pengamatan[indek].pengamatan_id + '" data-tgl="' + data[0][index].pengamatan[indek].created_at + '" data-toggle="modal" data-target="#exampleModal">Edit</button> </td>';
+                                                    
                                                 }
                                                 else
                                                 {
@@ -311,7 +314,7 @@
                                                     optionroles+='<td>'+data[1][i].satuan+'</td>';
                                                 }
                                             }
-                                            optionroles+='<td><button class="btn btn-primary edit" data-idBagian="'+ data[0][index].id +'" data-bagian="'+ data[0][index].bagian +'" data-id="" data-toggle="modal" data-target="#exampleModal">Edit</button></td>';
+                                            
                                         }
                                         
                                         
@@ -371,6 +374,20 @@
                 }
             });
         })
-        
+        $('.export').click(function () {
+            var tgl = $('#tanggal').val();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: 'report/export',
+                method: 'POST',
+                dataType: 'JSON',
+                data: { 'tgl_mulai': tgl, 'tgl_selesai': tgl, 'nama_report': 'pengamatan', 'from' : 'pengamatan'},
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        })
 </script>
 @endsection

@@ -1487,17 +1487,17 @@
     },
     {
         "name": "maatwebsite/excel",
-        "version": "3.1.11",
-        "version_normalized": "3.1.11.0",
+        "version": "3.1.12",
+        "version_normalized": "3.1.12.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-            "reference": "8576af60a456bcead31a2d2d9cf03dea0598860e"
+            "reference": "e1816f793c6abd33e3858ecb3b056da9a7dd5d73"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/8576af60a456bcead31a2d2d9cf03dea0598860e",
-            "reference": "8576af60a456bcead31a2d2d9cf03dea0598860e",
+            "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/e1816f793c6abd33e3858ecb3b056da9a7dd5d73",
+            "reference": "e1816f793c6abd33e3858ecb3b056da9a7dd5d73",
             "shasum": ""
         },
         "require": {
@@ -1514,7 +1514,7 @@
             "phpunit/phpunit": "^8.0",
             "predis/predis": "^1.1"
         },
-        "time": "2019-03-19T10:54:38+00:00",
+        "time": "2019-04-17T17:22:54+00:00",
         "type": "library",
         "extra": {
             "laravel": {
