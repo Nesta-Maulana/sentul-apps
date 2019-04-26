@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class produk extends Model
 {
-    protected $connection = 'sementara';
-    protected $table = "produks";
+    protected $connection = 'mysql4';
+    protected $table = "produk";
     protected $guarded = ['id'];
     public function brand(){
         return $this->belongsTo('App\Models\masterApps\brand', 'brand_id');

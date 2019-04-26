@@ -28,6 +28,7 @@ class mtolImport implements WithMappedCells,ToModel
 			$return['nama_produk_row_'.$i] 					= "J".$i; // INDEX 7 dalam hasil 	 
 			$return['status_row_'.$i] 						= "L".$i; // INDEX 8 dalam hasil 
 			$return['revisi_formula_row_'.$i] 				= "Z".$i; // INDEX 9 dalam hasil 
+			$return['plan_batch_size_row_'.$i] 				= "K".$i; // INDEX 10 dalam hasil 	 
 		}
 		return $return;
 	}
@@ -48,8 +49,12 @@ class mtolImport implements WithMappedCells,ToModel
     				// apabila sesuai maka akan di cek apa isi baris nomor wo , nama produk , kode produknya tidak kosong 
     				if ($row['nomor_wo_row_'.$i] !== "" && $row['nomor_wo_row_'.$i] !== NULL && $row['nama_produk_row_'.$i] && $row['nama_produk_row_'.$i] !== NULL && $row['kode_produk_row_'.$i] !== "" && $row['kode_produk_row_'.$i] !== NULL) 
     				{
-    					// apabila tidak kosong maka akan di masukan sebagai bagian dari baris yang akan di input INDEXING lihat di fungsi mapping diatas
-    					array_push($hasil['baris_ke_'.$baris_asli], $value);
+    					// apabila tidak kosong maka akan di masukan sebagai bagian dari baris yang akan di input INDEXING lihat di fungsi mapping diatas tapi sebelumnya harus di cek dulu WO nya sudah ada dijadwal atau engga 
+    					$cekjadwal 	= wo::where('nomor_wo',$row['nomor_wo_row_'.$i])->count();
+    					if ($cekjadwal < 1) 
+    					{					
+	    					array_push($hasil['baris_ke_'.$baris_asli], $value);
+    					}
     				}
     			}
     		}
@@ -62,7 +67,6 @@ class mtolImport implements WithMappedCells,ToModel
     	$jadwalinsert 	= array();
     	for ($i=1; $i < count($hasil) ; $i++) 
 		{ 
-			$arrayrow 					= array();
 			$plan 						= 	$hasil['baris_ke_'.$i][0];
 			$production_plan_date 		= 	Date::excelToDateTimeObject($hasil['baris_ke_'.$i][1]);
 			$nomor_wo 					= 	$hasil['baris_ke_'.$i][2];
@@ -73,6 +77,7 @@ class mtolImport implements WithMappedCells,ToModel
 			$nama_produk 				= 	$hasil['baris_ke_'.$i][7];
 			$status 					= 	$hasil['baris_ke_'.$i][8];
 			$revisi_formula 			= 	$hasil['baris_ke_'.$i][9];
+			$plan_batch_size 			= 	$hasil['baris_ke_'.$i][10];
 			if (!is_null($plan)) 
 			{
 				if ($plan == 'PLG') 
@@ -93,16 +98,47 @@ class mtolImport implements WithMappedCells,ToModel
 			{
 				$keterangan_3 = "-";
 			}
-			//mengambil data produk dengan 
+			//mengambil data produk dengan dengan menyamakan nama produknya 
 			if ($kode_produk !== "" && $nama_produk !== "" || !is_null($kode_produk) && !is_null($nama_produk)) 
 			{
-
-				$produk 	= produk::where('nama_produk',$nama_produk)->get();
-				dd($produk);	
+				$produk 	= produk::where('kode_oracle',$kode_produk)->first();
+				$produk_id 	= $produk->id;
 			}
-			array_push($arrayrow['plan_id'], $plan);
+			// pengecekan status dari excel lalu di rubah sesuai indexing dalam database
+			if ($status == "Pending") 
+			{
+				$status = "0";
+			} 
+			else if ($status == "Cancelled") 
+			{
+				$status = "6";
+			}
+			else if($status == '')
+			{
+				$status = "0";
+			}
+			if ($revisi_formula == "" || is_null($revisi_formula)) 
+			{
+				$revisi_formula = "-";
+			}
+			$arrayrow = array();
 
+			//memasukan value kedalam array untuk insert multiple
+			$arrayrow['nomor_wo']					= $nomor_wo;
+			$arrayrow['produk_id']					= $produk_id;
+			$arrayrow['plan_id']					= $plan;
+			$arrayrow['production_plan_date']		= $production_plan_date;
+			$arrayrow['status']						= $status;
+			$arrayrow['keterangan_1']				= $keterangan_1;
+			$arrayrow['keterangan_2']				= $keterangan_2;
+			$arrayrow['keterangan_3']				= $keterangan_3;
+			$arrayrow['plan_batch_size']			= $plan_batch_size;
+			$arrayrow['revisi_formula']				= $revisi_formula;
+
+
+			// satu variabel insert di push
+			array_push($jadwalinsert, $arrayrow);
     	}
-
+    	$insertjadwal 	= wo::insert($jadwalinsert);
     }
 }

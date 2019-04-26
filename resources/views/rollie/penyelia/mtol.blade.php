@@ -30,21 +30,60 @@
                 <table cellpadding="0" cellspacing="0" border="0" class="display nowrap table" width= "100%" id="data-tables-wo">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th class="hidden-phone">Plan Date</th>
-                            <th class="hidden-phone">Realisation Date</th>
-                            <th>Nomor Wo</th>
-                            <th>Kode Produk</th>
-                            <th>Nama Produk</th>
-                            <th>Batch Size</th>
-                            <th>Status</th>
-                            <th>Keterangan 1</th>
-                            <th>Lot FG</th>
-                            <th>Actual Qty</th>
-                            <th>Revisi Formula</th>
-                            <th>Aksi</th>
+                            <th title="Field #1">No</th>
+                            <th title="Field #2" class="hidden-phone">Plan Date</th>
+                            <th title="Field #3" class="hidden-phone">Realisation Date</th>
+                            <th title="Field #4">Nomor Wo</th>
+                            <th title="Field #5">Kode Produk</th>
+                            <th title="Field #6">Nama Produk</th>
+                            <th title="Field #7">Plan Batch Size</th>
+                            <th title="Field #8">Status</th>
+                            <th title="Field #9">Actual Batch Size</th>
+                            <th title="Field #10">Keterangan 1</th>
+                            <th title="Field #11">Keterangan 2</th>
+                            <th title="Field #12">Keterangan 3</th>
+                            <th title="Field #13">Lot FG</th>
+                            <th title="Field #14">Revisi Formula</th>
+                            <th title="Field #15">Aksi</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
+                    @foreach ($wos as $wo)
+                        <tr class="text-center">
+                            <td>{{ $i }}</td>
+                            <td>{{ $wo->production_plan_date }}</td>
+                            {{-- Pengecekan apa tanggal realisasinya belum ada atau sudah ada --}}
+                            @if (is_null($wo->production_realisation_date))
+                                <td >-</td>
+                            @else
+                                <td>{{ $wo->production_realisation_date }}</td>
+                            @endif
+                            {{-- end pengecekan --}}
+                            <td>{{ $wo->nomor_wo }}</td>
+                            <td>{{ $wo->produk->kode_oracle }}</td>
+                            <td class="text-left">{{ $wo->produk->nama_produk }}</td>
+                            <td>{{ $wo->plan_batch_size }} KG</td>
+                            <td>{{ $wo->status }}</td>
+                            @if (is_null($wo->actual_batch_size))
+                                <td>0</td>
+                            @else
+                                <td>{{ $wo->actual_batch_size }} KG</td>
+                            @endif
+                            <td>{{ $wo->keterangan_1 }}</td>
+                            <td>{{ $wo->keterangan_2 }}</td>
+                            <td>{{ $wo->keterangan_3 }}</td>
+                            <td>-</td>
+                            <td class="text-left">{{ $wo->revisi_formula }}</td>
+                            <td></td>
+                        </tr>
+                        @php
+                            $i++;
+                        @endphp
+                    @endforeach
+                    </tbody>
                     <tbody>
                     </tbody>
                 </table>

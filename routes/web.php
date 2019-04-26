@@ -164,7 +164,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'exportUtilityController@export');
 
     // Rollie
-    Route::get('/penyelia', 'rollie\penyeliaController@index');
+    Route::get('/penyelia', 'rollie\penyeliaController@index')->name('penyelia-index');
     Route::get('/penyelia/jadwal-produksi', 'rollie\penyeliaController@index');
     Route::post('/penyelia/jadwal-produksi', 'rollie\penyeliaController@importJadwalProduksi')->name('import-jadwal-produksi');
 

@@ -153,6 +153,7 @@
     </section>
     <!-- DataTables -->
     <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/fixed-table.min.js')}}"></script>
     <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
 
@@ -167,6 +168,7 @@
     <script src="{{ asset('rollie/penyelia/lib/common-scripts.js')}}"></script>
     <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/gritter/js/jquery.gritter.js')}}"></script>
     <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/gritter-conf.js')}}"></script>
+    <script src="{{ asset('rollie/penyelia/js/table.js')}}"></script>
 
     <!-- My JS -->
     <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
@@ -197,19 +199,7 @@
         new WOW().init();
     </script>
     <script>
-        var oTable = $('#data-tables-wo').dataTable({
-            "columnDefs": [{
-                "sortable": false,
-                "targets": [5]
-            }],
-            bFilter:false,
-            bInfo:false,
-            bLengthChange:false,
-            pageLength:10,
-            scrollY: 400,
-            scrollX: true,
-
-        });
+        
         $('#data-tables').dataTable({});
 
         $('#myModal').on('shown.bs.modal', function() {
