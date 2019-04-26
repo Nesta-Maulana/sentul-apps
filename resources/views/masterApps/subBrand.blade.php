@@ -9,11 +9,8 @@
 
 {!! Form::open(['route' => 'sub-brand-data', 'method' => 'POST']) !!}
 <input type="hidden" name='id' id="id">
-    <div class="row">
-        <div class="col-lg-6 box">
-            <div class="box-header">
-                <h3>SubBrand</h3>
-            </div>
+    <div class="row box ml-1">
+        <div class="col-lg-6">
             <div class="form-group">
                 <label for="brand">Brand : </label>
                 <select class="form-control select2" id="brand" name="brand">
@@ -27,16 +24,8 @@
                 <label for="subBrand">Sub Brand : </label>
                 <input type="text" class="form-control" id="subBrand" name="subBrand">
             </div>
-            <div class="mb-3">
-                <button class="btn btn-primary">Simpan</button>
-                <button class="btn text-white btn-primary update">Update</button>
-                <a class="text-white btn btn-danger batal">Batal</a>
-            </div>
         </div>
-        <div class="col-lg-6 box">
-            <div class="box-header">
-                <h3><br></h3>
-            </div>
+        <div class="col-lg-6">
             <div class="form-group">
                 <label for="status">Status : </label>
                 <select class="form-control" id="status" name="status" name="status">
@@ -45,6 +34,11 @@
                     <option value="0">Tidak Aktif</option>
                 </select>
             </div>
+        </div>
+        <div class="mb-3 ml-2">
+                <button class="btn btn-primary simpan">Simpan</button>
+                <button class="btn text-white btn-primary update">Update</button>
+                <a class="text-white btn btn-danger batal">Batal</a>
         </div>
     </div>
 {!! Form::close() !!}
@@ -79,7 +73,7 @@
                             @endif
                             <td>
                                 <a class="btn  text-white btn-primary edit" data-id="{{ $subBrand->id }}">Edit</a>
-                                <a class="text-white btn btn-danger">Delete</a>
+                                <a href="delete/mysql4/sub_brand/{{$subBrand->id}}" class="text-white btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -89,6 +83,8 @@
     </div>
 </div>
 <script>
+    $('.update').hide();
+    $('.batal').hide();
     $('.edit').click(function () {
         var id = $(this).data('id');
         $.ajax({
@@ -96,7 +92,9 @@
             method: 'GET',
             dataType: 'JSON',
             success: function (data) {
-
+                $('.update').show();
+                $('.simpan').hide();
+                $('.batal').show();
                 var option = "";
                 for (let index = 0; index < data[1].length; index++) {
                     if (data[0].brand_id == data[1][index].id) {
@@ -111,6 +109,12 @@
                 $("#status option[value= '" + data[0].status + "']").prop('selected', true);
             }
         });
+    })
+    $('.batal').click(function () {
+        $("#brand").val('');
+        $('#subBrand').val('');
+        $('#id').val('');
+        $("#status").val('');
     })
 </script>
 @endsection

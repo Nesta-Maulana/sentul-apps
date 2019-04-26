@@ -126,6 +126,9 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/master-apps/mesin-filling-head-detail/save', 'masterApps\superAdminController@mesinFillingHeadDetailSave')->name('mesin-filling-head-detail-save');
     Route::get('/master-apps/mesin-filling-head-detail/edit/{id}', 'masterApps\superAdminController@editMesinFillingHeadDetail');
 
+    // Delete 
+    Route::get('/master-apps/delete/{connection}/{table}/{id}', 'resourceController@deleteData');
+
     // Utility Online
     Route::get('/utility-online', 'utilityOnline\mainUtilityController@index');
     Route::get('/utility-online/water', 'utilityOnline\mainUtilityController@water');

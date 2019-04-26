@@ -58,6 +58,7 @@
                                     <td>{{ $a->link }}</td>
                                     <td>
                                         <a href="#" onclick="edit('{{ $a->id }}')" class="btn btn-primary edit text-white">Edit</a>
+                                        <a href="delete/mysql/aplikasi/{{$a->id}}" class="text-white btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

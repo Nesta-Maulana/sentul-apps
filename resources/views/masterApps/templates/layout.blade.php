@@ -15,9 +15,9 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
   <link rel="stylesheet" href="{!! asset('masterApps/dist/css/AdminLTE.min.css') !!}">
   <link rel="stylesheet" href="{!! asset('masterApps/dist/css/skins/skin-blue.min.css') !!}">
   <link rel="stylesheet" href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
-
   <link rel="stylesheet" type="text/css" href="{{ asset('masterApps/dist/css/animate.min.css') }}">
   <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
+  <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
   <style>
   .hidden
   {
@@ -28,9 +28,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
     <link rel="stylesheet" href="{!! asset('masterApps/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('userAccess/css/input-style.css') !!}">
 
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <title>@yield('title')</title>
     
 </head>
@@ -204,7 +202,6 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 <script src="{!! asset('masterApps/dist/js/adminlte.min.js') !!}"></script>
 <script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
 <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
-<script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
 <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
 
   <script src="{!! asset('masterApps/js/datatable.min.js') !!}"></script>
