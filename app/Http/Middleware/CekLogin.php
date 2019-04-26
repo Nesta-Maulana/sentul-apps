@@ -33,7 +33,17 @@ class CekLogin
             $aplikasi = hakAksesUserAplikasi::where('id_user', $id)->get();
             $useraplikasi = array();
             foreach ($aplikasi as $a) {
-                $hakAplikasi = aplikasi::where('id', $a->id_aplikasi)->first();                
+                $hakAplikasi = aplikasi::where('id', $a->id_aplikasi)->first();
+                // if($data[1] !== $hakAplikasi->link)
+                // {
+                //     dd
+                //     if(hakAksesUserAplikasi::where('id_aplikasi', $a->id)->where('id_user', Session::get('login'))->count() > 0){
+                        
+                //     }else{
+                //         return redirect(url()->previous())->with('failed', 'Anda tidak memiliki akses terhadap aplikasi ini');
+                        
+                //     }   
+                // }
                 array_push($useraplikasi,$hakAplikasi->link);
             }
             if($data[1] !== 'home' && !in_array($data[1],$useraplikasi))

@@ -131,7 +131,10 @@
                                 @else
                                     <td>Aktif</td>
                                 @endif
-                                <td><a href="#" class="btn btn-primary edit" onclick="edit('{{ $product->id }}')">Edit</a></td>
+                                <td>
+                                    <a href="#" class="btn btn-primary edit" onclick="edit('{{ $product->id }}')">Edit</a>
+                                    <a href="delete/mysql4/produk/{{$produk ->id}}" class="text-white btn btn-danger">Delete</a>
+                                </td>
                             </tr>
                             <?php $i++ ?>
                         @endforeach
