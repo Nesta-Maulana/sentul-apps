@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Apr 2019 pada 09.47
+-- Waktu pembuatan: 29 Apr 2019 pada 11.02
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -67,7 +67,8 @@ INSERT INTO `aplikasi` (`id`, `aplikasi`, `link`, `status`, `created_at`, `updat
 (2, 'Utility Online', 'utility-online', '1', '2019-03-01 03:25:43', '0000-00-00 00:00:00'),
 (3, 'Rollie', 'rollie', '1', '2019-04-22 03:09:18', '2019-04-22 03:09:18'),
 (4, 'Vollie', 'vollie', '1', '2019-03-01 06:28:48', '0000-00-00 00:00:00'),
-(10, 'Penyelia', 'penyelia', '1', '2019-04-22 02:24:49', '2019-04-22 02:24:49');
+(10, 'Penyelia', 'penyelia', '1', '2019-04-22 02:24:49', '2019-04-22 02:24:49'),
+(11, 'Operator Produksi', 'operator-produksi', '1', '2019-04-29 07:19:08', '2019-04-29 07:19:08');
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,10 @@ INSERT INTO `hak_akses_aplikasi` (`id`, `id_aplikasi`, `id_user`, `status`, `cre
 (6, 3, 23, '1', '2019-04-16 08:58:52', '2019-04-16 08:58:52'),
 (13, 10, 22, '0', '2019-04-22 02:24:49', '2019-04-22 02:24:49'),
 (14, 10, 23, '0', '2019-04-22 02:24:49', '2019-04-22 02:24:49'),
-(15, 10, 24, '1', '2019-04-22 02:27:02', '2019-04-22 02:27:02');
+(15, 10, 24, '1', '2019-04-22 02:27:02', '2019-04-22 02:27:02'),
+(16, 11, 22, '0', '2019-04-29 07:19:08', '2019-04-29 07:19:08'),
+(17, 11, 23, '0', '2019-04-29 07:19:08', '2019-04-29 07:19:08'),
+(18, 11, 24, '0', '2019-04-29 07:19:08', '2019-04-29 07:19:08');
 
 -- --------------------------------------------------------
 
@@ -238,7 +242,10 @@ INSERT INTO `hak_akses_menu` (`id`, `user_id`, `menu_id`, `tambah`, `lihat`, `ub
 (115, 24, 56, '0', '0', '0', '0', '2019-04-24 02:12:37', '2019-04-24 02:12:37'),
 (116, 22, 57, '0', '0', '0', '0', '2019-04-25 07:01:14', '2019-04-25 07:01:14'),
 (117, 23, 57, '0', '0', '0', '0', '2019-04-25 07:01:14', '2019-04-25 07:01:14'),
-(118, 24, 57, '1', '1', '1', '1', '2019-04-25 07:01:14', '2019-04-25 07:01:33');
+(118, 24, 57, '1', '1', '1', '1', '2019-04-25 07:01:14', '2019-04-25 07:01:33'),
+(119, 22, 58, '0', '0', '0', '0', '2019-04-29 07:33:26', '2019-04-29 07:33:26'),
+(120, 23, 58, '0', '0', '0', '0', '2019-04-29 07:33:27', '2019-04-29 07:33:27'),
+(121, 24, 58, '1', '1', '1', '1', '2019-04-29 07:33:27', '2019-04-29 07:37:26');
 
 -- --------------------------------------------------------
 
@@ -1111,16 +1118,16 @@ CREATE TABLE `menus` (
 
 INSERT INTO `menus` (`id`, `parent_id`, `menu`, `icon`, `link`, `status`, `posisi`, `aplikasi_id`, `created_at`, `updated_at`) VALUES
 (2, 0, 'Pengaturan Aplikasi', 'fa-link', '-', '1', '1', 1, '2019-03-01 01:48:20', '0000-00-00 00:00:00'),
-(4, 31, 'Form PMB', 'fa-edit', 'form-pmb', '1', '3', 1, '2019-04-01 09:20:10', '0000-00-00 00:00:00'),
-(5, 30, 'Form User', 'fa-users', 'form-user', '1', '0', 1, '2019-04-01 08:49:41', '0000-00-00 00:00:00'),
-(6, 0, 'Form Menu', 'fa-coffee', 'form-menu', '0', '0', 1, '2019-04-16 02:13:36', '0000-00-00 00:00:00'),
-(14, 30, 'Kelola Menu', 'fa-opera', 'form-menu', '1', '1', 1, '2019-04-16 02:14:19', '2019-02-11 09:06:43'),
-(15, 30, 'Form Hak Akses', 'fa-calendar', 'form-hak-akses', '1', '4', 1, '2019-04-16 02:19:39', '2019-02-18 03:10:03'),
-(16, 30, 'Form Roles', 'fa-gear', 'form-roles', '1', '3', 1, '2019-04-16 02:18:47', '2019-02-20 07:38:10'),
+(4, 31, 'Form PMB', 'fa-edit', 'master-apps/form-pmb', '1', '3', 1, '2019-04-29 07:18:34', '0000-00-00 00:00:00'),
+(5, 30, 'Form User', 'fa-users', 'master-apps/form-user', '1', '0', 1, '2019-04-29 07:00:58', '0000-00-00 00:00:00'),
+(6, 0, 'Form Menu', 'fa-coffee', 'master-apps/form-menu', '0', '0', 1, '2019-04-29 07:02:49', '0000-00-00 00:00:00'),
+(14, 30, 'Kelola Menu', 'fa-opera', 'master-apps/form-menu', '1', '1', 1, '2019-04-29 07:03:05', '2019-02-11 09:06:43'),
+(15, 30, 'Form Hak Akses', 'fa-calendar', 'master-apps/form-hak-akses', '1', '4', 1, '2019-04-29 07:03:24', '2019-02-18 03:10:03'),
+(16, 30, 'Form Roles', 'fa-gear', 'master-apps/form-roles', '1', '3', 1, '2019-04-29 07:03:50', '2019-02-20 07:38:10'),
 (17, 0, 'Menu Utility Online', 'fa-comments', '-', '1', '0', 2, '2019-04-02 01:13:02', '2019-03-03 04:08:29'),
 (25, 35, 'Form Bagian', 'fa-archive', 'bagian', '1', '1', 1, '2019-04-16 02:18:23', '2019-03-10 19:38:33'),
 (26, 35, 'Form Company', 'fa-bandcamp', 'company', '1', '0', 1, '2019-04-07 06:40:32', '2019-03-10 19:47:48'),
-(29, 0, 'Home', 'fa-home', '/sentul-apps/master-apps', '1', '0', 1, '2019-04-01 08:46:15', '2019-03-29 09:02:33'),
+(29, 0, 'Home', 'fa-home', '/sentul-apps/master-apps', '1', '0', 1, '2019-04-29 07:02:19', '2019-03-29 09:02:33'),
 (30, 0, 'Pengaturan Umum', 'fa-unlink', '-', '1', '2', 1, '2019-04-01 08:48:19', '2019-04-01 08:48:19'),
 (31, 0, 'Parent', 'fa-paragraph', '-', '1', '3', 1, '2019-04-01 09:25:08', '2019-04-01 09:03:31'),
 (33, 2, 'Rollie', 'fa-angle-right', '-', '1', '2', 1, '2019-04-02 00:58:22', '2019-04-02 00:58:22'),
@@ -1130,13 +1137,13 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu`, `icon`, `link`, `status`, `posis
 (37, 0, 'Menu Utility Online 2', 'fa-user', '-', '1', '5', 2, '2019-04-04 02:04:12', '2019-04-04 01:52:10'),
 (40, 0, 'Menu Utility Online 5', 'fa-area-chart', '-', '1', '6', 2, '2019-04-04 02:56:50', '2019-04-04 02:56:50'),
 (41, 37, 'Menu Utility', 'fa-bug', '-', '1', '0', 2, '2019-04-04 06:18:15', '2019-04-04 06:18:15'),
-(42, 30, 'Kelola Produk', 'fa-yoast', 'produk', '1', '2', 1, '2019-04-16 02:15:41', '2019-04-15 08:13:06'),
+(42, 30, 'Kelola Produk', 'fa-yoast', 'master-apps/produk', '1', '2', 1, '2019-04-29 07:04:58', '2019-04-15 08:13:06'),
 (43, 35, 'Rasio', 'fa-paypal', 'rasio', '1', '2', 1, '2019-04-16 02:20:21', '2019-04-16 02:20:21'),
 (44, 35, 'Satuan', 'fa-bullseye', 'satuan', '1', '3', 1, '2019-04-16 02:38:31', '2019-04-16 02:38:31'),
 (45, 35, 'Kategori', 'fa-angellist', 'kategori', '1', '4', 1, '2019-04-16 02:54:25', '2019-04-16 02:54:25'),
-(46, 30, 'Aplikasi', 'fa-paw', 'aplikasi', '1', '5', 1, '2019-04-22 02:23:39', '2019-04-22 02:23:39'),
-(47, 30, 'Hak Akses Aplikasi', 'fa-reply-all', 'hak-akses-aplikasi', '1', '6', 1, '2019-04-22 02:28:25', '2019-04-22 02:28:25'),
-(48, 30, 'Plan', 'fa-building', 'plan', '1', '7', 1, '2019-04-22 02:31:31', '2019-04-22 02:31:31'),
+(46, 30, 'Aplikasi', 'fa-paw', 'master-apps/aplikasi', '1', '5', 1, '2019-04-29 07:04:15', '2019-04-22 02:23:39'),
+(47, 30, 'Hak Akses Aplikasi', 'fa-reply-all', 'master-apps/hak-akses-aplikasi', '1', '6', 1, '2019-04-29 07:04:38', '2019-04-22 02:28:25'),
+(48, 30, 'Plan', 'fa-building', 'master-apps/plan', '1', '7', 1, '2019-04-29 07:04:26', '2019-04-22 02:31:31'),
 (49, 0, 'Jadwal Produksi', 'fa-calendar-o', 'penyelia/jadwal-produksi', '1', '7', 10, '2019-04-22 07:24:38', '2019-04-22 06:49:50'),
 (50, 0, 'CPP', 'fa-angle-double-left', 'rollie/cpp', '1', '8', 3, '2019-04-24 02:09:00', '2019-04-24 02:09:00'),
 (51, 0, 'Analisa Kimia FG', 'fa-angle-double-left', 'rollie/analisa-kimia-fg', '1', '9', 3, '2019-04-24 02:09:37', '2019-04-24 02:09:37'),
@@ -1145,7 +1152,8 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu`, `icon`, `link`, `status`, `posis
 (54, 0, 'PPQ-FG', 'fa-angle-double-down', 'rollie/ppq-fg', '1', '10', 3, '2019-04-24 02:11:01', '2019-04-24 02:11:01'),
 (55, 0, 'Analisa Mikro', 'fa-angle-double-left', 'rollie/analisa-mikro', '1', '10', 3, '2019-04-24 02:11:28', '2019-04-24 02:11:28'),
 (56, 0, 'Sortasi', 'fa-codiepie', 'rollie/sortasi', '1', '10', 3, '2019-04-24 02:12:37', '2019-04-24 02:12:37'),
-(57, 30, 'Brand', 'fa-angle-double-left', 'master-apps/brand', '1', '8', 1, '2019-04-25 07:01:14', '2019-04-25 07:01:14');
+(57, 30, 'Brand', 'fa-angle-double-left', 'master-apps/brand', '1', '8', 1, '2019-04-25 07:01:14', '2019-04-25 07:01:14'),
+(58, 0, 'Dashboard', 'fa-home', 'operator-produksi/', '1', '10', 11, '2019-04-29 07:33:26', '2019-04-29 07:33:26');
 
 -- --------------------------------------------------------
 
@@ -1333,19 +1341,19 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT untuk tabel `aplikasi`
 --
 ALTER TABLE `aplikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `hak_akses_aplikasi`
 --
 ALTER TABLE `hak_akses_aplikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `hak_akses_menu`
 --
 ALTER TABLE `hak_akses_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT untuk tabel `icons`
@@ -1363,7 +1371,7 @@ ALTER TABLE `karyawan`
 -- AUTO_INCREMENT untuk tabel `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
