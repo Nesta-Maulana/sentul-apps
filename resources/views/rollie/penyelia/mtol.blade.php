@@ -65,7 +65,11 @@
                             <td>{{ $wo->nomor_wo }}</td>
                             <td>{{ $wo->produk->kode_oracle }}</td>
                             <td class="text-left">{{ $wo->produk->nama_produk }}</td>
-                            <td>{{ $wo->plan_batch_size }} KG</td>
+                            @if (!is_null($wo->plan_batch_size) && $wo->plan_batch_size !== "")
+                                <td>{{ $wo->plan_batch_size }} KG</td>
+                            @else
+                                <td>-</td>
+                            @endif
                             <td>{{ $wo->status }}</td>
                             @if (is_null($wo->actual_batch_size))
                                 <td>0</td>

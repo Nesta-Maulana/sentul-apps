@@ -169,7 +169,9 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/penyelia/jadwal-produksi', 'rollie\penyeliaController@importJadwalProduksi')->name('import-jadwal-produksi');
 
     
-    Route::get('/rollie/operator/cpp', 'rollie\rollieOperatorController@cpp');
+    Route::get('/operator-produksi', 'rollie\rollieOperatorController@fillpackindex')->name('dashboard-operator-fillpack');
+
+    
     Route::get('/rollie', 'rollie\rollieController@cpp');
     Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');
     Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia');

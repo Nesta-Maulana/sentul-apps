@@ -101,8 +101,19 @@ class mtolImport implements WithMappedCells,ToModel
 			//mengambil data produk dengan dengan menyamakan nama produknya 
 			if ($kode_produk !== "" && $nama_produk !== "" || !is_null($kode_produk) && !is_null($nama_produk)) 
 			{
-				$produk 	= produk::where('kode_oracle',$kode_produk)->first();
-				$produk_id 	= $produk->id;
+				// PENGECEKAN APABILA WO YANG DIGUNAKAN ADALAH WO kode_trial
+				if (strpos($nomor_wo, '/')) 
+				{
+					$patahkan 		= explode('/',$nomor_wo);
+					$kode_trial 	= end($patahkan);
+					$produk 		= produk::where('kode_trial',$kode_trial)->first();
+					$produk_id 		= $produk->id;	
+				} 
+				else
+				{
+					$produk 	= produk::where('kode_oracle',$kode_produk)->first();
+					$produk_id 	= $produk->id;
+				}
 			}
 			// pengecekan status dari excel lalu di rubah sesuai indexing dalam database
 			if ($status == "Pending") 
@@ -117,6 +128,11 @@ class mtolImport implements WithMappedCells,ToModel
 			{
 				$status = "0";
 			}
+			else if ($status == 'WIP') 
+			{
+				$status = '1';
+			} 
+
 			if ($revisi_formula == "" || is_null($revisi_formula)) 
 			{
 				$revisi_formula = "-";
