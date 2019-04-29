@@ -74,6 +74,7 @@
                                     @endif
                                     <td>
                                         <button data-id="{{ $r->id }}" class="edit btn btn-primary {{ Session::get('ubah') }}" value="Edit" id="edit" name="edit">Edit</button>
+                                        <a href="delete/mysql/roles/{{$r->id}}" class="text-white btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $no++ ?>
@@ -154,7 +155,6 @@ $(document).ready(function () {
         }
     }, 200);
 });
-
 $('#batal').click(function(e){
     e.preventDefault();
     $('#wow').first().show();

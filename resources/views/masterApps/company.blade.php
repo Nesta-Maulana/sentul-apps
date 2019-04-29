@@ -57,7 +57,10 @@
                             @else
                                 <td>Tidak Aktif</td>
                             @endif
-                            <td><button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $c->id }}">Edit</button></td>
+                            <td>
+                                <button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $c->id }}">Edit</button>
+                                <a href="delete/mysql4/company/{{$company->id}}" class="text-white btn btn-danger">Delete</a>    
+                            </td>
                         </tr>
                         <?php $i++ ?>
                     @endforeach
