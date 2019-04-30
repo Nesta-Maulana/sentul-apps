@@ -7,14 +7,10 @@
   <title>@yield('title')</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/bootstrap/css/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/fontawesome/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('generalStyle/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('generalStyle/fonts/icon/font-awesome.min.css')}}">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/jqvmap/dist/jqvmap.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/weather-icon/css/weather-icons.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/weather-icon/css/weather-icons-wind.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/summernote/summernote-bs4.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')}}">
@@ -33,17 +29,17 @@
       <nav class="navbar navbar-expand-lg main-navbar">
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
-            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fa fa-bars"></i></a></li>
+            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fa fa-search"></i></a></li>
           </ul>
           <div class="search-element">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+            <button class="btn" type="submit"><i class="fa fa-search"></i></button>
             <div class="search-backdrop"></div>
           </div>
         </form>
         <ul class="navbar-nav navbar-right">
-          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
+          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="fa fa-bell"></i></a>
                 <div class="dropdown-menu dropdown-list dropdown-menu-right">
                     <div class="dropdown-header">Notifications
                         <div class="float-right">
@@ -53,7 +49,7 @@
                     <div class="dropdown-list-content dropdown-list-icons">
                         <a href="#" class="dropdown-item dropdown-item-unread">
                             <div class="dropdown-item-icon bg-primary text-white">
-                                <i class="fas fa-code"></i>
+                                <i class="fa fa-code"></i>
                             </div>
                             <div class="dropdown-item-desc">
                                 Template update is available now!
@@ -62,7 +58,7 @@
                         </a>
                     </div>
                     <div class="dropdown-footer text-center">
-                        <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                        <a href="#">View All <i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>
             </li>
@@ -73,11 +69,11 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-title">Kamu login sebagai .....</div>
                     <a href="features-profile.html" class="dropdown-item has-icon">
-                        <i class="far fa-user"></i> Profile
+                        <i class="fa fa-user"></i> Profile
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item has-icon text-danger">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="fa fa-sign-out-alt"></i> Logout
                     </a>
                 </div>
             </li>
@@ -95,7 +91,7 @@
 
                 <li class="menu-header">Main</li>
                     <li class="dropdown @yield('active-report')">
-                        <a href="/sentul-apps/utility-online/admin/report" class="nav-link"><i class="fas fa-columns"></i> <span>Reports</span></a>                        
+                        <a href="/sentul-apps/utility-online/admin/report" class="nav-link"><i class="fa fa-columns"></i> <span>Reports</span></a>                        
                     </li>
                 <li class="menu-header">Menu</li>
                 <?php $idUser = Session::get('login') ?>
@@ -172,20 +168,15 @@
   </div>
 
   <!-- General JS Scripts -->
-  <script src="{{ asset('utilityOnline/admin/js/popper.js')}}"></script>
+  <script src="{{ asset('generalStyle/js/popper.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/tooltip.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/modules/bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="{{ asset('generalStyle/js/bootstrap.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/moment.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/stisla.js')}}"></script>
   
   <!-- JS Libraies -->
-  <script src="{{ asset('utilityOnline/admin/modules/simple-weather/jquery.simpleWeather.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/chart.min.js')}}"></script>
-  <!-- <script src="{{ asset('utilityOnline/admin/modules/jqvmap/dist/jquery.vmap.min.js')}}"></script> -->
-  <!-- <script src="{{ asset('utilityOnline/admin/modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script> -->
-  <script src="{{ asset('utilityOnline/admin/modules/summernote/summernote-bs4.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
 
   <!-- Page Specific JS File -->
   <script src="{{ asset('utilityOnline/admin/js/page/dashboard-general.js')}}"></script>

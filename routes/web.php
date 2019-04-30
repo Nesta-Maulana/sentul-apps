@@ -160,8 +160,10 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report-4/{tgl}', 'utilityOnline\adminUtilityController@report4Tgl');
     Route::get('/utility-online/admin/report/detail/{id}/{tgl}', 'utilityOnline\adminUtilityController@detailReport');
     Route::get('/utility-online/admin/report/{from}/{to}', 'utilityOnline\adminUtilityController@reportDate');
-    Route::get('/utility-online/admin/report/export', 'utilityOnline\exportImportUtilityController@export');
-    Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'exportUtilityController@export');
+    Route::get('/utility-online/admin/report/export/{nama_report}/{from}', 'utilityOnline\exportImportUtilityController@exportPengamatan2');
+    Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPengamatan');
+    Route::get('/utility-online/admin/report-penggunaan/export/{nama_report}/{from}', 'utilityOnline\exportImportUtilityController@exportPenggunaan');
+    Route::get('/utility-online/admin/report-penggunaan/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPenggunaan');
 
     // Rollie
     Route::get('/penyelia', 'rollie\penyeliaController@index')->name('penyelia-index');

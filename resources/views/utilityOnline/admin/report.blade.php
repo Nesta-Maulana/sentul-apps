@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-header">
                 <h4>Reports Penggunaan | </h4>
-                <a href="" class="btn btn-primary">Export</a>
+                <a class="btn btn-primary text-white" id="export-penggunaan">Export</a>
             </div>
             <div class="row mt-2">
                 <div class="col-lg-9"></div>
@@ -126,7 +126,8 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4>Reports 1.3</h4>
+                <h4>Reports 1.3 | </h4>
+                <a href="" class="btn btn-primary">Export</a>
             </div>
             <div class="row">
                 <div class="col-lg-3 m-2">
@@ -161,7 +162,8 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4>Reports 1.4</h4>
+                <h4>Reports 1.4 | </h4>
+                <a href="" class="btn btn-primary">Export</a>
             </div>
             <div class="row">
                 <div class="col-lg-3 m-2">
@@ -374,20 +376,12 @@
                 }
             });
         })
-        $('.export').click(function () {
+        $('#export-pengamatan').click(function () {
             var tgl = $('#tanggal').val();
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: 'report/export',
-                method: 'POST',
-                dataType: 'JSON',
-                data: { 'tgl_mulai': tgl, 'tgl_selesai': tgl, 'nama_report': 'pengamatan', 'from' : 'pengamatan'},
-                success: function (data) {
-                    console.log(data);
-                }
-            });
+            document.location.href='report/export/pengamatan/utility-oline/' + tgl + '/' + tgl;        
+        })
+        $('#export-penggunaan').click(function () {
+            
         })
 </script>
 @endsection

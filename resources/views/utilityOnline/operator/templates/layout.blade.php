@@ -13,6 +13,17 @@
     <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 </head>
 <body >
+<style>
+.dataTables_filter {
+display: none; 
+}
+.dataTables_length {
+display: none; 
+}
+.dataTables_info{
+    color: white;
+}
+</style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-light bbotom">
     <a class="navbar-brand text-success" href="#">Utility Online</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,8 +68,18 @@
 <script src="{{ asset('generalStyle/plugins/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('utilityOnline/js/particles.min.js') }}" ></script>
 <script src="{{ asset('utilityOnline/js/app.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
+<link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+<script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
+<script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
 
 <script>
+$('.data-tables-to-do-list').dataTable(
+    {
+        pageLength:5
+    }
+);
   const flashdatas = $('.failed').data('flashdata');
     if(flashdatas){
         swal({
