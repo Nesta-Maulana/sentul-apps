@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Apr 2019 pada 11.02
+-- Waktu pembuatan: 30 Apr 2019 pada 11.23
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -51,7 +51,7 @@ INSERT INTO `agama` (`id`, `agama`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `aplikasi` (
   `id` int(11) NOT NULL,
-  `aplikasi` varchar(20) DEFAULT NULL,
+  `aplikasi` varchar(50) DEFAULT NULL,
   `link` varchar(50) NOT NULL,
   `status` enum('0','1') DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -67,8 +67,9 @@ INSERT INTO `aplikasi` (`id`, `aplikasi`, `link`, `status`, `created_at`, `updat
 (2, 'Utility Online', 'utility-online', '1', '2019-03-01 03:25:43', '0000-00-00 00:00:00'),
 (3, 'Rollie', 'rollie', '1', '2019-04-22 03:09:18', '2019-04-22 03:09:18'),
 (4, 'Vollie', 'vollie', '1', '2019-03-01 06:28:48', '0000-00-00 00:00:00'),
-(10, 'Penyelia', 'penyelia', '1', '2019-04-22 02:24:49', '2019-04-22 02:24:49'),
-(11, 'Operator Produksi', 'operator-produksi', '1', '2019-04-29 07:19:08', '2019-04-29 07:19:08');
+(10, 'Rollie - Penyelia', 'rollie-penyelia', '1', '2019-04-30 04:27:20', '2019-04-30 04:27:20'),
+(11, 'Rollie - Operator Produksi', 'rollie-operator-produksi', '1', '2019-04-30 04:34:04', '2019-04-30 04:34:04'),
+(12, 'Rollie - Inspektor QC', 'rollie-inspektor-qc', '1', '2019-04-30 04:07:16', '2019-04-30 04:07:16');
 
 -- --------------------------------------------------------
 
@@ -101,7 +102,10 @@ INSERT INTO `hak_akses_aplikasi` (`id`, `id_aplikasi`, `id_user`, `status`, `cre
 (15, 10, 24, '1', '2019-04-22 02:27:02', '2019-04-22 02:27:02'),
 (16, 11, 22, '0', '2019-04-29 07:19:08', '2019-04-29 07:19:08'),
 (17, 11, 23, '0', '2019-04-29 07:19:08', '2019-04-29 07:19:08'),
-(18, 11, 24, '0', '2019-04-29 07:19:08', '2019-04-29 07:19:08');
+(18, 11, 24, '1', '2019-04-30 00:43:09', '2019-04-30 00:43:09'),
+(19, 12, 22, '0', '2019-04-30 02:51:53', '2019-04-30 02:51:53'),
+(20, 12, 23, '0', '2019-04-30 02:51:53', '2019-04-30 02:51:53'),
+(21, 12, 24, '1', '2019-04-30 02:52:10', '2019-04-30 02:52:10');
 
 -- --------------------------------------------------------
 
@@ -218,7 +222,7 @@ INSERT INTO `hak_akses_menu` (`id`, `user_id`, `menu_id`, `tambah`, `lihat`, `ub
 (91, 24, 48, '1', '1', '1', '1', '2019-04-22 02:31:31', '2019-04-22 02:31:52'),
 (92, 22, 49, '0', '0', '0', '0', '2019-04-22 06:49:51', '2019-04-22 06:49:51'),
 (93, 23, 49, '0', '0', '0', '0', '2019-04-22 06:49:51', '2019-04-22 06:49:51'),
-(94, 24, 49, '1', '1', '1', '1', '2019-04-22 06:49:51', '2019-04-22 06:50:16'),
+(94, 24, 49, '1', '1', '1', '1', '2019-04-22 06:49:51', '2019-04-30 04:31:18'),
 (95, 22, 50, '0', '0', '0', '0', '2019-04-24 02:09:01', '2019-04-24 02:09:01'),
 (96, 23, 50, '0', '0', '0', '0', '2019-04-24 02:09:01', '2019-04-24 02:09:01'),
 (97, 24, 50, '0', '0', '0', '0', '2019-04-24 02:09:01', '2019-04-24 02:09:01'),
@@ -245,7 +249,10 @@ INSERT INTO `hak_akses_menu` (`id`, `user_id`, `menu_id`, `tambah`, `lihat`, `ub
 (118, 24, 57, '1', '1', '1', '1', '2019-04-25 07:01:14', '2019-04-25 07:01:33'),
 (119, 22, 58, '0', '0', '0', '0', '2019-04-29 07:33:26', '2019-04-29 07:33:26'),
 (120, 23, 58, '0', '0', '0', '0', '2019-04-29 07:33:27', '2019-04-29 07:33:27'),
-(121, 24, 58, '1', '1', '1', '1', '2019-04-29 07:33:27', '2019-04-29 07:37:26');
+(121, 24, 58, '1', '1', '1', '1', '2019-04-29 07:33:27', '2019-04-29 07:37:26'),
+(122, 22, 59, '0', '0', '0', '0', '2019-04-30 02:55:08', '2019-04-30 02:55:08'),
+(123, 23, 59, '0', '0', '0', '0', '2019-04-30 02:55:09', '2019-04-30 02:55:09'),
+(124, 24, 59, '1', '1', '1', '1', '2019-04-30 02:55:09', '2019-04-30 04:58:10');
 
 -- --------------------------------------------------------
 
@@ -1144,7 +1151,7 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu`, `icon`, `link`, `status`, `posis
 (46, 30, 'Aplikasi', 'fa-paw', 'master-apps/aplikasi', '1', '5', 1, '2019-04-29 07:04:15', '2019-04-22 02:23:39'),
 (47, 30, 'Hak Akses Aplikasi', 'fa-reply-all', 'master-apps/hak-akses-aplikasi', '1', '6', 1, '2019-04-29 07:04:38', '2019-04-22 02:28:25'),
 (48, 30, 'Plan', 'fa-building', 'master-apps/plan', '1', '7', 1, '2019-04-29 07:04:26', '2019-04-22 02:31:31'),
-(49, 0, 'Jadwal Produksi', 'fa-calendar-o', 'penyelia/jadwal-produksi', '1', '7', 10, '2019-04-22 07:24:38', '2019-04-22 06:49:50'),
+(49, 0, 'Jadwal Produksi', 'fa-calendar-o', 'rollie-penyelia/', '1', '7', 10, '2019-04-30 04:29:38', '2019-04-22 06:49:50'),
 (50, 0, 'CPP', 'fa-angle-double-left', 'rollie/cpp', '1', '8', 3, '2019-04-24 02:09:00', '2019-04-24 02:09:00'),
 (51, 0, 'Analisa Kimia FG', 'fa-angle-double-left', 'rollie/analisa-kimia-fg', '1', '9', 3, '2019-04-24 02:09:37', '2019-04-24 02:09:37'),
 (52, 0, 'RKJ', 'fa-angellist', 'rollie/rkj', '1', '10', 3, '2019-04-24 02:10:03', '2019-04-24 02:10:03'),
@@ -1153,7 +1160,8 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu`, `icon`, `link`, `status`, `posis
 (55, 0, 'Analisa Mikro', 'fa-angle-double-left', 'rollie/analisa-mikro', '1', '10', 3, '2019-04-24 02:11:28', '2019-04-24 02:11:28'),
 (56, 0, 'Sortasi', 'fa-codiepie', 'rollie/sortasi', '1', '10', 3, '2019-04-24 02:12:37', '2019-04-24 02:12:37'),
 (57, 30, 'Brand', 'fa-angle-double-left', 'master-apps/brand', '1', '8', 1, '2019-04-25 07:01:14', '2019-04-25 07:01:14'),
-(58, 0, 'Dashboard', 'fa-home', 'operator-produksi/', '1', '10', 11, '2019-04-29 07:33:26', '2019-04-29 07:33:26');
+(58, 0, 'Dashboard', 'fa-home', 'rollie-operator-produksi/', '1', '10', 11, '2019-04-30 04:35:26', '2019-04-29 07:33:26'),
+(59, 0, 'Dashboard', 'fa-home', 'rollie-inspektor-qc/', '1', '10', 12, '2019-04-30 04:58:45', '2019-04-30 02:55:08');
 
 -- --------------------------------------------------------
 
@@ -1227,7 +1235,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `rolesId`, `username`, `password`, `verified`, `verifiedByAdmin`, `lastUpdatePassword`, `passwordWrong`, `status`, `created_at`, `updated_at`) VALUES
 (22, 1, '456789', 'maulana', '0', '1', '2019-01-24', 1, '0', '2019-01-23 18:17:34', '2019-01-23 18:17:34'),
 (23, 2, '987654321', '$2y$10$Ayz5ekHG0j9kt.5/MwY0quaTDL90AdQuzqcqb5wNSeGXhsCUU.1Nm', '1', '1', '2019-03-15', 0, '1', '2019-01-03 17:00:00', '2019-04-01 07:54:44'),
-(24, 2, '123456789', '$2y$10$Ayz5ekHG0j9kt.5/MwY0quaTDL90AdQuzqcqb5wNSeGXhsCUU.1Nm', '1', '1', '2019-03-31', 0, '1', '2015-02-13 02:12:11', '2019-04-23 00:33:20');
+(24, 2, '123456789', '$2y$10$Ayz5ekHG0j9kt.5/MwY0quaTDL90AdQuzqcqb5wNSeGXhsCUU.1Nm', '1', '1', '2019-04-30', 0, '1', '2015-02-13 02:12:11', '2019-04-30 09:11:45');
 
 -- --------------------------------------------------------
 
@@ -1248,7 +1256,7 @@ CREATE TABLE `v_hak_akses` (
 ,`tambah` enum('0','1')
 ,`ubah` enum('0','1')
 ,`hapus` enum('0','1')
-,`aplikasi` varchar(20)
+,`aplikasi` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -1341,19 +1349,19 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT untuk tabel `aplikasi`
 --
 ALTER TABLE `aplikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `hak_akses_aplikasi`
 --
 ALTER TABLE `hak_akses_aplikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `hak_akses_menu`
 --
 ALTER TABLE `hak_akses_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT untuk tabel `icons`
@@ -1371,7 +1379,7 @@ ALTER TABLE `karyawan`
 -- AUTO_INCREMENT untuk tabel `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
