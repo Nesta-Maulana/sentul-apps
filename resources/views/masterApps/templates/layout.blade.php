@@ -214,7 +214,6 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
           bInfo:false,
           bLengthChange:false,
           pageLength:3
-          
         });
         $('#table-satuan').DataTable({
           bFilter:false,

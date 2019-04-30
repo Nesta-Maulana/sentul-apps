@@ -10,121 +10,99 @@
         <h2 class="text-center font-weight-bold" style="text-shadow: 1px 1px 1px #000">To Do List</h2>
         <div class=" text-dark">
             <div class="row">
-                <div class="col-lg-4">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr class="text-center">
-                                <th scope="col" colspan="">#</th>
-                                <th colspan="3">Air</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white">
-                            <tr>
-                                <td class="text-center">0</td>
-                                <td class="text-center">Bagian</td>
-                                <td class="text-center">Workcenter</td>
-                                <td class="text-center">Pengecekan</td> 
-                            </tr>
-                            <tr>
-                            <?php $i=1 ?>
-                                @foreach($water as $b)
-                                        @if(!$b->pengamatan)
-                                        <tr>
-                                            <td>{{ $i }}</td>
-                                            <td><a href="utility-online/water/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
-                                            @foreach($workcenter as $w)
-                                                @if($b->workcenter_id == $w->id)
-                                                    <td>{{ $w->workcenter }}</td>
-                                                @endif
-                                            @endforeach
-                                            @foreach($kategoriPencatatan as $k)
-                                                @if($b->kategori_pencatatan_id == $k->id)
-                                                    <td>{{ $k->kategori_pencatatan }}</td>
-                                                @endif
-                                            @endforeach
-                                        </tr>   
-                                        <?php $i++ ?>
-                                        @endif
-                                @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card col-lg-6" style="background:transparent;">
+                    <div class="card-title text-white text-center ">
+                        <h1>Listrik</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered data-tables-to-do-list">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Bagian</th>
+                                    <th class="text-center">Workcenter</th>
+                                    <th class="text-center">Pengecekan</th> 
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <?php $i=1 ?>
+                                    @foreach($listrik as $b)
+                                            @if(!$b->pengamatan)
+                                            <tr>
+                                                <td>{{ $i }}</td>
+                                                <td><a href="utility-online/listrik/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
+                                                <td>{{ $b->workcenter->workcenter }}</td>        
+                                                <td>{{ $b->kategoriPencatatan->kategori_pencatatan }}</td>
+                                            </tr>   
+                                            <?php $i++ ?>
+                                            @endif
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div> 
-                <div class="col-lg-4">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr class="text-center">
-                                <th colspan="3">listrik</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white">
-                            <tr>
-                                <td class="text-center">Bagian</td>
-                                <td class="text-center">Workcenter</td>
-                                <td class="text-center">Pengecekan</td>
-                            </tr>
-                            <tr>
-                                @foreach($listrik as $b)
-                                    <tr>
-                                        @if(!$b->pengamatan)
-                                            <td><a href="utility-online/listrik/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
-                                            @foreach($workcenter as $w)
-                                                @if($b->workcenter_id == $w->id)
-                                                    <td>{{ $w->workcenter }}</td>
-                                                @endif
-                                            @endforeach
-                                            @foreach($kategoriPencatatan as $k)
-                                                @if($b->kategori_pencatatan_id == $k->id)
-                                                    <td>{{ $k->kategori_pencatatan }}</td>
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    </tr>
-                                    <?php $i++ ?>
-                                @endforeach
-                            </tr>
-                        </tbody class="bg-white">
-                    </table>
-                </div>
-                <div class="col-lg-4">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr class="text-center">
-                                <th colspan="3">Gas</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white">
-                            <tr>
-                                <td class="text-center">Bagian</td>
-                                <td class="text-center">Workcenter</td>
-                                <td class="text-center">Pengecekan</td>
-                            </tr>
-                            <tr>
-                            
-                                @foreach($gas as $b)
-                                    <tr>
-                                        @if(!$b->pengamatan)
-                                            <td><a href="utility-online/gas/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
-                                            @foreach($workcenter as $w)
-                                                @if($b->workcenter_id == $w->id)
-                                                    <td>{{ $w->workcenter }}</td>
-                                                @endif
-                                            @endforeach
-                                            @foreach($kategoriPencatatan as $k)
-                                                @if($b->kategori_pencatatan_id == $k->id)
-                                                    <td>{{ $k->kategori_pencatatan }}</td>
-                                                @endif
-                                            @endforeach
-                                        @else
-                                        
-                                        @endif
-                                    </tr>
-                                    <?php $i++ ?>
-                                @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="card col-lg-6" style="background:transparent;">
+                    <div class="card-title text-white text-center ">
+                        <h1>GAS</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered data-tables-to-do-list">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Bagian</th>
+                                    <th class="text-center">Workcenter</th>
+                                    <th class="text-center">Pengecekan</th> 
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <?php $i=1 ?>
+                                    @foreach($gas as $b)
+                                            @if(!$b->pengamatan)
+                                            <tr>
+                                                <td>{{ $i }}</td>
+                                                <td><a href="utility-online/gas/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
+                                                <td>{{ $b->workcenter->workcenter }}</td>        
+                                                <td>{{ $b->kategoriPencatatan->kategori_pencatatan }}</td>
+                                            </tr>   
+                                            <?php $i++ ?>
+                                            @endif
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <div class="card col-lg-12" style="background:transparent;">
+                    <div class="card-title text-white text-center ">
+                        <h1>AIR</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered data-tables-to-do-list">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center">0</th>
+                                    <th class="text-center">Bagian</th>
+                                    <th class="text-center">Workcenter</th>
+                                    <th class="text-center">Pengecekan</th> 
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <?php $i=1 ?>
+                                    @foreach($water as $b)
+                                            @if(!$b->pengamatan)
+                                            <tr>
+                                                <td>{{ $i }}</td>
+                                                <td><a href="utility-online/water/{{ $b->workcenter_id }}">{{ $b->bagian }}</a></td>
+                                                <td>{{ $b->workcenter->workcenter }}</td>        
+                                                <td>{{ $b->kategoriPencatatan->kategori_pencatatan }}</td>
+                                            </tr>   
+                                            <?php $i++ ?>
+                                            @endif
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
             </div>
         </div>
     </div>
