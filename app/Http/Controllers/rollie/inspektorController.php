@@ -18,9 +18,9 @@ use App\productionData\wo;
 use DB;
 use Session;
 
-class rollieOperatorController extends resourceController
+class inspektorController extends resourceController
 {
-	private $menu;
+		private $menu;
     private $username;
 
     public function __construct(Request $request)
@@ -32,7 +32,7 @@ class rollieOperatorController extends resourceController
             $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
             ->where('parent_id', '0')
             ->where('lihat', '1')
-            ->where('aplikasi', 'Rollie - Operator Produksi')
+            ->where('aplikasi', 'Rollie - Inspektor QC')
             ->orderBy('posisi', 'asc')
             ->get();
             
@@ -40,7 +40,7 @@ class rollieOperatorController extends resourceController
         });
     }
 
-    public function fillpackindex()
+    public function index()
     {
     	$hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
@@ -61,11 +61,11 @@ class rollieOperatorController extends resourceController
         // mengambil jadwal wo diminggu ini saja dan wo yang statusnya WIP Filling di minggu-minggu sebelumnya 
         $wos        = wo::where('status','3')->orWhere('status','2')->whereNotIn('produk_id',['30','31','32'])->get();
         $cekyobase  = wo::where('status','3')->orWhere('status','2')->whereIn('produk_id',['30','31','32'])->get();
-        return view('rollie.operator.dashboard',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
-        // return view('rollie.operator.cpp');
+        return view('rollie.inspektor.dashboard',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
     }
-    public function cpp()
+    public function rpdfilling()
     {    
-        return view('rollie.operator.cpp',['menus' => $this->menu,'username' => $this->username]);
+
+        return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);
     }
 }

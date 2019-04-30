@@ -36,7 +36,7 @@ class penyeliaController extends resourceController
             $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
             ->where('parent_id', '0')
             ->where('lihat', '1')
-            ->where('aplikasi', 'Penyelia')
+            ->where('aplikasi', 'Rollie - Penyelia')
             ->orderBy('posisi', 'asc')
             ->get();
             

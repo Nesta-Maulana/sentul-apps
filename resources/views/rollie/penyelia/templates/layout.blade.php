@@ -51,13 +51,8 @@
                         <a href="" class="text-gray-dark">Logout</a>
                     </p>
                     <hr>
-                    <li class="mt">
-                        <a class="@yield('active-dashboard')" href="index.html">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
                     <?php $idUser = Session::get('login') ?>
+                    
                     @foreach ($menus as $menu)
                         <?php  
                             $cekchild = "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";

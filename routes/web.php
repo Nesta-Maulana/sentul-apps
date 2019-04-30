@@ -163,14 +163,18 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report/export', 'utilityOnline\exportImportUtilityController@export');
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'exportUtilityController@export');
 
-    // Rollie
-    Route::get('/penyelia', 'rollie\penyeliaController@index')->name('penyelia-index');
-    Route::get('/penyelia/jadwal-produksi', 'rollie\penyeliaController@index');
-    Route::post('/penyelia/jadwal-produksi', 'rollie\penyeliaController@importJadwalProduksi')->name('import-jadwal-produksi');
+    // Rollie penyelia
+    Route::get('/rollie-penyelia', 'rollie\penyeliaController@index')->name('penyelia-index');
+    Route::get('/rollie-penyelia/jadwal-produksi', 'rollie\penyeliaController@index');
+    Route::post('/rollie-penyelia/jadwal-produksi', 'rollie\penyeliaController@importJadwalProduksi')->name('import-jadwal-produksi');
 
-    
-    Route::get('/operator-produksi', 'rollie\rollieOperatorController@fillpackindex')->name('dashboard-operator-fillpack');
+    // Rollie operator
+    Route::get('/rollie-operator-produksi', 'rollie\rollieOperatorController@fillpackindex')->name('dashboard-operator-fillpack');
+    Route::get('/rollie-operator-produksi/cpp', 'rollie\rollieOperatorController@cpp')->name('dashboard-operator-fillpack');
 
+    // Rollie Inspektor
+    Route::get('/rollie-inspektor-qc', 'rollie\inspektorController@index')->name('dashboard-inspektor-qc');
+    Route::get('/rollie-inspektor-qc/rpd-filling', 'rollie\inspektorController@rpdfilling')->name('rpdfilling--inspektor-qc');
     
     Route::get('/rollie', 'rollie\rollieController@cpp');
     Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');

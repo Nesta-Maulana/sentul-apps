@@ -236,6 +236,49 @@
                 }
             })
         }
+        function prosescpp(namaproduk,nomorwo) 
+        {
+            Swal.fire
+            ({
+                title: 'Konfirmasi Aksi Filling',
+                text: 'Apakah '+namaproduk+' dengan Nomor Wo '+nomorwo+' akan diproses filling?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Masuk Ke Form CPP',
+                cancelButtonText: 'Tidak Proses Yang Lain',
+            }).then((result) => 
+            {
+                if (result.value) 
+                {
+                    $.ajax({
+                        headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: '/sentul-apps/utility-online/gas/simpan',
+                        method: 'POST',
+                        dataType: 'JSON',
+                        data: { 'input': input, 'idBagian': idbagian},
+                        success: function (data) {
+                            swal({
+                                title: "Success",
+                                text: "Berhasil Menyimpan",
+                                type: 'success'
+                            });
+                            var inp = '#input'+idbagian;
+                            var simpan = '#simpan'+idbagian;
+                            $(inp).attr('disabled', true);
+                            $(inp).attr('class', 'text-center');
+                            $(simpan).attr('class', ' btn bg-white text-primary font-weight-bold');
+                            $(simpan).text('Tersimpan');
+                            $(simpan).attr('disabled', true);
+                        },
+                    });
+                }
+            })
+        }
+         
     </script>
 </body>
 
