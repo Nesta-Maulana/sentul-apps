@@ -59,7 +59,8 @@ class rollieOperatorController extends resourceController
         }
         
         // mengambil jadwal wo diminggu ini saja dan wo yang statusnya WIP Filling di minggu-minggu sebelumnya 
-        $wos = wo::where('status','3')->orWhere('status','2')->get();
+        $wos        = wo::where('status','3')->orWhere('status','2')->whereNotIn('produk_id',['30','31','32'])->get();
+        $cekyobase  = wo::where('status','3')->orWhere('status','2')->whereIn('produk_id',['30','31','32'])->get();
         return view('rollie.operator.dashboard',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
         // return view('rollie.operator.cpp');
     }

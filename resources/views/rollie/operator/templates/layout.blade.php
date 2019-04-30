@@ -208,16 +208,34 @@
                 ]
         });
         $('#table-jadwal').dataTable({
-            "columnDefs": [
-                { "sortable": false, "targets": [5] }
-            ],
-             bFilter:false,
+            bFilter:false,
             bInfo:false,
             bLengthChange:false,
             pageLength:10,
             scrollY: 400,
             scrollX: true,
+            ordering:false,
         });
+
+        function prosescpp(namaproduk,nomorwo) 
+        {
+            Swal.fire
+            ({
+                title: 'Konfirmasi Aksi Filling',
+                text: 'Apakah '+namaproduk+' dengan Nomor Wo '+nomorwo+' akan diproses filling?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Masuk Ke Form CPP',
+                cancelButtonText: 'Tidak Proses Yang Lain',
+            }).then((result) => 
+            {
+                if (result.value) 
+                {
+                }
+            })
+        }
     </script>
 </body>
 
