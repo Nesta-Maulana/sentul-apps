@@ -1,6 +1,6 @@
 @extends('rollie.operator.templates.layout')
 @section('title')
-    ROLLIE | Dashboard
+    {{ $menus[0]->aplikasi }} | Dashboard
 @endsection
 @section('content')
 	<div class="row mt-5 mb-5">

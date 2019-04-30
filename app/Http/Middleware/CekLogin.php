@@ -18,7 +18,7 @@ class CekLogin
             $isi = url()->full();
         
 
-            $data = explode($_SERVER['APP_URL'] , $isi);
+            $data = explode($_SERVER['HTTP_HOST']."/sentul-apps" , $isi);
             $data = explode('/',$data[1]);
             $i = 0;
             foreach($data as $d){

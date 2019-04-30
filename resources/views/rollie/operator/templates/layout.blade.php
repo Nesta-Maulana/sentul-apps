@@ -1,6 +1,8 @@
+<?php 
+    $conn = mysqli_connect('localhost', "root", "", "master_apps");
+?>
 <!doctype html>
 <html class="no-js" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -40,30 +42,70 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li class="active">
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
-                                <ul class="collapse">
-                                    <li><a href="index.html">ICO dashboard</a></li>
-                                    <li><a href="index2.html">Ecommerce dashboard</a></li>
-                                    <li class="active"><a href="index3.html">SEO dashboard</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-align-left"></i> <span>Multi
-                                        level menu</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">Item level (1)</a></li>
-                                    <li><a href="#">Item level (1)</a></li>
-                                    <li><a href="#" aria-expanded="true">Item level (1)</a>
-                                        <ul class="collapse">
-                                            <li><a href="#">Item level (2)</a></li>
-                                            <li><a href="#">Item level (2)</a></li>
-                                            <li><a href="#">Item level (2)</a></li>
-                                        </ul>
+                            <?php $idUser = Session::get('login') ?>
+                            @foreach ($menus as $menu)
+                                <?php  
+                                    $cekchild = "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";
+                                    $cekchild = mysqli_query($conn, $cekchild);
+                                    $cekchilds = mysqli_fetch_array($cekchild); 
+                                ?>
+                                @if ($cekchilds[0] == 0)
+                                    <li>
+                                        <a class="<?php if(Request::Route()->uri() == $menu->link){echo "active";} ?>" href="/sentul-apps/{{ $menu->link }}" aria-expanded="false">
+                                            <i class="fa {{ $menu->icon }}"></i>
+                                            <span>{{ $menu->menu }} </span>
+                                        </a>
                                     </li>
-                                    <li><a href="#">Item level (1)</a></li>
-                                </ul>
-                            </li>
+
+                                @else
+                                    
+                                    <li class="sub-menu">
+                                        <a href="javascript:;">
+                                            <i class="fa {{ $menu->icon }}"></i>
+                                            <span>{{ $menu->menu }}</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <?php
+                                                $childs = mysqli_query($conn, "SELECT * from v_hak_akses WHERE parent_id='$menu->id' AND lihat='1' AND user_id='$idUser'");
+                                            ?>
+                                            <?php $i=0 ?>
+                                            @while($c = mysqli_fetch_assoc($childs))
+                                                <?php $cek = mysqli_query($conn, "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$c[id]' AND lihat='1'") ?>
+                                                <?php $cek = mysqli_fetch_array($cek) ?>
+                                                @if($cek[0] == 0)
+                                                    <li>
+                                                        <a class="<?php if(Request::Route()->uri() == $menu->link){echo "active";} ?>" href="/sentul-apps/{{ $menu->link }}">
+                                                            <i class="fa {{ $menu->icon }}"></i>
+                                                            <span>{{ $menu->menu }}</span>
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li class="sub-menu">
+                                                        <a href="javascript:;">
+                                                            <i class="fa {{ $menu->icon }}"></i>
+                                                            <span>{{ $menu->menu }}</span>
+                                                        </a>
+                                                            <?php
+                                                                $sql = "SELECT * FROM v_hak_akses WHERE parent_id='$c[id]' AND lihat='1' AND user_id='$idUser'";
+                                                                $anak = mysqli_query($conn, $sql);
+                                                            ?>
+                                                        <ul class="sub">
+                                                              @while($a = mysqli_fetch_assoc($anak))
+                                                                    <li>
+                                                                        <a class="<?php if(Request::Route()->uri() == $menu->link){echo "active";} ?>" href="/sentul-apps/{{ $menu->link }}">
+                                                                            <i class="fa {{ $menu->icon }}"></i>
+                                                                            <span>{{ $menu->menu }}</span>
+                                                                        </a>
+                                                                    </li>               
+                                                              @endwhile
+                                                        </ul>
+                                                    </li>
+                                                @endif
+                                            @endwhile
+                                        </ul> 
+                                    </li>
+                                @endif         
+                            @endforeach
                         </ul>
                     </nav>
                 </div>
@@ -82,7 +124,7 @@
                     <div class="col-md-6 col-sm-4 clearfix">
                         <ul class="notification-area pull-right">
                             <li>
-                                <h4 class="user-name dropdown-toggle text-dark" data-toggle="dropdown">Hello, Administrator<i class="fa fa-angle-down"></i></h4>
+                                <h4 class="user-name dropdown-toggle text-dark" data-toggle="dropdown">Hello, {{ $username->fullname }}<i class="fa fa-angle-down"></i></h4>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Log Out</a>
                                 </div>
@@ -112,6 +154,12 @@
             </div>
         </footer>
     </div>
+     @if ($message = Session::get('success'))
+      <div class="success" data-flashdata="{{ $message }}"></div>
+    @endif
+    @if ($message = Session::get('failed'))
+      <div class="failed" data-flashdata="{{ $message }}"></div>
+    @endif
     <script src="{{ asset('rollie/operator/js/vendor/jquery-2.2.4.min.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/popper.min.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/bootstrap.min.js')}}"></script>
@@ -127,6 +175,32 @@
     <script src="{{ asset('rollie/operator/js/bar-chart.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/plugins.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/scripts.js')}}"></script>
+    <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
+    <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+    <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+    <script>
+        const flashdatas = $('.failed').data('flashdata');
+        if(flashdatas)
+        {
+            swal({
+                title: "Proses Gagal",
+                text: flashdatas,
+                type: "error",
+            });
+        }
+        
+        const flashdata = $('.success').data('flashdata');
+        if(flashdata)
+        {
+            swal({
+                title: "Proses Berhasil",
+                text: flashdata,
+                type: "success",
+            });
+        }
+        
+        new WOW().init();
+    </script>
     <script>
         $('#data-tables').dataTable({
                 "columnDefs": [
@@ -134,16 +208,77 @@
                 ]
         });
         $('#table-jadwal').dataTable({
-            "columnDefs": [
-                { "sortable": false, "targets": [5] }
-            ],
-             bFilter:false,
+            bFilter:false,
             bInfo:false,
             bLengthChange:false,
             pageLength:10,
             scrollY: 400,
             scrollX: true,
+            ordering:false,
         });
+
+        function prosescpp(namaproduk,nomorwo) 
+        {
+            Swal.fire
+            ({
+                title: 'Konfirmasi Aksi Filling',
+                text: 'Apakah '+namaproduk+' dengan Nomor Wo '+nomorwo+' akan diproses filling?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Masuk Ke Form CPP',
+                cancelButtonText: 'Tidak Proses Yang Lain',
+            }).then((result) => 
+            {
+                if (result.value) 
+                {
+                }
+            })
+        }
+        function prosescpp(namaproduk,nomorwo) 
+        {
+            Swal.fire
+            ({
+                title: 'Konfirmasi Aksi Filling',
+                text: 'Apakah '+namaproduk+' dengan Nomor Wo '+nomorwo+' akan diproses filling?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Masuk Ke Form CPP',
+                cancelButtonText: 'Tidak Proses Yang Lain',
+            }).then((result) => 
+            {
+                if (result.value) 
+                {
+                    $.ajax({
+                        headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: '/sentul-apps/utility-online/gas/simpan',
+                        method: 'POST',
+                        dataType: 'JSON',
+                        data: { 'input': input, 'idBagian': idbagian},
+                        success: function (data) {
+                            swal({
+                                title: "Success",
+                                text: "Berhasil Menyimpan",
+                                type: 'success'
+                            });
+                            var inp = '#input'+idbagian;
+                            var simpan = '#simpan'+idbagian;
+                            $(inp).attr('disabled', true);
+                            $(inp).attr('class', 'text-center');
+                            $(simpan).attr('class', ' btn bg-white text-primary font-weight-bold');
+                            $(simpan).text('Tersimpan');
+                            $(simpan).attr('disabled', true);
+                        },
+                    });
+                }
+            })
+        }
+         
     </script>
 </body>
 

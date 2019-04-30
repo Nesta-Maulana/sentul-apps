@@ -30,16 +30,12 @@
 
 <body>
     <section id="container">
-        <!--header start-->
         <header class="header black-bg">
             <div class="sidebar-toggle-box">
                 <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
             </div>
             <a href="index.html" class="logo"><b>RO<span>LL</span>IE</b></a>
             <div class="top-menu">
-                <!-- <ul class="nav pull-right top-menu mt-4">
-                    <li><a class="logout" href="login.html">Logout</a></li>
-                </ul> -->
             </div>
         </header>
         <aside>
@@ -55,13 +51,8 @@
                         <a href="" class="text-gray-dark">Logout</a>
                     </p>
                     <hr>
-                    <li class="mt">
-                        <a class="@yield('active-dashboard')" href="index.html">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
                     <?php $idUser = Session::get('login') ?>
+                    
                     @foreach ($menus as $menu)
                         <?php  
                             $cekchild = "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";
