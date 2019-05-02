@@ -39,6 +39,7 @@
                         <tbody>
                             <?php $i=1 ?>
                             @foreach($kategori as $k)
+                            <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($k->id) ?>
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>

@@ -260,7 +260,55 @@
             }
         })
       })
-      
+    $('#daterange-btn-2').daterangepicker(
+        {
+            ranges   : {
+                'Today'       : [moment(), moment()],
+                'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            
+        },
+        function (start, end) { 
+            $('#daterange-btn-2 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY')); 
+            $('#tgl-pengamatan-1').val(start.format('YYYY-MM-DD'));
+            $('#tgl-pengamatan-2').val(end.format('YYYY-MM-DD'));
+            $.ajax({
+                url: 'report-2/' + start.format('YYYY-MM-DD') + '/' +end.format('YYYY-MM-DD'),
+                method: 'GET',
+                dataType: 'JSON',
+                success: function (data) {
+                    $('#kategori').attr('disabled', false);
+                    $('#table-pengamatan').DataTable().destroy();
+                    $('#isi-table-pengamatan').empty();
+                    var no = 1;
+                    for (let index = 0; index < data.length; index++) 
+                    {
+                        console.log(data);
+                        
+                        var $table = "<tr>";
+                        $table += "<td>" + no + "</td>";
+                        $table += "<td>"+data[index].bagian.bagian+"</td>";
+                        $table += "<td>"+data[index].nilai_meteran+"</td>";
+                        $table += "<td>"+data[index].bagian.satuan.satuan+"</td>";
+                        if (data[index].created_at !== null) {
+                            $table += "<td>"+data[index].created_at+"</td>";
+                        }else{
+                            $table += "<td> Belum ada pengamatan </td>";
+                        }
+                        $table+="</tr>";
+                        no++;
+                        $("#isi-table-pengamatan").append($table);     
+                    }
+                    $('#table-pengamatan').DataTable().draw();
+                }
+            })
+        }
+    )
+    
 </script>
 </body>
 </html>

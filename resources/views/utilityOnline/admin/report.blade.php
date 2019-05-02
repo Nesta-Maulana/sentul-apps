@@ -6,11 +6,8 @@
     active
 @endsection
 @section('content')
-<!-- <style>
-    .daterangepicker .dropdown-menu .ltr .opensleft .show-calendar{
-        right: 0px !important;
-    } 
-</style> -->
+<input type="hidden" id="tgl-pengamatan-1">
+<input type="hidden" id="tgl-pengamatan-2">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="row mt-5">
     <div class="col-12">
@@ -77,10 +74,15 @@
                 <a class="btn btn-primary export text-white" id="export-pengamatan">Export</a>
             </div>
             <div class="row">
-                <div class="col-lg-3 m-2">
-                    <label for="tanggal">Tanggal : </label>
-                    <br>
-                    <input type="date" id="tanggal" class="form-control">
+                <div class="input-group m-2">
+                    <button type="button" class="btn btn-default pull-right ml-2" id="daterange-btn-2" name="inputRange" style="right: 0 !important;">
+                        <span>
+                            <i class="fa fa-calendar"></i> Date range picker
+                        </span>
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                </div>
+                <div class="col-lg-3 mt-5">
                     <label for="kategori">Kategori :</label>
                     <br>
                     <select name="kategori" id="kategori" class="form-control select2">
@@ -100,7 +102,7 @@
                     </select>
                 </div>
                 <div class="col-lg-8">
-                    <table id="tablePreview" class="table bg-white table-striped table-hover mt-3">
+                    <table id="table-pengamatan" class="table bg-white table-striped table-hover mt-3">
                         <!--Table head-->
                         <thead class="thead-dark">
                             <tr>
@@ -108,12 +110,12 @@
                             <th>Bagian</th>
                             <th>Input</th>
                             <th>Satuan</th>
+                            <th>Tanggal Input</th>
                             </tr>
                         </thead>
                         <!--Table head-->
                         <!--Table body-->
-                        <tbody id="table">
-                            
+                        <tbody id="isi-table-pengamatan">
                         </tbody>
                         <!--Table body-->
                     </table>
@@ -243,92 +245,86 @@
 <script>
         $('#kategori').attr('disabled', true);
         $('#workcenter').attr('disabled', true);
-        $('#tanggal').change(function () {
-            $('#kategori').attr('disabled', false);
-            if($('#workcenter option:selected').val() == ""){
+        $('#kategori').change(function () {
+            var id = $('#kategori option:selected').val();
+            $.ajax({
+                url: '/sentul-apps/utility-online/database/workcenter/' + id,
+                method: 'GET',
+                dataType: 'JSON',
+                success: function (data) {
 
-            }else{
-                reload();
-            }
-            $('#kategori').change(function () {
-                var id = $('#kategori option:selected').val();
-                $.ajax({
-                    url: '/sentul-apps/utility-online/database/workcenter/' + id,
-                    method: 'GET',
-                    dataType: 'JSON',
-                    success: function (data) {
+                    var optionroles = '', $comboroles = $('#workcenter');
+                    $('#workcenter').attr('disabled', false);
+                    optionroles+='<option selected disabled>-- PILIH WORKCENTER --</option>';
+                    for (index = 0; index < data.length; index++) 
+                    {
+                        optionroles+='<option value="'+data[index].id+'">'+data[index].workcenter+'</option>'
+                    }
+                    $comboroles.html(optionroles).on('change');
 
-                        var optionroles = '', $comboroles = $('#workcenter');
-                        $('#workcenter').attr('disabled', false);
-                        optionroles+='<option selected disabled>-- PILIH WORKCENTER --</option>';
-                        for (index = 0; index < data.length; index++) 
-                        {
-                            optionroles+='<option value="'+data[index].id+'">'+data[index].workcenter+'</option>'
-                        }
-                        $comboroles.html(optionroles).on('change');
-
-                        $('#workcenter').change(function () {
-                            var id = $("#workcenter option:selected").val();
-                            var tanggal = $('#tanggal').val();
-                            $.ajax({
-                                url: '/sentul-apps/utility-online/database/bagian/' + id + '/' + tanggal,
-                                method: 'GET',
-                                dataType: 'JSON',
-                                success: function (data) {
-                                    // console.log(data);
-                                    var optionroles = '', $comboroles = $('#table');
-                                    var nomor = 0;
-                                    for (index = 0; index < data[0].length; index++) 
-                                    {
-                                        if(data[0][index].pengamatan.length > 0){
-                                            for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
-                                            {   
-                                            
-                                                // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
-                                                if(data[0][index].pengamatan[indek])
-                                                {
-                                                    var nomor = nomor+1;
-                                                    optionroles+='<tr>';
-                                                    optionroles+='<td>'+ nomor +'</td>';
-                                                    optionroles+='<td>'+ data[0][index].pengamatan[indek].bagian +'</td>';
-                                                    optionroles+='<td>'+ data[0][index].pengamatan[indek].nilai_meteran +'</td>'
-                                                    for (let i = 0; i < data[1].length; i++) {
-                                                        if (data[0][index].satuan_id == data[1][i].id) {
-                                                            optionroles+='<td>'+data[1][i].satuan+'</td>';
-                                                        }
-                                                    }
-                                                    
-                                                }
-                                                else
-                                                {
-                                                    
-                                                }
-                                            }
-                                        }else{
-                                            var nomor = nomor+1;
-                                            optionroles+='<tr>';
-                                            optionroles+='<td>'+ nomor +'</td>';
-                                            optionroles+='<td>'+ data[0][index].bagian +'</td>';
-                                            optionroles+='<td> No Value </td>';
-                                            for (let i = 0; i < data[1].length; i++) 
+                    $('#workcenter').change(function () {
+                        var id = $("#workcenter option:selected").val();
+                        var tgl1 = $('#tgl-pengamatan-1').val();
+                        var tgl2 = $('#tgl-pengamatan-2').val();
+                        $.ajax({
+                            url: '/sentul-apps/utility-online/admin/report/bagian/' + id + '/' + tgl1 + '/' + tgl2,
+                            method: 'GET',
+                            dataType: 'JSON',
+                            success: function (data) {
+                                // console.log(data);
+                                var optionroles = '', $comboroles = $('#isi-table-pengamatan');
+                                var nomor = 0; 
+                                for (index = 0; index < data[0].length; index++) 
+                                {
+                                    if(data[0][index].pengamatan.length > 0){
+                                        for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
+                                        {   
+                                        
+                                            // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
+                                            if(data[0][index].pengamatan[indek])
                                             {
-                                                if (data[0][index].satuan_id == data[1][i].id) {
-                                                    optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                                var nomor = nomor+1;
+                                                optionroles+='<tr>';
+                                                optionroles+='<td>'+ nomor +'</td>';
+                                                optionroles+='<td>'+ data[0][index].pengamatan[indek].bagian +'</td>';
+                                                optionroles+='<td>'+ data[0][index].pengamatan[indek].nilai_meteran +'</td>'
+                                                for (let i = 0; i < data[1].length; i++) {
+                                                    if (data[0][index].satuan_id == data[1][i].id) {
+                                                        optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                                    }
                                                 }
+                                                optionroles+='<td>'+ data[0][index].created_at +'</td>';
+                                                
                                             }
-                                            
+                                            else
+                                            {
+                                                
+                                            }
+                                        }
+                                    }else{
+                                        var nomor = nomor+1;
+                                        optionroles+='<tr>';
+                                        optionroles+='<td>'+ nomor +'</td>';
+                                        optionroles+='<td>'+ data[0][index].bagian +'</td>';
+                                        optionroles+='<td> No Value </td>';
+                                        for (let i = 0; i < data[1].length; i++) 
+                                        {
+                                            if (data[0][index].satuan_id == data[1][i].id) {
+                                                optionroles+='<td>'+data[1][i].satuan+'</td>';
+                                            }
                                         }
                                         
-                                        
-                                        // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[0][index].pengamatan.id + '">Edit</button> </td>';
-                                        optionroles+='</tr>';
                                     }
-                                    $comboroles.html(optionroles).on('change');
+                                    
+                                    
+                                    // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[0][index].pengamatan.id + '">Edit</button> </td>';
+                                    optionroles+='</tr>';
                                 }
-                            });
-                        })
-                    }
-                });
+                                $comboroles.html(optionroles).on('change');
+                            }
+                        });
+                    })
+                }
             });
         });
         $('#tanggal-report-3').change(function () {
@@ -338,7 +334,7 @@
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
-                    console.log(data);
+                    // console.log(data);
                     
                     var td = '';
                     for (let index = 0; index < data.length; index++) {

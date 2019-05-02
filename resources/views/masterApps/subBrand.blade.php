@@ -61,6 +61,7 @@
                 <tbody>
                     <?php $no =0 ?>
                     @foreach($subBrands as $subBrand)
+                    <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($subBrand->id) ?>
                     <?php $no++ ?>
                         <tr>
                             <td>{{ $no }}</td>
@@ -72,7 +73,7 @@
                                 <td>Tidak Aktif</td>
                             @endif
                             <td>
-                                <a class="btn  text-white btn-primary edit" data-id="{{ $subBrand->id }}">Edit</a>
+                                <a class="btn  text-white btn-primary edit" data-id="{{ $id }}">Edit</a>
                                 <a href="delete/mysql4/sub_brand/{{$subBrand->id}}" class="text-white btn btn-danger">Delete</a>
                             </td>
                         </tr>

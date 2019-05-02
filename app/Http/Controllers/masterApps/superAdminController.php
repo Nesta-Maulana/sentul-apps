@@ -267,6 +267,7 @@ class superAdminController extends resourceController
         return view('masterApps.produk', ['menus' => $this->menu, 'username' => $this->username, 'brands' => $brands, 'jenisProducts' => $jenisProducts, 'mesinFillingHeads' => $mesinFillingHeads, 'products' => $products]);
     }
     public function editProduk($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         $editProduk = produk::find($id);
         $brands = brand::all();
         $jenisProducts = jenisProduk::all();
@@ -392,6 +393,7 @@ class superAdminController extends resourceController
         return view('masterApps.satuan', ['menus' => $this->menu, 'username' => $this->username, 'satuan' => $satuan]);
     }
     public function editSatuan($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         $editSatuan = satuan::find($id);
         return $editSatuan;
     }
@@ -554,10 +556,12 @@ class superAdminController extends resourceController
         }
     }
     public function editKategori($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         $editKategori = kategori::find($id);
         return $editKategori;
     }
     public function editWorkcenter($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         $editWorkcenter = workcenter::find($id);
         $kategori = kategori::all();
         $output = [$editWorkcenter, $kategori];
@@ -638,6 +642,7 @@ class superAdminController extends resourceController
         return redirect('master-apps/form-roles')->with(['flash' => 'Data Berhasil diupdate']);
     }
     public function editRoles($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         $roles = new role;
         $roles = $roles->all();
         $edit = $roles->find($id);//DB::table('users')->where('id', $id)->get();
@@ -895,6 +900,7 @@ class superAdminController extends resourceController
         }
     }
     public function editSubBrand($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         return [subBrand::find($id), brand::all()];
     }
 }

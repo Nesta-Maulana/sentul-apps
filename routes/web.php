@@ -156,6 +156,8 @@ Route::middleware('ceklogin')->group(function ()
  
     Route::get('/utility-online/admin', 'utilityOnline\adminUtilityController@index');
     Route::get('/utility-online/admin/report', 'utilityOnline\adminUtilityController@report');
+    Route::get('/utility-online/admin/report/bagian/{idBagian}/{from}/{to}', 'utilityOnline\adminUtilityController@reportBagianTgl');
+    Route::get('/utility-online/admin/report-2/{from}/{to}', 'utilityOnline\adminUtilityController@report2Tgl');
     Route::get('/utility-online/admin/report-3/{tgl}', 'utilityOnline\adminUtilityController@report3Tgl');
     Route::get('/utility-online/admin/report-4/{tgl}', 'utilityOnline\adminUtilityController@report4Tgl');
     Route::get('/utility-online/admin/report/detail/{id}/{tgl}', 'utilityOnline\adminUtilityController@detailReport');
