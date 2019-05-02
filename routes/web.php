@@ -165,6 +165,10 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report-penggunaan/export/{nama_report}/{from}', 'utilityOnline\exportImportUtilityController@exportPenggunaan');
     Route::get('/utility-online/admin/report-penggunaan/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPenggunaan');
 
+    // UtilityOnline UserGuide
+    Route::get('/utility-online/user-guide', 'utilityOnline\utilityOnlineController@userGuide');
+
+
     // Rollie penyelia
     Route::get('/rollie-penyelia', 'rollie\penyeliaController@index')->name('penyelia-index');
     Route::get('/rollie-penyelia/jadwal-produksi', 'rollie\penyeliaController@index');

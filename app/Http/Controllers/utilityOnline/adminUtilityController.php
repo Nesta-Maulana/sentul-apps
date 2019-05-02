@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\utilityOnline;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\resourceController;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\userAccess\userAccess;
 use App\Models\userAccess\role;
@@ -22,7 +22,7 @@ use DB;
 use \Carbon\Carbon;
 use Session;
 
-class adminUtilityController extends Controller
+class adminUtilityController extends resourceController
 {
     public function __construct(Request $request){
         $this->middleware(function ($request, $next) {

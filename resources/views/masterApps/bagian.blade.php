@@ -85,6 +85,7 @@
         <tbody>
             <?php $i=1 ?>
             @foreach($bagian as $b)
+            <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($b->id) ?>
                 <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $b->workcenter->workcenter }}</td>
@@ -100,7 +101,7 @@
                     <td>{{ $b->spek_max }}</td>
                     <td>{{ $b->kategoriPencatatan->kategori_pencatatan }}</td>
                     <td>
-                        <button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $b->id }}"><i class="fa fa-edit"></i> Edit</button>
+                        <button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $id }}"><i class="fa fa-edit"></i> Edit</button>
                     <a href="delete/mysql2/bagian/{{$b->id}}" class="text-white btn btn-danger">Delete</a>
                     </td>
                 </tr>

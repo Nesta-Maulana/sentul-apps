@@ -32,7 +32,7 @@ use Session;
 use DB;
 
 class superAdminController extends resourceController
-{
+{ 
     private $menu;
     private $username;
 
@@ -206,6 +206,7 @@ class superAdminController extends resourceController
     }
 
     public function editAplikasi($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         return aplikasi::find($id);
     }
 
@@ -563,6 +564,7 @@ class superAdminController extends resourceController
         return $output;
     }
     public function editBagian($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         $editBagian = bagian::find($id);
         $workcenter = workcenter::all();
         $kategoriPencatatan = kategoriPencatatan::all();
@@ -571,6 +573,7 @@ class superAdminController extends resourceController
         return $output;
     }
     public function editCompany($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         $company = company::find($id);
         return $company;
     }
@@ -697,6 +700,8 @@ class superAdminController extends resourceController
         return redirect('master-apps/form-menu');
     }
     public function editMenu($id, $aplikasi){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        $aplikasi = app('App\Http\Controllers\resourceController')->dekripsi($aplikasi);
         $edit = DB::table('menus')->where('id', $id)->get();
         $editMenu = DB::table('menus')->where('aplikasi_id', $aplikasi)->get();
         $editIcon = DB::table('icons')->get();

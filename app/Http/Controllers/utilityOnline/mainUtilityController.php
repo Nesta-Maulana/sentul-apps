@@ -267,7 +267,7 @@ class mainUtilityController extends Controller
             }
             $value->pengamatan = $pengamatanbagian;
         }
-        dd($bagian);
+        // dd($bagian);
         $satuan = satuan::all();
         return [$bagian, $satuan];
     }
