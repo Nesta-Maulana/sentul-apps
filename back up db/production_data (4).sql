@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Apr 2019 pada 11.22
+-- Waktu pembuatan: 02 Bulan Mei 2019 pada 11.01
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -150,6 +150,77 @@ CREATE TABLE `kelompok_mesin_filling_head` (
 INSERT INTO `kelompok_mesin_filling_head` (`id`, `nama_kelompok`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Brix', '1', '2019-04-26 02:26:57', NULL),
 (2, 'Prisma', '1', '2019-04-26 02:26:57', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kode_sampel_filling`
+--
+
+CREATE TABLE `kode_sampel_filling` (
+  `id` int(11) NOT NULL,
+  `kode_sampel` varchar(10) NOT NULL,
+  `event` text NOT NULL,
+  `jenis_produk_id` int(11) NOT NULL,
+  `pi` int(11) NOT NULL,
+  `mikro30` int(11) NOT NULL,
+  `mikro_55` int(11) NOT NULL,
+  `dissolve` int(11) NOT NULL,
+  `standar` int(11) NOT NULL COMMENT 'titik tengah',
+  `retain` int(11) NOT NULL,
+  `wo` int(11) NOT NULL COMMENT 'nol',
+  `ts_ph` int(11) NOT NULL COMMENT 'awal tengah akhir',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kode_sampel_filling`
+--
+
+INSERT INTO `kode_sampel_filling` (`id`, `kode_sampel`, `event`, `jenis_produk_id`, `pi`, `mikro30`, `mikro_55`, `dissolve`, `standar`, `retain`, `wo`, `ts_ph`, `created_at`, `updated_at`) VALUES
+(1, 'A', 'start filling', 1, 4, 2, 2, 4, 1, 1, 0, 0, 0, 0),
+(2, 'B', 'Before Paper', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(3, 'B(SP)', 'Before Paper (Sambungan Pabrik)', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(4, 'C', 'After Paper ', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'C(SP)', 'After Paper  (Sambung Pabrik )', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 'D', 'Before Strip', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(7, 'E', 'After Strip', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'F', 'Before Short Stop', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(9, 'F(B)', 'Before Short Stop Paper', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(10, 'F(D)', 'Before Short Stop Strip', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(11, 'F(H)', 'Before Short Stop CIP', 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(12, 'F(N)', 'Before Short Stop Normal Stop', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(13, 'G', 'After Short Stop', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(14, 'G(A)', 'After Short Stop Paper', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(15, 'G(C)', 'After Short Stop Strip', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(16, 'G(E)', 'After Short Stop CIP', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(17, 'G(N)', 'After Short Stop Normal Stop', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(18, 'H', 'End filling', 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0),
+(19, 'R', 'Random QC', 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(20, 'R(P)', 'Random Prod', 1, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(21, 'R(S)', 'Random Resampling', 1, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(22, 'A', 'start filling', 2, 4, 2, 2, 4, 1, 1, 0, 0, 0, 0),
+(23, 'B', 'Before Paper', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(24, 'B(SP)', 'Before Paper (Sambungan Pabrik)', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(25, 'C', 'After Paper ', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(26, 'C(SP)', 'After Paper  (Sambung Pabrik )', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(27, 'D', 'Before Strip', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(28, 'E', 'After Strip', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(29, 'F', 'Before Short Stop', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(30, 'F(B)', 'Before Short Stop Paper', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(31, 'F(D)', 'Before Short Stop Strip', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(32, 'F(H)', 'Before Short Stop CIP', 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(33, 'F(N)', 'Before Short Stop Normal Stop', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(34, 'G', 'After Short Stop', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 'G(A)', 'After Short Stop Paper', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(36, 'G(C)', 'After Short Stop Strip', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(37, 'G(E)', 'After Short Stop CIP', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(38, 'G(N)', 'After Short Stop Normal Stop', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(39, 'H', 'End filling', 2, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0),
+(40, 'R', 'Random QC', 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(41, 'R(P)', 'Random Prod', 2, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(42, 'R(S)', 'Random Resampling', 2, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -302,6 +373,60 @@ INSERT INTO `produk` (`id`, `sub_brand_id`, `nama_produk`, `kode_oracle`, `spek_
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `rpd_filling_detail_pi`
+--
+
+CREATE TABLE `rpd_filling_detail_pi` (
+  `id` int(11) NOT NULL,
+  `rpd_filling_head_id` int(11) NOT NULL,
+  `tanggal_filling` date NOT NULL,
+  `mesin_filling_id` int(11) NOT NULL,
+  `kode_sampel_id` int(11) NOT NULL,
+  `berat_kanan` decimal(4,2) NOT NULL,
+  `berat_kiri` decimal(4,2) NOT NULL,
+  `overlap` decimal(4,2) DEFAULT NULL,
+  `proporsi_ls_saa` varchar(10) DEFAULT NULL,
+  `volume_kanan` int(11) DEFAULT NULL,
+  `volume_kiri` int(11) DEFAULT NULL,
+  `airgap` enum('OK','#OK') DEFAULT NULL,
+  `ts_accurate_kanan` varchar(100) DEFAULT NULL,
+  `ts_accurate_kiri` varchar(100) DEFAULT NULL,
+  `ls_accurate` varchar(100) DEFAULT NULL,
+  `sa_accurate` varchar(100) DEFAULT NULL,
+  `surface_check` varchar(100) DEFAULT NULL,
+  `pinching` enum('OK','#OK') DEFAULT NULL,
+  `strip_folding` enum('OK','#OK') DEFAULT NULL,
+  `konduktivity_kanan` enum('OK','#OK') DEFAULT NULL,
+  `konduktivity_kiri` enum('OK','#OK') DEFAULT NULL,
+  `design_kanan` enum('OK','#OK') DEFAULT NULL,
+  `design_kiri` enum('OK','#OK') DEFAULT NULL,
+  `dye_test` enum('OK','#OK') DEFAULT NULL,
+  `residu_h2o2` enum('OK','#OK') DEFAULT NULL,
+  `prod_code_dan_no_md` enum('OK','#OK') DEFAULT NULL,
+  `correction` enum('OK','#OK') DEFAULT NULL,
+  `dissolving_test` enum('OK','#OK') DEFAULT NULL,
+  `user_id_inputer` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `rpd_filling_head`
+--
+
+CREATE TABLE `rpd_filling_head` (
+  `id` int(11) NOT NULL,
+  `produk_id` int(11) NOT NULL,
+  `status` enum('1','2') NOT NULL COMMENT '1= On Progress, 2=Done',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `sub_brand`
 --
 
@@ -338,6 +463,7 @@ CREATE TABLE `wo` (
   `plan_id` int(11) NOT NULL COMMENT 'Terhubung ke table plan',
   `production_plan_date` date NOT NULL,
   `production_realisation_date` date DEFAULT NULL,
+  `tanggal_fillpack` date DEFAULT NULL,
   `plan_batch_size` varchar(20) NOT NULL,
   `actual_batch_size` varchar(20) DEFAULT NULL COMMENT 'batch size',
   `status` enum('0','1','2','3','4','5','6') NOT NULL COMMENT '0 = Pending ( WIP Mixing ), 1 = On Progress Mixing , 2 = WIP Fillpack , 3 = In Progress Fillpack , 4 = Done Fillpack ( Waiting For Close ) , 5. Closed, 6 = Canceled ',
@@ -354,23 +480,23 @@ CREATE TABLE `wo` (
 -- Dumping data untuk tabel `wo`
 --
 
-INSERT INTO `wo` (`id`, `nomor_wo`, `produk_id`, `plan_id`, `production_plan_date`, `production_realisation_date`, `plan_batch_size`, `actual_batch_size`, `status`, `completion_date`, `keterangan_1`, `keterangan_2`, `keterangan_3`, `revisi_formula`, `created_at`, `updated_at`) VALUES
-(1, 'G1904214013', 13, 3, '2019-04-29', '2019-04-29', '9956.576', NULL, '2', '2019-04-30 07:54:25', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(2, 'G1904708003', 4, 3, '2019-04-29', '2019-04-29', '5887.11', NULL, '2', '2019-04-30 07:54:22', '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', '2019-04-29 06:18:08', NULL),
-(3, '084STTHNIIV2019/HB-YB-YO', 32, 3, '2019-04-29', '2019-04-29', '', NULL, '2', '2019-04-30 07:54:06', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
-(4, '085STTHNIIV2019/HB-YO-BB', 5, 3, '2019-04-29', '2019-04-29', '', NULL, '2', '2019-04-30 07:54:14', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
-(5, 'G1904214017', 20, 3, '2019-04-30', '2019-04-30', '9969.252', NULL, '2', '2019-04-30 07:53:54', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
-(6, 'G1904214018', 20, 3, '2019-04-30', '2019-04-30', '9969.252', NULL, '2', '2019-04-30 07:53:58', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
-(7, 'G1904214012', 13, 3, '2019-04-30', NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(8, 'G1904214009', 13, 3, '2019-05-02', NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(9, 'G1905214005', 13, 3, '2019-05-02', NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(10, 'G1905214006', 13, 3, '2019-05-02', NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(11, 'G1905702001', 11, 3, '2019-05-02', NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL),
-(12, 'G1904214019', 20, 3, '2019-05-03', NULL, '9969.252', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
-(13, 'G1905214001', 20, 3, '2019-05-03', NULL, '9969.252', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
-(14, 'G1905214003', 20, 3, '2019-05-03', NULL, '9969.252', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
-(15, 'G1905702002', 11, 3, '2019-05-03', NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL),
-(16, 'G1905702003', 11, 3, '2019-05-03', NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL);
+INSERT INTO `wo` (`id`, `nomor_wo`, `produk_id`, `plan_id`, `production_plan_date`, `production_realisation_date`, `tanggal_fillpack`, `plan_batch_size`, `actual_batch_size`, `status`, `completion_date`, `keterangan_1`, `keterangan_2`, `keterangan_3`, `revisi_formula`, `created_at`, `updated_at`) VALUES
+(1, 'G1904214013', 13, 3, '2019-04-29', '2019-04-29', NULL, '9956.576', NULL, '2', '2019-04-30 07:54:25', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
+(2, 'G1904708003', 4, 3, '2019-04-29', '2019-04-29', NULL, '5887.11', NULL, '2', '2019-04-30 07:54:22', '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', '2019-04-29 06:18:08', NULL),
+(3, '084STTHNIIV2019/HB-YB-YO', 32, 3, '2019-04-29', '2019-04-29', NULL, '', NULL, '2', '2019-04-30 07:54:06', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
+(4, '085STTHNIIV2019/HB-YO-BB', 5, 3, '2019-04-29', '2019-04-29', NULL, '', NULL, '2', '2019-04-30 07:54:14', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
+(5, 'G1904214017', 20, 3, '2019-04-30', '2019-04-30', NULL, '9969.252', NULL, '2', '2019-04-30 07:53:54', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
+(6, 'G1904214018', 20, 3, '2019-04-30', '2019-04-30', NULL, '9969.252', NULL, '2', '2019-04-30 07:53:58', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
+(7, 'G1904214012', 13, 3, '2019-04-30', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
+(8, 'G1904214009', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
+(9, 'G1905214005', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
+(10, 'G1905214006', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
+(11, 'G1905702001', 11, 3, '2019-05-02', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL),
+(12, 'G1904214019', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
+(13, 'G1905214001', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
+(14, 'G1905214003', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
+(15, 'G1905702002', 11, 3, '2019-05-03', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL),
+(16, 'G1905702003', 11, 3, '2019-05-03', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL);
 
 --
 -- Indexes for dumped tables
@@ -413,6 +539,12 @@ ALTER TABLE `kelompok_mesin_filling_head`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `kode_sampel_filling`
+--
+ALTER TABLE `kode_sampel_filling`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `lot`
 --
 ALTER TABLE `lot`
@@ -440,6 +572,18 @@ ALTER TABLE `plan`
 -- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `rpd_filling_detail_pi`
+--
+ALTER TABLE `rpd_filling_detail_pi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `rpd_filling_head`
+--
+ALTER TABLE `rpd_filling_head`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -495,6 +639,12 @@ ALTER TABLE `kelompok_mesin_filling_head`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT untuk tabel `kode_sampel_filling`
+--
+ALTER TABLE `kode_sampel_filling`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
 -- AUTO_INCREMENT untuk tabel `lot`
 --
 ALTER TABLE `lot`
@@ -523,6 +673,18 @@ ALTER TABLE `plan`
 --
 ALTER TABLE `produk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT untuk tabel `rpd_filling_detail_pi`
+--
+ALTER TABLE `rpd_filling_detail_pi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rpd_filling_head`
+--
+ALTER TABLE `rpd_filling_head`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `sub_brand`

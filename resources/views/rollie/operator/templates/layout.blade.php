@@ -236,7 +236,7 @@
                 }
             })
         }
-        function prosescpp(namaproduk,nomorwo) 
+        function prosesrpd(namaproduk,nomorwo) 
         {
             Swal.fire
             ({
@@ -246,33 +246,30 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Masuk Ke Form CPP',
+                confirmButtonText: 'Ya, Masuk Ke Form RPD Filling',
                 cancelButtonText: 'Tidak Proses Yang Lain',
             }).then((result) => 
             {
                 if (result.value) 
                 {
                     $.ajax({
-                        headers: {
+                        headers:{
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url: '/sentul-apps/utility-online/gas/simpan',
+                        url: '{{ route('proses-rpd-filling') }}',
                         method: 'POST',
                         dataType: 'JSON',
-                        data: { 'input': input, 'idBagian': idbagian},
-                        success: function (data) {
+                        data: 
+                        { 
+                            'nama_produk': namaproduk, 
+                        },
+                        success: function (data) 
+                        {
                             swal({
                                 title: "Success",
                                 text: "Berhasil Menyimpan",
                                 type: 'success'
                             });
-                            var inp = '#input'+idbagian;
-                            var simpan = '#simpan'+idbagian;
-                            $(inp).attr('disabled', true);
-                            $(inp).attr('class', 'text-center');
-                            $(simpan).attr('class', ' btn bg-white text-primary font-weight-bold');
-                            $(simpan).text('Tersimpan');
-                            $(simpan).attr('disabled', true);
                         },
                     });
                 }

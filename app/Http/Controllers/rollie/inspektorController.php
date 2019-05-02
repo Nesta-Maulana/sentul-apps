@@ -63,9 +63,9 @@ class inspektorController extends resourceController
         $cekyobase  = wo::where('status','3')->orWhere('status','2')->whereIn('produk_id',['30','31','32'])->get();
         return view('rollie.inspektor.dashboard',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
     }
-    public function rpdfilling()
+    public function rpdfilling(Request $request)
     {    
-
-        return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);
+    	dd($request->all());
+        //return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);
     }
 }
