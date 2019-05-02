@@ -131,6 +131,8 @@
                 <tbody>
                         <?php $i =1 ?>
                         @foreach($allMenu as $menu)
+                        <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($menu->id) ?>
+                        <?php $idAplikasi=app('App\Http\Controllers\resourceController')->enkripsi($menu->aplikasi_id) ?>
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $menu->menu }}</td>
@@ -158,7 +160,7 @@
                                     @endif
                                 @endforeach
                                 <td>
-                                    <button class="btn btn-primary edit" id="edit" data-id="{{ $menu->id }}" data-aplikasi="{{$menu->aplikasi_id}}">Edit</button>
+                                    <button class="btn btn-primary edit" id="edit" data-id="{{ $id }}" data-aplikasi="{{$idAplikasi}}">Edit</button>
                                     <a href="delete/mysql4/sub_brand/{{$menu->id}}" class="text-white btn btn-danger">Delete</a>
                                 </td>
                                 <?php $i++ ?>

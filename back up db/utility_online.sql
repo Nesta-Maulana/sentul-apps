@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Apr 2019 pada 10.45
--- Versi server: 10.1.36-MariaDB
--- Versi PHP: 7.2.11
+-- Generation Time: May 02, 2019 at 05:16 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bagian`
+-- Table structure for table `bagian`
 --
 
 CREATE TABLE `bagian` (
@@ -42,7 +42,7 @@ CREATE TABLE `bagian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `bagian`
+-- Dumping data for table `bagian`
 --
 
 INSERT INTO `bagian` (`id`, `workcenter_id`, `bagian`, `status`, `satuan_id`, `spek_min`, `spek_max`, `kategori_pencatatan_id`, `created_at`, `updated_at`) VALUES
@@ -112,12 +112,17 @@ INSERT INTO `bagian` (`id`, `workcenter_id`, `bagian`, `status`, `satuan_id`, `s
 (65, 10, 'Header (NFI)', '1', 7, 0, 0, 2, '2019-03-14 23:16:51', '2019-03-14 23:16:51'),
 (66, 10, 'Ruby', '1', 7, 0, 0, 2, '2019-03-14 23:17:10', '2019-03-14 23:17:10'),
 (67, 10, 'Retort', '1', 7, 0, 0, 2, '2019-03-14 23:17:29', '2019-03-14 23:17:29'),
-(68, 10, 'HB Greek', '1', 9, 0, 0, 2, '2019-03-14 23:17:55', '2019-03-14 23:17:55');
+(68, 10, 'HB Greek', '1', 9, 0, 0, 2, '2019-03-14 23:17:55', '2019-03-14 23:17:55'),
+(69, 5, 'Cooling Tower', '1', 1, 0, 0, 1, '2019-04-23 09:02:17', '0000-00-00 00:00:00'),
+(70, 5, 'PLN LWBP', '1', 4, 0, 0, 1, '2019-04-23 09:05:08', '2019-04-23 09:05:08'),
+(71, 5, 'PLN WBP', '1', 4, 0, 0, 1, '2019-04-23 09:05:27', '2019-04-23 09:05:27'),
+(72, 5, 'Ruby Processing', '1', 4, 0, 0, 1, '2019-04-23 09:06:53', '2019-04-23 09:06:53'),
+(73, 5, 'Ruby Fillpack', '1', 4, 0, 0, 1, '2019-04-23 09:07:15', '2019-04-23 09:07:15');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori`
+-- Table structure for table `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -129,7 +134,7 @@ CREATE TABLE `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kategori`
+-- Dumping data for table `kategori`
 --
 
 INSERT INTO `kategori` (`id`, `kategori`, `status`, `created_at`, `updated_at`) VALUES
@@ -140,7 +145,7 @@ INSERT INTO `kategori` (`id`, `kategori`, `status`, `created_at`, `updated_at`) 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori_pencatatan`
+-- Table structure for table `kategori_pencatatan`
 --
 
 CREATE TABLE `kategori_pencatatan` (
@@ -151,7 +156,7 @@ CREATE TABLE `kategori_pencatatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kategori_pencatatan`
+-- Dumping data for table `kategori_pencatatan`
 --
 
 INSERT INTO `kategori_pencatatan` (`id`, `kategori_pencatatan`, `created_at`, `updated_at`) VALUES
@@ -162,7 +167,7 @@ INSERT INTO `kategori_pencatatan` (`id`, `kategori_pencatatan`, `created_at`, `u
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengamatan`
+-- Table structure for table `pengamatan`
 --
 
 CREATE TABLE `pengamatan` (
@@ -176,7 +181,7 @@ CREATE TABLE `pengamatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pengamatan`
+-- Dumping data for table `pengamatan`
 --
 
 INSERT INTO `pengamatan` (`id`, `id_bagian`, `nilai_meteran`, `user_id`, `user_update`, `created_at`, `updated_at`) VALUES
@@ -192,12 +197,22 @@ INSERT INTO `pengamatan` (`id`, `id_bagian`, `nilai_meteran`, `user_id`, `user_u
 (10, 41, 1212, 24, NULL, '2019-03-28 00:50:59', '2019-03-28 00:50:59'),
 (11, 42, 1299, 24, NULL, '2019-03-28 00:52:29', '2019-03-28 00:52:29'),
 (12, 45, 54.24, 24, NULL, '2019-03-28 07:54:38', '2019-03-28 07:54:38'),
-(13, 44, 123, 24, NULL, '2019-04-08 03:37:33', '2019-04-08 03:37:33');
+(13, 44, 123, 24, NULL, '2019-04-16 03:37:33', '2019-04-08 03:37:33'),
+(14, 63, 5, 24, NULL, '2019-04-24 04:02:49', '2019-04-24 04:02:49'),
+(15, 65, 234, 24, NULL, '2019-04-16 04:03:01', '2019-04-24 04:03:01'),
+(16, 66, 34, 24, NULL, '2019-04-24 04:03:05', '2019-04-24 04:03:05'),
+(17, 64, 34, 24, NULL, '2019-04-16 04:03:11', '2019-04-24 04:03:11'),
+(18, 65, 123, 24, NULL, '2019-04-24 04:05:52', '2019-04-24 04:05:52'),
+(19, 67, 2, 24, NULL, '2019-04-24 04:05:55', '2019-04-24 04:05:55'),
+(20, 68, 23, 24, NULL, '2019-04-24 04:05:58', '2019-04-24 04:05:58'),
+(21, 64, 12, 24, NULL, '2019-04-24 04:06:04', '2019-04-24 04:06:04'),
+(22, 44, 5.2, 24, NULL, '2019-04-29 09:12:43', '2019-04-29 09:12:43'),
+(23, 1, 500.52, 24, NULL, '2019-05-02 02:56:44', '2019-05-02 02:56:44');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penggunaan`
+-- Table structure for table `penggunaan`
 --
 
 CREATE TABLE `penggunaan` (
@@ -210,7 +225,7 @@ CREATE TABLE `penggunaan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `penggunaan`
+-- Dumping data for table `penggunaan`
 --
 
 INSERT INTO `penggunaan` (`id`, `id_bagian`, `nilai`, `tgl_penggunaan`, `created_at`, `updated_at`) VALUES
@@ -227,12 +242,22 @@ INSERT INTO `penggunaan` (`id`, `id_bagian`, `nilai`, `tgl_penggunaan`, `created
 (11, 41, 1212, '2019-03-27', '2019-03-28 00:50:59', '2019-03-28 00:50:59'),
 (12, 42, 1299, '2019-03-27', '2019-03-28 00:52:29', '2019-03-28 00:52:29'),
 (13, 45, 54.24, '2019-03-27', '2019-03-28 07:54:38', '2019-03-28 07:54:38'),
-(14, 44, 123, '2019-04-07', '2019-04-08 03:37:33', '2019-04-08 03:37:33');
+(14, 44, 123, '2019-04-07', '2019-04-08 03:37:33', '2019-04-08 03:37:33'),
+(15, 63, 5, '2019-04-23', '2019-04-24 04:02:49', '2019-04-24 04:02:49'),
+(16, 65, 234, '2019-04-23', '2019-04-24 04:03:01', '2019-04-24 04:03:01'),
+(17, 66, 34, '2019-04-23', '2019-04-24 04:03:05', '2019-04-24 04:03:05'),
+(18, 64, 34, '2019-04-23', '2019-04-24 04:03:11', '2019-04-24 04:03:11'),
+(19, 65, 123, '2019-04-23', '2019-04-24 04:05:52', '2019-04-24 04:05:52'),
+(20, 67, 2, '2019-04-23', '2019-04-24 04:05:55', '2019-04-24 04:05:55'),
+(21, 68, 23, '2019-04-23', '2019-04-24 04:05:58', '2019-04-24 04:05:58'),
+(22, 64, 12, '2019-04-23', '2019-04-24 04:06:04', '2019-04-24 04:06:04'),
+(23, 44, 117.8, '2019-04-28', '2019-04-29 09:12:43', '2019-04-29 09:12:43'),
+(24, 1, 500.52, '2019-05-01', '2019-05-02 02:56:45', '2019-05-02 02:56:45');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rasio_detail`
+-- Table structure for table `rasio_detail`
 --
 
 CREATE TABLE `rasio_detail` (
@@ -245,7 +270,7 @@ CREATE TABLE `rasio_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `rasio_detail`
+-- Dumping data for table `rasio_detail`
 --
 
 INSERT INTO `rasio_detail` (`id`, `rasio_head_id`, `company_id`, `nilai`, `created_at`, `updated_at`) VALUES
@@ -254,7 +279,7 @@ INSERT INTO `rasio_detail` (`id`, `rasio_head_id`, `company_id`, `nilai`, `creat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rasio_head`
+-- Table structure for table `rasio_head`
 --
 
 CREATE TABLE `rasio_head` (
@@ -266,7 +291,7 @@ CREATE TABLE `rasio_head` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `rasio_head`
+-- Dumping data for table `rasio_head`
 --
 
 INSERT INTO `rasio_head` (`id`, `bagian_id`, `status`, `created_at`, `updated_at`) VALUES
@@ -276,7 +301,7 @@ INSERT INTO `rasio_head` (`id`, `bagian_id`, `status`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `satuan`
+-- Table structure for table `satuan`
 --
 
 CREATE TABLE `satuan` (
@@ -288,7 +313,7 @@ CREATE TABLE `satuan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `satuan`
+-- Dumping data for table `satuan`
 --
 
 INSERT INTO `satuan` (`id`, `satuan`, `status`, `created_at`, `updated_at`) VALUES
@@ -305,7 +330,7 @@ INSERT INTO `satuan` (`id`, `satuan`, `status`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `workcenter`
+-- Table structure for table `workcenter`
 --
 
 CREATE TABLE `workcenter` (
@@ -318,7 +343,7 @@ CREATE TABLE `workcenter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `workcenter`
+-- Dumping data for table `workcenter`
 --
 
 INSERT INTO `workcenter` (`id`, `kategori_id`, `workcenter`, `status`, `created_at`, `updated_at`) VALUES
@@ -338,113 +363,113 @@ INSERT INTO `workcenter` (`id`, `kategori_id`, `workcenter`, `status`, `created_
 --
 
 --
--- Indeks untuk tabel `bagian`
+-- Indexes for table `bagian`
 --
 ALTER TABLE `bagian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kategori`
+-- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kategori_pencatatan`
+-- Indexes for table `kategori_pencatatan`
 --
 ALTER TABLE `kategori_pencatatan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pengamatan`
+-- Indexes for table `pengamatan`
 --
 ALTER TABLE `pengamatan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `penggunaan`
+-- Indexes for table `penggunaan`
 --
 ALTER TABLE `penggunaan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `rasio_detail`
+-- Indexes for table `rasio_detail`
 --
 ALTER TABLE `rasio_detail`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `rasio_head`
+-- Indexes for table `rasio_head`
 --
 ALTER TABLE `rasio_head`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `satuan`
+-- Indexes for table `satuan`
 --
 ALTER TABLE `satuan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `workcenter`
+-- Indexes for table `workcenter`
 --
 ALTER TABLE `workcenter`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `bagian`
+-- AUTO_INCREMENT for table `bagian`
 --
 ALTER TABLE `bagian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
--- AUTO_INCREMENT untuk tabel `kategori`
+-- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `kategori_pencatatan`
+-- AUTO_INCREMENT for table `kategori_pencatatan`
 --
 ALTER TABLE `kategori_pencatatan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `pengamatan`
+-- AUTO_INCREMENT for table `pengamatan`
 --
 ALTER TABLE `pengamatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT untuk tabel `penggunaan`
+-- AUTO_INCREMENT for table `penggunaan`
 --
 ALTER TABLE `penggunaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT untuk tabel `rasio_detail`
+-- AUTO_INCREMENT for table `rasio_detail`
 --
 ALTER TABLE `rasio_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `rasio_head`
+-- AUTO_INCREMENT for table `rasio_head`
 --
 ALTER TABLE `rasio_head`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `satuan`
+-- AUTO_INCREMENT for table `satuan`
 --
 ALTER TABLE `satuan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `workcenter`
+-- AUTO_INCREMENT for table `workcenter`
 --
 ALTER TABLE `workcenter`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;

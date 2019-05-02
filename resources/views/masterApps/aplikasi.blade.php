@@ -46,6 +46,7 @@
                         <tbody>
                             <?php $i=0 ?>
                             @foreach($aplikasi as $a)
+                            <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($a->id) ?>
                                 <?php $i++ ?>
                                 <tr>
                                     <td>{{ $i }}</td>
@@ -57,7 +58,7 @@
                                     @endif
                                     <td>{{ $a->link }}</td>
                                     <td>
-                                        <a href="#" onclick="edit('{{ $a->id }}')" class="btn btn-primary edit text-white">Edit</a>
+                                        <a href="#" onclick="edit('{{ $id }}')" class="btn btn-primary edit text-white">Edit</a>
                                         <a href="delete/mysql/aplikasi/{{$a->id}}" class="text-white btn btn-danger">Delete</a>
                                     </td>
                                 </tr>

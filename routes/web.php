@@ -156,6 +156,8 @@ Route::middleware('ceklogin')->group(function ()
  
     Route::get('/utility-online/admin', 'utilityOnline\adminUtilityController@index');
     Route::get('/utility-online/admin/report', 'utilityOnline\adminUtilityController@report');
+    Route::get('/utility-online/admin/report/bagian/{idBagian}/{from}/{to}', 'utilityOnline\adminUtilityController@reportBagianTgl');
+    Route::get('/utility-online/admin/report-2/{from}/{to}', 'utilityOnline\adminUtilityController@report2Tgl');
     Route::get('/utility-online/admin/report-3/{tgl}', 'utilityOnline\adminUtilityController@report3Tgl');
     Route::get('/utility-online/admin/report-4/{tgl}', 'utilityOnline\adminUtilityController@report4Tgl');
     Route::get('/utility-online/admin/report/detail/{id}/{tgl}', 'utilityOnline\adminUtilityController@detailReport');
@@ -164,6 +166,10 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPengamatan');
     Route::get('/utility-online/admin/report-penggunaan/export/{nama_report}/{from}', 'utilityOnline\exportImportUtilityController@exportPenggunaan');
     Route::get('/utility-online/admin/report-penggunaan/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPenggunaan');
+
+    // UtilityOnline UserGuide
+    Route::get('/utility-online/user-guide', 'utilityOnline\utilityOnlineController@userGuide');
+
 
     // Rollie penyelia
     Route::get('/rollie-penyelia', 'rollie\penyeliaController@index')->name('penyelia-index');

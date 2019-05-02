@@ -25,7 +25,7 @@ display: none;
 }
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-light bbotom">
-    <a class="navbar-brand text-success" href="#">Utility Online</a>
+    <a class="navbar-brand text-success" href="/sentul-apps/utility-online">Utility Online</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon bg-success"></span>
     </button>
@@ -50,7 +50,7 @@ display: none;
 </nav> 
 <div class="text-white" style="background: #aef64a;">
     <span class="justify-content-end d-flex mr-3 pb-1">
-        <i class="fa fa-home text-success mr-5">Utility Online</i>
+        <a href="/sentul-apps/utility-online" class="text-white"><i class="fa fa-home text-success mr-5">Utility Online</i></a>
     </span>
 </div>
     @if ($message = Session::get('success'))

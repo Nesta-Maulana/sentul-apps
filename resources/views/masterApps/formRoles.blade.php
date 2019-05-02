@@ -64,6 +64,7 @@
                     <tbody>
                     <?php $no= 1 ?>
                         @foreach($roles as $r)
+                        <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($r->id) ?>
                                 <tr> 
                                     <td>{{ $no }}</td>
                                     <td>{{ $r->role }}</td>
@@ -73,7 +74,7 @@
                                         <td>Tidak Aktif</td>
                                     @endif
                                     <td>
-                                        <button data-id="{{ $r->id }}" class="edit btn btn-primary {{ Session::get('ubah') }}" value="Edit" id="edit" name="edit">Edit</button>
+                                        <button data-id="{{ $id }}" class="edit btn btn-primary {{ Session::get('ubah') }}" value="Edit" id="edit" name="edit">Edit</button>
                                         <a href="delete/mysql/roles/{{$r->id}}" class="text-white btn btn-danger">Delete</a>
                                     </td>
                                 </tr>

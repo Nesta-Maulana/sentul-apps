@@ -33,3 +33,8 @@ $("#table-1").dataTable({
     { "sortable": false, "targets": [2] }
   ]
 });
+$("#table-pengamatan").dataTable({
+  "columnDefs": [
+    { "sortable": false, "targets": [2] }
+  ]
+});

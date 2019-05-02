@@ -48,6 +48,7 @@
                 <tbody>
                 <?php $i=1 ?>
                     @foreach($company as $c)
+                    <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($c->id) ?>
                         <tr>
                             <td>{{ $i }}</td>
                             <td>{{ $c->company }}</td>
@@ -58,8 +59,8 @@
                                 <td>Tidak Aktif</td>
                             @endif
                             <td>
-                                <button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $c->id }}">Edit</button>
-                                <a href="delete/mysql4/company/{{$company->id}}" class="text-white btn btn-danger">Delete</a>    
+                                <button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $id }}">Edit</button>
+                                <a href="delete/mysql4/company/{{$c->id}}" class="text-white btn btn-danger">Delete</a>    
                             </td>
                         </tr>
                         <?php $i++ ?>

@@ -113,6 +113,7 @@
                     <tbody>
                         <?php $i=1 ?>
                         @foreach($products as $product)
+                        <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($product->id) ?>
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $product->brand->brand }}</td>
@@ -132,7 +133,7 @@
                                     <td>Aktif</td>
                                 @endif
                                 <td>
-                                    <a href="#" class="btn btn-primary edit" onclick="edit('{{ $product->id }}')">Edit</a>
+                                    <a href="#" class="btn btn-primary edit" onclick="edit('{{ $id }}')">Edit</a>
                                     <a href="delete/mysql4/produk/{{$produk ->id}}" class="text-white btn btn-danger">Delete</a>
                                 </td>
                             </tr>
