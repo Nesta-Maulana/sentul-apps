@@ -3,6 +3,8 @@
     {{ $menus[0]->aplikasi }} | Dashboard
 @endsection
 @section('content')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
 	<div class="row mt-5 mb-5">
         <div class="col-12">
             <div class="card">
@@ -53,7 +55,7 @@
                                             @break
                                         @endswitch
                                         <td>
-                                            <a onclick="prosescpp('<?=$wo->produk->nama_produk;?>','<?=$wo->nomor_wo?>')"> Proses Fillpack</a>
+                                            <a onclick="prosesrpd('<?=$wo->produk->nama_produk;?>','<?=$wo->nomor_wo?>')"> Proses Fillpack</a>
                                         </td>
                                     </tr>
                                 @else

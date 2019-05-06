@@ -23,8 +23,9 @@
     <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
     <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
     <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
-    <!-- modernizr css -->
+    <script src="{{ asset('rollie/js/webfont.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    
 </head>
 
 <body>
@@ -178,7 +179,7 @@
     <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
     <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
     <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
-    <script>
+       <script>
         const flashdatas = $('.failed').data('flashdata');
         if(flashdatas)
         {
@@ -216,6 +217,13 @@
             scrollX: true,
             ordering:false,
         });
+        $('#table-draft-analisa').dataTable({
+            bFilter:false,
+            bInfo:false,
+            bLengthChange:false,
+            pageLength:10,
+            ordering:false,
+        });
 
         function prosescpp(namaproduk,nomorwo) 
         {
@@ -236,7 +244,7 @@
                 }
             })
         }
-        function prosescpp(namaproduk,nomorwo) 
+        function prosesrpd(namaproduk,nomorwo) 
         {
             Swal.fire
             ({
@@ -246,33 +254,30 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Masuk Ke Form CPP',
+                confirmButtonText: 'Ya, Masuk Ke Form RPD Filling',
                 cancelButtonText: 'Tidak Proses Yang Lain',
             }).then((result) => 
             {
                 if (result.value) 
                 {
                     $.ajax({
-                        headers: {
+                        headers:{
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url: '/sentul-apps/utility-online/gas/simpan',
+                        url: '{{ route('proses-rpd-filling') }}',
                         method: 'POST',
                         dataType: 'JSON',
-                        data: { 'input': input, 'idBagian': idbagian},
-                        success: function (data) {
+                        data: 
+                        { 
+                            'nama_produk': namaproduk, 
+                        },
+                        success: function (data) 
+                        {
                             swal({
                                 title: "Success",
                                 text: "Berhasil Menyimpan",
                                 type: 'success'
                             });
-                            var inp = '#input'+idbagian;
-                            var simpan = '#simpan'+idbagian;
-                            $(inp).attr('disabled', true);
-                            $(inp).attr('class', 'text-center');
-                            $(simpan).attr('class', ' btn bg-white text-primary font-weight-bold');
-                            $(simpan).text('Tersimpan');
-                            $(simpan).attr('disabled', true);
                         },
                     });
                 }
@@ -280,6 +285,24 @@
         }
          
     </script>
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
+    <script src="{{ asset('rollie/js/webfont.js')}}"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
+        <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+        <script type="text/javascript">
+            $('#startDate').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss'
+            }); 
+        </script>  
+ 
+
+                    <!-- Scripts -->
+                    
+                  
 </body>
 
 </html>

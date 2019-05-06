@@ -19,6 +19,20 @@
                 <h3 class="d-flex justify-content-center p-3 text-white " style="background: linear-gradient(135deg, #5867dd 30%, #36a3f7 100%)">
                     Lihat CPP
                 </h3>
+                <div class="container">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='timepicker'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 <div class="row p-3">
                     <div class="col-lg-6">
                         <div class="form-group">
