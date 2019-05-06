@@ -29,7 +29,7 @@
 		<script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
         <script type="text/javascript">
-	        $('.timepicker').datetimepicker({
+	        $('#datetimepicker1').datetimepicker({
 				format: 'YYYY-MM-DD HH:mm:ss'
         	}); 
 		</script>  

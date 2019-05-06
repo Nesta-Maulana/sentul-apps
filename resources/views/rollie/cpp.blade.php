@@ -12,6 +12,7 @@
     <h2 class="text-center">ROLLIE | CPP</h2>
 @endsection
 @section('content')
+
     <div class="row">
         <div class="col-lg-8">
             <div class="m-portlet">
@@ -25,8 +26,6 @@
                                 
                               {!! Form::select('nama_produk_cpp',$produk,'2',['class'=>'form-control m-select2 select2','id'=>'nama_produk_cpp']) !!}
                         </div>
-                          
-
                         <div class="form-group">
                             <label for="tanggal_produksi">Tanggal Produksi</label>
                             <select class="form-control m-select2 select2" id="tanggal_produksi_cpp" name="tanggal_produksi_cpp">

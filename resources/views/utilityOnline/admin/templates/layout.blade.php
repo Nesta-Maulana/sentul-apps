@@ -287,21 +287,21 @@
                     var no = 1;
                     for (let index = 0; index < data.length; index++) 
                     {
-                        console.log(data);
-                        
-                        var $table = "<tr>";
-                        $table += "<td>" + no + "</td>";
-                        $table += "<td>"+data[index].bagian.bagian+"</td>";
-                        $table += "<td>"+data[index].nilai_meteran+"</td>";
-                        $table += "<td>"+data[index].bagian.satuan.satuan+"</td>";
-                        if (data[index].created_at !== null) {
-                            $table += "<td>"+data[index].created_at+"</td>";
-                        }else{
-                            $table += "<td> Belum ada pengamatan </td>";
+                        for (let i = 0; i < data[index].pengamatan.length; i++) {
+                        var table = '<tr>';
+                            table+='<td>' + no + '</td>'
+                            table+='<td>' + data[index].bagian + '</td>';
+                            if(!data[index].pengamatan[i][0]){
+                                table+='<td> Tidak melakukan pengamatan </td>'
+                            }else{
+                                table+='<td>'+ data[index].pengamatan[i][0].nilai_meteran+'</td>'
+                            }
+                            table+='<td>'+ data[index].satuan_id +'</td>'
+                            table+='<td>'+ data[index].pengamatan[i][1] +'</td>'
+                            table+='</tr>';          
+                            $("#isi-table-pengamatan").append(table);     
+                            no++;
                         }
-                        $table+="</tr>";
-                        no++;
-                        $("#isi-table-pengamatan").append($table);     
                     }
                     $('#table-pengamatan').DataTable().draw();
                 }
