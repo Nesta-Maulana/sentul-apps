@@ -19,9 +19,10 @@ use App\Models\utilityOnline\pengamatan;
 use App\Models\utilityOnline\workcenter;
 use App\Models\utilityOnline\bagian;
 use App\Models\utilityOnline\satuan;
-use DB;
+use Illuminate\Support\Arr;
 use \Carbon\Carbon;
 use Session;
+use DB;
 
 class adminUtilityController extends resourceController
 {
@@ -42,6 +43,15 @@ class adminUtilityController extends resourceController
             return $next($request);
         });
     }
+
+    public function generateDateRange(Carbon $start_date, Carbon $end_date)
+    {
+        $dates = [];
+        for($date = $start_date; $date->lte($end_date); $date->addDay()) {
+            $dates[] = $date->format('Y-m-d');
+        }
+        return $dates;
+    }    
 
     public function index(){
         return view('utilityOnline.admin.index', ['menus' => $this->menu, 'username' => $this->username]);
@@ -308,14 +318,40 @@ class adminUtilityController extends resourceController
         return $bagian;
     }
     public function report2Tgl($from, $to){
-        
-        // dd($to->tomorrow());
+        $tz = 'Asia/Jakarta';
+        $from1 = explode('-', $from);
+        $to1 = explode('-', $to);        
+        $from1 = Carbon::createFromDate($from1[0], $from1[1], $from1[2], $tz);        
+        $to1 = Carbon::createFromDate($to1[0], $to1[1], $to1[2], $tz);
+        $cek = $this->generateDateRange($from1, $to1);
         $report = pengamatan::whereBetween('created_at', [ $from . ' 06:00:00', $to . ' 05:59:59'])->get();
-        foreach ($report as $key => $value) 
-        {
-            $report->bagian = $value->bagian->satuan;
+        $bagian = bagian::all();
+        foreach ($bagian as $b) 
+        {  
+            $i = 0;
+            $pengamatan = [];
+            $no =0;
+            foreach ($cek as $c ) {
+                $no++;
+            }
+            foreach ($cek as $c ) {
+                $i++;
+                if($i == $no){
+                    $time = explode('-', $c);
+                    $dates = Carbon::createFromDate($time[0], $time[1], $time[2], $tz)->addDay('1');
+                    $dates = explode(' ', $dates);
+                    $date1 = $dates[0];
+                    $pengamatanBagian = pengamatan::where('id_bagian', $b->id)->whereBetween('created_at', [$c . ' 06:00:00', $date1 . ' 05:59:59'])->first();
+                }else{
+                    $pengamatanBagian = pengamatan::where('id_bagian', $b->id)->whereBetween('created_at', [$c . ' 06:00:00', $cek[$i] . ' 05:59:59'])->first();
+                }
+                $output = [$pengamatanBagian, $c];
+                array_push($pengamatan, $output);
+            }
+            $b->pengamatan = $pengamatan;
+            $b->satuan_id = $b->satuan->satuan;
         }
-        return $report;
+        return $bagian;
     }
     public function reportBagianTgl($idBagian, $from, $to){
         $bagian = bagian::where('workcenter_id', $idBagian)->get();

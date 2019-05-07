@@ -566,6 +566,7 @@ class superAdminController extends resourceController
         $kategori = kategori::all();
         $output = [$editWorkcenter, $kategori];
         return $output;
+        
     }
     public function editBagian($id){
         $id = app('App\Http\Controllers\resourceController')->dekripsi($id);

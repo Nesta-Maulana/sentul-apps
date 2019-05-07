@@ -73,35 +73,45 @@
                 <h4>Reports Pengamatan | </h4>
                 <a class="btn btn-primary export text-white" id="export-pengamatan">Export</a>
             </div>
-            <div class="row">
-                <div class="input-group m-2">
-                    <button type="button" class="btn btn-default pull-right ml-2" id="daterange-btn-2" name="inputRange" style="right: 0 !important;">
-                        <span>
-                            <i class="fa fa-calendar"></i> Date range picker
-                        </span>
-                        <i class="fa fa-caret-down"></i>
-                    </button>
+            <div class="row p-2">
+                <div class="row p-2">
+                    <div class="col-lg-4">
+                        <div class="input-group m-2">
+                            <label for="" class="mt-2">Tanggal : </label>
+                            <button type="button" class="btn btn-default pull-right ml-2" id="daterange-btn-2" name="inputRange" style="right: 0 !important;">
+                                <span>
+                                    <i class="fa fa-calendar"></i> Date range picker
+                                </span>
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <br>
+                            <select name="kategori" id="kategori" class="form-control select2 mt-2">
+                                <option value="" selected disabled>-- PILIH KATEGORI --</option>
+                                @foreach($kategori as $k)
+                                    <option value="{{ $k->id }}">{{ $k->kategori }}</option>
+                                @endforeach
+                            </select>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                             
+                            <br>
+                            <select name="workcenter" id="workcenter" class="form-control select2 mt-2">
+                                <option value="" selected disabled>-- PILIH WORKCENTER --</option>
+                                @foreach($workcenter as $w)
+                                    <option value="{{ $w->id }}">{{ $w->workcenter }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-3 mt-5">
-                    <label for="kategori">Kategori :</label>
-                    <br>
-                    <select name="kategori" id="kategori" class="form-control select2">
-                        <option value="" selected disabled>-- PILIH KATEGORI --</option>
-                        @foreach($kategori as $k)
-                            <option value="{{ $k->id }}">{{ $k->kategori }}</option>
-                        @endforeach
-                    </select>
-                    <br>
-                    <label for="workcenter">Workcenter :</label>
-                    <br>
-                    <select name="workcenter" id="workcenter" class="form-control select2">
-                        <option value="" selected disabled>-- PILIH WORKCENTER --</option>
-                        @foreach($workcenter as $w)
-                            <option value="{{ $w->id }}">{{ $w->workcenter }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-lg-8">
+                <div class="col-lg-12 mt-2">
                     <table id="table-pengamatan" class="table bg-white table-striped table-hover mt-3">
                         <!--Table head-->
                         <thead class="thead-dark">
@@ -271,7 +281,8 @@
                             method: 'GET',
                             dataType: 'JSON',
                             success: function (data) {
-                                // console.log(data);
+                                $('#table-pengamatan').DataTable().destroy();
+                                $('#isi-table-pengamatan').empty();
                                 var optionroles = '', $comboroles = $('#isi-table-pengamatan');
                                 var nomor = 0; 
                                 for (index = 0; index < data[0].length; index++) 
@@ -313,7 +324,7 @@
                                                 optionroles+='<td>'+data[1][i].satuan+'</td>';
                                             }
                                         }
-                                        
+                                        optionroles+='<td>Belum Diinput</td>'
                                     }
                                     
                                     
@@ -321,6 +332,7 @@
                                     optionroles+='</tr>';
                                 }
                                 $comboroles.html(optionroles).on('change');
+                                $('#table-pengamatan').DataTable().draw();
                             }
                         });
                     })
