@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title')</title>
+    <title>@yield('judul')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{-- <link rel="shortcut icon" type="image/png" href="images/icon/favicon.ico"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('rollie/operator/css/bootstrap.min.css')}}"> --}}
@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="{{ asset('rollie/operator/css/responsive.css')}}">
     <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
     <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
+    
     <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
     <script src="{{ asset('rollie/js/webfont.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/vendor/modernizr-2.8.3.min.js')}}"></script>
@@ -136,12 +138,10 @@
             </div>
             <div class="page-title-area">
                 <div class="row align-items-center">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">@yield('title')</h4>
+                            @yield('title')
                         </div>
-                    </div>
-                    <div class="col-sm-6 clearfix">
                     </div>
                 </div>
             </div>
@@ -180,6 +180,7 @@
     <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
     <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
        <script>
+        $('.select2').select2();
         const flashdatas = $('.failed').data('flashdata');
         if(flashdatas)
         {
@@ -286,7 +287,7 @@
          
     </script>
     {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
-    <script src="{{ asset('rollie/js/webfont.js')}}"></script>
+        <script src="{{ asset('rollie/js/webfont.js')}}"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
@@ -294,9 +295,23 @@
         <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
         <script type="text/javascript">
-            $('#startDate').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss'
+            $('.timepickernya').datetimepicker({
+                format: 'HH:mm:ss',
+                locale:'en'
             }); 
+            $('.timepickernya').data("DateTimePicker").date(moment(new Date()).format('HH:mm:ss'));
+            
+
+            $('.datepickernya').datetimepicker({
+                format: 'YYYY-mm-DD'
+            }); 
+            $('.datepickernya').data("DateTimePicker").date(moment(new Date()).format('YYYY-mm-DD'));
+            
+
+            $('.datetimepickernya').datetimepicker({
+                format: 'YYYY-mm-DD HH:mm:ss'
+            }); 
+
         </script>  
  
 

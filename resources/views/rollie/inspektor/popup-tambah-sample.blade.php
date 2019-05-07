@@ -21,21 +21,56 @@
                             <option value="idnya2">TPA</option>
                         </select>
                     </div>
-
+            
                     <div class="form-group row">
                         <label for="tanggalfillingsampel" class="col-lg-4">Tanggal Filling</label>
-                        <input type="text" id="tanggalfillingsampel" class="form-control timepicker col-lg-7" >
+                        <div class='input-group date col-lg-7 datepickernya' id="tanggalfillingsampel" style="margin-left: -15px;">
+                            <input type='text' class="form-control" name="tanggalfillingsampel" >
+                            <span class="input-group-addon" style="margin-top: 5px; font-size: 20px; margin-left: 2px;">
+                               <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>                        
                     </div>
 
                     <div class="form-group row">
-                        <label for="tanggalfillingsampel" class="col-lg-4">Tanggal Filling</label>
-                       <div class='input-group date' id='startDate'>
-                            <input type='text' class="form-control" name="startDate" />
-                            <span class="input-group-addon">
-                                   <span class="glyphicon glyphicon-calendar"></span>
+                        <label for="jamfillingsampel" class="col-lg-4">Jam Filling</label>
+                        <div class='input-group date col-lg-7 timepickernya' id="jamfillingsampel" style="margin-left: -15px;">
+                            <input type='text' class="form-control" name="jamfillingsampel" >
+                            <span class="input-group-addon" style="margin-top: 5px; font-size: 20px; margin-left: 2px;">
+                               <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                        </div>
-                        
+                        </div>                        
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="kodeanalisasampel" class="col-lg-4">Kode Analisa</label>
+                        <select name="kodeanalisasampel" id="kodeanalisasampel" class="select col-lg-7 form-control" style="padding: 0 .8rem;">
+                            <option value="idnya1">A - Persiapan</option>
+                            <option value="idnya2">H - Selesai Filling</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="eventsampel" class="col-lg-4">Keterangan Event</label>
+                        <select name="eventsampel" id="eventsampel" class="select col-lg-7 form-control" style="padding: 0 .8rem;">
+                            <option value="idnya1"># Event</option>
+                            <option value="idnya2">Event</option>
+                        </select>
+                    </div>
+                    <div class="form-group has-warning row">
+                        <label for="beratkanansampel" class="col-lg-4">Berat Kanan</label>
+                        <input type="text" name="beratkanansampel" id="beratkanansampel" class="form-control col-lg-7" maxlength="6" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47">
+                        <small class="form-text text-muted" style="margin-left: 216px">Pemisah desimal menggunakan titik. <br> Desimal 2 angka dibelakang koma contoh : 222.30</small>
+                    </div>
+
+                    <div class="form-group has-warning row">
+                        <label for="beratkirisampel" class="col-lg-4">Berat Kiri</label>
+                        <input type="text" name="beratkirisampel" id="beratkirisampel" class="form-control col-lg-7" maxlength="6" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47">
+                        <small class="form-text text-muted" style="margin-left: 216px">Pemisah desimal menggunakan titik. <br> Desimal 2 angka dibelakang koma contoh : 222.30</small>
+                    </div>
+                    <div class="form-group has-warning row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-3"></div>
+                        <input type="submit" class="btn btn-info col-lg-5 form-control" value="Save To Draft">
                     </div>
                 </div>
 

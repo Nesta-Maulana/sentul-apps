@@ -1,6 +1,17 @@
 @extends('rollie.operator.templates.layout')
+@section('judul')
+    {{ $menus[0]->aplikasi }} | RPD Filling
+@endsection
 @section('title')
-    {{ $menus[0]->aplikasi }} | Dashboard
+    <div class="row">
+    	<div class="col-lg-2">
+    		<H3> RPD Filling |</H3> 
+    	</div>
+    	<select name="produkrpd" id="produkrpd" class="col-lg-6 pull-left select form-control" style="padding: 0 .8rem">
+            <option value="idnya1">Produk Satu</option>
+            <option value="idnya2">Produk Dua</option>	
+		</select>	
+    </div>
 @endsection
 @section('content')
 	<hr>
@@ -34,14 +45,23 @@
 								Tambah Sample
 							</a>
 						</div>
-						<div class="col-md-6">
-							<a href="">
-								<img src="{{ asset('generalStyle/images/logo/plus-red.png') }}" width="50px" alt="">
-								Tambah Batch / Wo
-							</a>
-						</div>
+<!-- 						<div class="col-md-6">
+	<a data-toggle="modal" data-target="#tambah-batch">
+		<img src="{{ asset('generalStyle/images/logo/plus-red.png') }}" width="50px" alt="">
+		Tambah Batch / Wo
+	</a>
+</div> -->
 					</div>
 				</div>
+			</div>
+
+			<div class="row">
+				<hr>
+					<h5 class="col-lg-4 text-left">
+						<strong>Draft Analisa Sample QC</strong>
+						
+					</h5>  
+				<hr>
 			</div>
 			<div class="row">
 				<table class="table display nowrap table-hover" id="table-draft-analisa">
@@ -66,6 +86,7 @@
 				</table>
 			</div>
 			@include('rollie.inspektor.popup-tambah-sample')
+			@include('rollie.inspektor.popup-tambah-batch')
 
 		</div>
 	</div>
