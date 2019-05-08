@@ -60,10 +60,16 @@ class inspektorController extends resourceController
         
         // mengambil jadwal wo diminggu ini saja dan wo yang statusnya WIP Filling di minggu-minggu sebelumnya 
         $wos        = wo::where('status','3')->orWhere('status','2')->whereNotIn('produk_id',['30','31','32'])->get();
+        
         $cekyobase  = wo::where('status','3')->orWhere('status','2')->whereIn('produk_id',['30','31','32'])->get();
         return view('rollie.inspektor.dashboard',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
     }
-    public function rpdfilling(Request $request)
+    public function rpdfilling()
+    {
+        return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);
+    	
+    }
+    public function prosesrpdfilling(Request $request)
     {    
     	dd($request->all());
         //return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);

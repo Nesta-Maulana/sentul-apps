@@ -2,9 +2,11 @@
 @section('title')
     {{ $menus[0]->aplikasi }} | Dashboard
 @endsection
+@section('judul')
+    {{ $menus[0]->aplikasi }} | Dashboard
+@endsection
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-
 	<div class="row mt-5 mb-5">
         <div class="col-12">
             <div class="card">
@@ -59,7 +61,7 @@
                                         </td>
                                     </tr>
                                 @else
-                                    <tr>
+                                    <!-- <tr>
                                         <td>{{ $wo->nomor_wo }}</td>
                                         <td>{{ $wo->produk->nama_produk }}</td>
                                         <td>{{ $wo->production_realisation_date }}</td>
@@ -88,7 +90,7 @@
                                         <td>
                                             <a href="aksi"> Proses Fillpack</a>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 @endif
                             @endforeach
                         </tbody>
