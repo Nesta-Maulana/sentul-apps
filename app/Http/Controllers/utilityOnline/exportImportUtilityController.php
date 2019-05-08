@@ -15,12 +15,14 @@ use Excel;
 class exportImportUtilityController extends Controller
 {  
     public function exportPengamatan($nama_report, $from,$tgl1, $tgl2){
-        return Excel::download(new pengamatanExport($tgl1, $tgl2, $nama_report, $from), $nama_report . $from . $tgl1 . '-' . $tgl2 . '.xlsx');
-    }
-    public function exportPengamatan2($nama_report, $from){
-        return Excel::download(new pengamatanExport('', '', $nama_report, $from), $nama_report . $from . '.xlsx');
-    }
-    public function exportPenggunaan($nama_report, $from,$tgl1, $tgl2){
-        return Excel::download(new penggunaanExport($tgl1, $tgl2),$nama_report . $from . $tgl1 . '-' . $tgl2 . '.xlsx' );
+        if($nama_report == 'pengamatan'){
+            return Excel::download(new pengamatanExport($tgl1, $tgl2, $nama_report, $from), $nama_report . $from . $tgl1 . '-' . $tgl2 . '.xlsx');
+        }
+        else if($nama_report == 'penggunaan'){
+            return Excel::download(new penggunaanExport($tgl1, $tgl2), $nama_report . $from . $tgl1 . '-' . $tgl2 . '.xlsx');
+        }
+        else{
+
+        }
     }
 }

@@ -8,6 +8,8 @@
 @section('content')
 <input type="hidden" id="tgl-pengamatan-1">
 <input type="hidden" id="tgl-pengamatan-2">
+<input type="hidden" id="tgl-penggunaan-1">
+<input type="hidden" id="tgl-penggunaan-2">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="row mt-5">
     <div class="col-12">
@@ -15,6 +17,7 @@
             <div class="card-header">
                 <h4>Reports Penggunaan | </h4>
                 <a class="btn btn-primary text-white" id="export-penggunaan">Export</a>
+                <button id="export-penggunaan-info" class="btn btn-primary">Please Select Date</button>
             </div>
             <div class="row mt-2">
                 <div class="col-lg-9"></div>
@@ -72,6 +75,7 @@
             <div class="card-header">
                 <h4>Reports Pengamatan | </h4>
                 <a class="btn btn-primary export text-white" id="export-pengamatan">Export</a>
+                <button id="export-pengamatan-info" class="btn btn-primary">Please Select Date</button>
             </div>
             <div class="row p-2">
                 <div class="row p-2">
@@ -99,8 +103,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="input-group">
-                             
+                        <div class="input-group">                             
                             <br>
                             <select name="workcenter" id="workcenter" class="form-control select2 mt-2">
                                 <option value="" selected disabled>-- PILIH WORKCENTER --</option>
@@ -253,6 +256,10 @@
     </div>
 </div>
 <script>
+        $('#export-pengamatan').hide();
+        $('#export-pengamatan-info').show();
+        $('#export-penggunaan').hide();
+        $('#export-penggunaan-info').show();
         $('#kategori').attr('disabled', true);
         $('#workcenter').attr('disabled', true);
         $('#kategori').change(function () {
@@ -262,11 +269,10 @@
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
-
                     var optionroles = '', $comboroles = $('#workcenter');
                     $('#workcenter').attr('disabled', false);
                     optionroles+='<option selected disabled>-- PILIH WORKCENTER --</option>';
-                    for (index = 0; index < data.length; index++) 
+                    for (index = 0; index < data.length; index++)
                     {
                         optionroles+='<option value="'+data[index].id+'">'+data[index].workcenter+'</option>'
                     }
@@ -289,8 +295,7 @@
                                 {
                                     if(data[0][index].pengamatan.length > 0){
                                         for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
-                                        {   
-                                        
+                                        {                                        
                                             // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
                                             if(data[0][index].pengamatan[indek])
                                             {
@@ -304,8 +309,7 @@
                                                         optionroles+='<td>'+data[1][i].satuan+'</td>';
                                                     }
                                                 }
-                                                optionroles+='<td>'+ data[0][index].created_at +'</td>';
-                                                
+                                                optionroles+='<td>'+ data[0][index].created_at +'</td>';                                                
                                             }
                                             else
                                             {
@@ -325,9 +329,7 @@
                                             }
                                         }
                                         optionroles+='<td>Belum Diinput</td>'
-                                    }
-                                    
-                                    
+                                    }                                                                        
                                     // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[0][index].pengamatan.id + '">Edit</button> </td>';
                                     optionroles+='</tr>';
                                 }
@@ -385,11 +387,14 @@
             });
         })
         $('#export-pengamatan').click(function () {
-            var tgl = $('#tanggal').val();
-            document.location.href='report/export/pengamatan/utility-oline/' + tgl + '/' + tgl;        
+            var tgl = $('#tgl-pengamatan-1').val();
+            var tgl2 = $('#tgl-pengamatan-2').val();
+            document.location.href='report/export/pengamatan/utility-oline/' + tgl + '/' + tgl2;        
         })
         $('#export-penggunaan').click(function () {
-            
+            var tgl = $('#tgl-penggunaan-1').val();
+            var tgl2 = $('#tgl-penggunaan-2').val();
+            document.location.href='report/export/penggunaan/utility-oline/' + tgl + '/' + tgl2;  
         })
 </script>
 @endsection

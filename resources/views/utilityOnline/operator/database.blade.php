@@ -124,7 +124,8 @@
                                     var nomor  = 0;
                                     for (index = 0; index < data[0].length; index++) 
                                     {
-                                        if(data[0][index].pengamatan.length > 0){
+                                        i
+                                        f(data[0][index].pengamatan.length > 0){
                                             for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
                                             {   
                                             
@@ -150,6 +151,7 @@
                                                     
                                                 }
                                             }
+                                            
                                         }else{
                                             var nomor = nomor+1;
                                             optionroles+='<tr>';
@@ -176,8 +178,7 @@
                                         var idBagian = $(this).data('idBagian');
                                         var tgl = $(this).data('tgl');
                                         if(id != ""){
-                                            console.log('ada');
-                                            
+                                            // console.log('ada');
                                             $.ajax({
                                                 url: 'database/edit/'+id+'/'+tgl,
                                                 method: 'GET',
@@ -189,7 +190,7 @@
                                                 }
                                             })
                                         }else{
-                                            console.log('g ada');
+                                            // console.log('g ada');
                                             var bagian = $(this).data('bagian');
                                             var idBagian = $(this).data('idbagian');
                                             $('#edit_bagian').text(bagian);

@@ -15,6 +15,8 @@
 Route::post('/user/login','masterApps\generalController\userAccessController@loginUser');
 Route::post('/user/signup','masterApps\generalController\userAccessController@signupUser');
 
+
+
 //Route::resource('AdministratorAksi','Administrator\AdministratorController');
 
 Route::get('/administrator','masterApps\generalController\Administrator\AdministratorController@index');
@@ -162,10 +164,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report-4/{tgl}', 'utilityOnline\adminUtilityController@report4Tgl');
     Route::get('/utility-online/admin/report/detail/{id}/{tgl}', 'utilityOnline\adminUtilityController@detailReport');
     Route::get('/utility-online/admin/report/{from}/{to}', 'utilityOnline\adminUtilityController@reportDate');
-    Route::get('/utility-online/admin/report/export/{nama_report}/{from}', 'utilityOnline\exportImportUtilityController@exportPengamatan2');
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPengamatan');
-    Route::get('/utility-online/admin/report-penggunaan/export/{nama_report}/{from}', 'utilityOnline\exportImportUtilityController@exportPenggunaan');
-    Route::get('/utility-online/admin/report-penggunaan/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPenggunaan');
 
     // UtilityOnline UserGuide
     Route::get('/utility-online/user-guide', 'utilityOnline\utilityOnlineController@userGuide');
