@@ -1,32 +1,42 @@
 <table>
     <thead>
         <tr>
-            <td>No</td>
-            <td>Bagian</td>
-            <td>Nilai</td>
-            <td>Nama</td>
-            <td>User Update</td>
-            <td>Created At</td>
-            <td>Last Update</td>
+            <td rowspan='2' style="text-align:center" >No</td>
+            <td rowspan='2' style="text-align:center" >Bagian</td>
+            <td rowspan='2' style="text-align:center" >Satuan</td>
+            <td colspan="{{ $jmlTgl }}" style="text-align:center">Tanggal</td>
+        </tr>
+        <tr>
+            @foreach($tgl as $t)
+                <td>{{ $t }}</td>
+            @endforeach
         </tr>
     </thead>
     <tbody>
     <?php $no=0 ?>
-        @foreach($pengamatan as $p)
+    @foreach($bagian as $b)
+        <?php $no++ ?>
             <tr>
-                <?php $no++ ?>
-                <td>{{ $no }}</td>
-                <td>{{ $p->bagian->bagian }}</td>
-                <td>{{ $p->nilai_meteran }}</td>
-                <td>{{ $p->user->karyawan->fullname }}</td>
-                @if($p->user_update)
-                    <td>{{ $p->user_update->karyawan->fullname }}</td>
-                @else
-                    <td>{{ $p->user_update }}</td>
-                @endif
-                <td>{{ $p->created_at }}</td>
-                <td>{{ $p->updated_at }}</td>
+                <td rowspan="2">{{ $no }}</td>
+                <td rowspan="2">{{ $b->bagian }}</td>
+                <td rowspan="2">{{ $b->satuan->satuan }}</td>
+                @foreach($b->pengamatan as $pengamatan)
+                    @if($pengamatan[0])
+                        <td>{{ $pengamatan[0]->nilai_meteran }}</td>
+                    @else
+                        <td> Tidak Ada Inputan </td>
+                    @endif
+                @endforeach
             </tr>
+            <tr>
+                @foreach($b->pengamatan as $pengamatan)
+                    @if($pengamatan[0])
+                        <td>{{ $pengamatan[0]->user->karyawan->fullname }}</td>
+                    @else
+                        <td>Tidak Ada Pengamat</td>
+                    @endif
+                @endforeach
+            </tr>            
         @endforeach
     </tbody>
 </table>

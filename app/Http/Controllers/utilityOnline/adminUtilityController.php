@@ -324,16 +324,15 @@ class adminUtilityController extends resourceController
         $from1 = Carbon::createFromDate($from1[0], $from1[1], $from1[2], $tz);        
         $to1 = Carbon::createFromDate($to1[0], $to1[1], $to1[2], $tz);
         $cek = $this->generateDateRange($from1, $to1);
-        $report = pengamatan::whereBetween('created_at', [ $from . ' 06:00:00', $to . ' 05:59:59'])->get();
         $bagian = bagian::all();
+        $no =0;
+        foreach ($cek as $c ) {
+            $no++;
+        }
         foreach ($bagian as $b) 
         {  
             $i = 0;
             $pengamatan = [];
-            $no =0;
-            foreach ($cek as $c ) {
-                $no++;
-            }
             foreach ($cek as $c ) {
                 $i++;
                 if($i == $no){

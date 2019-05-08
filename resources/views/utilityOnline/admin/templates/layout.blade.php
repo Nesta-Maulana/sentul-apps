@@ -28,40 +28,11 @@
       <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar">
         <form class="form-inline mr-auto">
-          <ul class="navbar-nav mr-3">
-            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fa fa-bars"></i></a></li>
-            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fa fa-search"></i></a></li>
-          </ul>
-          <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-            <button class="btn" type="submit"><i class="fa fa-search"></i></button>
-            <div class="search-backdrop"></div>
-          </div>
+            <ul class="navbar-nav mr-3">
+                <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fa fa-bars"></i></a></li>            
+            </ul>
         </form>
         <ul class="navbar-nav navbar-right">
-          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="fa fa-bell"></i></a>
-                <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                    <div class="dropdown-header">Notifications
-                        <div class="float-right">
-                            <a href="#">Mark All As Read</a>
-                        </div>
-                    </div>
-                    <div class="dropdown-list-content dropdown-list-icons">
-                        <a href="#" class="dropdown-item dropdown-item-unread">
-                            <div class="dropdown-item-icon bg-primary text-white">
-                                <i class="fa fa-code"></i>
-                            </div>
-                            <div class="dropdown-item-desc">
-                                Template update is available now!
-                                <div class="time text-primary">2 Min Ago</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="dropdown-footer text-center">
-                        <a href="#">View All <i class="fa fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                     <div class="d-sm-none d-lg-inline-block">Hi, {{$username}}</div>
@@ -229,13 +200,15 @@
       },
       function (start, end) {
         $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        // $('#inputMulai').val(start.format('YYYY-MM-DD'));
-        // $('#inputSampai').val(end.format('YYYY-MM-DD'));
+        $('#tgl-penggunaan-1').val(start.format('YYYY-MM-DD'));
+        $('#tgl-penggunaan-2').val(end.format('YYYY-MM-DD'));
         $.ajax({
             url: 'report/' + start.format('YYYY-MM-DD') + '/' +end.format('YYYY-MM-DD'),
             method: 'GET',
             dataType: 'JSON',
             success: function (data) {
+                $('#export-penggunaan').show();
+                $('#export-penggunaan-info').hide();
                 $('#table-1').DataTable().destroy();
                 $('#isi').empty();
                 var no = 1;
@@ -281,6 +254,8 @@
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
+                    $('#export-pengamatan').show();
+                    $('#export-pengamatan-info').hide();
                     $('#kategori').attr('disabled', false);
                     $('#table-pengamatan').DataTable().destroy();
                     $('#isi-table-pengamatan').empty();
