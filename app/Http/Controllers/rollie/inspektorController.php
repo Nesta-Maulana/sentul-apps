@@ -14,7 +14,10 @@ use App\Http\Controllers\Controller;
 use App\Models\masterApps\karyawan;
 use App\Models\masterApps\produk;
 use App\Models\masterApps\brand;
-use App\productionData\wo;
+use App\Models\productionData\wo;
+use App\Models\productionData\rpdFillingHead;
+use App\Models\productionData\rpdFillingDetailPi;
+use App\Models\productionData\rpdFillingDetailAtEvent;
 use DB;
 use Session;
 
@@ -64,14 +67,34 @@ class inspektorController extends resourceController
         $cekyobase  = wo::where('status','3')->orWhere('status','2')->whereIn('produk_id',['30','31','32'])->get();
         return view('rollie.inspektor.dashboard',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
     }
-    public function rpdfilling()
+    public function rpdfilling($rpdfillingheadid)
     {
-        return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);
+        $id                 = app('App\Http\Controllers\resourceController')->dekripsi($rpdfillingheadid);
+        $rpdfillinghead     = rpdFillingHead::find($id);
+        $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
+        return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username,'rpd_filling'=>$rpdfillinghead,'rpd_filling_aktif'=>$rpdfillingaktif]);
     	
     }
     public function prosesrpdfilling(Request $request)
     {    
-    	dd($request->all());
-        //return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);
+        $produk                 = produk::where('nama_produk',$request->nama_produk)->first();
+        $produk_id              = $produk->id;
+        $startfilling           = date('Y-m-d');
+        //insert ke head table rpd filling
+        $insertrpdfillinghead   = rpdFillingHead::create([
+                                'produk_id'     =>$produk_id,
+                                'start_filling' =>$startfilling,
+                                'status'        =>'1'    
+                                ]);
+        //update data wo ubah status dan ubah tanggal fillpack sesuai dengan start filling hari ini. 
+        $datawo                     = wo::where('nomor_wo',$request->nomor_wo)->first();
+        $datawo                     = wo::find($datawo->id);
+        $datawo->status             = '3';
+        $datawo->tanggal_fillpack   = $startfilling;
+        $datawo->save();
+        $return                     = app('App\Http\Controllers\resourceController')->enkripsi($insertrpdfillinghead->id);
+        return ['id_rpd_head'=>$return];
+
+        
     }
 }

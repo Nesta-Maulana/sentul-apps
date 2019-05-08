@@ -270,15 +270,12 @@
                         dataType: 'JSON',
                         data: 
                         { 
-                            'nama_produk': namaproduk, 
+                            'nama_produk'   : namaproduk, 
+                            'nomor_wo'      : nomorwo
                         },
                         success: function (data) 
                         {
-                            swal({
-                                title: "Success",
-                                text: "Berhasil Menyimpan",
-                                type: 'success'
-                            });
+                            window.location.href    = "rollie-inspektor-qc/rpd-filling/"+data.id_rpd_head
                         },
                     });
                 }
@@ -294,23 +291,26 @@
         <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+        
         <script type="text/javascript">
             $('.timepickernya').datetimepicker({
                 format: 'HH:mm:ss',
-                locale:'en'
+                locale:'en',
+                date: new Date()
             }); 
-            $('.timepickernya').data("DateTimePicker").date(moment(new Date()).format('HH:mm:ss'));
             
 
             $('.datepickernya').datetimepicker({
-                format: 'YYYY-mm-DD'
+                format: 'YYYY-MM-DD',
+                locale:'en',
+                date: new Date()
             }); 
-            $('.datepickernya').data("DateTimePicker").date(moment(new Date()).format('YYYY-mm-DD'));
             
 
             $('.datetimepickernya').datetimepicker({
                 format: 'YYYY-mm-DD HH:mm:ss'
             }); 
+
 
         </script>  
  

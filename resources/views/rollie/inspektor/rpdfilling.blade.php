@@ -4,13 +4,19 @@
 @endsection
 @section('title')
     <div class="row">
-    	<div class="col-lg-2">
-    		<H3> RPD Filling |</H3> 
-    	</div>
-    	<select name="produkrpd" id="produkrpd" class="col-lg-6 pull-left select form-control" style="padding: 0 .8rem">
-            <option value="idnya1">Produk Satu</option>
-            <option value="idnya2">Produk Dua</option>	
-		</select>	
+    	@if ($rpd_filling_aktif->count() > 1)
+	    	<div class="col-lg-3">
+	    		<H3>RPD Filling</H3> 
+	    	</div>
+	    	<select name="produkrpd" id="produkrpd" class="col-lg-6 pull-left select form-control" style="padding: 0 .8rem">
+	            <option value="idnya1">Produk Satu</option>
+	            <option value="idnya2">Produk Dua</option>	
+			</select>	
+    	@else
+			<div class="col-lg-12">
+	    		<H3>RPD Filling {{ $rpd_filling->wo[0]->produk->nama_produk }}</H3> 
+	    	</div>
+    	@endif
     </div>
 @endsection
 @section('content')
@@ -22,17 +28,24 @@
 					<div class="row form-group left">
 						<label class="col-md-4">Nama Produk</label>
 						<label class="col-md-1">:</label>
-						<input type="text" value="Hilo School Coklat 200Ml" class="form-control col-md-7" readonly>
+						<input type="text" value="{{ $rpd_filling->wo[0]->produk->nama_produk }}" class="form-control col-md-7" readonly>
 					</div>
 					<div class="row form-group left">
 						<label class="col-md-4">Tanggal Produksi</label>
 						<label class="col-md-1">:</label>
-						<textarea class="form-control col-md-7" readonly>WO 1 - 4 April , Wo 2 - 5 April  WO 1 - 4 April , Wo 2 - 5 April</textarea>
+						<textarea class="form-control col-md-7" readonly><?php
+							foreach ($rpd_filling->wo as $key => $value) 
+							{
+								$tampil = $value->nomor_wo." => ".$value->production_realisation_date.",";
+								$tampil = rtrim($tampil,",");
+								echo $tampil;
+							}
+						?></textarea>
 					</div>
 					<div class="row form-group left">
 						<label class="col-md-4">&Sigma; Batch</label>
 						<label class="col-md-1">:</label>
-						<input type="text" value="4 Batch" class="form-control col-md-7" readonly>
+						<input type="text" value="{{ $rpd_filling->wo->count() }} Batch" class="form-control col-md-7" readonly>
 					</div>
 				</div>
 			</div>
@@ -45,12 +58,12 @@
 								Tambah Sample
 							</a>
 						</div>
-<!-- 						<div class="col-md-6">
-	<a data-toggle="modal" data-target="#tambah-batch">
-		<img src="{{ asset('generalStyle/images/logo/plus-red.png') }}" width="50px" alt="">
-		Tambah Batch / Wo
-	</a>
-</div> -->
+						<div class="col-md-6">
+							<a data-toggle="modal" data-target="#tambah-batch">
+								<img src="{{ asset('generalStyle/images/logo/plus-red.png') }}" width="50px" alt="">
+								Tambah Batch / Wo
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

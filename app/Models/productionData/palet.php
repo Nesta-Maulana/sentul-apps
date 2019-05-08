@@ -1,6 +1,6 @@
 <?php
 
-namespace App\productionData;
+namespace App\Models\productionData;
 
 use Illuminate\Database\Eloquent\Model;
 

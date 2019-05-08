@@ -8,7 +8,9 @@
     <div class="container">
         <div class="row teks mt-5">
             <div class="col teks">
-            <h1 class="font-weight-bold d-flex justify-content-center text-white mt-2" style="font-size: 40px">Data Pengamatan</h1>
+                <h1 class="font-weight-bold d-flex justify-content-center text-white mt-2" style="font-size: 40px">
+                    Data Pengamatan
+                </h1>
                 <div class="row">
                     <div class="col-lg-4 p-3 teks text-white">
                         <label for="tanggal">Tanggal : </label>
