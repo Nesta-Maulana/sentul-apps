@@ -14,4 +14,12 @@ class rpdFillingHead extends Model
 	{
 		return $this->hasMany('App\Models\productionData\wo', 'rpd_filling_head_id','id');
 	}
+	public function detail_pi()
+	{
+		return $this->hasMany('App\Models\productionData\rpdFillingDetailPi', 'rpd_filling_head_id','id');
+	}
+	public function detail_at_event()
+	{
+		return $this->hasMany('App\Models\productionData\rpdFillingDetailAtEvent', 'rpd_filling_head_id','id');
+	}
 }

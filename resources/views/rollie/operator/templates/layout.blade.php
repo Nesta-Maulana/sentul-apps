@@ -168,9 +168,6 @@
     <script src="{{ asset('rollie/operator/js/metisMenu.min.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/jquery.slimscroll.min.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/jquery.slicknav.min.js')}}"></script>
-    <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
-    <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/line-chart.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/pie-chart.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/bar-chart.js')}}"></script>
@@ -179,6 +176,10 @@
     <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
     <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
     <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/js/page/modules-datatables.js')}}"></script>
        <script>
         $('.select2').select2();
         const flashdatas = $('.failed').data('flashdata');
@@ -204,27 +205,7 @@
         new WOW().init();
     </script>
     <script>
-        $('#data-tables').dataTable({
-                "columnDefs": [
-                    { "sortable": false, "targets": [5] }
-                ]
-        });
-        $('#table-jadwal').dataTable({
-            bFilter:false,
-            bInfo:false,
-            bLengthChange:false,
-            pageLength:10,
-            scrollY: 400,
-            scrollX: true,
-            ordering:false,
-        });
-        $('#table-draft-analisa').dataTable({
-            bFilter:false,
-            bInfo:false,
-            bLengthChange:false,
-            pageLength:10,
-            ordering:false,
-        });
+       
 
         function prosescpp(namaproduk,nomorwo) 
         {
@@ -282,6 +263,46 @@
             })
         }
          
+    </script>
+    <script>
+        function tambahSampelAnalisa() 
+        {
+            
+        }
+        function reloadTablePi() 
+        {
+            var $idrpdfillinghead = $('#idrpdfillinghead').val();
+            $.ajax({
+                url     : '/sentul-apps/rollie-inspektor-qc/refresh-rpd-filling/'+$idrpdfillinghead,
+                method  : 'GET',
+                dataType: 'JSON',
+                success : function(data) 
+                {
+                    var isitable = '', $isitable = $('#detail_pi');
+                    for (var i = 0; i < data.detail_pi.length; i++)
+                    {
+                        isitable    += '<tr>';
+                        isitable    += '<td>'+data.detail_pi[i].wo.nomor_wo+'</td>'
+                        isitable    += '<td>'+data.detail_pi[i].mesin_filling.kode_mesin+'</td>'
+                        isitable    += '<td>'+data.detail_pi[i].jam_filling+'</td>'
+                        isitable    += '<td>'+data.detail_pi[i].kode_sampel.kode_sampel+'</td>'
+                        isitable    += '<td><a href="">Analisa</a></td>'
+                        isitable    += '</tr>';
+                    }
+                    for (var i = 0; i < data.detail_at_event.length; i++)
+                    {
+                        isitable    += '<tr>';
+                        isitable    += '<td>'+data.detail_at_event[i].wo.nomor_wo+'</td>'
+                        isitable    += '<td>'+data.detail_at_event[i].mesin_filling.kode_mesin+'</td>'
+                        isitable    += '<td>'+data.detail_at_event[i].jam_filling+'</td>'
+                        isitable    += '<td>'+data.detail_at_event[i].kode_sampel.kode_sampel+' (Event) </td>'
+                        isitable    += '<td><a href="">Analisa</a></td>'
+                        isitable    += '</tr>';
+                    }
+                    $isitable.html(isitable).on('change');
+                }
+            });
+        }
     </script>
     {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
         <script src="{{ asset('rollie/js/webfont.js')}}"></script>

@@ -21,6 +21,8 @@
 @endsection
 @section('content')
 	<hr>
+	<input type="hidden" id="idrpdfillinghead" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($rpd_filling->id) }}">
+
 	<div class="card">
 		<div class="card-body">
 			<div class="row">
@@ -77,31 +79,47 @@
 				<hr>
 			</div>
 			<div class="row">
-				<table class="table display nowrap table-hover" id="table-draft-analisa">
+				<table class="table" id="table-draft-analisa">
                     <thead>
                         <tr>
+                            <th scope="col" >Nomor Wo</th>
                             <th scope="col" >Mesin Filling</th>
+                            <th scope="col" style="display: none;">Tanggal Filling</th>
                             <th scope="col" >Jam Filling</th>
                             <th scope="col" >Jenis Sample</th>
                             <th scope="col" >Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    	@for ($i = 1; $i <= 100 ; $i++)
-                    	<tr>
-                    		<td>Data Data <?=$i?></td>
-                    		<td>Data Data <?=$i?></td>
-                    		<td>Data Data <?=$i?></td>
-                    		<td>Data Data <?=$i?></td>
-                    	</tr>
-                    	@endfor
+                    <tbody id="detail_pi">
+                    	@foreach ($rpd_filling->detail_pi as $detail_pi)
+                    		<tr>
+                    			<td>{{ $detail_pi->wo->nomor_wo }}</td>
+                    			<td>{{ $detail_pi->mesin_filling->kode_mesin }}</td>
+                    			<td style="display: none;">{{ $detail_pi->tanggal_filling }}</td>
+                    			<td>{{ $detail_pi->jam_filling }}</td>
+                    			<td>{{ $detail_pi->kode_sampel->kode_sampel }}</td>
+                    			<td><a href="">ANALISA</a></td>
+                    		</tr>
+                    	@endforeach
+                    	@foreach ($rpd_filling->detail_at_event as $detail_at_event)
+                    		<tr>
+                    			<td>{{ $detail_at_event->wo->nomor_wo }}</td>
+                    			<td>{{ $detail_at_event->mesin_filling->kode_mesin }}</td>
+                    			<td style="display: none;">{{ $detail_at_event->tanggal_filling }}</td>
+                    			<td>{{ $detail_at_event->jam_filling }}</td>
+                    			<td>{{ $detail_at_event->kode_sampel->kode_sampel }} ( Event )</td>
+                    			<td><a href="">ANALISA</a></td>
+                    		</tr>
+                    	@endforeach
+                    	
                     </tbody>
 				</table>
 			</div>
 			@include('rollie.inspektor.popup-tambah-sample')
 			@include('rollie.inspektor.popup-tambah-batch')
-
+			<button onclick="reloadTablePi()">CEK</button>
 		</div>
 	</div>
-
+	
+	
 @endsection
