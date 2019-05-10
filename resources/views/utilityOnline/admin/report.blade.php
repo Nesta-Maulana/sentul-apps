@@ -41,7 +41,8 @@
                                     #
                                 </th>
                                 <th>Bagian</th>
-                                <th>Nilai</th>
+                                <th>Nilai (NFI)</th>
+                                <th>Nilai (HNI)</th>
                                 <th>Tanggal Penggunaan</th>     
                                 <th>Aksi</th>                       
                             </tr>
@@ -57,11 +58,12 @@
                                                 <td>{{ $b->bagian }}</td>
                                             @endif
                                         @endforeach
-                                    <td>{{ $r->nilai }}</td>
+                                    <td>{{ $r->nilai_nfi }}</td>
+                                    <td>{{ $r->nilai_hni }}</td>
                                     <td>{{ $r->tgl_penggunaan }}</td>
                                     <td><a href="report/detail/{{$r->id_bagian}}/{{$r->tgl_penggunaan}}" class="btn btn-primary text-white">Lihat Detail</a></td>
                                 </tr>
-                            @endforeach
+                            @endforeach 
                         </tbody>
                     </table>
                 </div>

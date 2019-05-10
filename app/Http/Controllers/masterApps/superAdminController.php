@@ -429,19 +429,26 @@ class superAdminController extends resourceController
         return $rasio;
     }
     public function rasioSave(Request $request){
+        // dd($request->all());
         $messages = [
             'between' => 'Input rasio minimal 0 dan maksimal 100',
         ];
          
-        $this->validate($request,[
-            'rasio' => 'integer|between:0,100',
-        ],$messages);
+        $no = null;
+        for ($i=0; $i < $request->jumlah; $i++) {
+            $no = $no . '1';
+            $this->validate($request,[
+                'rasio' . $no => 'integer|between:0,100',
+            ],$messages); 
+            $rasio = 'rasio' . $no;
+            $company = 'company' . $no;
+            rasio::create([
+                'rasio_head_id' => $request->id,
+                'company_id' => $request->$company,
+                'nilai' => $request->$rasio,
+            ]);
+        }
 
-        rasio::create([
-            'rasio_head_id' => $request->id,
-            'company_id' => $request->company,
-            'nilai' => $request->rasio
-        ]);
         return redirect('master-apps/rasio')->with('success', 'Data Berhasil Ditambahkan');
     }
     public function roles(){

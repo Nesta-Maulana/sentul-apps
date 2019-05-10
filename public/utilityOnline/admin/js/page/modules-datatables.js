@@ -35,6 +35,6 @@ $("#table-1").dataTable({
 });
 $("#table-pengamatan").dataTable({
   "columnDefs": [
-    { "sortable": false, "targets": [2] }
+    { "sortable": false, "targets": [2,3] }
   ]
 });

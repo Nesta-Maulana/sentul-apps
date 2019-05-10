@@ -9,4 +9,8 @@ class rasio extends Model
     protected $connection = 'mysql2';
     protected $table="rasio_detail";
     protected $fillable=['rasio_head_id', 'company_id', 'nilai'];
+
+    public function rasioHead(){
+        return $this->belongsTo('App\Models\utilityOnline\rasioHead', 'rasio_head_id');
+    }
 }

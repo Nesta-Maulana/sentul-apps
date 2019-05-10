@@ -48,6 +48,7 @@
 @endif  
     <form action="rasio/save" method="post">
     <input type="hidden" name="id" id="id">
+    <input type="hidden" name="jumlah" id="jumlah">
     {{ csrf_field() }}
         <div class="box">
             <div class="box-header">
@@ -64,7 +65,7 @@
                     <tr>
                         <td>1</td>
                         <td>
-                            <select name="company" class="css-input" id="company">
+                            <select name="company1" class="css-input" id="company1">
                                 <option value="" selected disabled>-- PILIH COMPANY --</option>
                                 @foreach($company as $c)
                                     <option value="{{ $c->id }}"> {{ $c->company }} </option>
@@ -72,7 +73,7 @@
                             </select>
                         </td>
                         <td>
-                            <input type="number" class="form-control input-rasio" name="rasio" min="0" max="100">
+                            <input type="number" class="form-control input-rasio" name="rasio1" min="0" max="100">
                         </td>
                     </tr>
                 </table>
@@ -150,12 +151,15 @@
                     $('.box').show();
                     $('#tambahCompany').show();
                     $('#id').val(data.id);
+                    $('#jumlah').val('1');
                 }
             });
         });
     });
     function tambahRow(tablenya) 
         {
+            var jumlah = +$('#jumlah').val() + 1;
+            $('#jumlah').val(jumlah);
             var $tableBody = $('#'+tablenya).find("tbody");
             $trLast = $tableBody.find("tr:last");
             $trLast.find('.css-input').select2('destroy'); // Un-instrument original row
@@ -168,14 +172,13 @@
                 'id': function(_, id) { return id + $i },
                 'name': function(_, name) { return name + $i }
             });
-            $input = $trNew.find('select').attr({
+            $input = $trNew.find('.css-input').attr({
                 'id': function(_, id) { return id + $i },
-                'name': function(_, name) { return name + $i },
+                'name': function(_, name) { return name + $i }
             });
-
             $i++;
             
         }
     </script>
     
-@endsection
+@endsection 

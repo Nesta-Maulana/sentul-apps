@@ -17,6 +17,8 @@ use App\Models\utilityOnline\kategori;
 use App\Models\utilityOnline\penggunaan;
 use App\Models\utilityOnline\pengamatan;
 use App\Models\utilityOnline\workcenter;
+use App\Models\utilityOnline\rasioHead;
+use App\Models\utilityOnline\rasio;
 use App\Models\utilityOnline\bagian;
 use App\Models\utilityOnline\satuan;
 use Illuminate\Support\Arr;
@@ -87,6 +89,54 @@ class adminUtilityController extends resourceController
                 $tglPenggunaan = Carbon::yesterday();
             }
         $report = penggunaan::orderBy('tgl_penggunaan', 'desc')->get();
+        foreach ($report as $r ) {
+            $rasioHead = rasioHead::where('bagian_id', $r->id_bagian)->latest()->first();
+            if($rasioHead){
+                $nilai = [];
+                $i = 0;
+                foreach ($rasioHead->rasioDetail as $rd) {
+                    array_push($nilai, $rd);
+                    $i++;
+                }
+                if($i == 1){
+                     if($nilai[0]->company_id != '1'){
+                        if( $r->nilai == '0' ){ 
+                            $r->nilai_nfi = '0';
+                            $r->nilai_hni = '0';
+                        }
+                        else{
+                            $r->nilai_hni = '0';
+                            $r->nilai_nfi = $nilai[0]->nilai / $r->nilai * 100;
+                        }
+                    }else{
+                        if( $r->nilai == '0' ){ 
+                            $r->nilai_nfi = '0';
+                            $r->nilai_hni = '0';
+                        }
+                        else{
+                            $r->nilai_nfi = '0';
+                            $r->nilai_hni = $nilai[0]->nilai / $r->nilai * 100;
+                        }
+                    }
+                }else if($i < 1){
+                    $r->nilai_nfi = '0';
+                    $r->nilai_hni = '0';    
+                }else{
+                    if( $r->nilai == '0' ){
+                        $r->nilai_nfi = '0';
+                        $r->nilai_hni = '0';
+                    }
+                    else{
+                        $r->nilai_nfi = $nilai[0]->nilai / $r->nilai * 100;
+                        $r->nilai_hni = $nilai[1]->nilai / $r->nilai * 100;
+                    }
+                }
+                
+            }else{
+                $r->nilai_nfi = '0';
+                $r->nilai_hni = '0';    
+            }
+        }
         $bagian = bagian::all();
         $kategori = kategori::all();
         $workcenter = workcenter::all();
@@ -97,18 +147,71 @@ class adminUtilityController extends resourceController
         $tglPenggunaan = $tglPenggunaan->toDateString();
         $coolingTower->tgl_penggunaan = $tglPenggunaan;
         if (!$plantUtility) {
-            array_add($coolingTower, 'nilai', '0' - $pengamatanbagian->nilai);
+            array_add($coolingTower, 'nilai_nfi', '0' - $pengamatanbagian->nilai);
+            array_add($coolingTower, 'nilai_hni', '0' - $pengamatanbagian->nilai);
         } else{
             // $coolingTower = collect(['nilai' => $plantUtility->nilai - $pengamatanbagian->nilai]) + $coolingTower;
-            array_add($coolingTower, 'nilai', $plantUtility->nilai - $pengamatanbagian->nilai);
+            array_add($coolingTower, 'nilai_nfi', $plantUtility->nilai - $pengamatanbagian->nilai);
+            array_add($coolingTower, 'nilai_hni', $plantUtility->nilai - $pengamatanbagian->nilai);
         }
         array_add($report, $pengamatanCount, $coolingTower);
-        // dd($report);
+        // dd($report[18]);
         return view('utilityOnline.admin.report', ['menus' => $this->menu, 'username' => $this->username, 'report' => $report, 'bagian' => $bagian, 'pengamatan' => $pengamatan, 'kategori' => $kategori,'workcenter' => $workcenter]);
     }
     public function reportDate($from, $to){
+        
+        $rasioHead = rasioHead::all();        
         $report = penggunaan::whereBetween('tgl_penggunaan', [ $from, $to])->get();
+        foreach ($report as $r ) {
+            $rasioHead = rasioHead::where('bagian_id', $r->id_bagian)->latest()->first();
+            if($rasioHead){
+                $nilai = [];
+                $i = 0;
+                foreach ($rasioHead->rasioDetail as $rd) {
+                    array_push($nilai, $rd);
+                    $i++;
+                }
+                if($i == 1){
+                    if($nilai[0]->company_id != '1'){
+                        if( $r->nilai == '0' ){ 
+                            $r->nilai_nfi = '0';
+                            $r->nilai_hni = '0';
+                        }
+                        else{
+                            $r->nilai_hni = '0';
+                            $r->nilai_nfi = $nilai[0]->nilai / $r->nilai * 100;
+                        }
+                    }else{
+                        if( $r->nilai == '0' ){ 
+                            $r->nilai_nfi = '0';
+                            $r->nilai_hni = '0';
+                        }
+                        else{
+                            $r->nilai_nfi = '0';
+                            $r->nilai_hni = $nilai[0]->nilai / $r->nilai * 100;
+                        }   
+                    }
+                }else if($i < 1){
+                    $r->nilai_nfi = '0';
+                    $r->nilai_hni = '0';    
+                }else{
+                    if( $r->nilai == '0' ){
+                        $r->nilai_nfi = '0';
+                        $r->nilai_hni = '0';
+                    }
+                    else{
+                        $r->nilai_nfi = $nilai[0]->nilai / $r->nilai * 100;
+                        $r->nilai_hni = $nilai[1]->nilai / $r->nilai * 100;
+                    }
+                }
+                
+            }else{
+                $r->nilai_nfi = '0';
+                $r->nilai_hni = '0';    
+            }
+        }
         $bagian = bagian::all();
+        
         return [$report, $bagian];
     }
     public function detailReport($id, $tgl){
@@ -442,3 +545,4 @@ class adminUtilityController extends resourceController
         return [$bagian, $satuan];
     }
 }
+ 
