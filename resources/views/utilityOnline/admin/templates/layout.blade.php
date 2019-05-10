@@ -214,7 +214,6 @@
                 var no = 1;
                 for (let index = 0; index < data[0].length; index++) 
                 {
-                
                     var $table = "<tr>";
                     $table += "<td>" + no + "</td>";
                     for(let i = 0; i < data[1].length; i++){
@@ -222,14 +221,20 @@
                             $table += "<td>"+data[1][i].bagian+"</td>";
                         }
                     }
-                    $table += "<td>"+data[0][index].nilai+"</td>";
+                
+                    $table += "<td>"+data[0][index].nilai_nfi+"</td>";
+                    $table += "<td>"+data[0][index].nilai_hni+"</td>";
                     $table += "<td>"+data[0][index].tgl_penggunaan+"</td>";
                     $table += '<td><a href="report/detail/'+ data[0][index].id_bagian +'/'+ data[0][index].tgl_penggunaan +'" class="btn btn-primary text-white">Lihat Detail</a></td>';
                     $table+="</tr>";
                     no++;
                     $("#isi").append($table);     
                 }
-                $('#table-1').DataTable().draw();
+                $('#table-1').DataTable({
+                    "columnDefs": [
+                        { "sortable": false, "targets": [2,3] }
+                    ]
+                }).draw();
             }
         })
       })

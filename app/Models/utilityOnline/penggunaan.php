@@ -8,5 +8,9 @@ class penggunaan extends Model
 {
     protected $connection = 'mysql2';
     protected $table="penggunaan";
-    protected $fillable=['id_bagian', 'nilai', 'tgl_penggunaan'];
+    protected $guarded=['id'];
+
+    public function bagian(){
+        return $this->belongsTo('App\Models\utilityOnline\bagian', 'id_bagian');
+    }
 }

@@ -80,7 +80,7 @@
                 </div>
                 <div class="modal-footer">
                     <a type="button" class="btn btn-danger text-white" id="batal" data-dismiss="modal">Close</a>
-                    <button class="btn btn-primary" id="simpan" onclick="simpan()" data-dismiss="modal">Save changes</button>
+                    <button class="btn btn-primary" id="simpan" onclick="simpan()" n  >Save changes</button>
                 </div>
             </div>
         </div>
@@ -124,16 +124,13 @@
                                     var nomor  = 0;
                                     for (index = 0; index < data[0].length; index++) 
                                     {
-                                        i
-                                        f(data[0][index].pengamatan.length > 0){
+                                        if(data[0][index].pengamatan.length > 0){
                                             for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
                                             {   
                                             
                                                 // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
                                                 if(data[0][index].pengamatan[indek])
-                                                {
-                                                    console.log(data[0][index].pengamatan[indek].pengamatan_id);
-                                                    
+                                                {   
                                                     var nomor = nomor+1;
                                                     optionroles+='<tr>';
                                                     optionroles+='<td>'+ nomor +'</td>';

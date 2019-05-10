@@ -4,6 +4,8 @@ namespace App\exports\utilityOnline;
 
 use App\Models\utilityOnline\penggunaan;
 use App\Models\utilityOnline\bagian;
+use App\Models\utilityOnline\rasioHead;
+use App\Models\utilityOnline\rasio;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -53,27 +55,125 @@ class penggunaanExport implements FromView, WithHeadings, ShouldAutoSize
                 $i++;
                 if($i == $this->jmlDate){
                     $time = explode('-', $c);
-                    $dates = Carbon::createFromDate($time[0], $time[1], $time[2], $tz)->addDay('1');
+                    $dates = Carbon::createFromDate($time[0], $time[1], $time[2], $tz);
                     $dates = explode(' ', $dates);
                     $date1 = $dates[0];
-                    $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->whereBetween('created_at', [$c . ' 06:00:00', $date1 . ' 05:59:59'])->first();
+                    $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->whereBetween('tgl_penggunaan', [$c, $date1])->first();
+                    if(!$penggunaanBagian){
+                        $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->latest()->first();
+                        $penggunaanBagian->nilai_nfi = '0';
+                        $penggunaanBagian->nilai_hni = '0';   
+                    }else{
+                        $rasioHead = rasioHead::where('bagian_id', $penggunaanBagian->id_bagian)->latest()->first();
+                        if($rasioHead){
+                            $nilai = [];
+                            $i = 0;
+                            foreach ($rasioHead->rasioDetail as $rd) {
+                                array_push($nilai, $rd);
+                                $i++;
+                            }
+                            if($i == 1){
+                                if($nilai[0]->company_id != '1'){
+                                    if( $penggunaanBagian->nilai == '0' ){ 
+                                        $penggunaanBagian->nilai_nfi = '0';
+                                        $penggunaanBagian->nilai_hni = '0';
+                                    }
+                                    else{
+
+                                        $penggunaanBagian->nilai_hni = '0';
+                                        $penggunaanBagian->nilai_nfi = $nilai[0]->nilai / $penggunaanBagian->nilai * 100;
+                                    }
+                                }else{
+                                    if( $penggunaanBagian->nilai == '0' ){ 
+                                        $penggunaanBagian->nilai_nfi = '0';
+                                        $penggunaanBagian->nilai_hni = '0';
+                                    }
+                                    else{
+                                        $penggunaanBagian->nilai_nfi = '0';
+                                        $penggunaanBagian->nilai_hni = $nilai[0]->nilai / $penggunaanBagian->nilai * 100;
+                                    }
+                                }
+                            }else if($i < 1){
+                                $penggunaanBagian->nilai_nfi = '0';
+                                $penggunaanBagian->nilai_hni = '0';    
+                            }else{
+                                if( $penggunaanBagian->nilai == '0' ){ 
+                                    $penggunaanBagian->nilai_nfi = '0';
+                                    $penggunaanBagian->nilai_hni = '0';
+                                }
+                                else{
+                                    $penggunaanBagian->nilai_nfi = $nilai[0]->nilai / $penggunaanBagian->nilai * 100;
+                                    $penggunaanBagian->nilai_hni = $nilai[1]->nilai / $penggunaanBagian->nilai * 100;
+                                }
+                            }
+                            
+                        }else{
+                            $penggunaanBagian->nilai_nfi = '0';
+                            $penggunaanBagian->nilai_hni = '0';    
+                        }
+                    }
                 }else{
-                    $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->whereBetween('created_at', [$c . ' 06:00:00', $tgl[$i] . ' 05:59:59'])->first();
+                    $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->whereBetween('tgl_penggunaan', [$c, $tgl[$i]])->first();
+                    if(!$penggunaanBagian){
+                        $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->latest()->first();
+                        $penggunaanBagian->nilai_nfi = '0';
+                        $penggunaanBagian->nilai_hni = '0';   
+                    }else{
+                        $rasioHead = rasioHead::where('bagian_id', $penggunaanBagian->id_bagian)->latest()->first();
+                        if($rasioHead){
+                            $nilai = [];
+                            $i = 0;
+                            foreach ($rasioHead->rasioDetail as $rd) {
+                                array_push($nilai, $rd);
+                                $i++;
+                            }
+                            if($i == 1){
+                                if($nilai[0]->company_id != '1'){
+                                    if( $penggunaanBagian->nilai == '0' ){ 
+                                        $penggunaanBagian->nilai_nfi = '0';
+                                        $penggunaanBagian->nilai_hni = '0';
+                                    }
+                                    else{
+                                        
+                                        $penggunaanBagian->nilai_hni = '0';
+                                        $penggunaanBagian->nilai_nfi = $nilai[0]->nilai / $penggunaanBagian->nilai * 100;
+                                    }
+                                }else{
+                                    if( $penggunaanBagian->nilai == '0' ){ 
+                                        $penggunaanBagian->nilai_nfi = '0';
+                                        $penggunaanBagian->nilai_hni = '0';
+                                    }
+                                    else{
+                                        $penggunaanBagian->nilai_nfi = '0';
+                                        $penggunaanBagian->nilai_hni = $nilai[0]->nilai / $penggunaanBagian->nilai * 100;
+                                    }
+                                }
+                            }else if($i < 1){
+                                $penggunaanBagian->nilai_nfi = '0';
+                                $penggunaanBagian->nilai_hni = '0';    
+                            }else{
+                                if( $penggunaanBagian->nilai == '0' ){ 
+                                    $penggunaanBagian->nilai_nfi = '0';
+                                    $penggunaanBagian->nilai_hni = '0';
+                                }
+                                else{
+                                    $penggunaanBagian->nilai_nfi = $nilai[0]->nilai / $penggunaanBagian->nilai * 100;
+                                    $penggunaanBagian->nilai_hni = $nilai[1]->nilai / $penggunaanBagian->nilai * 100;
+                                }
+                            }
+                            
+                        }else{
+                            $penggunaanBagian->nilai_nfi = '0';
+                            $penggunaanBagian->nilai_hni = '0';    
+                        }
+                    }
                 }
                 $output = [$penggunaanBagian];
                 array_push($penggunaan, $output);
             }
             $b->penggunaan = $penggunaan;
         }
+        // dd($bagian[35]);
         return view('utilityOnline.admin.export.penggunaanReport',['bagian' => $bagian , 'tgl' => $tgl, 'jmlTgl' => $this->jmlDate]);
-
-        // if($this->tgl1 == null && $this->tgl2 == null){
-        //     $penggunaan = penggunaan::all();
-        // } else if($this->tgl1 == $this->tgl2){
-        //     $penggunaan =  penggunaan::query()->whereDate('created_at', $this->tgl2)->get();
-        // }else{
-        //     $penggunaan =  penggunaan::query()->whereBetween('created_at', [$this->tgl1,$this->tgl2])->get();
-        // }
-        // return view('utilityOnline.admin.export.penggunaanReport',['penggunaan' => $penggunaan ]);
     }
 }
