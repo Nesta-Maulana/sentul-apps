@@ -33,8 +33,30 @@ $("#table-1").dataTable({
     { "sortable": false, "targets": [2] }
   ]
 });
+
 $("#table-pengamatan").dataTable({
   "columnDefs": [
     { "sortable": false, "targets": [2,3] }
   ]
 });
+ $('#data-tables').dataTable({
+      "columnDefs": [
+          { "sortable": false, "targets": [5] }
+      ]
+});
+  $('#table-jadwal').dataTable({
+      bFilter:false,
+      bInfo:false,
+      bLengthChange:false,
+      pageLength:10,
+      scrollY: 400,
+      scrollX: true,
+      ordering:false,
+  });
+ var tablenya =  $('#table-draft-analisa').dataTable({
+      bFilter:false,
+      bInfo:false,
+      bLengthChange:false,
+      pageLength:10,
+      aaSorting: [[2,'asc'],[3,'asc']] 
+  });

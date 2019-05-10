@@ -14,13 +14,17 @@ use App\Http\Controllers\Controller;
 use App\Models\masterApps\karyawan;
 use App\Models\masterApps\produk;
 use App\Models\masterApps\brand;
-use App\productionData\wo;
+use App\Models\productionData\wo;
+use App\Models\productionData\rpdFillingHead;
+use App\Models\productionData\rpdFillingDetailPi;
+use App\Models\productionData\rpdFillingDetailAtEvent;
+use App\Models\productionData\kodeSampelPi;
 use DB;
 use Session;
 
 class inspektorController extends resourceController
 {
-		private $menu;
+	private $menu;
     private $username;
 
     public function __construct(Request $request)
@@ -64,14 +68,63 @@ class inspektorController extends resourceController
         $cekyobase  = wo::where('status','3')->orWhere('status','2')->whereIn('produk_id',['30','31','32'])->get();
         return view('rollie.inspektor.dashboard',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
     }
-    public function rpdfilling()
+    public function rpdfilling($rpdfillingheadid)
     {
-        return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);
-    	
+        $id                 = app('App\Http\Controllers\resourceController')->dekripsi($rpdfillingheadid);
+        $rpdfillinghead     = rpdFillingHead::find($id);
+        $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
+        $kode_sampel        = kodeSampelPi::where('jenis_produk_id',$rpdfillinghead->wo[0]->produk->jenis_produk_id)->get();
+        return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username,'rpd_filling'=>$rpdfillinghead,'rpd_filling_aktif'=>$rpdfillingaktif,'kode_sampel'=>$kode_sampel]);	
     }
     public function prosesrpdfilling(Request $request)
     {    
-    	dd($request->all());
-        //return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username]);
+        $produk                 = produk::where('nama_produk',$request->nama_produk)->first();
+        $produk_id              = $produk->id;
+        $startfilling           = date('Y-m-d');
+        //insert ke head table rpd filling
+        $insertrpdfillinghead   = rpdFillingHead::create([
+                                'produk_id'     =>$produk_id,
+                                'start_filling' =>$startfilling,
+                                'status'        =>'1'    
+                                ]);
+        //update data wo ubah status dan ubah tanggal fillpack sesuai dengan start filling hari ini. 
+        $datawo                     = wo::where('nomor_wo',$request->nomor_wo)->first();
+        $datawo                     = wo::find($datawo->id);
+        $datawo->status             = '3';
+        $datawo->tanggal_fillpack   = $startfilling;
+        $datawo->save();
+        $return                     = app('App\Http\Controllers\resourceController')->enkripsi($insertrpdfillinghead->id);
+        return ['id_rpd_head'=>$return];   
+    }
+
+    public function refreshTablePi($rpdfillingheadid)
+    {
+        $id                 = app('App\Http\Controllers\resourceController')->dekripsi($rpdfillingheadid);
+        $rpdfillinghead     = rpdFillingHead::find($id);
+        foreach ($rpdfillinghead->detail_pi as $detail_pi) 
+        {
+            foreach ($detail_pi->wo as $wo) 
+            {
+            }
+            foreach ($detail_pi->mesin_filling as $mesin_filling) 
+            {
+            }
+            foreach ($detail_pi->kode_sampel as $kode_sampel) 
+            {
+            }
+        }
+        foreach ($rpdfillinghead->detail_at_event as $detail_at_event) 
+        {
+            foreach ($detail_at_event->wo as $wo) 
+            {
+            }
+            foreach ($detail_at_event->mesin_filling as $mesin_filling) 
+            {
+            }
+            foreach ($detail_at_event->kode_sampel as $kode_sampel) 
+            {
+            }
+        }
+        return $rpdfillinghead;
     }
 }

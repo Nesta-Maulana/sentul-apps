@@ -45,9 +45,18 @@
                                             @break
                                             @case('2')
                                                 <td>Waiting Fillpack</td>
+                                                <td>
+                                                    <a onclick="prosesrpd('<?=$wo->produk->nama_produk;?>','<?=$wo->nomor_wo?>')"> Proses Fillpack</a>
+                                                </td>
                                             @break
                                             @case('3')
                                                 <td>On Progress Fillpack</td>
+                                                <td>
+                                                    @php
+                                                        $rpd_id = app('App\Http\Controllers\resourceController')->enkripsi($wo->rpdFillingHead->id);
+                                                    @endphp
+                                                    <a href="{{ route('rpdfilling-inspektor-qc',['rpd_filling_head_id'=>$rpd_id]) }}"> Proses Fillpack</a>
+                                                </td>
                                             @break
                                             @case('4')
                                                 <td>Waiting For Close</td>
@@ -56,9 +65,6 @@
                                                 <td>Closed</td>
                                             @break
                                         @endswitch
-                                        <td>
-                                            <a onclick="prosesrpd('<?=$wo->produk->nama_produk;?>','<?=$wo->nomor_wo?>')"> Proses Fillpack</a>
-                                        </td>
                                     </tr>
                                 @else
                                     <!-- <tr>

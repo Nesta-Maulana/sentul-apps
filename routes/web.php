@@ -181,7 +181,8 @@ Route::middleware('ceklogin')->group(function ()
 
     // Rollie Inspektor
     Route::get('/rollie-inspektor-qc', 'rollie\inspektorController@index')->name('dashboard-inspektor-qc');
-    Route::get('/rollie-inspektor-qc/rpd-filling', 'rollie\inspektorController@rpdfilling')->name('rpdfilling-inspektor-qc');
+    Route::get('/rollie-inspektor-qc/rpd-filling/{rpd_filling_head_id}', 'rollie\inspektorController@rpdfilling')->name('rpdfilling-inspektor-qc');
+    Route::get('/rollie-inspektor-qc/refresh-rpd-filling/{rpd_filling_head_id}', 'rollie\inspektorController@refreshTablePi')->name('refresh-rpd-filling');
     Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@prosesrpdfilling')->name('proses-rpd-filling');
     // Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@rpdfilling')->name('proses-rpd-filling');
     

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\productionData;
+namespace App\Models\productionData;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,5 +13,8 @@ class wo extends Model
 	{
         return $this->belongsTo('App\Models\masterApps\produk', 'produk_id');
     }
-    
+    public function rpdFillingHead()
+    {
+        return $this->belongsTo('App\Models\productionData\rpdFillingHead', 'rpd_filling_head_id');
+    }
 }

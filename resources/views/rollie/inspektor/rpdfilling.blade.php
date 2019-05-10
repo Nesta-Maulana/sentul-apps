@@ -4,17 +4,25 @@
 @endsection
 @section('title')
     <div class="row">
-    	<div class="col-lg-2">
-    		<H3> RPD Filling |</H3> 
-    	</div>
-    	<select name="produkrpd" id="produkrpd" class="col-lg-6 pull-left select form-control" style="padding: 0 .8rem">
-            <option value="idnya1">Produk Satu</option>
-            <option value="idnya2">Produk Dua</option>	
-		</select>	
+    	@if ($rpd_filling_aktif->count() > 1)
+	    	<div class="col-lg-3">
+	    		<H3>RPD Filling</H3> 
+	    	</div>
+	    	<select name="produkrpd" id="produkrpd" class="col-lg-6 pull-left select form-control" style="padding: 0 .8rem">
+	            <option value="idnya1">Produk Satu</option>
+	            <option value="idnya2">Produk Dua</option>	
+			</select>	
+    	@else
+			<div class="col-lg-12">
+	    		<H3>RPD Filling {{ $rpd_filling->wo[0]->produk->nama_produk }}</H3> 
+	    	</div>
+    	@endif
     </div>
 @endsection
 @section('content')
 	<hr>
+	<input type="hidden" id="idrpdfillinghead" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($rpd_filling->id) }}">
+
 	<div class="card">
 		<div class="card-body">
 			<div class="row">
@@ -22,17 +30,24 @@
 					<div class="row form-group left">
 						<label class="col-md-4">Nama Produk</label>
 						<label class="col-md-1">:</label>
-						<input type="text" value="Hilo School Coklat 200Ml" class="form-control col-md-7" readonly>
+						<input type="text" value="{{ $rpd_filling->wo[0]->produk->nama_produk }}" class="form-control col-md-7" readonly>
 					</div>
 					<div class="row form-group left">
 						<label class="col-md-4">Tanggal Produksi</label>
 						<label class="col-md-1">:</label>
-						<textarea class="form-control col-md-7" readonly>WO 1 - 4 April , Wo 2 - 5 April  WO 1 - 4 April , Wo 2 - 5 April</textarea>
+						<textarea class="form-control col-md-7" readonly><?php
+							foreach ($rpd_filling->wo as $key => $value) 
+							{
+								$tampil = $value->nomor_wo." => ".$value->production_realisation_date.",";
+								$tampil = rtrim($tampil,",");
+								echo $tampil;
+							}
+						?></textarea>
 					</div>
 					<div class="row form-group left">
 						<label class="col-md-4">&Sigma; Batch</label>
 						<label class="col-md-1">:</label>
-						<input type="text" value="4 Batch" class="form-control col-md-7" readonly>
+						<input type="text" value="{{ $rpd_filling->wo->count() }} Batch" class="form-control col-md-7" readonly>
 					</div>
 				</div>
 			</div>
@@ -45,12 +60,12 @@
 								Tambah Sample
 							</a>
 						</div>
-<!-- 						<div class="col-md-6">
-	<a data-toggle="modal" data-target="#tambah-batch">
-		<img src="{{ asset('generalStyle/images/logo/plus-red.png') }}" width="50px" alt="">
-		Tambah Batch / Wo
-	</a>
-</div> -->
+						<div class="col-md-6">
+							<a data-toggle="modal" data-target="#tambah-batch">
+								<img src="{{ asset('generalStyle/images/logo/plus-red.png') }}" width="50px" alt="">
+								Tambah Batch / Wo
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -64,31 +79,47 @@
 				<hr>
 			</div>
 			<div class="row">
-				<table class="table display nowrap table-hover" id="table-draft-analisa">
+				<table class="table" id="table-draft-analisa">
                     <thead>
                         <tr>
+                            <th scope="col" >Nomor Wo</th>
                             <th scope="col" >Mesin Filling</th>
+                            <th scope="col" style="display: none;">Tanggal Filling</th>
                             <th scope="col" >Jam Filling</th>
                             <th scope="col" >Jenis Sample</th>
                             <th scope="col" >Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    	@for ($i = 1; $i <= 100 ; $i++)
-                    	<tr>
-                    		<td>Data Data <?=$i?></td>
-                    		<td>Data Data <?=$i?></td>
-                    		<td>Data Data <?=$i?></td>
-                    		<td>Data Data <?=$i?></td>
-                    	</tr>
-                    	@endfor
+                    <tbody id="detail_pi">
+                    	@foreach ($rpd_filling->detail_pi as $detail_pi)
+                    		<tr>
+                    			<td>{{ $detail_pi->wo->nomor_wo }}</td>
+                    			<td>{{ $detail_pi->mesin_filling->kode_mesin }}</td>
+                    			<td style="display: none;">{{ $detail_pi->tanggal_filling }}</td>
+                    			<td>{{ $detail_pi->jam_filling }}</td>
+                    			<td>{{ $detail_pi->kode_sampel->kode_sampel }}</td>
+                    			<td><a href="">ANALISA</a></td>
+                    		</tr>
+                    	@endforeach
+                    	@foreach ($rpd_filling->detail_at_event as $detail_at_event)
+                    		<tr>
+                    			<td>{{ $detail_at_event->wo->nomor_wo }}</td>
+                    			<td>{{ $detail_at_event->mesin_filling->kode_mesin }}</td>
+                    			<td style="display: none;">{{ $detail_at_event->tanggal_filling }}</td>
+                    			<td>{{ $detail_at_event->jam_filling }}</td>
+                    			<td>{{ $detail_at_event->kode_sampel->kode_sampel }} ( Event )</td>
+                    			<td><a href="">ANALISA</a></td>
+                    		</tr>
+                    	@endforeach
+                    	
                     </tbody>
 				</table>
 			</div>
 			@include('rollie.inspektor.popup-tambah-sample')
 			@include('rollie.inspektor.popup-tambah-batch')
-
+			<button onclick="reloadTablePi()">CEK</button>
 		</div>
 	</div>
-
+	
+	
 @endsection
