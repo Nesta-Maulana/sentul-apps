@@ -205,8 +205,6 @@
         new WOW().init();
     </script>
     <script>
-       
-
         function prosescpp(namaproduk,nomorwo) 
         {
             Swal.fire
@@ -265,9 +263,61 @@
          
     </script>
     <script>
-        function tambahSampelAnalisa() 
+        function tambahSampelAnalisa(nomorwo,mesinfilling,tanggalfilling,jamfilling,kodeanalisa,keteranganevent,beratkanan,beratkiri,id_user,id_rpd_head) 
         {
-            
+            if (!nomorwo || !mesinfilling || !tanggalfilling || !jamfilling || !kodeanalisa || !keteranganevent || !beratkanan || !beratkiri)
+            {
+                swal({
+                    title: "Proses Gagal",
+                    text: "Harap lengkapi data-data analisa sampel",
+                    type: "error",
+                });
+            }
+            if (beratkanan.includes('.') && beratkiri.includes('.'))
+            {
+                if (beratkanan.toString().split(".")[1].length != 2 || beratkiri.toString().split(".")[1].length != 2)
+                {
+                    swal({
+                        title: "Proses Gagal",
+                        text: "Berat Kanan dan Berat Kiri Harus Desimal 2 angka dibelakang koma contoh : 222.30",
+                        type: "error",
+                    });
+                }
+            }
+            else
+            {
+                swal({
+                        title: "Proses Gagal",
+                        text: "Berat Kanan dan Berat Kiri Harus Desimal 2 angka dibelakang koma contoh : 222.30",
+                        type: "error",
+                    });
+            }
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url         : '{{ route('tambahsampel-inspektor-qc') }}',
+                method      : 'POST',
+                dataType    : 'JSON',
+                data        : 
+                {
+                    'nomor_wo'          : nomorwo,
+                    'mesin_filling_id'  : mesinfilling,
+                    'tanggal_filling'   : tanggalfilling,
+                    'jam_filling'       : jamfilling,
+                    'kode_analisa_id'   : kodeanalisa,
+                    'keteranganevent'   : keteranganevent,
+                    'berat_kanan'       : beratkanan,
+                    'berat_kiri'        : beratkiri,
+                    'user_inputer_id'   : id_user,
+                    'rpd_filling_head_id' : id_rpd_head
+                },
+                success      : function(data) 
+                {
+                    $('#tambah-sample').modal('toggle');
+                    reloadTablePi();
+                }
+            });
         }
         function reloadTablePi() 
         {

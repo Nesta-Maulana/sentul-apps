@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Models\masterApps\karyawan;
 use App\Models\masterApps\produk;
 use App\Models\masterApps\brand;
-use App\productionData\wo;
+use App\Models\productionData\wo;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Imports\Penyelia\mtolImport;
