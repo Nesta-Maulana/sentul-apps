@@ -3,6 +3,8 @@
         <div class="modal-content" style="width: 130%;">
             <div class="modal-header">
                 <h5>Tambah Sampel Analisa</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
             </div>
             <meta name="csrf-token" content="{{ csrf_token() }}" />
             <input type="hidden" name="user_id_inputer" id="user_id_inputer" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($username->user->id) }}">
@@ -41,7 +43,7 @@
                 <div class="form-group row">
                     <label for="tanggalfillingsampel" class="col-lg-4">Tanggal Filling</label>
                     <div class='input-group date col-lg-7 datepickernya'  style="margin-left: -15px;">
-                        <input type='text' class="form-control" name="tanggalfillingsampel" id="tanggalfillingsampel">
+                        <input type='text' class="form-control" name="tanggalfillingsampel" id="tanggalfillingsampel" value="<?=date('Y-m-d')?>">
                         <span class="input-group-addon" style="margin-top: 5px; font-size: 20px; margin-left: 2px;">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -51,7 +53,7 @@
                 <div class="form-group row">
                     <label for="jamfillingsampel" class="col-lg-4">Jam Filling</label>
                     <div class='input-group date col-lg-7 timepickernya'  style="margin-left: -15px;">
-                        <input type='text' class="form-control" name="jamfillingsampel" id="jamfillingsampel">
+                        <input type='text' class="form-control" name="jamfillingsampel" id="jamfillingsampel" value="<?=date('H:i:s')?>">
                         <span class="input-group-addon" style="margin-top: 5px; font-size: 20px; margin-left: 2px;">
                            <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -89,7 +91,7 @@
                 <div class="form-group has-warning row">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3"></div>
-                    <button class="btn btn-info col-lg-5 form-control" onclick="tambahSampelAnalisa($('#nomorwosampel').val(),$('#mesinfillingsampel').val(),$('#tanggalfillingsampel').val(),$('#jamfillingsampel').val(),$('#kodeanalisasampel').val(),$('#eventsampel').val(),$('#beratkanansampel').val(),$('#beratkirisampel').val(),$('#user_id_inputer').val(),$('#rpd_filling_head_id').val())">Save To Draft</button>
+                    <button class="btn btn-info col-lg-5 form-control" onclick="tambahSampelAnalisa($('#nomorwosampel').val(),$('#mesinfillingsampel').val(),$('#tanggalfillingsampel').val(),$('#jamfillingsampel').val(),$('#kodeanalisasampel').val(),$('#eventsampel').val(),$('#beratkanansampel').val(),$('#beratkirisampel').val(),$('#user_id_inputer').val(),$('#rpd_filling_head_id').val())" >Save To Draft</button>
                 </div>
             </div>
             <div class="modal-footer">

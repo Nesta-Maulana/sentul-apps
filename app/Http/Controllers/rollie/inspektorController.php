@@ -168,7 +168,7 @@ class inspektorController extends resourceController
                     'kode_sampel_id'            => $kode_analisa_id,
                     'berat_kanan'               => $berat_kanan,
                     'berat_kiri'                => $berat_kiri,
-                    'user_inputer_id'           => $user_inputer_id
+                    'user_id_inputer'           => $user_id_inputer
                 ]);
                 $insertPi       = rpdFillingDetailAtEvent::create([
                     'rpd_filling_head_id'       => $rpd_filling_head_id,
@@ -177,9 +177,7 @@ class inspektorController extends resourceController
                     'jam_filling'               => $jam_filling,
                     'mesin_filling_id'          => $mesin_filling_id,
                     'kode_sampel_id'            => $kode_analisa_id,
-                    'berat_kanan'               => $berat_kanan,
-                    'berat_kiri'                => $berat_kiri,
-                    'user_inputer_id'           => $user_inputer_id
+                    'user_id_inputer'           => $user_id_inputer
                 ]);
 
                 return [ 'success'=>true,'message'=>'Permintaan Analisa Berhasil Diinput' ];

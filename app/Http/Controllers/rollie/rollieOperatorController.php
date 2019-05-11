@@ -25,7 +25,8 @@ class rollieOperatorController extends resourceController
 
     public function __construct(Request $request)
     {
-        $this->middleware(function ($request, $next) {
+        $this->middleware(function ($request, $next)
+        {
             $this->user = resolve('usersData');
             $this->username = karyawan::where('nik', $this->user->username)->first();            
             // $this->username =  $this->username->fullname;
