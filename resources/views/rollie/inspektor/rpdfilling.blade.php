@@ -53,12 +53,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<div class="row form-group left">
+					<div class="row form-group left" id="popupubah">
 						<div class="col-md-6">
-							<a data-toggle="modal" data-target="#tambah-sample">
+							<button data-toggle="modal" data-target="#tambah-sample">
 								<img src="{{ asset('generalStyle/images/logo/plus.png') }}" width="50px" alt="">
 								Tambah Sample
-							</a>
+							</button>
 						</div>
 						<div class="col-md-6">
 							<a data-toggle="modal" data-target="#tambah-batch">

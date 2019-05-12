@@ -127,4 +127,61 @@ class inspektorController extends resourceController
         }
         return $rpdfillinghead;
     }
+    public function tambahSampel(Request $request)
+    {
+        $wo_id           = app('App\Http\Controllers\resourceController')->dekripsi($request->nomor_wo);
+        $mesin_filling_id   = app('App\Http\Controllers\resourceController')->dekripsi($request->mesin_filling_id);
+        $tanggal_filling    = $request->tanggal_filling;
+        $jam_filling        = $request->jam_filling;
+        $kode_analisa_id    = app('App\Http\Controllers\resourceController')->dekripsi($request->kode_analisa_id);
+        $keteranganevent    = $request->keteranganevent;
+        $user_id_inputer    = app('App\Http\Controllers\resourceController')->dekripsi($request->user_inputer_id);
+        $rpd_filling_head_id= app('App\Http\Controllers\resourceController')->dekripsi($request->rpd_filling_head_id);
+        $berat_kanan        = $request->berat_kanan;
+        $berat_kiri         = $request->berat_kiri;
+        // pengecekan apa dia event atau tidak  
+        switch ($keteranganevent)
+        {
+            case '0':
+                // jika non event hanya PI aja 
+                $insertPi       = rpdFillingDetailPi::create([
+                    'rpd_filling_head_id'       => $rpd_filling_head_id,
+                    'wo_id'                     => $wo_id,
+                    'tanggal_filling'           => $tanggal_filling,
+                    'jam_filling'               => $jam_filling,
+                    'mesin_filling_id'          => $mesin_filling_id,
+                    'kode_sampel_id'            => $kode_analisa_id,
+                    'berat_kanan'               => $berat_kanan,
+                    'berat_kiri'                => $berat_kiri,
+                    'user_id_inputer'           => $user_id_inputer
+                ]);
+                return [ 'success'=>true,'message'=>'Permintaan Analisa Berhasil Diinput' ];
+            break;
+            case '1':
+                // jika event maka akan input ke at event dan pi 
+                $insertPi       = rpdFillingDetailPi::create([
+                    'rpd_filling_head_id'       => $rpd_filling_head_id,
+                    'wo_id'                     => $wo_id,
+                    'tanggal_filling'           => $tanggal_filling,
+                    'jam_filling'               => $jam_filling,
+                    'mesin_filling_id'          => $mesin_filling_id,
+                    'kode_sampel_id'            => $kode_analisa_id,
+                    'berat_kanan'               => $berat_kanan,
+                    'berat_kiri'                => $berat_kiri,
+                    'user_id_inputer'           => $user_id_inputer
+                ]);
+                $insertPi       = rpdFillingDetailAtEvent::create([
+                    'rpd_filling_head_id'       => $rpd_filling_head_id,
+                    'wo_id'                     => $wo_id,
+                    'tanggal_filling'           => $tanggal_filling,
+                    'jam_filling'               => $jam_filling,
+                    'mesin_filling_id'          => $mesin_filling_id,
+                    'kode_sampel_id'            => $kode_analisa_id,
+                    'user_id_inputer'           => $user_id_inputer
+                ]);
+
+                return [ 'success'=>true,'message'=>'Permintaan Analisa Berhasil Diinput' ];
+            break;
+        }
+    }
 }

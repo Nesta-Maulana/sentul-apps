@@ -22,15 +22,17 @@
     <link rel="stylesheet" href="{{ asset('rollie/operator/css/responsive.css')}}">
     <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
     <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
+    <link rel="stylesheet" href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
     
     <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
+    <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
+    <script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
     <script src="{{ asset('rollie/js/webfont.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/vendor/modernizr-2.8.3.min.js')}}"></script>
     
 </head>
 
-<body>
+<body id="body-layout">
     <div id="preloader">
         <div class="loader"></div>
     </div>
@@ -161,6 +163,86 @@
     @if ($message = Session::get('failed'))
       <div class="failed" data-flashdata="{{ $message }}"></div>
     @endif
+    <script>
+        function tambahSampelAnalisa(nomorwo,mesinfilling,tanggalfilling,jamfilling,kodeanalisa,keteranganevent,beratkanan,beratkiri,id_user,id_rpd_head) 
+        {
+            if (!nomorwo || !mesinfilling || !tanggalfilling || !jamfilling || !kodeanalisa || !keteranganevent || !beratkanan || !beratkiri)
+            {
+                swal({
+                    title: "Proses Gagal",
+                    text: "Harap lengkapi data-data analisa sampel",
+                    type: "error",
+                });
+            }
+            if (beratkanan.includes('.') && beratkiri.includes('.'))
+            {
+                if (beratkanan.toString().split(".")[1].length != 2 || beratkiri.toString().split(".")[1].length != 2)
+                {
+                    swal({
+                        title: "Proses Gagal",
+                        text: "Berat Kanan dan Berat Kiri Harus Desimal 2 angka dibelakang koma contoh : 222.30",
+                        type: "error",
+                    });
+                }
+            }
+            else
+            {
+                swal({
+                        title: "Proses Gagal",
+                        text: "Berat Kanan dan Berat Kiri Harus Desimal 2 angka dibelakang koma contoh : 222.30",
+                        type: "error",
+                    });
+            }
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url         : '{{ route('tambahsampel-inspektor-qc') }}',
+                method      : 'POST',
+                dataType    : 'JSON',
+                data        : 
+                {
+                    'nomor_wo'          : nomorwo,
+                    'mesin_filling_id'  : mesinfilling,
+                    'tanggal_filling'   : tanggalfilling,
+                    'jam_filling'       : jamfilling,
+                    'kode_analisa_id'   : kodeanalisa,
+                    'keteranganevent'   : keteranganevent,
+                    'berat_kanan'       : beratkanan,
+                    'berat_kiri'        : beratkiri,
+                    'user_inputer_id'   : id_user,
+                    'rpd_filling_head_id' : id_rpd_head
+                },
+                success      : function(data) 
+                {
+                    var anya = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus sit, totam fugiat. Recusandae aliquid aut illum expedita aperiam! Explicabo totam, omnis aspernatur est ex fugit non placeat quos officia reiciendis!";
+                    $('#nomorwosampel option').prop('selected', function() {
+                        return this.defaultSelected;
+                    });
+                    $('#mesinfillingsampel option').prop('selected', function() {
+                        return this.defaultSelected;
+                    });
+                    $('#tambah-sample').removeClass('show');
+                    $('#tambah-sample').removeAttr('style');
+                    $('body').removeAttr('style');
+                    document.getElementById('tambah-sample').style.marginLeft   = '-144px';
+                    document.getElementById('tambah-sample').style.display      = 'none';
+                    document.getElementById('tambah-sample').setAttribute('aria-hidden', 'true');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    var popupubah   = '', $popupubah = $('#popupubah');
+                    popupubah       +=  '<div class="col-md-6">';
+                    popupubah       +=  '<button data-toggle="modal" data-target="#tambah-sample" onlick="console.log('+anya+')">';
+                    popupubah       +=  '<img src="{{ asset('generalStyle/images/logo/plus.png') }}" width="50px" alt="">'
+                    popupubah       +=  'Tambah Sample';
+                    popupubah       +=  '</button>';
+                    popupubah       +=  '</div>';
+                    $popupubah.html(popupubah).on('change');
+                    reloadTablePi();
+                }
+            });
+        }
+    </script>
     <script src="{{ asset('rollie/operator/js/vendor/jquery-2.2.4.min.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/popper.min.js')}}"></script>
     <script src="{{ asset('rollie/operator/js/bootstrap.min.js')}}"></script>
@@ -205,8 +287,6 @@
         new WOW().init();
     </script>
     <script>
-       
-
         function prosescpp(namaproduk,nomorwo) 
         {
             Swal.fire
@@ -265,10 +345,7 @@
          
     </script>
     <script>
-        function tambahSampelAnalisa() 
-        {
-            
-        }
+        
         function reloadTablePi() 
         {
             var $idrpdfillinghead = $('#idrpdfillinghead').val();

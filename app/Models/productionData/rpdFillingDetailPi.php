@@ -23,6 +23,6 @@ class rpdFillingDetailPi extends Model
 	}
 	public function wo()
 	{
-		return $this->belongsTo('App\Models\productionData\wo', 'rpd_filling_head_id','id');
+		return $this->belongsTo('App\Models\productionData\wo', 'wo_id','id');
 	}
 }

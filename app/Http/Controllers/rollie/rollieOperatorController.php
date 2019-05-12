@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Models\masterApps\karyawan;
 use App\Models\masterApps\produk;
 use App\Models\masterApps\brand;
-use App\productionData\wo;
+use App\Models\productionData\wo;
 use DB;
 use Session;
 
@@ -25,7 +25,8 @@ class rollieOperatorController extends resourceController
 
     public function __construct(Request $request)
     {
-        $this->middleware(function ($request, $next) {
+        $this->middleware(function ($request, $next)
+        {
             $this->user = resolve('usersData');
             $this->username = karyawan::where('nik', $this->user->username)->first();            
             // $this->username =  $this->username->fullname;
