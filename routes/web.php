@@ -173,6 +173,7 @@ Route::middleware('ceklogin')->group(function ()
     // Rollie penyelia
     Route::get('/rollie-penyelia', 'rollie\penyeliaController@index')->name('penyelia-index');
     Route::get('/rollie-penyelia/jadwal-produksi', 'rollie\penyeliaController@index');
+    Route::post('/rollie-penyelia/jadwal-produksi/delete/{id}', 'rollie\penyeliaController@cancel');
     Route::post('/rollie-penyelia/jadwal-produksi', 'rollie\penyeliaController@importJadwalProduksi')->name('import-jadwal-produksi');
 
     // Rollie operator
