@@ -3,7 +3,7 @@
         <div class="modal-content" style="width: 130%;">
             <div class="modal-header">
                 <h5>Tambah Sampel Analisa</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" id="close-button" class="close" data-dismiss="modal">&times;</button>
 
             </div>
             <meta name="csrf-token" content="{{ csrf_token() }}" />

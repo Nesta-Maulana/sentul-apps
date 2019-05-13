@@ -2827,5 +2827,8 @@ table.dataTable thead td {
     color: #555;
 }
 
-
+.sembunyi
+{
+    display: none;
+}
 /*-------------------- END Offset Sidebar ------------------- */

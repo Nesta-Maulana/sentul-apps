@@ -55,10 +55,10 @@
 				<div class="col-md-6">
 					<div class="row form-group left" id="popupubah">
 						<div class="col-md-6">
-							<button data-toggle="modal" data-target="#tambah-sample">
+							<a data-toggle="modal" data-target="#tambah-sample" onclick="hapusdatapopup()">
 								<img src="{{ asset('generalStyle/images/logo/plus.png') }}" width="50px" alt="">
 								Tambah Sample
-							</button>
+							</a>
 						</div>
 						<div class="col-md-6">
 							<a data-toggle="modal" data-target="#tambah-batch">
@@ -98,7 +98,7 @@
                     			<td style="display: none;">{{ $detail_pi->tanggal_filling }}</td>
                     			<td>{{ $detail_pi->jam_filling }}</td>
                     			<td>{{ $detail_pi->kode_sampel->kode_sampel }}</td>
-                    			<td><a href="">ANALISA</a></td>
+                    			<td><a data-toggle="modal" data-target="#analisa-sample-pi">ANALISA</a></td>
                     		</tr>
                     	@endforeach
                     	@foreach ($rpd_filling->detail_at_event as $detail_at_event)
@@ -111,12 +111,12 @@
                     			<td><a href="">ANALISA</a></td>
                     		</tr>
                     	@endforeach
-                    	
                     </tbody>
 				</table>
 			</div>
 			@include('rollie.inspektor.popup-tambah-sample')
 			@include('rollie.inspektor.popup-tambah-batch')
+			@include('rollie.inspektor.popup-analisa-pi')
 			<button onclick="reloadTablePi()">CEK</button>
 		</div>
 	</div>
