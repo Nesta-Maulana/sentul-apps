@@ -67,13 +67,13 @@ class penyeliaController extends resourceController
 
         // mengambil jadwal wo diminggu ini saja dan wo yang statusnya belum close di minggu-minggu sebelumnya 
 
-        $wos        = wo::whereBetween('production_plan_date',[$senin,$minggu])->orWhere('status','!=','5')->orWhere('status','!=','6')->get();
+        $wos        = wo::whereBetween('production_plan_date',[$senin,$minggu])->orWhereNotIn('status',['5','6'])->get();
 
         return view('rollie.penyelia.mtol',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
 
 	}
 
-    public function importJadwalProduksi(Request $request)
+    public function importJadwalProduksi(Request $request) 
     {
         // pengecekan jenis upload
        if ($request->jenis_upload == '1') 
@@ -105,5 +105,14 @@ class penyeliaController extends resourceController
        {
             // ini untuk table add
        }
+    }
+    public function cancel(Request $request){
+        
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($request->id);
+        $wo = wo::find($id);
+        $wo->status = '6';
+        $wo->keterangan_2 = $request->alasan;
+        $wo->save();
+        return $wo;
     }
 }
