@@ -202,9 +202,15 @@
                 type: "success",
             });
         }
-        
         new WOW().init();
     </script>
+    <script src="{{ asset('rollie/js/webfont.js')}}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
+    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
         function prosescpp(namaproduk,nomorwo) 
         {
@@ -261,8 +267,16 @@
                 }
             })
         }
-    </script>
-    <script>
+        function analisa_sampel_pi(kode_sampel,event_sampel,mesin_filling,tanggal_filling,jam_filling,rpd_filling_detail_id)
+        {
+            //
+        }
+
+        function analisa_sampel_at_event(kode_sampel,event_sampel,mesin_filling,tanggal_filling,jam_filling,rpd_filling_detail_id)
+        {
+            //
+            
+        }
         //function tambah sampel analisa untuk dimasukan di analisa QC rpd filling
         function tambahSampelAnalisa(nomorwo,mesinfilling,tanggalfilling,jamfilling,kodeanalisa,keteranganevent,beratkanan,beratkiri,id_user,id_rpd_head) 
         {
@@ -273,6 +287,7 @@
                     text: "Harap lengkapi data-data analisa sampel",
                     type: "error",
                 });
+                return false;
             }
             if (beratkanan.includes('.') && beratkiri.includes('.'))
             {
@@ -283,6 +298,7 @@
                         text: "Berat Kanan dan Berat Kiri Harus Desimal 2 angka dibelakang koma contoh : 222.30",
                         type: "error",
                     });
+                    return false;
                 }
             }
             else
@@ -292,6 +308,7 @@
                         text: "Berat Kanan dan Berat Kiri Harus Desimal 2 angka dibelakang koma contoh : 222.30",
                         type: "error",
                     });
+                return false;
             }
             $.ajax({
                 headers: {
@@ -332,84 +349,62 @@
                 success : function(data) 
                 {
                     var isitable = '', $isitable = $('#detail_pi');
-                    for (var i = 0; i < data.detail_pi.length; i++)
+                    console.log(data.detail_pi_nya.length);
+                    for (var i = 0; i < data.detail_pi_nya.length; i++)
                     {
                         isitable    += '<tr>';
-                        isitable    += '<td>'+data.detail_pi[i].wo.nomor_wo+'</td>'
-                        isitable    += '<td>'+data.detail_pi[i].mesin_filling.kode_mesin+'</td>'
-                        isitable    += '<td>'+data.detail_pi[i].jam_filling+'</td>'
-                        isitable    += '<td>'+data.detail_pi[i].kode_sampel.kode_sampel+'</td>'
-                        isitable    += '<td><a href="">Analisa</a></td>'
-                        isitable    += '</tr>';
-                    }
-                    for (var i = 0; i < data.detail_at_event.length; i++)
-                    {
-                        isitable    += '<tr>';
-                        isitable    += '<td>'+data.detail_at_event[i].wo.nomor_wo+'</td>'
-                        isitable    += '<td>'+data.detail_at_event[i].mesin_filling.kode_mesin+'</td>'
-                        isitable    += '<td>'+data.detail_at_event[i].jam_filling+'</td>'
-                        isitable    += '<td>'+data.detail_at_event[i].kode_sampel.kode_sampel+' (Event) </td>'
-                        isitable    += '<td><a href="">Analisa</a></td>'
+                        isitable    += '<td>'+data.detail_pi_nya[i].nomor_wo+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].mesin_filling+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].jam_filling+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].kode_sampel+'</td>';
+                        if (data.detail_pi_nya[i].kodenya == 'Event') 
+                        {
+                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-at-event">Analisa</a></td>';
+                        } 
+                        else if (data.detail_pi_nya[i].kodenya == 'Bukan Event') 
+                        {
+                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-pi">Analisa</a></td>';
+                        }
                         isitable    += '</tr>';
                     }
                     $isitable.html(isitable).on('change');
                 }
             });
         }
-    </script>
-    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
-        <script src="{{ asset('rollie/js/webfont.js')}}"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-        <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
-        <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
-        
-        <script type="text/javascript">
+        function hapusdatapopup()
+        {
+            $('#nomorwosampel option').prop('selected', function() {
+                return this.defaultSelected;
+            });
+            $('#mesinfillingsampel option').prop('selected', function() {
+                return this.defaultSelected;
+            });
+            $('.timepickernya').data("DateTimePicker").date(moment(new Date()).format('HH:mm:ss'));
+            $('.datepickernya').data("DateTimePicker").date(moment(new Date()).format('YYYY-MM-DD'));
+            $('#kodeanalisasampel option').prop('selected', function() {
+                return this.defaultSelected;
+            });
+            $('#eventsampel option').prop('selected', function() {
+                return this.defaultSelected;
+            });
+            $('#beratkanansampel').val('');
+            $('#beratkirisampel').val('');
+        }
+        $('.timepickernya').datetimepicker({
+            format: 'HH:mm:ss',
+            locale:'en',
+            date: new Date()
+        }); 
+        $('.datepickernya').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale:'en',
+            date: new Date()
+        }); 
+        $('.datetimepickernya').datetimepicker({
+            format: 'YYYY-mm-DD HH:mm:ss'
+        }); 
+    </script>  
 
-            function hapusdatapopup()
-            {
-                $('#nomorwosampel option').prop('selected', function() {
-                    return this.defaultSelected;
-                });
-                $('#mesinfillingsampel option').prop('selected', function() {
-                    return this.defaultSelected;
-                });
-                $('.timepickernya').data("DateTimePicker").date(moment(new Date()).format('HH:mm:ss'));
-                $('.datepickernya').data("DateTimePicker").date(moment(new Date()).format('HH:mm:ss'));
-                $('#kodeanalisasampel option').prop('selected', function() {
-                    return this.defaultSelected;
-                });
-                $('#eventsampel option').prop('selected', function() {
-                    return this.defaultSelected;
-                });
-                $('#beratkanansampel').val('');
-                $('#beratkirisampel').val('');
-            }
-            $('.timepickernya').datetimepicker({
-                format: 'HH:mm:ss',
-                locale:'en',
-                date: new Date()
-            }); 
-            
-
-            $('.datepickernya').datetimepicker({
-                format: 'YYYY-MM-DD',
-                locale:'en',
-                date: new Date()
-            }); 
-            
-
-            $('.datetimepickernya').datetimepicker({
-                format: 'YYYY-mm-DD HH:mm:ss'
-            }); 
-
-
-        </script>  
- 
-
-                    <!-- Scripts -->
                     
                   
 </body>

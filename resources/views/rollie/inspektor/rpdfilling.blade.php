@@ -118,9 +118,7 @@
 			@include('rollie.inspektor.popup-tambah-batch')
 			@include('rollie.inspektor.popup-analisa-pi')
 			@include('rollie.inspektor.popup-analisa-at-event')
-			<button onclick="reloadTablePi()">CEK</button>
 		</div>
 	</div>
-	
 	
 @endsection

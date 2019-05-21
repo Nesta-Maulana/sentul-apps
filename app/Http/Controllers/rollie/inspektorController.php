@@ -113,6 +113,22 @@ class inspektorController extends resourceController
             {
             }
         }
+        $detailnya      = array(); 
+        foreach ($rpdfillinghead->detail_pi as $key => $value) 
+        {
+            $detail_pi_nya  = [
+                'detail_id'             => $value->id,
+                'nomor_wo'              => $value->wo->nomor_wo,
+                'tanggal_filling'       => $value->tanggal_filling,
+                'jam_filling'           => $value->jam_filling,
+                'kode_sampel'           => $value->kode_sampel->kode_sampel,
+                'kodenya'               => 'Bukan Event',
+                'event'                 => $value->kode_sampel->event,
+                'order'                 => $value->tanggal_filling.' '.$value->jam_filling,
+                'mesin_filling'       => $value->mesin_filling->kode_mesin
+            ];
+            array_push($detailnya, $detail_pi_nya);
+        }
         foreach ($rpdfillinghead->detail_at_event as $detail_at_event) 
         {
             foreach ($detail_at_event->wo as $wo) 
@@ -125,7 +141,45 @@ class inspektorController extends resourceController
             {
             }
         }
+        
+        foreach ($rpdfillinghead->detail_at_event as $key => $value) 
+        {
+            $detail_pi_nya  = [
+                'detail_id'             => $value->id,
+                'nomor_wo'              => $value->wo->nomor_wo,
+                'tanggal_filling'       => $value->tanggal_filling,
+                'jam_filling'           => $value->jam_filling,
+                'kode_sampel'           => $value->kode_sampel->kode_sampel.' (Event)',
+                'kodenya'               => 'Event',
+                'event'                 => $value->kode_sampel->event,
+                'order'                 => $value->tanggal_filling.' '.$value->jam_filling,
+                'mesin_filling'         => $value->mesin_filling->kode_mesin
+            ];
+            array_push($detailnya, $detail_pi_nya);
+        }        
+        unset($rpdfillinghead->detail_pi);
+        unset($rpdfillinghead->detail_at_event);
+        $detailnya = $this->array_orderby($detailnya,'order',SORT_ASC);
+
+        $rpdfillinghead->detail_pi_nya = $detailnya;
+
         return $rpdfillinghead;
+    }
+    function array_orderby()
+    {
+        $args = func_get_args();
+        $data = array_shift($args);
+        foreach ($args as $n => $field) {
+            if (is_string($field)) {
+                $tmp = array();
+                foreach ($data as $key => $row)
+                    $tmp[$key] = $row[$field];
+                $args[$n] = $tmp;
+                }
+        }
+        $args[] = &$data;
+        call_user_func_array('array_multisort', $args);
+        return array_pop($args);
     }
     public function tambahSampel(Request $request)
     {
