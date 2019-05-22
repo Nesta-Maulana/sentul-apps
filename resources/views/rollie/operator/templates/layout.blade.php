@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container">
+    <div class="page-container sbar_collapsed">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -267,15 +267,90 @@
                 }
             })
         }
-        function analisa_sampel_pi(kode_sampel,event_sampel,mesin_filling,tanggal_filling,jam_filling,rpd_filling_detail_id)
+        function analisa_sampel_pi(kode_sampel,event_sampel,mesin_filling,tanggal_filling,jam_filling,rpd_filling_detail_id,nama_produk,wo_id_sampel,mesin_filling_id_sampel)
         {
-            //
+            // set analisa sampel popup value untuk input ke database
+            document.getElementById('nama_produk_analisa_pi').innerHTML         = nama_produk;
+            document.getElementById('sampel_pi_analisa').value                  = kode_sampel+" - "+event_sampel;
+            document.getElementById('mesin_filling_pi_analisa').value           = mesin_filling;
+            document.getElementById('tanggal_filling_pi_analisa').value         = tanggal_filling;
+            document.getElementById('jam_filling_pi_analisa').value             = jam_filling;
+            document.getElementById('rpd_filling_detail_id_pi').value           = rpd_filling_detail_id;
+            document.getElementById('wo_id_sampel').value                       = wo_id_sampel;
+            document.getElementById('mesin_filling_id_sampel').value            = mesin_filling_id_sampel;
+        }
+
+        function submit_analisa_pi(rpd_filling_detail_id_pi,rpd_filling_head_id,nama_produk_analisa_pi,hasil_air_gap,hasil_ts_accurate_kanan,hasil_ts_accurate_kiri,hasil_ls_accurate,hasil_sa_accurate,hasil_surface_check,hasil_pinching,hasil_strip_folding,hasil_konduktivity_kanan,hasil_konduktivity_kiri,hasil_design_kanan,hasil_design_kiri,hasil_dye_test,hasil_residu_h2o2,hasil_prod_code_no_md,hasil_correction,ts_accurate_kanan_tidak_ok,ts_accurate_kiri_tidak_ok,ls_accurate_tidak_ok,sa_accurate_tidak_ok,surface_check_tidak_ok,wo_id,mesin_filling_id) 
+        {
+
+            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK' )
+            {
+                Swal.fire({
+                    title: 'Apa benar hasil semua pengecekan OK?',
+                    text: "Jika hasil semua OK klik lanjutkan, Jika ada #OK click Revisi dan ubah hasil sesuai pengamatan",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor  : '#3085d6',
+                    cancelButtonColor   : '#d33',
+                    confirmButtonText   : 'Ya, Lanjutkan',
+                    cancelButtonText    : 'Revisi Data Analisa'
+                }).then((result) => {
+                    if (result.value) 
+                    {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url         : '{{ route('analisapi-inspektor-qc') }}',
+                            method      : 'POST',
+                            dataType    : 'JSON',
+                            data        : 
+                            {
+                                'rpd_filling_detail_id_pi'  :rpd_filling_detail_id_pi,
+                                'rpd_filling_head_id'       :rpd_filling_head_id,
+                                'nama_produk_analisa_pi'    :nama_produk_analisa_pi,
+                                'air_gap'                   :hasil_air_gap,
+                                'ts_accurate_kanan'         :hasil_ts_accurate_kanan,
+                                'ts_accurate_kiri'          :hasil_ts_accurate_kiri,
+                                'ls_accurate'               :hasil_ls_accurate,
+                                'sa_accurate'               :hasil_sa_accurate,
+                                'surface_check'             :hasil_surface_check,
+                                'pinching'                  :hasil_pinching,
+                                'strip_folding'             :hasil_strip_folding,
+                                'konduktivity_kanan'        :hasil_konduktivity_kanan,
+                                'konduktivity_kiri'         :hasil_konduktivity_kiri,
+                                'design_kanan'              :hasil_design_kanan,
+                                'design_kiri'               :hasil_design_kiri,
+                                'dye_test'                  :hasil_dye_test,
+                                'residu_h2o2'               :hasil_residu_h2o2,
+                                'prod_code_no_md'           :hasil_prod_code_no_md,
+                                'correction'                :hasil_correction,
+                                'ts_accurate_kanan_tidak_ok':ts_accurate_kanan_tidak_ok,
+                                'ts_accurate_kiri_tidak_ok' :ts_accurate_kiri_tidak_ok,
+                                'ls_accurate_tidak_ok'      :ls_accurate_tidak_ok,
+                                'sa_accurate_tidak_ok'      :sa_accurate_tidak_ok,
+                                'surface_check_tidak_ok'    :surface_check_tidak_ok,
+                                'wo_id'                     :wo_id,
+                                'mesin_filling_id'          :mesin_filling_id,
+                            },
+                            success      : function(data) 
+                            {
+                            }
+                        });
+                    }
+                })
+            }
+            else
+            {
+                console.log(rpd_filling_detail_id_pi+rpd_filling_head_id+nama_produk_analisa_pi+hasil_air_gap+hasil_ts_accurate_kanan+hasil_ts_accurate_kiri+hasil_ls_accurate+hasil_sa_accurate+hasil_surface_check+hasil_pinching+hasil_strip_folding+hasil_konduktivity_kanan+hasil_konduktivity_kiri+hasil_design_kanan+hasil_design_kiri+hasil_dye_test+hasil_residu_h2o2+hasil_prod_code_no_md+hasil_correction+ts_accurate_kanan_tidak_ok+ts_accurate_kiri_tidak_ok+ls_accurate_tidak_ok+sa_accurate_tidak_ok+surface_check_tidak_ok)
+            }
         }
 
         function analisa_sampel_at_event(kode_sampel,event_sampel,mesin_filling,tanggal_filling,jam_filling,rpd_filling_detail_id)
         {
             //
-            
+            var char_sampel = count(kode_sampel);
+
         }
         //function tambah sampel analisa untuk dimasukan di analisa QC rpd filling
         function tambahSampelAnalisa(nomorwo,mesinfilling,tanggalfilling,jamfilling,kodeanalisa,keteranganevent,beratkanan,beratkiri,id_user,id_rpd_head) 

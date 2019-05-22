@@ -2,13 +2,55 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Hasil Analisa PI - Sample <label id="hasilanalisasampel"> A </label> Produk Hilo Teen Coklat 200Ml</h5>
-                <button type="button" id="close-button" class="close" data-dismiss="modal">&times;</button>
+                <h5>Hasil Analisa PI - <label style="color: black;" id="nama_produk_analisa_pi"></label></h5>
+                <button type="button" id="close-button-pi" class="close" data-dismiss="modal">&times;</button>
             </div>
             <meta name="csrf-token" content="{{ csrf_token() }}" />
             <input type="hidden" name="user_id_inputer" id="user_id_inputer" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($username->user->id) }}">
+            <input type="hidden" id="rpd_filling_detail_id_pi">
+            <input type="hidden" id="wo_id_sampel">
+            <input type="hidden" id="mesin_filling_id_sampel">
             <input type="hidden" id="rpd_filling_head_id" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($rpd_filling->id) }}">
             <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="text-center">
+                                <hr>
+                                <h6 class="">Event Point</h6>
+                                <hr>    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" >
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <label for="sampel_pi_analisa" class="col-lg-4">Sampel</label>
+                                <input type="text" name="sampel_pi_analisa" id="sampel_pi_analisa" class="col-lg-7 form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <label for="mesin_filling_pi_analisa" class="col-lg-4">Mesin Filling</label>
+                                <input type="text" name="mesin_filling_pi_analisa" id="mesin_filling_pi_analisa" class="col-lg-7 form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" >
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <label for="tanggal_filling_pi_analisa" class="col-lg-4">Tanggal Filling</label>
+                                <input type="text" name="tanggal_filling_pi_analisa" id="tanggal_filling_pi_analisa" value="2019-05-15" class="col-lg-7 form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <label for="jam_filling_pi_analisa" class="col-lg-4">Jam Filling</label>
+                                <input type="text" name="jam_filling_pi_analisa" id="jam_filling_pi_analisa" value="07:02:00" class="col-lg-7 form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                <hr>
                 <div class="form-group row">
                     <label for="hasil_air_gap" class="col-lg-3">Airgap (Max. 1mm)</label>
                     <select name="hasil_air_gap" id="hasil_air_gap" class="select col-lg-8 form-control" style="padding: 0 .8rem;" required="true">
@@ -176,7 +218,7 @@
                 <div class="form-group row">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3"></div>
-                    <button class="btn btn-info col-lg-5 form-control">
+                    <button class="btn btn-info col-lg-5 form-control" onclick="submit_analisa_pi($('#rpd_filling_detail_id_pi').val(),$('#rpd_filling_head_id').val(),$('#nama_produk_analisa_pi').val(),$('#hasil_air_gap').val(),$('#hasil_ts_accurate_kanan').val(),$('#hasil_ts_accurate_kiri').val(),$('#hasil_ls_accurate').val(),$('#hasil_sa_accurate').val(),$('#hasil_surface_check').val(),$('#hasil_pinching').val(),$('#hasil_strip_folding').val(),$('#hasil_konduktivity_kanan').val(),$('#hasil_konduktivity_kiri').val(),$('#hasil_design_kanan').val(),$('#hasil_design_kiri').val(),$('#hasil_dye_test').val(),$('#hasil_residu_h2o2').val(),$('#hasil_prod_code_no_md').val(),$('#hasil_correction').val(),$('#ts_accurate_kanan_tidak_ok').val(),$('#ts_accurate_kiri_tidak_ok').val(),$('#ls_accurate_tidak_ok').val(),$('#sa_accurate_tidak_ok').val(),$('#surface_check_tidak_ok').val(),$('#wo_id_sampel').val(),$('#mesin_filling_id_sampel').val())">
                         Input Hasil Analisa
                     </button>
                 </div>
@@ -243,9 +285,6 @@
                     $('#hasil_ts_accurate_kiri').removeClass('col-lg-8');
                     $('#hasil_ts_accurate_kiri').addClass('col-lg-4');
                     $('#ts_accurate_kiri_tidak_ok').removeClass('sembunyi');
-                    $('#hasil_ts_accurate_kanan').removeClass('col-lg-8');
-                    $('#hasil_ts_accurate_kanan').addClass('col-lg-4');
-                    $('#ts_accurate_kanan_tidak_ok').removeClass('sembunyi');
                     if ($('#hasil_ts_accurate_kanan').val() == '#OK' || $('#hasil_ts_accurate_kiri').val() == '#OK' ||$('#hasil_ls_accurate').val() == '#OK' ||$('#hasil_sa_accurate').val() == '#OK' ||$('#hasil_surface_check').val() == '#OK' ||$('#hasil_pinching').val() == '#OK' ||$('#hasil_strip_folding').val() == '#OK' ||$('#hasil_konduktivity_kanan').val() == '#OK' ||$('#hasil_konduktivity_kiri').val() == '#OK' ||$('#hasil_design_kanan').val() == '#OK' ||$('#hasil_design_kiri').val() == '#OK' || $('#hasil_dye_test').val() == '#OK' || $('#hasil_residu_h2o2').val() == '#OK' ||$('#hasil_prod_code_no_md').val() == '#OK')
                     {
                         $('#hasil_correction').val('');

@@ -19,6 +19,7 @@ use App\Models\productionData\rpdFillingHead;
 use App\Models\productionData\rpdFillingDetailPi;
 use App\Models\productionData\rpdFillingDetailAtEvent;
 use App\Models\productionData\kodeSampelPi;
+use App\Models\masterApps\mesinFilling;
 use DB;
 use Session;
 
@@ -165,6 +166,7 @@ class inspektorController extends resourceController
 
         return $rpdfillinghead;
     }
+
     function array_orderby()
     {
         $args = func_get_args();
@@ -237,5 +239,51 @@ class inspektorController extends resourceController
                 return [ 'success'=>true,'message'=>'Permintaan Analisa Berhasil Diinput' ];
             break;
         }
+    }
+
+    public function analisaSampelPi(Request $request)
+    {
+        $rpd_filling_detail_id_pi           = app('App\Http\Controllers\resourceController')->dekripsi($request->rpd_filling_detail_id_pi);
+        $rpd_filling_head_id                = app('App\Http\Controllers\resourceController')->dekripsi($request->rpd_filling_head_id);
+        $wo_id                              = app('App\Http\Controllers\resourceController')->dekripsi($request->wo_id);
+        $mesin_filling_id                   = app('App\Http\Controllers\resourceController')->dekripsi($request->mesin_filling_id);
+        $nama_produk_analisa_pi             = $request->nama_produk_analisa_pi;
+        $air_gap                            = $request->air_gap;
+        $ts_accurate_kanan                  = $request->ts_accurate_kanan;
+        $ts_accurate_kiri                   = $request->ts_accurate_kiri;
+        $ls_accurate                        = $request->ls_accurate;
+        $sa_accurate                        = $request->sa_accurate;
+        $surface_check                      = $request->surface_check;
+        $pinching                           = $request->pinching;
+        $strip_folding                      = $request->strip_folding;
+        $konduktivity_kanan                 = $request->konduktivity_kanan;
+        $konduktivity_kiri                  = $request->konduktivity_kiri;
+        $design_kanan                       = $request->design_kanan;
+        $design_kiri                        = $request->design_kiri;
+        $dye_test                           = $request->dye_test;
+        $residu_h2o2                        = $request->residu_h2o2;
+        $prod_code_no_md                    = $request->prod_code_no_md;
+        $correction                         = $request->correction;
+        $ts_accurate_kanan_tidak_ok         = $request->ts_accurate_kanan_tidak_ok;
+        $ts_accurate_kiri_tidak_ok          = $request->ts_accurate_kiri_tidak_ok;
+        $ls_accurate_tidak_ok               = $request->ls_accurate_tidak_ok;
+        $sa_accurate_tidak_ok               = $request->sa_accurate_tidak_ok;
+        $surface_check_tidak_ok             = $request->surface_check_tidak_ok;
+        // if semua itu okeoke aja 
+        if ($air_gap == 'OK' && $ts_accurate_kanan == 'OK' && $ts_accurate_kiri == 'OK' && $ls_accurate == 'OK' && $sa_accurate == 'OK' && $surface_check == 'OK' && $pinching == 'OK' && $strip_folding == 'OK' && $konduktivity_kanan == 'OK' && $konduktivity_kiri == 'OK' && $design_kanan == 'OK' && $design_kiri == 'OK' && $dye_test == 'OK' && $residu_h2o2 == 'OK' && $prod_code_no_md == 'OK') 
+        {
+            // pengecekan sampel sebelumnya dimesin tersebut dan saat produk tersebut OK atau tidak OK
+            $ambilsemua   = rpdFillingDetailPi::where('rpd_filling_head_id',$rpd_filling_head_id)->where('wo_id',$wo_id)->where('mesin_filling_id',$mesin_filling_id)->get();
+            foreach ($ambilsemua as $key => $rpdfillingdetail) 
+            {
+                if ($rpdfillingdetail->id ==$rpd_filling_detail_id_pi) 
+                {
+                    $idaktif = $key;
+                }
+            }
+            dd($idaktif);
+
+        }
+
     }
 }
