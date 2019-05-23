@@ -280,10 +280,32 @@
             document.getElementById('mesin_filling_id_sampel').value            = mesin_filling_id_sampel;
         }
 
-        function submit_analisa_pi(rpd_filling_detail_id_pi,rpd_filling_head_id,nama_produk_analisa_pi,hasil_air_gap,hasil_ts_accurate_kanan,hasil_ts_accurate_kiri,hasil_ls_accurate,hasil_sa_accurate,hasil_surface_check,hasil_pinching,hasil_strip_folding,hasil_konduktivity_kanan,hasil_konduktivity_kiri,hasil_design_kanan,hasil_design_kiri,hasil_dye_test,hasil_residu_h2o2,hasil_prod_code_no_md,hasil_correction,ts_accurate_kanan_tidak_ok,ts_accurate_kiri_tidak_ok,ls_accurate_tidak_ok,sa_accurate_tidak_ok,surface_check_tidak_ok,wo_id,mesin_filling_id) 
+        function submit_analisa_pi(rpd_filling_detail_id_pi,rpd_filling_head_id,nama_produk_analisa_pi,hasil_air_gap,hasil_ts_accurate_kanan,hasil_ts_accurate_kiri,hasil_ls_accurate,hasil_sa_accurate,hasil_surface_check,hasil_pinching,hasil_strip_folding,hasil_konduktivity_kanan,hasil_konduktivity_kiri,hasil_design_kanan,hasil_design_kiri,hasil_dye_test,hasil_residu_h2o2,hasil_prod_code_no_md,hasil_correction,ts_accurate_kanan_tidak_ok,ts_accurate_kiri_tidak_ok,ls_accurate_tidak_ok,sa_accurate_tidak_ok,surface_check_tidak_ok,wo_id,mesin_filling_id,overlap,ls_sa_proportion,volume_kanan,volume_kiri,user_id_inputer) 
         {
+            console.log(overlap+','+ls_sa_proportion+','+volume_kanan+','+volume_kiri)
+            if (ls_sa_proportion.includes(':'))
+            {
+                if (ls_sa_proportion.toString().split(":")[1].length != 2 | ls_sa_proportion.toString().split(":")[0].length != 2)
+                {
+                    swal({
+                        title: "Proses Gagal",
+                        text : "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
+                        type : "error",
+                    });
+                    return false;
+                }
+            }
+            else
+            {
+                swal({
+                        title: "Proses Gagal",
+                        text: "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
+                        type: "error",
+                    });
+                return false;
+            }
 
-            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK' )
+            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK'  && (ls_sa_proportion !== '10:90' || ls_sa_proportion !== '90:10' || ls_sa_proportion !== '80:20' ||ls_sa_proportion !== '70:30' ) && (volume_kanan >= 198 || volume_kanan <= 202) && (volume_kiri >= 198 || volume_kiri <= 202))
             {
                 Swal.fire({
                     title: 'Apa benar hasil semua pengecekan OK?',
@@ -332,9 +354,20 @@
                                 'surface_check_tidak_ok'    :surface_check_tidak_ok,
                                 'wo_id'                     :wo_id,
                                 'mesin_filling_id'          :mesin_filling_id,
+                                'overlap'                   :overlap,
+                                'ls_sa_proportion'          :ls_sa_proportion,
+                                'volume_kanan'              :volume_kanan,
+                                'volume_kiri'               :volume_kiri,
+                                'user_inputer_id'           :user_id_inputer,
                             },
                             success      : function(data) 
                             {
+                                if (data.success == true) 
+                                {
+                                    reloadTablePi();
+                                    
+
+                                } 
                             }
                         });
                     }
@@ -434,11 +467,11 @@
                         isitable    += '<td>'+data.detail_pi_nya[i].kode_sampel+'</td>';
                         if (data.detail_pi_nya[i].kodenya == 'Event') 
                         {
-                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-at-event">Analisa</a></td>';
+                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-at-event" >Analisa</a></td>';
                         } 
                         else if (data.detail_pi_nya[i].kodenya == 'Bukan Event') 
                         {
-                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-pi">Analisa</a></td>';
+                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-pi" onclick="analisa_sampel_pi(\''+data.detail_pi_nya[i].kode_sampel+'\',\''+data.detail_pi_nya[i].event+'\',\''+data.detail_pi_nya[i].mesin_filling+'\',\''+data.detail_pi_nya[i].tanggal_filling+'\',\''+data.detail_pi_nya[i].jam_filling+'\',\''+data.detail_pi_nya[i].detail_id_enkripsi+'\',\''+data.detail_pi_nya[i].nama_produk+'\',\''+data.detail_pi_nya[i].wo_id+'\',\''+data.detail_pi_nya[i].mesin_filling_id+'\')">Analisa</a></td>';
                         }
                         isitable    += '</tr>';
                     }
@@ -464,6 +497,91 @@
             });
             $('#beratkanansampel').val('');
             $('#beratkirisampel').val('');
+        }
+
+        function hapusdatapopupanalisapi()
+        {
+            $('#rpd_filling_detail_id_pi').val('');
+            $('#wo_id_sampel').val('');
+            $('#mesin_filling_id_sampel').val('');
+            $('#rpd_filling_detail_id_pi').val('');
+            $('#sampel_pi_analisa').val('');
+            $('#mesin_filling_pi_analisa').val('');
+            $('#tanggal_filling_pi_analisa').val('');
+            $('#jam_filling_pi_analisa').val('');
+            $('#hasil_air_gap option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_ts_accurate_kanan option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_ts_accurate_kiri option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_ls_accurate option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_sa_accurate option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_surface_check option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_pinching option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_strip_folding option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_konduktivity_kanan option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_konduktivity_kiri option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_design_kanan option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_design_kiri option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_dye_test option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_residu_h2o2 option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_prod_code_no_md option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#hasil_correction option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#ts_accurate_kanan_tidak_ok option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#ts_accurate_kiri_tidak_ok option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#ls_accurate_tidak_ok option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#sa_accurate_tidak_ok option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#surface_check_tidak_ok option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#wo_id option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#mesin_filling_id option').prop('selected', function() {
+                return this.defaultSelected;
+            })
+            $('#overlap').val('');
+            $('#ls_sa_proportion').val('');
+            $('#volume_kanan').val('');
+            $('#volume_kiri').val('');
         }
         $('.timepickernya').datetimepicker({
             format: 'HH:mm:ss',

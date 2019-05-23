@@ -51,6 +51,28 @@
                         </div>
                     </div>
                 <hr>
+
+                <div class="form-group has-warning row">
+                    <label for="hasil_overlap" class="col-lg-3">Overlap (3.5-4.5)</label>
+                    <input type="text" name="hasil_overlap" id="hasil_overlap" class="form-control col-lg-8" maxlength="3" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
+                    <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 3.5 Batas Max. 4.5</small>
+                </div>
+                <div class="form-group row">
+                    <label for="hasil_ls_sa_proportion" class="col-lg-3">LS/SA Proportion</label>
+                    <input type="text" class="col-lg-8 form-control" id="hasil_ls_sa_proportion" name="hasil_ls_sa_proportion" maxlength="5" placeholder="Ex : 40:60" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 58">
+                    <small class="form-text text-muted" style="margin-left: 216px">Di isi dengan Angka dengan format XX:XX</small>
+                </div>
+
+                <div class="form-group row">
+                    <label for="hasil_volume_kanan" class="col-lg-3">Hasil Volume Kanan</label>
+                    <input type="text" class="col-lg-8 form-control" name="hasil_volume_kanan" id="hasil_volume_kanan" maxlength="3" placeholder="Ex : 200" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 198 Batas Max. 200</small>
+                </div>
+                <div class="form-group row">
+                    <label for="hasil_volume_kiri" class="col-lg-3">Hasil Volume Kiri</label>
+                    <input type="text" class="col-lg-8 form-control" name="hasil_volume_kiri" id="hasil_volume_kiri" maxlength="3" placeholder="Ex : 200" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 198 Batas Max. 200</small>
+                </div>
                 <div class="form-group row">
                     <label for="hasil_air_gap" class="col-lg-3">Airgap (Max. 1mm)</label>
                     <select name="hasil_air_gap" id="hasil_air_gap" class="select col-lg-8 form-control" style="padding: 0 .8rem;" required="true">
@@ -218,7 +240,7 @@
                 <div class="form-group row">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3"></div>
-                    <button class="btn btn-info col-lg-5 form-control" onclick="submit_analisa_pi($('#rpd_filling_detail_id_pi').val(),$('#rpd_filling_head_id').val(),$('#nama_produk_analisa_pi').val(),$('#hasil_air_gap').val(),$('#hasil_ts_accurate_kanan').val(),$('#hasil_ts_accurate_kiri').val(),$('#hasil_ls_accurate').val(),$('#hasil_sa_accurate').val(),$('#hasil_surface_check').val(),$('#hasil_pinching').val(),$('#hasil_strip_folding').val(),$('#hasil_konduktivity_kanan').val(),$('#hasil_konduktivity_kiri').val(),$('#hasil_design_kanan').val(),$('#hasil_design_kiri').val(),$('#hasil_dye_test').val(),$('#hasil_residu_h2o2').val(),$('#hasil_prod_code_no_md').val(),$('#hasil_correction').val(),$('#ts_accurate_kanan_tidak_ok').val(),$('#ts_accurate_kiri_tidak_ok').val(),$('#ls_accurate_tidak_ok').val(),$('#sa_accurate_tidak_ok').val(),$('#surface_check_tidak_ok').val(),$('#wo_id_sampel').val(),$('#mesin_filling_id_sampel').val())">
+                    <button class="btn btn-info col-lg-5 form-control" onclick="submit_analisa_pi($('#rpd_filling_detail_id_pi').val(),$('#rpd_filling_head_id').val(),$('#nama_produk_analisa_pi').val(),$('#hasil_air_gap').val(),$('#hasil_ts_accurate_kanan').val(),$('#hasil_ts_accurate_kiri').val(),$('#hasil_ls_accurate').val(),$('#hasil_sa_accurate').val(),$('#hasil_surface_check').val(),$('#hasil_pinching').val(),$('#hasil_strip_folding').val(),$('#hasil_konduktivity_kanan').val(),$('#hasil_konduktivity_kiri').val(),$('#hasil_design_kanan').val(),$('#hasil_design_kiri').val(),$('#hasil_dye_test').val(),$('#hasil_residu_h2o2').val(),$('#hasil_prod_code_no_md').val(),$('#hasil_correction').val(),$('#ts_accurate_kanan_tidak_ok').val(),$('#ts_accurate_kiri_tidak_ok').val(),$('#ls_accurate_tidak_ok').val(),$('#sa_accurate_tidak_ok').val(),$('#surface_check_tidak_ok').val(),$('#wo_id_sampel').val(),$('#mesin_filling_id_sampel').val(),$('#hasil_overlap').val(),$('#hasil_ls_sa_proportion').val(),$('#hasil_volume_kanan').val(),$('#hasil_volume_kiri').val(),$('#user_id_inputer').val())">
                         Input Hasil Analisa
                     </button>
                 </div>
