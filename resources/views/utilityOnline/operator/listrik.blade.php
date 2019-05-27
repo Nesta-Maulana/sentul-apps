@@ -3,16 +3,38 @@
     Utility Online | Listrik
 @endsection
 @section('content')
+<style>
+    #particles-js{
+        height: 190vh;
+    }
+    @media only screen and (max-width: 991px){
+        #particles-js{
+            height: 230vh;
+        }
+    }
+    @media only screen and (max-width: 767px){
+        #particles-js{
+            height: 240vh;
+        }
+    }
+</style>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div id="particles-js"></div>
+    <div class="row back-img-bg d-flex justify-content-center">
+        <div class="img-bg">
+            <div class="mt-5">
+                <h2 class="d-flex justify-content-center mt-5 xtreem" style="color: rgba(176, 255, 66, 0.69); text-shadow: 1px 1px 1px #000; font-size: 100px;">Listrik</h2>
+            </div>
+        </div>
+    </div>
     <div class="container">
-        <div class="row teks mt-5">
+        <div class="row teks" style="margin-top: -18%;">
             <div class="col teks">
-            <h1 class="font-weight-bold d-flex justify-content-center text-white mt-2" style="font-size: 40px"><i class="fa fa-bolt"></i>&ensp;LISTRIK&ensp;<i class="fa fa-bolt"></i></h1>
-                <div class="row">
+                <div class="row p-3">
                     <div class="col-lg-4 p-3 teks text-white">
-                        <label for="workcenter">Workcenter :</label>
+                        <label for="workcenter" style="text-shadow: 1px 1px 1px #000;">Workcenter :</label>
                         <br>
+                        
                         @foreach($workcenter as $w)
                             <button data-id="{{ $w->id }}" class="btn btn-success d-flex justify-content-center workcenter form-control">{{ $w->workcenter }}</button><br>
                         @endforeach
@@ -58,6 +80,13 @@
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
+                    window.setInterval(function(){
+                        if($(window).width() <= 767){
+                            $('.table').addClass('table-responsive');
+                        }else{
+                            $('.table').removeClass('table-responsive');
+                        }
+                    }, 200);
                     var optionroles = '', $comboroles = $('#table');
                     for (index = 0; index < data[0].length; index++) 
                     {

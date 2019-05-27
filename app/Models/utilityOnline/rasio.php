@@ -13,4 +13,7 @@ class rasio extends Model
     public function rasioHead(){
         return $this->belongsTo('App\Models\utilityOnline\rasioHead', 'rasio_head_id');
     }
+    public function company(){
+        return $this->belongsTo('App\Models\utilityOnline\company', 'company_id');
+    }
 }

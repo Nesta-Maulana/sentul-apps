@@ -20,6 +20,6 @@ class bagian extends Model
         return $this->belongsTo('App\Models\utilityOnline\kategoriPencatatan', 'kategori_pencatatan_id');
     }
     public function rasioHead(){
-        return $this->hasMany('App\Models\utilityOnline\rasioHead', 'id');
+        return $this->hasOne('App\Models\utilityOnline\rasioHead', 'bagian_id');
     }
 }

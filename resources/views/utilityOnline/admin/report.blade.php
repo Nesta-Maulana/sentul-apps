@@ -10,15 +10,33 @@
 <input type="hidden" id="tgl-pengamatan-2">
 <input type="hidden" id="tgl-penggunaan-1">
 <input type="hidden" id="tgl-penggunaan-2">
+<input type="hidden" id="tgl-report-3-1">
+<input type="hidden" id="tgl-report-3-2">
+<input type="hidden" id="tgl-report-4-1">
+<input type="hidden" id="tgl-report-4-2">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="row mt-5">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Reports Penggunaan | </h4>
-                <a class="btn btn-primary text-white" id="export-penggunaan">Export</a>
-                <button id="export-penggunaan-info" class="btn btn-primary">Please Select Date</button>
-            </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <h4>Reports Penggunaan | </h4>
+                    </div>
+                    <div class="col-lg-4">
+                        <select name="" id="kategori-penggunaan" class="form-control select2">
+                            <option value="" disabled selected>-- PILIH KATEGORI --</option>
+                            @foreach($kategori as $k)
+                            <option value="{{ $k->id }}">{{ $k->kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <button id="export-penggunaan-info" class="btn btn-primary">Please Select Date Or Category</button>
+                        <a class="btn btn-primary text-white" id="export-penggunaan">Export</a>
+                    </div>
+                </div>
+            </div> 
             <div class="row mt-2">
                 <div class="col-lg-9"></div>
                 <div class="col-lg-3">
@@ -31,7 +49,9 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>   
+
+            
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="table-1">
@@ -49,15 +69,12 @@
                         </thead>
                         <tbody id="isi"> 
                             <?php $i=0 ?>                                
+                            
                             @foreach($report as $r)
                                 <?php $i++ ?>
                                 <tr>
                                     <td>{{ $i }}</td>
-                                        @foreach($bagian as $b)
-                                            @if($r->id_bagian == $b->id)
-                                                <td>{{ $b->bagian }}</td>
-                                            @endif
-                                        @endforeach
+                                    <td>{{ $r->bagian->bagian }}</td>
                                     <td>{{ $r->nilai_nfi }}</td>
                                     <td>{{ $r->nilai_hni }}</td>
                                     <td>{{ $r->tgl_penggunaan }}</td>
@@ -69,7 +86,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -144,16 +161,31 @@
         <div class="card">
             <div class="card-header">
                 <h4>Reports 1.3 | </h4>
-                <a href="" class="btn btn-primary">Export</a>
+                <a class="btn btn-primary text-white export-3">Export</a>
+                <a class="btn btn-primary text-white export-3-info">Please Select Date Or Category</a>
             </div>
             <div class="row">
                 <div class="col-lg-3 m-2">
-                    <label for="tanggal-report-3">Tanggal : </label>
-                    <br>
-                    <input type="date" id="tanggal-report-3" class="form-control">
+                    <div class="input-group m-2">
+                        <label for="" class="mt-2">Tanggal : </label>
+                        <button type="button" class="btn btn-default pull-right ml-2" id="daterange-btn-3" name="inputRange" style="right: 0 !important;">
+                            <span>
+                                <i class="fa fa-calendar"></i> Date range picker
+                            </span>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                    </div>
+                    <div class="input-group m-2">
+                        <select name="kategori3" id="kategori3" class="form-control select2">
+                            <option value="" selected disabled>-- Choose Category --</option>
+                            @foreach($kategori as $b)
+                                <option value="{{ $b->id }}">{{ $b->kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="col-lg-8">
-                    <table id="tablePreview" class="table bg-white table-striped table-hover mt-3">
+                    <table id="tablePreview" class="table table-3 bg-white table-striped table-hover mt-3">
                         <!--Table head-->
                         <thead class="thead-dark">
                             <tr>
@@ -161,6 +193,7 @@
                             <th>Bagian</th>
                             <th>Nilai</th>
                             <th>Satuan</th>
+                            <th>Tanggal Penggunaan</th>
                             </tr>
                         </thead>
                         <!--Table head-->
@@ -176,20 +209,37 @@
     </div>
 </div>
 <div class="row">
+ 
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
                 <h4>Reports 1.4 | </h4>
-                <a href="" class="btn btn-primary">Export</a>
+                <a class="btn btn-primary text-white" id="export-4">Export</a>
+                <button class="btn btn-primary text-white" id="info-export-4">Please Select Date Or Category</button>
             </div>
             <div class="row">
                 <div class="col-lg-3 m-2">
-                    <label for="tanggal-report-4">Tanggal : </label>
-                    <br>
-                    <input type="date" id="tanggal-report-4" class="form-control">
+                    <div class="input-group m-2">
+                        <label for="" class="mt-2">Tanggal : </label>
+                        <button type="button" class="btn btn-default pull-right ml-2" id="daterange-btn-4" name="inputRange" style="right: 0 !important;">
+                            <span>
+                                <i class="fa fa-calendar"></i> Date range picker
+                            </span>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                    </div>
+                    <div class="input-group m-2">
+                        <label for="" class="mt-2">Kategori : </label>
+                        <select name="kategori-4" id="kategori-4" class="form-control">
+                            <option value="" selected disabled>-- PILIH KATEGORI --</option>
+                            @foreach($kategori as $k)
+                                <option value="{{ $k->id }}">{{ $k->kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="col-lg-8">
-                    <table id="tablePreview" class="table bg-white table-striped table-hover mt-3">
+                    <table id="tablePreview" class="table bg-white table-striped table-hover mt-3 table-4">
                         <!--Table head-->
                         <thead class="thead-dark">
                             <tr>
@@ -197,6 +247,7 @@
                             <th>Bagian</th>
                             <th>Nilai</th>
                             <th>Satuan</th>
+                            <th>Tanggal Penggunaan</th>
                             </tr>
                         </thead>
                         <!--Table head-->
@@ -211,7 +262,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-12 col-md-6 col-lg-6">
         <div class="card">
@@ -262,8 +312,83 @@
         $('#export-pengamatan-info').show();
         $('#export-penggunaan').hide();
         $('#export-penggunaan-info').show();
+        $('.export-3-info').show();
+        $('#info-export-4').show();
+        $('#export-4').hide();
+        $('.export-3').hide();
         $('#kategori').attr('disabled', true);
         $('#workcenter').attr('disabled', true);
+        $('#kategori-penggunaan').change(function () {
+            if($('#tgl-penggunaan-1').val() != null){
+                $.ajax({
+                    url: 'report/' + $(this).val() + '/' + $('#tgl-penggunaan-1').val() + '/' + $('#tgl-penggunaan-1').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#export-penggunaan').show();
+                        $('#export-penggunaan-info').hide();
+                        $('#table-1').DataTable().destroy();
+                        $('#isi').empty();
+                        var no = 1;
+                        for (let index = 0; index < data[0].length; index++) {
+                            for (let i = 0; i < data[1].length; i++) {
+                                if (data[0][index].id_bagian == data[1][i].id) {
+                                    var $table = "<tr>";
+                                    $table += "<td>" + no + "</td>";
+                                    $table += "<td>" + data[1][i].bagian + "</td>";
+                                    $table += "<td>" + data[0][index].nilai_nfi + "</td>";
+                                    $table += "<td>" + data[0][index].nilai_hni + "</td>";
+                                    $table += "<td>" + data[0][index].tgl_penggunaan + "</td>";
+                                    $table += '<td><a href="report/detail/' + data[0][index].id_bagian + '/' + data[0][index].tgl_penggunaan + '" class="btn btn-primary text-white">Lihat Detail</a></td>';
+                                    $table += "</tr>";
+                                    no++;
+                                    $("#isi").append($table);
+                                }
+                            }
+                        }
+                        $('#table-1').DataTable({
+                            "columnDefs": [{
+                                "sortable": false,
+                                "targets": [2, 3]
+                            }]
+                        }).draw();
+                    }
+                })
+            }else{
+                $.ajax({
+                    url: 'report/' + $('#tgl-penggunaan-1').val() + '/' + $('#tgl-penggunaan-1').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#table-1').DataTable().destroy();
+                        $('#isi').empty();
+                        var no = 1;
+                        for (let index = 0; index < data[0].length; index++) {
+                            for (let i = 0; i < data[1].length; i++) {
+                                if (data[0][index].id_bagian == data[1][i].id) {
+                                    var $table = "<tr>";
+                                    $table += "<td>" + no + "</td>";
+                                    $table += "<td>" + data[1][i].bagian + "</td>";
+                                    $table += "<td>" + data[0][index].nilai_nfi + "</td>";
+                                    $table += "<td>" + data[0][index].nilai_hni + "</td>";
+                                    $table += "<td>" + data[0][index].tgl_penggunaan + "</td>";
+                                    $table += '<td><a href="report/detail/' + data[0][index].id_bagian + '/' + data[0][index].tgl_penggunaan + '" class="btn btn-primary text-white">Lihat Detail</a></td>';
+                                    $table += "</tr>";
+                                    no++;
+                                    $("#isi").append($table);
+                                }
+                            }
+                        }
+                        $('#table-1').DataTable({
+                            "columnDefs": [{
+                                "sortable": false,
+                                "targets": [2, 3]
+                            }]
+                        }).draw();
+                    }
+                })
+            }
+        })
         $('#kategori').change(function () {
             var id = $('#kategori option:selected').val();
             $.ajax({
@@ -291,84 +416,32 @@
                             success: function (data) {
                                 $('#table-pengamatan').DataTable().destroy();
                                 $('#isi-table-pengamatan').empty();
-                                var optionroles = '', $comboroles = $('#isi-table-pengamatan');
-                                var nomor = 0; 
-                                for (index = 0; index < data[0].length; index++) 
+                                var no = 1;
+                                for (let index = 0; index < data.length; index++) 
                                 {
-                                    if(data[0][index].pengamatan.length > 0){
-                                        for (indek = 0; indek < data[0][index].pengamatan.length; indek++)
-                                        {                                        
-                                            // optionroles+='<td>'+ data[0][index].pengamatan.nilai_meteran +'</td>';
-                                            if(data[0][index].pengamatan[indek])
-                                            {
-                                                var nomor = nomor+1;
-                                                optionroles+='<tr>';
-                                                optionroles+='<td>'+ nomor +'</td>';
-                                                optionroles+='<td>'+ data[0][index].pengamatan[indek].bagian +'</td>';
-                                                optionroles+='<td>'+ data[0][index].pengamatan[indek].nilai_meteran +'</td>'
-                                                for (let i = 0; i < data[1].length; i++) {
-                                                    if (data[0][index].satuan_id == data[1][i].id) {
-                                                        optionroles+='<td>'+data[1][i].satuan+'</td>';
-                                                    }
-                                                }
-                                                optionroles+='<td>'+ data[0][index].created_at +'</td>';                                                
-                                            }
-                                            else
-                                            {
-                                                
-                                            }
+                                    for (let i = 0; i < data[index].pengamatan.length; i++) {
+                                    var table = '<tr>';
+                                        table+='<td>' + no + '</td>'
+                                        table+='<td>' + data[index].bagian + '</td>';
+                                        if(!data[index].pengamatan[i][0]){
+                                            table+='<td> Tidak melakukan pengamatan </td>'
+                                        }else{
+                                            table+='<td>'+ data[index].pengamatan[i][0].nilai_meteran+'</td>'
                                         }
-                                    }else{
-                                        var nomor = nomor+1;
-                                        optionroles+='<tr>';
-                                        optionroles+='<td>'+ nomor +'</td>';
-                                        optionroles+='<td>'+ data[0][index].bagian +'</td>';
-                                        optionroles+='<td> No Value </td>';
-                                        for (let i = 0; i < data[1].length; i++) 
-                                        {
-                                            if (data[0][index].satuan_id == data[1][i].id) {
-                                                optionroles+='<td>'+data[1][i].satuan+'</td>';
-                                            }
-                                        }
-                                        optionroles+='<td>Belum Diinput</td>'
-                                    }                                                                        
-                                    // optionroles+='<td> <button class="btn btn-primary" data-id="' + data[0][index].pengamatan.id + '">Edit</button> </td>';
-                                    optionroles+='</tr>';
+                                        table+='<td>'+ data[index].satuan_id +'</td>'
+                                        table+='<td>'+ data[index].pengamatan[i][1] +'</td>'
+                                        table+='</tr>';          
+                                        $("#isi-table-pengamatan").append(table);     
+                                        no++;
+                                    }
                                 }
-                                $comboroles.html(optionroles).on('change');
-                                $('#table-pengamatan').DataTable().draw();
+                                $('#table-pengamatan').DataTable().order([4, 'asc']).draw();
                             }
                         });
                     })
                 }
             });
         });
-        $('#tanggal-report-3').change(function () {
-            var tgl = $('#tanggal-report-3').val();
-            $.ajax({
-                url: 'report-3/' + tgl,
-                method: 'GET',
-                dataType: 'JSON',
-                success: function (data) {
-                    // console.log(data);
-                    
-                    var td = '';
-                    for (let index = 0; index < data.length; index++) {
-                        var no = index + 1;
-                        td+='<tr>';
-                        td+='<td>'+no+'</td>';
-                        td+='<td>'+data[index].bagian+'</td>'
-                        if (data[index.nilai] == 0) {
-                            data[index].nilai = null;
-                        }
-                        td+='<td>'+data[index].nilai+'</td>'
-                        td+='<td>'+data[index].satuan+'</td>'
-                        td+='</tr>';
-                    }
-                    $('#table-report-3').html(td).on('change');
-                }
-            });
-        })
         $('#tanggal-report-4').change(function () {
             var tgl = $('#tanggal-report-4').val();
             $.ajax({
@@ -396,7 +469,149 @@
         $('#export-penggunaan').click(function () {
             var tgl = $('#tgl-penggunaan-1').val();
             var tgl2 = $('#tgl-penggunaan-2').val();
-            document.location.href='report/export/penggunaan/utility-oline/' + tgl + '/' + tgl2;  
+            var id = $('#kategori-penggunaan').val();
+            document.location.href='report/export/penggunaan/utility-online/' + id + '/' + tgl + '/' + tgl2;  
+        })
+        $('#kategori3').change(function () {
+            $('.export-3').show();
+            $('.export-3-info').hide();
+            if($('#tgl-report-3-1').val()){
+                $.ajax({
+                    url: 'report-3/' + $(this).val() + '/' + $('#tgl-report-3-1').val() +'/' + $('#tgl-report-3-2').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) { 
+                        $('.table-3').DataTable().destroy();
+                        $('.table-3 tbody').empty();
+                        
+                        var td = '';
+                        for (let index = 0; index < data.length; index++) {
+                            var no = index + 1;
+                            td+='<tr>';
+                            td+='<td>'+no+'</td>';
+                            td+='<td>'+data[index].bagian+'</td>'
+                            if (data[index.nilai] == 0) {
+                                data[index].nilai = null;
+                            }
+                            td+='<td>'+data[index].nilai+'</td>'
+                            td+='<td>'+data[index].satuan+'</td>'
+                            td+='<td>'+data[index].tanggal_penggunaan+'</td>'
+                            td+='</tr>';
+                        }
+                        $('#table-report-3').html(td).on('change');
+                        $('.table-3').DataTable().order([4, 'asc']).draw({});
+                    }
+                });
+            }else{
+                $.ajax({
+                    url: 'report-3/' + $(this).val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) { 
+                        $('.table-3').DataTable().destroy();
+                        $('.table-3 tbody').empty();
+                        
+                        var td = '';
+                        for (let index = 0; index < data.length; index++) {
+                            var no = index + 1;
+                            td+='<tr>';
+                            td+='<td>'+no+'</td>';
+                            td+='<td>'+data[index].bagian+'</td>'
+                            if (data[index.nilai] == 0) {
+                                data[index].nilai = null;
+                            }
+                            td+='<td>'+data[index].nilai+'</td>'
+                            td+='<td>'+data[index].satuan+'</td>'
+                            td+='<td>'+data[index].tanggal_penggunaan+'</td>'
+                            td+='</tr>';
+                        }
+                        $('#table-report-3').html(td).on('change');
+                        $('.table-3').DataTable().order([4, 'asc']).draw({});
+                    }
+                });
+            }
+        })
+        $('#kategori-4').change(function(){
+            $('#export-4').show();
+            $('#info-export-4').hide();
+            if($('#tgl-report-4-1').val() == "" && $('#tgl-report-4-1').val() == ""){
+                $.ajax({
+                    url: 'report-4/' + $('#kategori-4').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $(".table-4").DataTable().destroy();
+                        $("#table-report-4").empty();
+                        var table = "";
+                        for (let i = 0; i < data.length; i++) {
+                            var no = i + 1;
+                            table+="<tr>";
+                            table+="<td>" + no + "</td>"
+                            table+="<td>" + data[i].bagian + "</td>";
+                            table+="<td>" + data[i].nilai + "</td>";
+                            table+="<td>" + data[i].satuan + "</td>";
+                            table+="<td>" + data[i].tgl_penggunaan + "</td>";
+                            table+="</tr>";   
+                        }
+                        $("#table-report-4").html(table).on('change');
+                        $(".table-4").DataTable().order([4, 'asc']).draw();
+                    }
+                })
+            } else{
+                $.ajax({
+                    url: 'report-4/' + $('#kategori-4').val() + '/' + $('#tgl-report-4-1').val() + '/' + $('#tgl-report-4-2').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $(".table-4").DataTable().destroy();
+                        $("#table-report-4").empty();
+                        var table = "";
+                        for (let i = 0; i < data.length; i++) {
+                            var no = i + 1;
+                            table+="<tr>";
+                            table+="<td>" + no + "</td>"
+                            table+="<td>" + data[i].bagian + "</td>";
+                            table+="<td>" + data[i].nilai + "</td>";
+                            table+="<td>" + data[i].satuan + "</td>";
+                            table+="<td>" + data[i].tgl_penggunaan + "</td>";
+                            table+="</tr>";   
+                        }
+                        $("#table-report-4").html(table).on('change');
+                        $(".table-4").DataTable().order([4, 'asc']).draw();
+                    }
+                })
+            }
+
+        })
+
+        // Export
+        $('.export-3').click(function () {
+            if($('#kategori').val() == ""){        
+                document.location.href='report/export-3/Penggunaan/utilityOnline/' + $('#tgl-report-3-1').val() + '/'  + $('#tgl-report-3-1').val();
+            }
+            else if($('#tgl-report-3-1').val() == "" && $('#tgl-report-3-2').val() == ""){
+                document.location.href='report/export-3/Penggunaan/utilityOnline/' + $('#kategori3').val();                
+            }
+            else{
+                document.location.href='report/export-3/Penggunaan/utilityOnline/' + $('#tgl-report-3-1').val() + '/'  + $('#tgl-report-3-1').val() + '/' + $('#kategori3').val();
+            }
+        })
+
+        $('#export-4').click(function () {
+            if($('#kategori-4').val() == "" && $('#tgl-report-4-1').val() != "" && $('#tgl-report-4-2').val() != ""){        
+                document.location.href='report-4/export/Penggunaan/utilityOnline/' + $('#tgl-report-4-1').val() + '/'  + $('#tgl-report-4-1').val();
+            }
+            else if($('#tgl-report-4-1').val() == "" && $('#tgl-report-4-2').val() == "" && $('#kategori-4').val() != ""){
+                document.location.href='report-4/export/Penggunaan/utilityOnline/' + $('#kategori-4').val();                
+            }
+            else{
+                if($('#kategori-4').val() == null){
+                    document.location.href='report-4/export/Penggunaan/utilityOnline/' + $('#tgl-report-4-1').val() + '/'  + $('#tgl-report-4-2').val();
+                }else{
+                    document.location.href='report-4/export/Penggunaan/utilityOnline/' + $('#tgl-report-4-1').val() + '/'  + $('#tgl-report-4-2').val() + '/' + $('#kategori-4').val();
+                }
+            }
         })
 </script>
 @endsection
+

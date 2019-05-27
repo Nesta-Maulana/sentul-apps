@@ -146,13 +146,20 @@ active
 
     $('.addRow').click(function () {
         var $tableBody = $('#tablenya').find("tbody"),
-        $trLast = $tableBody.find("tr:last"),
-        $trNew = $trLast.clone();
+            $trLast = $tableBody.find("tr:last"),
+            $trNew = $trLast.clone();
         $trLast.after($trNew);
+        $i = 1;
+        $input = $trNew.find('input').attr({
+
+            'name': function (_, name) {
+                return name
+            }
+        });
     })
 
     function deleteJadwal(id) {
-        
+
         Swal.fire({
             title: 'Konfirmasi',
             text: 'Apakah anda ingin menghapus data ini ?',
@@ -163,7 +170,7 @@ active
             confirmButtonText: 'Ya',
             cancelButtonText: 'Cancel',
         }).then((result) => {
-            if(result.value){
+            if (result.value) {
                 $('#cancelJadwal').modal('show');
                 // $('#cancelJadwal').modal('hide');
                 $('#id').val(id);
@@ -172,20 +179,21 @@ active
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url: 'rollie-penyelia/jadwal-produksi/delete/' +id,
+                        url: 'rollie-penyelia/jadwal-produksi/delete/' + id,
                         method: 'POST',
                         dataType: 'JSON',
                         data: {
-                            'alasan': $('#alasan').val(), 'id': $('#id').val()
+                            'alasan': $('#alasan').val(),
+                            'id': $('#id').val()
                         },
                         success: function (data) {
                             swal({
                                 title: 'Berhasil',
                                 text: 'Berhasil Menghapus',
                                 type: 'success'
-                            }).then((result) =>{
-                                if(result.value){
-                                    document.location.href="";
+                            }).then((result) => {
+                                if (result.value) {
+                                    document.location.href = "";
                                 }
                             })
                         }

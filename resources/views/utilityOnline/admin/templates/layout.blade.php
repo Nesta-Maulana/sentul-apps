@@ -19,6 +19,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/style.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/components.css')}}">
+  <link rel='stylesheet' href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
   <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
 </head>
 
@@ -48,7 +49,7 @@
                     </a>
                 </div>
             </li>
-        </ul>
+        </ul> 
       </nav>
     <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
@@ -166,7 +167,11 @@
   <!-- Page Specific JS File -->
   <script src="{{ asset('utilityOnline/admin/js/page/modules-datatables.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/page/modules-chartjs.js')}}"></script>
+  <script src="{{ asset('generalStyle/plugins/select2/js/select2.min.js') }}"></script>
   <script>
+  $('.select2').select2();
+  $('.table-3').dataTable();
+  $('.table-4').dataTable();
     const flashdatas = $('.failed').data('flashdata');
     if(flashdatas){
         swal({
@@ -202,41 +207,77 @@
         $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         $('#tgl-penggunaan-1').val(start.format('YYYY-MM-DD'));
         $('#tgl-penggunaan-2').val(end.format('YYYY-MM-DD'));
-        $.ajax({
-            url: 'report/' + start.format('YYYY-MM-DD') + '/' +end.format('YYYY-MM-DD'),
-            method: 'GET',
-            dataType: 'JSON',
-            success: function (data) {
-                $('#export-penggunaan').show();
-                $('#export-penggunaan-info').hide();
-                $('#table-1').DataTable().destroy();
-                $('#isi').empty();
-                var no = 1;
-                for (let index = 0; index < data[0].length; index++) 
-                {
-                    var $table = "<tr>";
-                    $table += "<td>" + no + "</td>";
-                    for(let i = 0; i < data[1].length; i++){
-                        if(data[0][index].id_bagian == data[1][i].id){
-                            $table += "<td>"+data[1][i].bagian+"</td>";
+        if($('#kategori-penggunaan').val() == null){
+            $.ajax({
+                url: 'report/' + start.format('YYYY-MM-DD') + '/' + end.format('YYYY-MM-DD'),
+                method: 'GET',
+                dataType: 'JSON',
+                success: function (data) {
+                    $('#export-penggunaan').show();
+                    $('#export-penggunaan-info').hide();
+                    $('#table-1').DataTable().destroy();
+                    $('#isi').empty();
+                    var no = 1;
+                    for (let index = 0; index < data[0].length; index++) {
+                        for (let i = 0; i < data[1].length; i++) {
+                            if (data[0][index].id_bagian == data[1][i].id) {
+                                var $table = "<tr>";
+                                $table += "<td>" + no + "</td>";
+                                $table += "<td>" + data[1][i].bagian + "</td>";
+                                $table += "<td>" + data[0][index].nilai_nfi + "</td>";
+                                $table += "<td>" + data[0][index].nilai_hni + "</td>";
+                                $table += "<td>" + data[0][index].tgl_penggunaan + "</td>";
+                                $table += '<td><a href="report/detail/' + data[0][index].id_bagian + '/' + data[0][index].tgl_penggunaan + '" class="btn btn-primary text-white">Lihat Detail</a></td>';
+                                $table += "</tr>";
+                                no++;
+                                $("#isi").append($table);
+                            }
                         }
                     }
-                
-                    $table += "<td>"+data[0][index].nilai_nfi+"</td>";
-                    $table += "<td>"+data[0][index].nilai_hni+"</td>";
-                    $table += "<td>"+data[0][index].tgl_penggunaan+"</td>";
-                    $table += '<td><a href="report/detail/'+ data[0][index].id_bagian +'/'+ data[0][index].tgl_penggunaan +'" class="btn btn-primary text-white">Lihat Detail</a></td>';
-                    $table+="</tr>";
-                    no++;
-                    $("#isi").append($table);     
+                    $('#table-1').DataTable({
+                        "columnDefs": [{
+                            "sortable": false,
+                            "targets": [2, 3]
+                        }]
+                    }).draw();
                 }
-                $('#table-1').DataTable({
-                    "columnDefs": [
-                        { "sortable": false, "targets": [2,3] }
-                    ]
-                }).draw();
-            }
-        })
+            })
+        }else{
+            $.ajax({
+                url: 'report/' + $('#kategori-penggunaan').val() + '/' + start.format('YYYY-MM-DD') + '/' + end.format('YYYY-MM-DD'),
+                method: 'GET',
+                dataType: 'JSON',
+                success: function (data) {
+                    $('#export-penggunaan').show();
+                    $('#export-penggunaan-info').hide();
+                    $('#table-1').DataTable().destroy();
+                    $('#isi').empty();
+                    var no = 1;
+                    for (let index = 0; index < data[0].length; index++) {
+                        for (let i = 0; i < data[1].length; i++) {
+                            if (data[0][index].id_bagian == data[1][i].id) {
+                                var table = "<tr>";
+                                table += "<td>" + no + "</td>";
+                                table += "<td>" + data[1][i].bagian + "</td>";
+                                table += "<td>" + data[0][index].nilai_nfi + "</td>";
+                                table += "<td>" + data[0][index].nilai_hni + "</td>";
+                                table += "<td>" + data[0][index].tgl_penggunaan + "</td>";
+                                table += '<td><a href="report/detail/' + data[0][index].id_bagian + '/' + data[0][index].tgl_penggunaan + '" class="btn btn-primary text-white">Lihat Detail</a></td>';
+                                table += "</tr>";
+                                no++;
+                                $("#isi").append($table);
+                            }
+                        }
+                    }
+                    $('#table-1').DataTable({
+                        "columnDefs": [{
+                            "sortable": false,
+                            "targets": [2, 3]
+                        }]
+                    }).draw();
+                }
+            })
+        }
       })
     $('#daterange-btn-2').daterangepicker(
         {
@@ -262,6 +303,8 @@
                     $('#export-pengamatan').show();
                     $('#export-pengamatan-info').hide();
                     $('#kategori').attr('disabled', false);
+                    $('#kategori').val("");
+                    $('#workcenter').val("");
                     $('#table-pengamatan').DataTable().destroy();
                     $('#isi-table-pengamatan').empty();
                     var no = 1;
@@ -283,9 +326,159 @@
                             no++;
                         }
                     }
-                    $('#table-pengamatan').DataTable().draw();
+                    $('#table-pengamatan').DataTable().order([4, 'asc']).draw();
                 }
             })
+        }
+    )
+    $('#daterange-btn-3').daterangepicker(
+        {
+            ranges   : {
+                'Today'       : [moment(), moment()],
+                'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            
+        },
+        function (start, end) { 
+
+            
+            $('#daterange-btn-3 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY')); 
+            $('#tgl-report-3-1').val(start.format('YYYY-MM-DD'));
+            $('#tgl-report-3-2').val(end.format('YYYY-MM-DD'));
+            if($('#kategori3').val()){
+                $.ajax({
+                    url: 'report-3/'+ $('#kategori3').val() + '/'  + start.format('YYYY-MM-DD') + '/' +end.format('YYYY-MM-DD'),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        
+                        $('.export-3').show();
+                        $('.export-3-info').hide();
+                        $('.table-3').DataTable().destroy();
+                        $('.table-3 tbody').empty();
+                        
+                        var td = '';
+                        for (let index = 0; index < data.length; index++) {
+                            var no = index + 1;
+                            td+='<tr>';
+                            td+='<td>'+no+'</td>';
+                            td+='<td>'+data[index].bagian+'</td>'
+                            if (data[index.nilai] == 0) {
+                                data[index].nilai = null;
+                            }
+                            td+='<td>'+data[index].nilai+'</td>'
+                            td+='<td>'+data[index].satuan+'</td>'
+                            td+='<td>'+data[index].tanggal_penggunaan+'</td>'
+                            td+='</tr>';
+                        }
+                        $('#table-report-3').html(td).on('change');
+                        $('.table-3').DataTable().order([4, 'asc']).draw({});
+                    }
+                });
+            }else{
+                $.ajax({
+                    url: 'report-3/'  + start.format('YYYY-MM-DD') + '/' +end.format('YYYY-MM-DD'),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        
+                        $('.export-3').show();
+                        $('.export-3-info').hide();
+                        $('.table-3').DataTable().destroy();
+                        $('.table-3 tbody').empty();
+                        
+                        var td = '';
+                        for (let index = 0; index < data.length; index++) {
+                            var no = index + 1;
+                            td+='<tr>';
+                            td+='<td>'+no+'</td>';
+                            td+='<td>'+data[index].bagian+'</td>'
+                            if (data[index.nilai] == 0) {
+                                data[index].nilai = null;
+                            }
+                            td+='<td>'+data[index].nilai+'</td>'
+                            td+='<td>'+data[index].satuan+'</td>'
+                            td+='<td>'+data[index].tanggal_penggunaan+'</td>'
+                            td+='</tr>';
+                        }
+                        $('#table-report-3').html(td).on('change');
+                        $('.table-3').DataTable().order([4, 'asc']).draw({});
+                    }
+                });
+            }
+        }
+    )
+    $('#daterange-btn-4').daterangepicker(
+        {
+            ranges   : {
+                'Today'       : [moment(), moment()],
+                'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+        },
+        function (start, end) {             
+            $('#daterange-btn-4 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY')); 
+            $('#tgl-report-4-1').val(start.format('YYYY-MM-DD'));
+            $('#tgl-report-4-2').val(end.format('YYYY-MM-DD'));
+            $('#export-4').show();
+            $('#info-export-4').hide();
+
+            if($('#kategori-4').val()){
+                $.ajax({
+                    url: 'report-4/' + $('#kategori-4').val() + '/' + $('#tgl-report-4-1').val() + '/' + $('#tgl-report-4-2').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $(".table-4").DataTable().destroy();
+                        $("#table-report-4").empty();
+                        var table = "";
+                        for (let i = 0; i < data.length; i++) {
+                            var no = i + 1;
+                            table+="<tr>";
+                            table+="<td>" + no + "</td>"
+                            table+="<td>" + data[i].bagian + "</td>";
+                            table+="<td>" + data[i].nilai + "</td>";
+                            table+="<td>" + data[i].satuan + "</td>";
+                            table+="<td>" + data[i].tgl_penggunaan + "</td>";
+                            table+="</tr>";   
+                        }
+                        $("#table-report-4").html(table).on('change');
+                        $(".table-4").DataTable().order([4, 'asc']).draw();
+                    }
+                })
+            }else{
+                $.ajax({
+                    url: "report-4/" + $('#tgl-report-4-1').val() + '/' + $('#tgl-report-4-2').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) { 
+                        $(".table-4").DataTable().destroy();
+                        $("#table-report-4").empty();
+                        var table = "";
+                        for (let i = 0; i < data.length; i++) {
+                            var no = i + 1;
+                            table+="<tr>";
+                            table+="<td>" + no + "</td>"
+                            table+="<td>" + data[i].bagian + "</td>";
+                            table+="<td>" + data[i].nilai + "</td>";
+                            table+="<td>" + data[i].satuan + "</td>";
+                            table+="<td>" + data[i].tgl_penggunaan + "</td>";
+                            table+="</tr>";   
+                        }
+                        $("#table-report-4").html(table).on('change');
+                        $(".table-4").DataTable().order([4, 'asc']).draw();
+                    }
+                })
+            }
+
+
         }
     )
     

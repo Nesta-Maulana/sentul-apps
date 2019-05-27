@@ -39,14 +39,22 @@
                                         <th>No WO</th>
                                         <th>Nama Produk</th>
                                         <th>Plan Date</th>
+                                        <th>Nama Plan</th>
+                                        <th>Plan Batch Size</th>
+                                        <th>Status</th>
+                                        <th>Revisi Formula</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="no">1</td>
-                                        <td><input type="text" name="wo" class="form-control"></td>
-                                        <td><input type="text" name="nama-produk" class="form-control"></td>
-                                        <td><input type="text" name="plan-date" class="form-control" ></td>
+                                        <td><input type="text" id="wo[]" name="wo[]" class="form-control"></td>
+                                        <td><input type="text" id="nama-produk[]" name="nama_produk[]" class="form-control"></td>
+                                        <td><input type="date" id="plan-date[]" name="plan_date[]" class="form-control" ></td>
+                                        <td><input type="text" id="nama-plan[]" name="nama_plan[]" class="form-control" ></td>
+                                        <td><input type="text" id="plan-batch[]" name="plan_batch_size[]" class="form-control" ></td>
+                                        <td><input type="text" id="status[]" name="status[]" class="form-control" ></td>
+                                        <td><input type="text" id="revisi-formula[]" name="revisi_formula[]" class="form-control" ></td>
                                     </tr>
                                 </tbody>
                             </table>

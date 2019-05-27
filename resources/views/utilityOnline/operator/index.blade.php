@@ -3,7 +3,11 @@
     Utility Online | Home
 @endsection
 @section('content')
-
+<style>
+    #particles-js{
+        height: 230vh;
+    }
+</style>
 <div id="particles-js"></div>
 <div class="row ml-3 mr-3 mt-2">
     <div class="col-lg-12 text-white" style="background: transparent;">
@@ -80,7 +84,7 @@
                         <table class="table table-bordered data-tables-to-do-list">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th class="text-center">0</th>
+                                    <th class="text-center">#</th>
                                     <th class="text-center">Bagian</th>
                                     <th class="text-center">Workcenter</th>
                                     <th class="text-center">Pengecekan</th> 
@@ -106,8 +110,8 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row justify-content-center">
+</div>x
+<div class="row justify-content-center" style="width: 100%">
     <div class="col-lg-4 mt-4 justify-content-center d-flex">
         <a class="text-white" href="utility-online/water"><button class="btn btn-success tombol"><h1 class="judul">Air</h1></button></a>
     </div>

@@ -3,16 +3,25 @@
     Utility Online | Database
 @endsection
 @section('content')
+<style>
+    #particles-js{
+        height: 170vh;
+    }
+</style>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div id="particles-js"></div>
+    <div class="row back-img-bg d-flex justify-content-center">
+        <div class="img-bg">
+            <div class="mt-5">
+                <h2 class="d-flex justify-content-center mt-5 xtreem" style="color: rgba(176, 255, 66, 0.69); text-shadow: 1px 1px 1px #000; font-size: 100px;"><span style="color: rgba(119, 202, 4, 0.69);">Data</span> base</h2>
+            </div>
+        </div>
+    </div>
     <div class="container">
-        <div class="row teks mt-5">
-            <div class="col teks">
-                <h1 class="font-weight-bold d-flex justify-content-center text-white mt-2" style="font-size: 40px">
-                    Data Pengamatan
-                </h1>
-                <div class="row">
-                    <div class="col-lg-4 p-3 teks text-white">
+        <div class="row" style="margin-top: -18%;">
+            <div class="col teks" style="z-index: 10;">
+                <div class="row p-3 rounded">
+                    <div class="col-lg-4 p-2 teks text-white">
                         <label for="tanggal">Tanggal : </label>
                         <br>
                         <input type="date" id="tanggal" class="form-control">
@@ -36,7 +45,7 @@
                     </div>
                     <div class="col-lg-8 teks ">
                         <!--Table-->
-                        <table id="tablePreview" class="table bg-white table-striped table-hover mt-3">
+                        <table id="tablePreview" class="table bg-white table-striped table-hover mt-3 tablePreview">
                             <!--Table head-->
                             <thead class="thead-dark">
                                 <tr>
@@ -80,12 +89,13 @@
                 </div>
                 <div class="modal-footer">
                     <a type="button" class="btn btn-danger text-white" id="batal" data-dismiss="modal">Close</a>
-                    <button class="btn btn-primary" id="simpan" onclick="simpan()" n  >Save changes</button>
+                    <button class="btn btn-primary" id="simpan" onclick="simpan()" >Save changes</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
+
         $('#kategori').attr('disabled', true);
         $('#workcenter').attr('disabled', true);
         $('#tanggal').change(function () {
@@ -113,6 +123,7 @@
                         $comboroles.html(optionroles).on('change');
 
                         $('#workcenter').change(function () {
+                            $('.tablePreview').DataTable().destroy();
                             var id = $("#workcenter option:selected").val();
                             var tanggal = $('#tanggal').val();
                             $.ajax({
@@ -169,7 +180,9 @@
                                         optionroles+='</tr>';
                                     }
                                     $comboroles.html(optionroles).on('change');
-
+                                    $('.tablePreview').DataTable().draw({
+                                        pageLength: 5
+                                    });
                                     $('.edit').click(function () {
                                         var id = $(this).data('id');
                                         var idBagian = $(this).data('idBagian');
@@ -246,9 +259,12 @@
                     }
                 })
             }
+            $('#exampleModal').modal('hide');
         }
 
         function reload(){
+            
+            $('.tablePreview').DataTable().destroy();
             var id = $("#workcenter option:selected").val();
             var tanggal = $("#tanggal").val();
             $.ajax({
@@ -304,6 +320,9 @@
                         optionroles+='</tr>';
                     }
                     $comboroles.html(optionroles).on('change');
+                    $('.tablePreview').DataTable().draw({
+                        pageLength: 5
+                    });
 
                     $('.edit').click(function () {
                         var id = $(this).data('id');

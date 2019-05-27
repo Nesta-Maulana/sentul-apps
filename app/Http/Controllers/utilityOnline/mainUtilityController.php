@@ -95,8 +95,135 @@ class mainUtilityController extends Controller
         $time = $now->toTimeString();
         $pengamatan = bagian::where('id', $request->idBagian)->latest()->first();
         if ($pengamatan->kategori_pencatatan_id == '1') {
-            $pengamatanbagian = pengamatan::where('id_bagian', $request->idBagian)->latest()->first();
+            // Cek Waktu
+            if($time > '06:00'){
+                $tanggalSekarang =  Carbon::today('Asia/Jakarta');
+                $tanggalBesok =  Carbon::tomorrow('Asia/Jakarta');
+            }else{
+                $tanggalSekarang =  Carbon::yesterday('Asia/Jakarta');
+                $tanggalBesok =  Carbon::today('Asia/Jakarta');
+            }
+            $cekCoolingTower = penggunaan::where('id_bagian', '69')->whereBetween('created_at', [$tanggalSekarang . ' 06:00:00', $tanggalBesok . ' 05:59:59']);
+            $cekDeminWaterProduksiNfi = penggunaan::where('id_bagian', '117')->whereBetween('created_at', [$tanggalSekarang . ' 06:00:00', $tanggalBesok . ' 05:59:59']);
+            $cekSoftWaterNfi = penggunaan::where('id_bagian', '118')->whereBetween('created_at', [$tanggalSekarang . ' 06:00:00', $tanggalBesok . ' 05:59:59']);
+            $cekNfiProduksi = penggunaan::where('id_bagian', '119')->whereBetween('created_at', [$tanggalSekarang . ' 06:00:00', $tanggalBesok . ' 05:59:59']);
 
+            // Plant Utility
+            if($request->idBagian == '50'){
+                    if($cekCoolingTower->count() == '0'){
+                        penggunaan::create([
+                            'id_bagian' => '69',
+                            'nilai' => $request->input,
+                            'tgl_penggunaan' => $tanggalSekarang
+                        ]);
+                    } else{
+                        $penggunaan = $cekCoolingTower->first();
+                        $penggunaan->nilai = $penggunaan->nilai + $request->input;
+                        $penggunaan->save();
+                    }
+            }
+            // Plant Chiller, Boiler, Compesasor
+            else if ($request->idBagian == '51' || $request->idBagian == '52' || $request->idBagian == '53' || $request->idBagian == '54'){
+                if($cekCoolingTower->count() == '0'){
+                    penggunaan::create([
+                        'id_bagian' => '69',
+                        'nilai' => '-' . $request->input,
+                        'tgl_penggunaan' => $tanggalSekarang
+                    ]);
+                } else{
+                    $penggunaan = $cekCoolingTower->first();
+                    $penggunaan->nilai = $penggunaan->nilai - $request->input;
+                    $penggunaan->save();
+                }
+            }
+            // Demin Water
+            else if($request->idBagian == '88'){
+                if($cekDeminWaterProduksiNfi->count() == '0'){
+                    penggunaan::create([
+                        'id_bagian' => '117',
+                        'nilai' => $request->input,
+                        'tgl_penggunaan' => $tanggalSekarang
+                    ]);
+                } else{
+                    $penggunaan = $cekDeminWaterProduksiNfi->first();
+                    $penggunaan->nilai = $penggunaan->nilai + $request->input;
+                    $penggunaan->save();
+                }
+            }
+            // Demin Water Boiler, Demin Water HB, Demin Water Ruby
+            else if ($request->idBagian == '89' || $request->idBagian == '90' || $request->idBagian == '91' ){
+                if($cekDeminWaterProduksiNfi->count() == '0'){
+                    penggunaan::create([
+                        'id_bagian' => '117',
+                        'nilai' => '-' . $request->input,
+                        'tgl_penggunaan' => $tanggalSekarang
+                    ]);
+                } else{
+                    $penggunaan = $cekDeminWaterProduksiNfi->first();
+                    $penggunaan->nilai = $penggunaan->nilai - $request->input;
+                    $penggunaan->save();
+                }
+            }
+            // Soft Water Produksi NFI
+            else if($request->idBagian == '92' || $request->idBagian == '93'){
+                if($cekSoftWaterNfi->count() == '0'){
+                    penggunaan::create([
+                        'id_bagian' => '118',
+                        'nilai' => $request->input,
+                        'tgl_penggunaan' => $tanggalSekarang
+                    ]);
+                } else{
+                    $penggunaan = $cekSoftWaterNfi->first();
+                    $penggunaan->nilai = $penggunaan->nilai + $request->input;
+                    $penggunaan->save();
+                }
+            }
+            // Soft Water Ruby, Non Produksi, Gedung Depan, kantin, lubrikasi, cooling tower
+            else if ($request->idBagian == '94' || $request->idBagian == '95' || $request->idBagian == '96' || $request->idBagian == '97' || $request->idBagian == '98' || $request->idBagian == '99' || $request->idBagian == '100' || $request->idBagian == '102'){
+                if($cekSoftWaterNfi->count() == '0'){
+                    penggunaan::create([
+                        'id_bagian' => '118',
+                        'nilai' => '-' . $request->input,
+                        'tgl_penggunaan' => $tanggalSekarang
+                    ]);
+                } else{
+                    $penggunaan = $cekSoftWaterNfi->first();
+                    $penggunaan->nilai = $penggunaan->nilai - $request->input;
+                    $penggunaan->save();
+                }
+            }
+            // NFI Produksi -> workcenter gas(steam)
+            else if($request->idBagian == '112'){
+                if($cekNfiProduksi->count() == '0'){
+                    penggunaan::create([
+                        'id_bagian' => '119',
+                        'nilai' => $request->input,
+                        'tgl_penggunaan' => $tanggalSekarang
+                    ]);
+                } else{
+                    $penggunaan = $cekNfiProduksi->first();
+                    $penggunaan->nilai = $penggunaan->nilai + $request->input;
+                    $penggunaan->save();
+                }
+            }
+            // HNI Ruby
+            else if ($request->idBagian == '113'){
+                if($cekNfiProduksi->count() == '0'){
+                    penggunaan::create([
+                        'id_bagian' => '119',
+                        'nilai' => '-' . $request->input,
+                        'tgl_penggunaan' => $tanggalSekarang
+                    ]);
+                } else{
+                    $penggunaan = $cekNfiProduksi->first();
+                    $penggunaan->nilai = $penggunaan->nilai - $request->input;
+                    $penggunaan->save();
+                }
+            }
+
+
+            // Input Pengamatan dan penggunaan
+            $pengamatanbagian = pengamatan::where('id_bagian', $request->idBagian)->latest()->first();
             if($pengamatanbagian){
                 $nilai = $pengamatanbagian->nilai_meteran - $request->input;
             }else{
@@ -114,6 +241,8 @@ class mainUtilityController extends Controller
                 'nilai' => $nilai,
                 'tgl_penggunaan' => $yesterday
             ]);
+
+            
         }else if ($pengamatan->kategori_pencatatan_id == '2'){
             $now = Carbon::now('Asia/Jakarta');
             $now = $now->toTimeString();
@@ -267,28 +396,12 @@ class mainUtilityController extends Controller
             }
             $value->pengamatan = $pengamatanbagian;
         }
-        // dd($bagian);
+
         $satuan = satuan::all();
         return [$bagian, $satuan];
     }
 
     public function editDatabase($id, $tgl){
-        // Kirim tanggal nya ja jgn cuman id
-        // $bagian = bagian::where('id', $idBagian)->get();
-        // dd($idBagian);
-        // foreach ($bagian as  $value) 
-        // {
-        //     $pengamatanbagian = bagian::leftjoin('pengamatan','pengamatan.id_bagian','bagian.id')
-        //             ->select('bagian.*', 'pengamatan.*')
-        //             ->where('pengamatan.id_bagian',$id)
-        //             ->first();
-            
-        //     $value->pengamatan = $pengamatanbagian;
-        // }
-        
-        // return $bagian;
-
-        // dd($id);
         $pengamatan = pengamatan::where('id', $id)->get();
         foreach ($pengamatan as $p ) {
             $pengamatanbagian = bagian::rightjoin('pengamatan', 'pengamatan.id_bagian', 'bagian.id')
@@ -301,17 +414,27 @@ class mainUtilityController extends Controller
     }
 
     public function updateDatabase(Request $request){
+        $pengamatanbagian = pengamatan::where('id', $request->id)->latest()->first();
         $now = Carbon::today('Asia/Jakarta');
         $time = $now->toTimeString();
         $pengamatan = pengamatan::where('id', $request->id)->whereDate('created_at', $request->tgl)->first();
         $pengamatan->nilai_meteran = $request->nilai;
         $pengamatan->created_at = $request->tgl . ' ' . $time;
+        $pengamatan->user_update = $now;
         $pengamatan->save();
+
+        $penggunaan = penggunaan::where('id_bagian', $pengamatan->id_bagian)->latest()->first();
+        $nilai = $penggunaan->nilai + $pengamatanbagian->nilai_meteran;
+        $nilai = $nilai - $request->nilai;
+        $penggunaan->nilai = $nilai;
+        $penggunaan->save();
         return $now;
     }
 
     public function simpanDatabase(Request $request){
         
+        $pengamatanbagian = pengamatan::where('id_bagian', $request->idBagian)->latest()->first();
+
         $now = Carbon::now('Asia/Jakarta');
         $time = $now->toTimeString();
         $pengamatan = new pengamatan();
@@ -320,6 +443,27 @@ class mainUtilityController extends Controller
         $pengamatan->id_bagian = $request->idBagian;
         $pengamatan->created_at = $request->tgl . ' ' . $time;
         $pengamatan->save(['timestamps' => false]);
+
+        $yesterday = $pengamatan->created_at;
+        $yesterday = $yesterday->toDateString();
+        $yesterday = explode('-', $yesterday);
+        $yesterday = Carbon::createFromDate($yesterday[0], $yesterday[1], $yesterday[2]);
+        $yesterday = $yesterday->addDay('-1');
+        $yesterday = $yesterday->toDateString();
+
+        if($pengamatanbagian){
+            $nilai = $pengamatanbagian->nilai_meteran - $request->nilai;
+            
+        }else{
+            $nilai = $request->nilai;
+        }
+    
+        penggunaan::create([
+            'id_bagian' => $request->idBagian,
+            'nilai' => $nilai,
+            'tgl_penggunaan' => $yesterday
+        ]);
+
         return $now;
     }
 

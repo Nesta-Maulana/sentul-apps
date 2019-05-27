@@ -1,3 +1,4 @@
+
 <table>
     <thead>
         <tr>
@@ -12,13 +13,14 @@
             @endforeach
         </tr>
         <tr>
-            @for($i =0; $i<= $jmlTgl/2; $i++)
+            @for($i =0; $i<= $jmlTgl - 1; $i++)
                 <th>NFI</th>
                 <th>HNI</th>
             @endfor
         </tr>
     </thead>
     <tbody>
+    
         <?php $no=0 ?>
         @foreach($bagian as $b)
         

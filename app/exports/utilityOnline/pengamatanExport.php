@@ -15,7 +15,7 @@ use \Carbon\Carbon;
 class pengamatanExport implements FromView, WithHeadings, ShouldAutoSize
 {
 
-    use Exportable;
+    use Exportable; 
 
     public function __construct(string $tgl1, string $tgl2, string $nama_report, string $from){
         $this->tgl1 = $tgl1;

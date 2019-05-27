@@ -75,6 +75,8 @@ class penyeliaController extends resourceController
 
     public function importJadwalProduksi(Request $request) 
     {
+
+        
         // pengecekan jenis upload
        if ($request->jenis_upload == '1') 
        {
@@ -100,11 +102,30 @@ class penyeliaController extends resourceController
             {
                 return back()->with('failed','Harap Attach File Excel Mtol');
             } 
-       }
-       else
-       {
-            // ini untuk table add
-       }
+        }
+        else
+        {
+            
+            $cek = wo::all()->count();
+            for ($i=0; $i < count($request->wo); $i++) { 
+                wo::create([
+                "nomor_wo" => $request->wo[$i],
+                "produk_id" => $request->nama_produk[$i],
+                "production_plan_date" => $request->plan_date[$i] . ' 00:00:00',
+                "plan_id" => $request->nama_plan[$i],
+                "plan_batch_size" => $request->plan_batch_size[$i],
+                "status" => $request->
+                
+                status[$i],
+                "revisi_formula" => $request->revisi_formula[$i],
+                ]);
+            }   
+            if($cek <= $i){
+                return "Gagal";
+            }else{
+                return back()->with('success', "Berhasil Menambahkan");
+            }
+        }
     }
     public function cancel(Request $request){
         

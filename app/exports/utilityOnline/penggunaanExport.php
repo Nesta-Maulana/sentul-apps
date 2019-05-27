@@ -16,13 +16,21 @@ use Maatwebsite\Excel\Concerns\FromView;
 use \Carbon\Carbon;
 
 
+
 class penggunaanExport implements FromView, WithHeadings, ShouldAutoSize
 {
     use Exportable;
 
-    public function __construct(string $tgl1, string $tgl2){
+    public function __construct(string $tgl1, string $tgl2, string $kategori){
         $this->tgl1 = $tgl1;
         $this->tgl2 = $tgl2;
+        $this->kategori = $kategori;
+        if($tgl1 == "" && $tgl2 == ""){
+            $this->from = penggunaan::orderBy('tgl_penggunaan', 'asc')->first()->tgl_penggunaan;
+            $this->to = penggunaan::orderBy('tgl_penggunaan', 'desc')->first()->tgl_penggunaan;
+            $tgl1 = $this->from;
+            $tgl2 = $this->to;
+        }
         $this->from = explode('-', $tgl1);
         $this->to = explode('-', $tgl2); 
         $this->to = Carbon::createFromDate($this->to[0], $this->to[1], $this->to[2]);
@@ -44,11 +52,18 @@ class penggunaanExport implements FromView, WithHeadings, ShouldAutoSize
     }    
     public function view(): View
     {
+
         $tz = 'Asia/Jakarta';
+        
         $tgl = $this->generateDateRange($this->from, $this->to);
-        $bagian = bagian::all();
+        
+        $bagian = bagian::join('workcenter','bagian.workcenter_id', 'workcenter.id')
+                            ->join('kategori', 'workcenter.kategori_id', 'kategori.id')
+                            ->select("bagian.*", "workcenter.workcenter", "kategori.kategori")
+                            ->where('kategori.id', $this->kategori)->get();
         foreach ($bagian as $b) 
         {  
+
             $i = 0;
             $penggunaan = [];
             foreach ($tgl as $c ) {
@@ -113,9 +128,14 @@ class penggunaanExport implements FromView, WithHeadings, ShouldAutoSize
                         }
                     }
                 }else{
+                    
                     $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->whereBetween('tgl_penggunaan', [$c, $tgl[$i]])->first();
                     if(!$penggunaanBagian){
-                        $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->latest()->first();
+                        $penggunaanBagian = penggunaan::where('id_bagian', $b->id)->latest()->first(); 
+                        if(!$penggunaanBagian){
+                            $penggunaanBagian = bagian::where('d',$b->id)->first();
+                            dd($penggunaanBagian);
+                        }
                         $penggunaanBagian->nilai_nfi = '0';
                         $penggunaanBagian->nilai_hni = '0';   
                     }else{
@@ -173,7 +193,7 @@ class penggunaanExport implements FromView, WithHeadings, ShouldAutoSize
             }
             $b->penggunaan = $penggunaan;
         }
-        // dd($bagian[35]);
+        // dd($bagian);
         return view('utilityOnline.admin.export.penggunaanReport',['bagian' => $bagian , 'tgl' => $tgl, 'jmlTgl' => $this->jmlDate]);
     }
 }

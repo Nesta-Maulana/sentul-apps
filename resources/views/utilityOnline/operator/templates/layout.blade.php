@@ -23,6 +23,24 @@ display: none;
 .dataTables_info{
     color: white;
 }
+.img-bg{
+    background-image: url('{{ asset("userAccess/img/background2.JPG")}}');
+    background-position: center;
+    background-size: cover;
+    width: 120%;
+    height: 60vh;
+    z-index: 9;
+}
+.back-img-bg{
+    width: 101.1%;
+    opacity: 0.8;
+}
+@media only screen and (min-width: 920px){
+    .img-bg{
+        background-position: 0 0px;
+        height: 70vh;
+    }
+}
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-light bbotom">
     <a class="navbar-brand text-success" href="/sentul-apps/utility-online">Utility Online</a>
@@ -76,6 +94,11 @@ display: none;
 
 <script>
 $('.data-tables-to-do-list').dataTable(
+    {
+        pageLength:5
+    }
+);
+$('.tablePreview').dataTable(
     {
         pageLength:5
     }
