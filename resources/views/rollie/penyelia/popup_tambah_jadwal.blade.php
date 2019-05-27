@@ -13,7 +13,7 @@
                         <label for="jenis_upload" class="col-lg-2">Pilih Jenis Penambahan: </label>
                         <select name="jenis_upload" id="jenis_upload" class="form-control jenis col-lg-9">
                             <option value="" selected disabled>-- PILIH JENIS PENAMBAHAN Jadwal --</option>
-                            <option value="1">Upload CPP</option>
+                            <option value="1">Upload MTOL</option>
                             <option value="0">Tambah 1 Row</option>
                         </select>
                     </div>

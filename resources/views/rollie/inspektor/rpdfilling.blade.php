@@ -55,10 +55,10 @@
 				<div class="col-md-6">
 					<div class="row form-group left" id="popupubah">
 						<div class="col-md-6">
-							<button data-toggle="modal" data-target="#tambah-sample">
+							<a data-toggle="modal" data-target="#tambah-sample" onclick="hapusdatapopup()">
 								<img src="{{ asset('generalStyle/images/logo/plus.png') }}" width="50px" alt="">
 								Tambah Sample
-							</button>
+							</a>
 						</div>
 						<div class="col-md-6">
 							<a data-toggle="modal" data-target="#tambah-batch">
@@ -92,14 +92,16 @@
                     </thead>
                     <tbody id="detail_pi">
                     	@foreach ($rpd_filling->detail_pi as $detail_pi)
-                    		<tr>
+                    		@if (is_null($detail_pi->airgap) && is_null($detail_pi->ts_accurate_kanan) && is_null($detail_pi->ts_accurate_kiri) && is_null($detail_pi->ls_accurate) && is_null($detail_pi->sa_accurate) && is_null($detail_pi->surface_check) && is_null($detail_pi->pinching) && is_null($detail_pi->strip_folding) && is_null($detail_pi->konduktivity_kanan) && is_null($detail_pi->konduktivity_kiri) && is_null($detail_pi->design_kanan) && is_null($detail_pi->design_kiri) && is_null($detail_pi->dye_test) && is_null($detail_pi->residu_h2o2) && is_null($detail_pi->prod_code_no_md) && is_null($detail_pi->correction))
+                			<tr>
                     			<td>{{ $detail_pi->wo->nomor_wo }}</td>
                     			<td>{{ $detail_pi->mesin_filling->kode_mesin }}</td>
                     			<td style="display: none;">{{ $detail_pi->tanggal_filling }}</td>
                     			<td>{{ $detail_pi->jam_filling }}</td>
                     			<td>{{ $detail_pi->kode_sampel->kode_sampel }}</td>
-                    			<td><a href="">ANALISA</a></td>
+                    			<td><a data-toggle="modal" data-target="#analisa-sample-pi" onclick="analisa_sampel_pi('{{ $detail_pi->kode_sampel->kode_sampel }}','{{ ucwords($detail_pi->kode_sampel->event) }}','{{ $detail_pi->mesin_filling->kode_mesin }}','{{ $detail_pi->tanggal_filling }}','{{ $detail_pi->jam_filling }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->id) }}','{{ $detail_pi->wo->produk->nama_produk }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->wo->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->mesin_filling->id) }}')">ANALISA</a></td>
                     		</tr>
+                    		@endif
                     	@endforeach
                     	@foreach ($rpd_filling->detail_at_event as $detail_at_event)
                     		<tr>
@@ -108,18 +110,18 @@
                     			<td style="display: none;">{{ $detail_at_event->tanggal_filling }}</td>
                     			<td>{{ $detail_at_event->jam_filling }}</td>
                     			<td>{{ $detail_at_event->kode_sampel->kode_sampel }} ( Event )</td>
-                    			<td><a href="">ANALISA</a></td>
+                    			<td><a data-toggle="modal" data-target="#analisa-sample-at-event">ANALISA</a></td>
                     		</tr>
                     	@endforeach
-                    	
                     </tbody>
 				</table>
 			</div>
+			<button onclick="reloadTablePi()">Cek </button>
 			@include('rollie.inspektor.popup-tambah-sample')
 			@include('rollie.inspektor.popup-tambah-batch')
-			<button onclick="reloadTablePi()">CEK</button>
+			@include('rollie.inspektor.popup-analisa-pi')
+			@include('rollie.inspektor.popup-analisa-at-event')
 		</div>
 	</div>
-	
 	
 @endsection

@@ -3,8 +3,7 @@
         <div class="modal-content" style="width: 130%;">
             <div class="modal-header">
                 <h5>Tambah Sampel Analisa</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
+                <button type="button" id="close-button" class="close" onclick="hapusdatapopup()" data-dismiss="modal">&times;</button>
             </div>
             <meta name="csrf-token" content="{{ csrf_token() }}" />
             <input type="hidden" name="user_id_inputer" id="user_id_inputer" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($username->user->id) }}">
