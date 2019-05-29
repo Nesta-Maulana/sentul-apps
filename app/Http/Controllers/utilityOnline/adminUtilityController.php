@@ -549,11 +549,11 @@ class adminUtilityController extends resourceController
             array_push($bagian, ['bagian' => 'Service Water', 'nilai' => $serviceWater, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
 
             
-            array_push($bagian, ['bagian' => 'HNI', 'nilai' => $deminWaterProdukHb + $deminWaterRuby + $deminWaterGreek + $deminWaterProdukHb + $softWaterRuby + $softWaterGreek + $inputEmbung + $inputEmbung + $inputEmbung + $inputEmbung + $softWaterGedungDepan + $softWaterHb + $softWaterBakery, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'HNI', 'nilai' => $deminWaterProdukHb + $deminWaterRuby + $deminWaterGreek + $softWaterProduksiHb + $softWaterRuby + $softWaterGreek + $inputEmbung + $inputEmbung + $inputEmbung + $inputEmbung + $softWaterGedungDepan + $softWaterHb + $softWaterBakery, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Demin Water Produksi', 'nilai' => $deminWaterProdukHb, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Demin Water Ruby', 'nilai' => $deminWaterRuby, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Demin Water Greek', 'nilai' => $deminWaterGreek, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
-            array_push($bagian, ['bagian' => 'Soft Water Produksi', 'nilai' => $deminWaterProdukHb, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'Soft Water Produksi', 'nilai' => $softWaterProduksiHb, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Soft Water Ruby', 'nilai' => $softWaterRuby, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Soft Water Greek', 'nilai' => $softWaterGreek, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
 
@@ -586,6 +586,7 @@ class adminUtilityController extends resourceController
             array_push($bagian, ['bagian' => 'HNI RETORT (GAS)', 'nilai' => $hniRetortGas, 'satuan' => 'nm3', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'HNI PRODUKSI (SOLAR)', 'nilai' => $hniProduksiSolar, 'satuan' => 'nm3', 'tanggal_penggunaan' => $tgl]); 
         }
+        
         return $bagian;   
         
     }
@@ -697,12 +698,12 @@ class adminUtilityController extends resourceController
                 array_push($bagian, ['bagian' => 'Soft Water Lubrikasi', 'nilai' => $softWaterLubrikasi, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Soft Water Cooling Tower', 'nilai' => $inputEmbung, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Service Water', 'nilai' => $serviceWater, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
-                array_push($bagian, ['bagian' => 'HNI', 'nilai' => $deminWaterProdukHb + $deminWaterRuby + $deminWaterGreek + $deminWaterProdukHb + $softWaterRuby + $softWaterGreek + $inputEmbung + $inputEmbung + $inputEmbung + $inputEmbung + $softWaterGedungDepan + $softWaterHb + $softWaterBakery, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
-                array_push($bagian, ['bagian' => 'HNI', 'nilai' => $inputEmbung, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
+                array_push($bagian, ['bagian' => 'HNI', 'nilai' => $deminWaterProdukHb + $deminWaterRuby + $deminWaterGreek + $softWaterProduksiHb + $softWaterRuby + $softWaterGreek + $inputEmbung + $inputEmbung + $inputEmbung + $inputEmbung + $softWaterGedungDepan + $softWaterHb + $softWaterBakery, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
+                // array_push($bagian, ['bagian' => 'HNI', 'nilai' => $inputEmbung, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Demin Water Produksi', 'nilai' => $deminWaterProdukHb, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Demin Water Ruby', 'nilai' => $deminWaterRuby, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Demin Water Greek', 'nilai' => $deminWaterGreek, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
-                array_push($bagian, ['bagian' => 'Soft Water Produksi', 'nilai' => $deminWaterProdukHb, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
+                array_push($bagian, ['bagian' => 'Soft Water Produksi', 'nilai' => $softWaterProduksiHb, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Soft Water Ruby', 'nilai' => $softWaterRuby, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Soft Water Greek', 'nilai' => $softWaterGreek, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Demin Water Boiler', 'nilai' => $inputEmbung, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
@@ -713,6 +714,7 @@ class adminUtilityController extends resourceController
                 array_push($bagian, ['bagian' => 'Soft Water HB', 'nilai' => $softWaterHb, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Soft Water Bakery', 'nilai' => $softWaterBakery, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
             }
+            dd($bagian);
             return $bagian;   
             
         }
@@ -1126,21 +1128,105 @@ class adminUtilityController extends resourceController
         $bagian = [];
         if($id == '1'){
             foreach ($cek as $tgl ) {
-                array_push($bagian, ['bagian' => 'NFI VAR. LOAD', 'satuan' => 'm3', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                array_push($bagian, ['bagian' => 'NFI FIX LOAD', 'satuan' => 'm3', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                array_push($bagian, ['bagian' => 'HNI VAR. LOAD', 'satuan' => 'm3', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                    array_push($bagian, ['bagian' => 'Ruby', 'satuan' => 'm3', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                    array_push($bagian, ['bagian' => 'Greek', 'satuan' => 'm3', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                    array_push($bagian, ['bagian' => 'Bakery', 'satuan' => 'm3', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                array_push($bagian, ['bagian' => 'HNI FIX LOAD', 'satuan' => 'm3', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
+
+                // Demin Water Produksi
+                $dsw2 = $this->rasioBagian(['93'], '', $tgl);
+                $softWaterProduksi = $this->rasioBagian(['92', '93'], 'NFI', $tgl) - $this->rasioBagian(['95', '96', '97', '98', '99', '100'], 'NFI', $tgl);;
+                $softWaterNonProduksi = $this->rasioBagian(['95'], 'NFI', $tgl);
+                $softWaterLubrikasi = $this->rasioBagian(['99'], 'NFI', $tgl);    
+                // softwater cooling tower
+                $nfiVarLoadWater = $dsw2 + $softWaterProduksi + $softWaterNonProduksi + $softWaterLubrikasi;
+                
+                $nfiFixLoadWater = $this->rasioBagian(['101'], 'NFI', $tgl);
+
+                $deminWaterRuby = $this->rasioBagian(['90'], 'HNI', $tgl);        
+                $deminWaterGreek = $this->rasioBagian(['91'], 'HNI', $tgl);        
+                $softWaterRuby = $this->rasioBagian(['94'], 'HNI', $tgl);        
+                $softWaterGreek = $this->rasioBagian(['97'], 'HNI', $tgl);        
+                $deminWaterProdukHb = $deminWaterRuby + $deminWaterGreek;
+                $softWaterProduksiHb = $softWaterRuby + $softWaterGreek;
+                $softWaterProduksiHb = $softWaterRuby + $softWaterGreek;
+                $softWaterBakery = $this->rasioBagian(['102'], 'HNI', $tgl);        
+                $hniVarloadWater = $deminWaterProdukHb + $softWaterProduksiHb + $softWaterGreek + $softWaterProduksiHb + $softWaterBakery;
+
+                $deminWaterRuby = $this->rasioBagian(['90'], 'HNI', $tgl);    
+                $softWaterRuby = $this->rasioBagian(['94'], 'HNI', $tgl);
+                // Demin Water Boiler
+                $rubyWater = $deminWaterRuby + $softWaterRuby;
+
+                $deminWaterGreek = $this->rasioBagian(['91'], 'HNI', $tgl);        
+                $softWaterGreek = $this->rasioBagian(['97'], 'HNI', $tgl);        
+                // Boiler Greek
+                $greekWater = $deminWaterGreek + $softWaterGreek;
+
+                $softWaterBakery = $this->rasioBagian(['102'], 'HNI', $tgl);
+                $softWaterGedungDepan = $this->rasioBagian(['96'], 'HNI', $tgl);
+                $softWaterHb = $this->rasioBagian(['98'], 'HNI', $tgl);
+
+                // Air
+                array_push($bagian, ['bagian' => 'NFI VAR. LOAD', 'satuan' => 'm3', 'nilai' => $nfiVarLoadWater, 'tgl_penggunaan' => $tgl]);
+                array_push($bagian, ['bagian' => 'NFI FIX LOAD', 'satuan' => 'm3', 'nilai' => $nfiFixLoadWater, 'tgl_penggunaan' => $tgl]);
+                array_push($bagian, ['bagian' => 'HNI VAR. LOAD', 'satuan' => 'm3', 'nilai' => $hniVarloadWater, 'tgl_penggunaan' => $tgl]);
+                    array_push($bagian, ['bagian' => 'Ruby', 'satuan' => 'm3', 'nilai' => $rubyWater, 'tgl_penggunaan' => $tgl]);
+                    array_push($bagian, ['bagian' => 'Greek', 'satuan' => 'm3', 'nilai' => $greekWater, 'tgl_penggunaan' => $tgl]);
+                    array_push($bagian, ['bagian' => 'Bakery', 'satuan' => 'm3', 'nilai' => $softWaterBakery, 'tgl_penggunaan' => $tgl]);
+                array_push($bagian, ['bagian' => 'HNI FIX LOAD', 'satuan' => 'm3', 'nilai' => $softWaterHb, 'tgl_penggunaan' => $tgl]);
+                
             }
         }
         else if($id == '2'){
             foreach ($cek as $tgl ) {
-                array_push($bagian, ['bagian' => 'NFI VAR. LOAD', 'satuan' => 'Mwh', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                array_push($bagian, ['bagian' => 'NFI FIX LOAD', 'satuan' => 'Mwh', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                array_push($bagian, ['bagian' => 'HNI VAR. LOAD', 'satuan' => 'Mwh', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
-                array_push($bagian, ['bagian' => 'HNI FIX LOAD', 'satuan' => 'Mwh', 'nilai' => '', 'tgl_penggunaan' => $tgl]);
+                // Rumus
+                // Rumus
+                $frc1 = $this->rasioBagian(['38'], 'NFI', $tgl);
+                $frc2 = $this->rasioBagian(['72', '73'], 'NFI', $tgl);
+                $frc = $frc1 - $frc2;
+                $lab = $this->rasioBagian(['39'], 'NFI', $tgl);    
+                // Wtp dan wwtp
+                // Deepwell
+                // Utility Total
+                $nfiVarLoad = $frc + $lab;
+
+                $ups1 = $this->rasioBagian(['37'], '', $tgl);
+                $ups2 = $this->rasioBagian(['38', '39', '72', '73'], '', $tgl);
+                $lpgp = $this->rasioBagian(['58'], 'NFI', $tgl);
+                $ac1 = $this->rasioBagian(['55'], 'NFI', $tgl);
+                $ac2 = $this->rasioBagian(['56'], 'NFI', $tgl);
+                $ac = $ac1 - $ac2;
+                $rc = $this->rasioBagian(['48'], 'HNI', $tgl) / 4;
+                $hydrant = $this->rasioBagian(['46'], 'NFI', $tgl);
+                $ruby = $this->rasioBagian(['72', '73'], 'HNI', $tgl);
+                if($frc + $ruby == 0){
+                    $fr = 1;
+                }else{
+                    $fr = $frc + $ruby;
+                }
+                $ups = $ups1 - $ups2;
+                $upsRuby = ($frc/$fr)* $ups;
+                $nfiFixLoad = $lpgp + $ac + $rc + $hydrant + $ruby + $upsRuby;
+
+                $greek = $this->rasioBagian(['43'], 'HNI', $tgl);
+                // WTR
+                // WTG
+                // DW2
+                $bakery = $this->rasioBagian(['57'], 'HNI', $tgl);
+                $hniVarLoad = $greek + $ruby + $bakery;
+
+                $officeRd = $this->rasioBagian(['42'], 'HNI', $tgl);
+                $acGudang = $this->rasioBagian(['6'], 'HNI', $tgl);
+                $rc = $this->rasioBagian(['48'], 'HNI', $tgl);
+                $rc1 = $this->rasioBagian(['49'], 'HNI', $tgl);
+                $rc = $rc + ($rc1 * 3 / 4);
+                // WTO
+                $ups1 = $this->rasioBagian(['37'], '', $tgl);
+                $ups2 = $this->rasioBagian(['38', '39', '72', '73'], '', $tgl);
+                $ups = $ups1 - $ups2;
+                $upsRuby = ($ruby / $fr) * $ups;
+                $hniFixLoad = ($officeRd + $acGudang + $rc) + $upsRuby;
+                array_push($bagian, ['bagian' => 'NFI VAR. LOAD', 'satuan' => 'Mwh', 'nilai' => $nfiVarLoad, 'tgl_penggunaan' => $tgl]);
+                array_push($bagian, ['bagian' => 'NFI FIX LOAD', 'satuan' => 'Mwh', 'nilai' => $nfiFixLoad, 'tgl_penggunaan' => $tgl]);
+                array_push($bagian, ['bagian' => 'HNI VAR. LOAD', 'satuan' => 'Mwh', 'nilai' => $hniVarLoad, 'tgl_penggunaan' => $tgl]);
+                array_push($bagian, ['bagian' => 'HNI FIX LOAD', 'satuan' => 'Mwh', 'nilai' => $hniFixLoad, 'tgl_penggunaan' => $tgl]);
             }
         }
         else if($id == '3'){

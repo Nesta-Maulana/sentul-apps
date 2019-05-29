@@ -69,17 +69,25 @@
     <!--================Header Menu Area =================-->
 
 
+
+
+
+
+
+
+
+
     <!--================Hero Banner Area Start =================-->
     <section class="hero-banner magic-ball">
         <div class="container">
 
             <div class="row align-items-center text-center text-md-left">
-                <div class="col-md-6 col-lg-5 mb-5 mb-md-0">
+                <div class="col-lg-12 mb-5">
                     <h1>Go Office</h1>
-                    <p>Go Office is a system that connects all data of PT. Nutrifood Indonesia which was developed by <span class="font-weight-bold" style="color: #7676ff">Nesta Maulana</span> and his team.</p>
-                </div>x
-                <div class="col-md-6 col-lg-7 col-xl-6 offset-xl-1">
-                    <img class="img-fluid" src="{{ asset('goOffice/img/home/hero-img.png')}}" alt="">
+                    <p>Go Office is a system that connects all data of PT. Nutrifood Indonesia which was developed by <span class="font-weight-bold" style="color:lg-1276ff">Nesta Maulana</span> and his team.</p>
+                </div>
+                <div class="col-lg-12">
+                    <img class="img-responsive" src="{{ asset('goOffice/img/home/hero-img.png')}}" alt="">
                 </div>
             </div>
         </div>
