@@ -70,13 +70,6 @@
 
 
 
-
-
-
-
-
-
-
     <!--================Hero Banner Area Start =================-->
     <section class="hero-banner magic-ball">
         <div class="container">

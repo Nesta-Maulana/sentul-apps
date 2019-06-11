@@ -14,13 +14,16 @@
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/fullcalendar/fullcalendar.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/daterangepicker.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/bootstrap-timepicker.min.css')}}">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/style.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/components.css')}}">
   <link rel='stylesheet' href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
+
   <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
+  
 </head>
 
 <body>
@@ -44,7 +47,7 @@
                         <i class="fa fa-user"></i> Profile
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item has-icon text-danger">
+                    <a href="/sentul-apps/logout" class="dropdown-item has-icon text-danger">
                         <i class="fa fa-sign-out-alt"></i> Logout
                     </a>
                 </div>
@@ -144,7 +147,6 @@
   <script src="{{ asset('utilityOnline/admin/js/tooltip.js')}}"></script>
   <script src="{{ asset('generalStyle/js/bootstrap.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/js/moment.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/stisla.js')}}"></script>
   
   <!-- JS Libraies -->
@@ -158,9 +160,15 @@
   <script src="{{ asset('utilityOnline/admin/js/custom.js')}}"></script>
   <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
     <!-- JS Libraies -->
-  <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
+  
+    <script src="{{ asset('utilityOnline/admin/js/moment.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/modules/fullcalendar/fullcalendar.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/js/page/modules-calendar.js')}}"></script>
+
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
+
   <script src="{{ asset('utilityOnline/admin/modules/jquery-ui/jquery-ui.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/daterangepicker.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/bootstrap-datetimepicker.min.js')}}"></script>
@@ -169,9 +177,57 @@
   <script src="{{ asset('utilityOnline/admin/js/page/modules-chartjs.js')}}"></script>
   <script src="{{ asset('generalStyle/plugins/select2/js/select2.min.js') }}"></script>
   <script>
+    
+    $.ajax({
+        url: 'form-hari-kerja-ambil/',
+        method: 'get',
+        dataType: 'json',
+        success: function (data) {
+            
+            
+            for (let i = 0; i < data.length; i++) {
+                
+                
+                if(data[i].hni){
+                    var event={id:i , title: data[i].hni + ' SHIFT (HNI)', start:  data[i].tgl, backgroundColor: "#eaeaea", borderColor: "#fff", textColor: '#000'};
+                    $("#myEvent").fullCalendar('renderEvent', event, true);
+                }
+                if(data[i].nfi){
+                    var event={id:i , title: data[i].nfi + ' SHIFT(NFI)', start:  data[i].tgl, backgroundColor: "#eaeaea", borderColor: "#fff", textColor: '#000'};
+                    $("#myEvent").fullCalendar('renderEvent', event, true);
+                }
+                
+            }
+        }
+    });
+  
+    // Modal
+    $('.fc-day-top').click(function () {
+        $("#hni option[value= '']").prop('selected', true);
+        $("#nfi option[value= '']").prop('selected', true);
+        $('#tgl').val($(this).data('date'));
+        $.ajax({
+            url: 'form-hari-kerja/' + $(this).data('date'),
+            method: 'get',
+            dataType: 'json',
+            success: function(data) { 
+                if(data[0]){
+                    $('#id').val(data[0].id);
+                    $("#hni option[value= '" + data[0].hni + "']").prop('selected', true);
+                    $("#nfi option[value= '" + data[0].nfi + "']").prop('selected', true);
+                }
+             }
+        });
+        $('#exampleModal').appendTo("body").modal('show');
+    });
+
+    $('#closeModalHariKerja').click(function () { 
+        $('#id').val("");
+        
+        $('#exampleModal').modal('hide');
+     })
+
   $('.select2').select2();
-  $('.table-3').dataTable();
-  $('.table-4').dataTable();
     const flashdatas = $('.failed').data('flashdata');
     if(flashdatas){
         swal({
@@ -190,6 +246,9 @@
     }
   </script>
   <script>
+
+    
+
     $('#daterange-btn').daterangepicker(
       {
         ranges   : {

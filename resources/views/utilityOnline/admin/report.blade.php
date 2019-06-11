@@ -24,7 +24,7 @@
                         <h4>Reports Penggunaan | </h4>
                     </div>
                     <div class="col-lg-4">
-                        <select name="" id="kategori-penggunaan" class="form-control select2">
+                        <select name="" id="kategori-penggunaan" class="form-control">
                             <option value="" disabled selected>-- PILIH KATEGORI --</option>
                             @foreach($kategori as $k)
                             <option value="{{ $k->id }}">{{ $k->kategori }}</option>
@@ -50,7 +50,6 @@
                     </div>
                 </div>
             </div>   
-
             
             <div class="card-body">
                 <div class="table-responsive">
@@ -209,7 +208,6 @@
     </div>
 </div>
 <div class="row">
- 
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
@@ -257,51 +255,6 @@
                         </tbody>
                         <!--Table body-->
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12 col-md-6 col-lg-6">
-        <div class="card">
-            <div class="card-header">
-                <h4>Line Chart</h4>
-            </div>
-            <div class="card-body">
-                <canvas id="myChart"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-6">
-        <div class="card">
-            <div class="card-header">
-                <h4>Bar Chart</h4>
-            </div>
-            <div class="card-body">
-                <canvas id="myChart2"></canvas>
-            </div>
-        </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Doughnut Chart</h4>
-                </div>
-                <div class="card-body">
-                    <canvas id="myChart3"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Pie Chart</h4>
-                </div>
-                <div class="card-body">
-                    <canvas id="myChart4"></canvas>
                 </div>
             </div>
         </div>
@@ -490,9 +443,6 @@
                             td+='<tr>';
                             td+='<td>'+no+'</td>';
                             td+='<td>'+data[index].bagian+'</td>'
-                            if (data[index.nilai] == 0) {
-                                data[index].nilai = null;
-                            }
                             td+='<td>'+data[index].nilai+'</td>'
                             td+='<td>'+data[index].satuan+'</td>'
                             td+='<td>'+data[index].tanggal_penggunaan+'</td>'
@@ -508,8 +458,6 @@
                     method: 'GET',
                     dataType: 'JSON',
                     success: function (data) { 
-                        $('.table-3').DataTable().destroy();
-                        $('.table-3 tbody').empty();
                         
                         var td = '';
                         for (let index = 0; index < data.length; index++) {
@@ -517,14 +465,13 @@
                             td+='<tr>';
                             td+='<td>'+no+'</td>';
                             td+='<td>'+data[index].bagian+'</td>'
-                            if (data[index.nilai] == 0) {
-                                data[index].nilai = null;
-                            }
                             td+='<td>'+data[index].nilai+'</td>'
                             td+='<td>'+data[index].satuan+'</td>'
                             td+='<td>'+data[index].tanggal_penggunaan+'</td>'
                             td+='</tr>';
                         }
+                        // $('.table-3').DataTable().destroy();
+                        $('.table-3 tbody').empty();
                         $('#table-report-3').html(td).on('change');
                         $('.table-3').DataTable().order([4, 'asc']).draw({});
                     }

@@ -7,13 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\UserAccess\userAccess;
 use Illuminate\Support\Facades\Hash;
 use App\Models\masterApps\aplikasi;
+use \Carbon\Carbon;
 use DB;
 use Session;
 
 class userAccessController extends Controller
 {
     public function index(){
-        if(Session::get('login'))
+        if(Session::get('login'))   
         {
             return redirect(url()->previous())->with('failed', 'Anda harus logout terlebih dahulu');
         }
@@ -28,6 +29,31 @@ class userAccessController extends Controller
         Session::pull('lihat', null);
         return redirect('/');
     }
+    public function gantiPassword(){
+        return view('userAccess.gantiPassword');
+    }
+    public function gantiUserPassword(Request $request){
+        $user = userAccess::where('username', $request->username)->first();
+        if(!$user){
+            return back()->with('failed', 'Username tidak sesuai');
+        }
+        if($request->newPassword !== $request->cNewPassword){
+            return back()->with('failed', 'Konfirmasi password tidak sesuai');
+        }
+        
+        if(Hash::check($request->oldPassword, $user->password)){
+            $today = Carbon::today();
+            $today = $today->toDateString();
+            $user->password = Hash::make($request->newPassword);
+            $user->lastUpdatePassword = $today;
+            $user->save();
+            return back()->with('success', 'Password berhasil diubah');
+        }
+        else {
+            return back()->with('failed', 'Password lama tidak sesuai');
+        }
+
+    }
     // public function register(){
     //     return view('userAccess.register');
     // }
@@ -35,7 +61,7 @@ class userAccessController extends Controller
         return view('userAccess.admin.index');
     }
     public function login(Request $request){
-        
+        // dd(Hash::make('1234'));
         $username = $request->username;
         $password = $request->password;
         $data = new userAccess();
@@ -51,18 +77,19 @@ class userAccessController extends Controller
                                 $from = $data->lastUpdatePassword;
                                 $diff_in_days = $to->diffInDays($from);
                                 if($diff_in_days >= 30){
-                                    return "Pindah Ke halaman Ganti password";
+                                    return redirect(route('ganti-password'))->with('failed', 'Password anda sudah lebih dari 30 hari, harap ganti password !');
                                 }else{
                                     session()->put('login', $data->id);
                                     $hak_aplikasi = DB::table('hak_akses_aplikasi')->where('id_user', $data->id)->get();
-                                    
                                     if(count($hak_aplikasi) > "1"){ 
+                                        
                                         $user = userAccess::find(Session::get('login'));
                                         $user->update([
                                             'passwordWrong' => '0' 
                                         ]);
                                         return redirect('home')->with('success', "Selamat Datang" . $data->fullname);
                                     } else if(count($hak_aplikasi) == "1"){
+                                        
                                         foreach ($hak_aplikasi as $h ) {
                                             $aplikasi = aplikasi::where('id', $h->id_aplikasi)->first();
                                         }
@@ -72,6 +99,7 @@ class userAccessController extends Controller
                                         ]);
                                         return redirect($aplikasi->link)->with('success', "Selamat Datang" . $data->fullname);
                                     }else{
+                                        
                                         return redirect(route('halaman-login'))->with('failed', 'Anda tidak memiliki akses apapun');
                                     }
                                 }

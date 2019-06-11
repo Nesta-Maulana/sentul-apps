@@ -8,6 +8,7 @@ use App\Models\userAccess\userAccess;
 use App\Models\userAccess\role;
 use App\Models\masterApps\hakAkses;
 use App\Models\masterApps\menu;
+use App\Models\masterApps\aplikasi;
 use App\Models\masterApps\hakAksesAplikasi;
 use App\Models\masterApps\hakAksesUserAplikasi;
 use App\Http\Controllers\Controller;
@@ -41,15 +42,24 @@ class rollieController extends resourceController
     {
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
-        
+        $urlfullnya     = url()->full();
+        $aplikasinya    = explode($_SERVER['HTTP_HOST']."/sentul-apps" , $urlfullnya)       ;
+        $aplikasinya    = explode('/',$aplikasinya[1]);
+        $aplikasiid     = aplikasi::where('link',$aplikasinya[1])->first();
+        $aplikasiid     = $aplikasiid->id;
         if($hakAksesAplikasi == "1")
         {
-            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
-            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
-            return redirect($aplikasi->link);
+            $cekakses = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->first();
+            if ($aplikasiid !==  $cekakses->id_aplikasi) 
+            {
+                $aplikasi = aplikasi::find($cekakses->id_aplikasi);
+                // dd($aplikasi);
+                return redirect($aplikasi->link);
+            }
+            
         }
 
-        $i = 0;
+        $i = 0; 
         foreach ($hakAksesUserAplikasi as $h) 
         {
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
