@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container sbar_collapsed">
+    <div class="page-container">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -282,7 +282,16 @@
 
         function submit_analisa_pi(rpd_filling_detail_id_pi,rpd_filling_head_id,nama_produk_analisa_pi,hasil_air_gap,hasil_ts_accurate_kanan,hasil_ts_accurate_kiri,hasil_ls_accurate,hasil_sa_accurate,hasil_surface_check,hasil_pinching,hasil_strip_folding,hasil_konduktivity_kanan,hasil_konduktivity_kiri,hasil_design_kanan,hasil_design_kiri,hasil_dye_test,hasil_residu_h2o2,hasil_prod_code_no_md,hasil_correction,ts_accurate_kanan_tidak_ok,ts_accurate_kiri_tidak_ok,ls_accurate_tidak_ok,sa_accurate_tidak_ok,surface_check_tidak_ok,wo_id,mesin_filling_id,overlap,ls_sa_proportion,volume_kanan,volume_kiri,user_id_inputer) 
         {
-            console.log(overlap+','+ls_sa_proportion+','+volume_kanan+','+volume_kiri)
+            if (!rpd_filling_detail_id_pi || !rpd_filling_head_id || !nama_produk_analisa_pi || !hasil_air_gap || !hasil_ts_accurate_kanan || !hasil_ts_accurate_kiri || !hasil_ls_accurate || !hasil_sa_accurate || !hasil_surface_check || !hasil_pinching || !hasil_strip_folding || !hasil_konduktivity_kanan || !hasil_konduktivity_kiri || !hasil_design_kanan || !hasil_design_kiri || !hasil_dye_test || !hasil_residu_h2o2 || !hasil_prod_code_no_md || !hasil_correction || !ts_accurate_kanan_tidak_ok || !ts_accurate_kiri_tidak_ok || !ls_accurate_tidak_ok || !sa_accurate_tidak_ok || !surface_check_tidak_ok || !wo_id || !mesin_filling_id || !overlap || !ls_sa_proportion || !volume_kanan || !volume_kiri || !user_id_inputer || rpd_filling_detail_id_pi=='' || rpd_filling_head_id=='' || nama_produk_analisa_pi=='' || hasil_air_gap=='' || hasil_ts_accurate_kanan=='' || hasil_ts_accurate_kiri=='' || hasil_ls_accurate=='' || hasil_sa_accurate=='' || hasil_surface_check=='' || hasil_pinching=='' || hasil_strip_folding=='' || hasil_konduktivity_kanan=='' || hasil_konduktivity_kiri=='' || hasil_design_kanan=='' || hasil_design_kiri=='' || hasil_dye_test=='' || hasil_residu_h2o2=='' || hasil_prod_code_no_md=='' || hasil_correction=='' || ts_accurate_kanan_tidak_ok=='' || ts_accurate_kiri_tidak_ok=='' || ls_accurate_tidak_ok=='' || sa_accurate_tidak_ok=='' || surface_check_tidak_ok=='' || wo_id=='' || mesin_filling_id=='' || overlap=='' || ls_sa_proportion=='' || volume_kanan=='' || volume_kiri=='' || user_id_inputer=='')
+            {
+                swal({
+                    title: "Proses Gagal",
+                    text : "Harap Lengkapi Data Analisa",
+                    type : "error",
+                });
+                return false;   
+            }
+
             if (ls_sa_proportion.includes(':'))
             {
                 if (ls_sa_proportion.toString().split(":")[1].length != 2 | ls_sa_proportion.toString().split(":")[0].length != 2)
@@ -305,7 +314,7 @@
                 return false;
             }
 
-            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK'  && (ls_sa_proportion !== '10:90' || ls_sa_proportion !== '90:10' || ls_sa_proportion !== '80:20' ||ls_sa_proportion !== '70:30' ) && (volume_kanan >= 198 || volume_kanan <= 202) && (volume_kiri >= 198 || volume_kiri <= 202))
+            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK'  && (ls_sa_proportion !== '10:90' || ls_sa_proportion !== '90:10' || ls_sa_proportion !== '80:20' ||ls_sa_proportion !== '70:30' ) && (volume_kanan >= 198 || volume_kanan <= 202) && (volume_kiri >= 198 || volume_kiri <= 202) || (overlap >= 3,5 && overlap <= 4,5))
             {
                 Swal.fire({
                     title: 'Apa benar hasil semua pengecekan OK?',
@@ -363,10 +372,10 @@
                             success      : function(data) 
                             {
                                 if (data.success == true) 
-                                {
+                                {                                                    
+                                    hapusdatapopup();
+                                    document.getElementById('close-button-pi').click();
                                     reloadTablePi();
-                                    
-
                                 } 
                             }
                         });
@@ -379,12 +388,165 @@
             }
         }
 
-        function analisa_sampel_at_event(kode_sampel,event_sampel,mesin_filling,tanggal_filling,jam_filling,rpd_filling_detail_id)
+        function analisa_sampel_at_event(kode_sampel,event_sampel,mesin_filling,tanggal_filling,jam_filling,rpd_filling_detail_id,wo_id,mesin_filling_id)
         {
-            //
-            var char_sampel = count(kode_sampel);
+            // function tambahan analisa untuk sampel at event
+            if (kode_sampel.includes(' (Event)')) 
+            {
+                kode_sampel_baru    = kode_sampel.split(' (Event)')
+                kode_sampel         = kode_sampel_baru[0];
+            }
 
+            switch(kode_sampel)
+            {
+                case 'B':
+                    $('#paper_splicing').removeClass('sembunyi');
+                break;
+                case 'C':
+                    $('#paper_splicing').removeClass('sembunyi');
+                break;
+                case 'D':
+                    $('#strip_splicing').removeClass('sembunyi');
+                break;
+                case 'E':
+                    $('#strip_splicing').removeClass('sembunyi');
+                break;
+                case 'F':
+                    $('#short_stop').removeClass('sembunyi');
+                break;
+                case 'G':
+                    $('#short_stop').removeClass('sembunyi');
+                break;
+            }
+            document.getElementById('sampel_at_event').value                = kode_sampel+" - "+event_sampel;
+            document.getElementById('sampel_at_event_kode').value           = kode_sampel;
+            document.getElementById('mesin_filling_at_event').value         = mesin_filling;
+            document.getElementById('mesin_filling_at_event_id').value      = mesin_filling_id;
+            document.getElementById('rpd_filling_detail_id_at_event').value = rpd_filling_detail_id;
+            document.getElementById('wo_id_sampel_event').value             = mesin_filling_id;
+            document.getElementById('jam_filling_at_event').value           = jam_filling;
+            document.getElementById('tanggal_filling_at_event').value       = tanggal_filling;
         }
+
+        function status_akhir_at_event(kode_sampel) 
+        {
+            switch(kode_sampel)
+            {
+                case 'B':
+                    var hasil_ls_sa_sealing_quality_event           =  $('#hasil_ls_sa_sealing_quality_event').val();
+                    var hasil_ls_sa_proportion_event                =  $('#hasil_ls_sa_proportion_event').val();
+                    var hasil_sideway_sealing_alignment_event       =  $('#hasil_sideway_sealing_alignment_event').val();
+                    var hasil_overlap_event                         =  $('#hasil_overlap_event').val();
+                    var hasil_paper_splice_sealing_quality_event    =  $('#hasil_paper_splice_sealing_quality_event').val();
+                    var hasil_no_kk_event                           =  $('#hasil_no_kk_event').val();
+                    var hasil_nomor_md_event                        =  $('#hasil_nomor_md_event');
+                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 || hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event >= 16 || hasil_overlap_event <= 17))
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = 'OK';
+                    }
+                    else
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = '#OK';
+                    }
+                break;
+                case 'C':
+                    var hasil_ls_sa_sealing_quality_event           =  $('#hasil_ls_sa_sealing_quality_event').val();
+                    var hasil_ls_sa_proportion_event                =  $('#hasil_ls_sa_proportion_event').val();
+                    var hasil_sideway_sealing_alignment_event       =  $('#hasil_sideway_sealing_alignment_event').val();
+                    var hasil_overlap_event                         =  $('#hasil_overlap_event').val();
+                    var hasil_paper_splice_sealing_quality_event    =  $('#hasil_paper_splice_sealing_quality_event').val();
+                    var hasil_no_kk_event                           =  $('#hasil_no_kk_event').val();
+                    var hasil_nomor_md_event                        =  $('#hasil_nomor_md_event')
+                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 || hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event >= 16 || hasil_overlap_event <= 17))
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = 'OK';
+                    }
+                    else
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = '#OK';
+                    }
+                break;
+                case 'D':
+                    var hasil_ls_sa_sealing_quality_event           =  $('#hasil_ls_sa_sealing_quality_event').val();
+                    var hasil_ls_sa_proportion_event                =  $('#hasil_ls_sa_proportion_event').val();
+                    var hasil_ls_sa_sealing_quality_strip_event     =  $('#hasil_ls_sa_sealing_quality_strip_event').val();
+                    
+                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_ls_sa_sealing_quality_strip_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_ls_sa_sealing_quality_strip_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && hasil_ls_sa_sealing_quality_strip_event == 'OK')
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = 'OK';
+                    }
+                    else
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = '#OK';
+                    }
+                break;
+                case 'E':
+                    var hasil_ls_sa_sealing_quality_event           =  $('#hasil_ls_sa_sealing_quality_event').val();
+                    var hasil_ls_sa_proportion_event                =  $('#hasil_ls_sa_proportion_event').val();
+                    var hasil_ls_sa_sealing_quality_strip_event     =  $('#hasil_ls_sa_sealing_quality_strip_event').val();
+                    
+                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_ls_sa_sealing_quality_strip_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_ls_sa_sealing_quality_strip_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && hasil_ls_sa_sealing_quality_strip_event == 'OK')
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = 'OK';
+                    }
+                    else
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = '#OK';
+                    }
+                break;
+                case 'F':
+                    var hasil_ls_sa_sealing_quality_event           =  $('#hasil_ls_sa_sealing_quality_event').val();
+                    var hasil_ls_sa_proportion_event                =  $('#hasil_ls_sa_proportion_event').val();
+                    var hasil_ls_short_stop_quality_event           =  $('#hasil_ls_short_stop_quality_event').val();
+                    var hasil_sa_short_stop_quality_event           =  $('#hasil_sa_short_stop_quality_event').val();
+                    
+                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_ls_short_stop_quality_event !=='' &&hasil_sa_short_stop_quality_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_ls_short_stop_quality_event !== null && hasil_sa_short_stop_quality_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && hasil_sa_short_stop_quality_event == 'OK' && hasil_ls_short_stop_quality_event == 'OK')
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = 'OK';
+                    }
+                    else
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = '#OK';
+                    }
+                break;
+                case 'G':
+                    var hasil_ls_sa_sealing_quality_event           =  $('#hasil_ls_sa_sealing_quality_event').val();
+                    var hasil_ls_sa_proportion_event                =  $('#hasil_ls_sa_proportion_event').val();
+                    var hasil_ls_short_stop_quality_event           =  $('#hasil_ls_short_stop_quality_event').val();
+                    var hasil_sa_short_stop_quality_event           =  $('#hasil_sa_short_stop_quality_event').val();
+                    
+                    if (hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && hasil_sa_short_stop_quality_event == 'OK' && hasil_ls_short_stop_quality_event == 'OK')
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = 'OK';
+                    }
+                    else
+                    {
+                        document.getElementById('hasil_status_akhir_event').value = '#OK';
+                    }
+                break;
+            }
+        }   
+
+        function submit_at_event(kode_sampel, rpd_filling_detail_id_at_event, wo_id_sampel_event) 
+        {
+            
+        }
+
+        // function reset popup pi at event
+        function resetPiAtEvent()
+        {
+            var custom_input    = $('#custom_input');
+            var find_non_active     = custom_input.find('.sembunyi');
+            for (var i = 0; i < find_non_active.length; i++) 
+            {
+                var hapus_class = $('#'+find_non_active[i].id);
+                hapus_class.removeClass('sembunyi');
+            }
+            $('#paper_splicing').addClass('sembunyi');        
+            $('#strip_splicing').addClass('sembunyi');        
+            $('#short_stop').addClass('sembunyi');
+        }
+
         //function tambah sampel analisa untuk dimasukan di analisa QC rpd filling
         function tambahSampelAnalisa(nomorwo,mesinfilling,tanggalfilling,jamfilling,kodeanalisa,keteranganevent,beratkanan,beratkiri,id_user,id_rpd_head) 
         {
@@ -457,7 +619,6 @@
                 success : function(data) 
                 {
                     var isitable = '', $isitable = $('#detail_pi');
-                    console.log(data.detail_pi_nya.length);
                     for (var i = 0; i < data.detail_pi_nya.length; i++)
                     {
                         isitable    += '<tr>';
@@ -467,7 +628,7 @@
                         isitable    += '<td>'+data.detail_pi_nya[i].kode_sampel+'</td>';
                         if (data.detail_pi_nya[i].kodenya == 'Event') 
                         {
-                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-at-event" >Analisa</a></td>';
+                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-at-event" onclick="analisa_sampel_at_event(\''+data.detail_pi_nya[i].kode_sampel+'\',\''+data.detail_pi_nya[i].event+'\',\''+data.detail_pi_nya[i].mesin_filling+'\',\''+data.detail_pi_nya[i].tanggal_filling+'\',\''+data.detail_pi_nya[i].jam_filling+'\',\''+data.detail_pi_nya[i].detail_id_enkripsi+'\',\''+data.detail_pi_nya[i].wo_id+'\',\''+data.detail_pi_nya[i].mesin_filling_id+'\')">Analisa</a></td>';
                         } 
                         else if (data.detail_pi_nya[i].kodenya == 'Bukan Event') 
                         {
