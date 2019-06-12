@@ -98,6 +98,7 @@
     <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
     <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
     <script>
+        $('.select2').select2();
         $('.go-to-request').click(function() {
             var sectionTo = $(this).attr('href');
             $('html, body').animate({
