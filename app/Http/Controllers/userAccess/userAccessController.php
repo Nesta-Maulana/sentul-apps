@@ -46,7 +46,8 @@ class userAccessController extends Controller
                         return redirect(route('halaman-login'))->with('failed', 'Hubungi admin untuk melakukan verifikasi');
                     }else{
                         if($data->verified == "1"){
-                            if($data->verifiedByAdmin == "1"){
+                            if($data->verifiedByAdmin == "1")
+                            {
                                 $to = \Carbon\Carbon::now('Asia/Jakarta');
                                 $from = $data->lastUpdatePassword;
                                 $diff_in_days = $to->diffInDays($from);
@@ -82,12 +83,15 @@ class userAccessController extends Controller
                             return redirect(route('halaman-login'))->with('failed', 'Harap Aktivasi akun anda terlebih dahulu !');
                         }
                     }
-                } else {
-                    if($data->passwordWrong >= 3){
+                } else 
+                {
+                    if($data->passwordWrong >= 3)
+                    {
                         $data->status = "0";
                         $data->save();
                         return redirect(route('halaman-login'))->with('failed', 'Harap hubungi admin !');
-                    } else{
+                    } 
+                    else{
                         $passwordWrong = $data->passwordWrong + 1;
                     $data->passwordWrong = $passwordWrong;
                     $data->save();

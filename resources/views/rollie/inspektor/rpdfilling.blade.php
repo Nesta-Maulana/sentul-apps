@@ -110,7 +110,7 @@
                     			<td style="display: none;">{{ $detail_at_event->tanggal_filling }}</td>
                     			<td>{{ $detail_at_event->jam_filling }}</td>
                     			<td>{{ $detail_at_event->kode_sampel->kode_sampel }} ( Event )</td>
-                    			<td><a data-toggle="modal" data-target="#analisa-sample-at-event">ANALISA</a></td>
+                    			<td><a data-toggle="modal" data-target="#analisa-sample-at-event" onclick="analisa_sampel_at_event('{{ $detail_at_event->kode_sampel->kode_sampel }}','{{ ucwords($detail_at_event->kode_sampel->event) }}','{{ $detail_pi->mesin_filling->kode_mesin }}','{{ $detail_at_event->tanggal_filling }}','{{ $detail_at_event->jam_filling }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->wo->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->mesin_filling->id) }}')">ANALISA</a></td>
                     		</tr>
                     	@endforeach
                     </tbody>
