@@ -210,11 +210,11 @@ class report3Export implements FromView, WithHeadings, ShouldAutoSize
                 array_push($bagian[17]['nilai'], ['bagian' => 'Soft Water Cooling Tower', 'nilai' => $inputEmbung, 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian[18]['nilai'], ['bagian' => 'Service Water', 'nilai' => $serviceWater, 'tanggal_penggunaan' => $tgl]); 
                 // // HNI
-                array_push($bagian[19]['nilai'], ['bagian' => 'HNI', 'nilai' => $deminWaterProdukHb + $deminWaterRuby + $deminWaterGreek + $deminWaterProdukHb + $softWaterRuby + $softWaterGreek + $inputEmbung + $inputEmbung + $inputEmbung + $inputEmbung + $softWaterGedungDepan + $softWaterHb + $softWaterBakery, 'tanggal_penggunaan' => $tgl]); 
+                array_push($bagian[19]['nilai'], ['bagian' => 'HNI', 'nilai' => $deminWaterProdukHb + $deminWaterRuby + $deminWaterGreek + $softWaterProduksiHb + $softWaterRuby + $softWaterGreek + $inputEmbung + $inputEmbung + $inputEmbung + $inputEmbung + $softWaterGedungDepan + $softWaterHb + $softWaterBakery, 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian[20]['nilai'], ['bagian' => 'Demin Water Produksi', 'nilai' => $deminWaterProdukHb, 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian[21]['nilai'], ['bagian' => 'Demin Water Ruby', 'nilai' => $deminWaterRuby, 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian[22]['nilai'], ['bagian' => 'Demin Water Greek', 'nilai' => $deminWaterGreek, 'tanggal_penggunaan' => $tgl]); 
-                array_push($bagian[23]['nilai'], ['bagian' => 'Soft Water Produksi', 'nilai' => $deminWaterProdukHb, 'tanggal_penggunaan' => $tgl]); 
+                array_push($bagian[23]['nilai'], ['bagian' => 'Soft Water Produksi', 'nilai' => $softWaterProduksiHb, 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian[24]['nilai'], ['bagian' => 'Soft Water Ruby', 'nilai' => $softWaterRuby, 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian[25]['nilai'], ['bagian' => 'Soft Water Greek', 'nilai' => $softWaterGreek, 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian[26]['nilai'], ['bagian' => 'Demin Water Boiler', 'nilai' => $inputEmbung, 'tanggal_penggunaan' => $tgl]); 

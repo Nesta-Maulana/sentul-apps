@@ -92,6 +92,7 @@ class inspektorController extends resourceController
         $datawo                     = wo::where('nomor_wo',$request->nomor_wo)->first();
         $datawo                     = wo::find($datawo->id);
         $datawo->status             = '3';
+        $datawo->rpd_filling_head_id= $insertrpdfillinghead->id;
         $datawo->tanggal_fillpack   = $startfilling;
         $datawo->save();
         $return                     = app('App\Http\Controllers\resourceController')->enkripsi($insertrpdfillinghead->id);
@@ -304,7 +305,7 @@ class inspektorController extends resourceController
             else if ($idaktif == '0') 
             {
                 // ini apabila sampel tersebut sampel dengan kode sampel pertama atau kode sampel pertama
-                $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)              ->update([
+                $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
                                     'airgap'                => $airgap,
                                     'ts_accurate_kanan'     => $ts_accurate_kanan,
                                     'ts_accurate_kiri'      => $ts_accurate_kiri,
@@ -335,7 +336,6 @@ class inspektorController extends resourceController
                 {
                     return ['success'=>true,'message'=>'0'];
                 }
-
             }
             
 
