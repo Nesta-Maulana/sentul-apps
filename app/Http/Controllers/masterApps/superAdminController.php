@@ -38,7 +38,7 @@ class superAdminController extends resourceController
 
     public function __construct(Request $request){
         $this->middleware(function ($request, $next) {
-            // dd(Session::all());
+            
 
             $this->user = resolve('usersData');
             $this->username = karyawan::where('nik', $this->user->username)->first();            
@@ -58,12 +58,15 @@ class superAdminController extends resourceController
         
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+            
         if($hakAksesAplikasi == "1"){
-            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
-            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status','1')->first();
+            // dd($hakAksesUserAplikasi);
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi);
+            // dd($aplikasi);
             return redirect($aplikasi->link);
         }
-        $i = 0;
+        $i = 0; 
         foreach ($hakAksesUserAplikasi as $h) {
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
@@ -72,8 +75,11 @@ class superAdminController extends resourceController
     }
 
     public function home(){
+        
         return view('masterApps.home', ['menus' => $this->menu, 'username' => $this->username]);
     }
+
+    
 
     public function menu(Request $request){
         $aplikasi = aplikasi::get();

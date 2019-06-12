@@ -116,6 +116,10 @@
     @if ($message = Session::get('failed'))
         <div class="failed" data-flashdata="{{ $message }}"></div>
     @endif
+	@if ($message = Session::get('success'))
+    <div class="success" data-flashdata="{{ $message }}"></div>    
+	@endif
+    
 	<!-- end:: Page -->
 	<!--begin::Base Scripts -->
 	<script src="{{ asset('userAccess/js/vendors.bundle.js') }}" type="text/javascript"></script>
@@ -133,6 +137,14 @@
                 type: "error",
             });
         }
+		const flashdata = $('.success').data('flashdata');
+		if(flashdata){
+			swal({
+				title: "Success",
+				text: flashdata,
+				type: "success",
+			});
+		}
     </script>
 </body>
 

@@ -29,13 +29,17 @@ Route::get('/administrator/pmb','masterApps\generalController\Administrator\Admi
 Route::get('/','userAccess\userAccessController@index')->name('halaman-login');
 Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
 Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
+Route::get('/ganti-password/{id}', 'userAccess\userAccessController@gantiPassword')->name('ganti-password');
+Route::post('/ganti-user-password', 'userAccess\userAccessController@gantiUserPassword');
 Route::post('/login-form', 'userAccess\userAccessController@login')->name('user-login');
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
 Route::get('/logout', 'userAccess\userAccessController@logout');
 
+Route::get('/request-hak-akses', 'hakAkses\hakAksesController@hakAkses');
 
 Route::middleware('ceklogin')->group(function ()
 {
+
 
     Route::get('/home', 'masterApps\superAdminController@index');    
     Route::get('/master-apps', 'masterApps\superAdminController@home');
@@ -46,7 +50,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/master-apps/form-menu/urutan/{id}', 'masterApps\superAdminController@urutan');
     Route::post('/master-apps/form-menu/data', 'masterApps\superAdminController@dataMenu');
     Route::get('/master-apps/form-menu/parent/{parent}', 'masterApps\superAdminController@parent');
-    
+
     Route::get('/master-apps/form-user', 'masterApps\superAdminController@user');
     Route::get('/master-apps/form-user/verify/{id}', 'masterApps\superAdminController@verify'); 
     Route::get('/master-apps/form-user/edit/{id}', 'masterApps\superAdminController@edit') ;
@@ -132,6 +136,11 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/master-apps/delete/{connection}/{table}/{id}', 'resourceController@deleteData');
 
     // Utility Online
+    Route::get('/utility-online/admin/form-hari-kerja', 'utilityOnline\adminUtilityController@hariKerja');
+    Route::get('/utility-online/admin/form-hari-kerja-ambil/', 'utilityOnline\adminUtilityController@ambilSemuaHariKerja');
+    Route::get('/utility-online/admin/form-hari-kerja/{tgl}', 'utilityOnline\adminUtilityController@ambilHariKerja');
+    Route::post('/utility-online/admin/form-hari-kerja/save', 'utilityOnline\adminUtilityController@hariKerjaSave')->name('form-hari-kerja-save');
+
     Route::get('/utility-online', 'utilityOnline\mainUtilityController@index');
     Route::get('/utility-online/water', 'utilityOnline\mainUtilityController@water');
     Route::post('/utility-online/water/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
@@ -158,6 +167,7 @@ Route::middleware('ceklogin')->group(function ()
  
     Route::get('/utility-online/admin', 'utilityOnline\adminUtilityController@index');
     Route::get('/utility-online/admin/report', 'utilityOnline\adminUtilityController@report');
+    Route::get('/utility-online/admin/report-grafik', 'utilityOnline\adminUtilityController@reportGrafik');
     Route::get('/utility-online/admin/report/bagian/{idBagian}/{from}/{to}', 'utilityOnline\adminUtilityController@reportBagianTgl');
     Route::get('/utility-online/admin/report-2/{from}/{to}', 'utilityOnline\adminUtilityController@report2Tgl');
     

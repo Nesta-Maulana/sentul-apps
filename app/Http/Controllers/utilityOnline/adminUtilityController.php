@@ -21,6 +21,7 @@ use App\Models\utilityOnline\rasioHead;
 use App\Models\utilityOnline\rasio;
 use App\Models\utilityOnline\bagian;
 use App\Models\utilityOnline\satuan;
+use App\Models\utilityOnline\hariKerja;
 use Illuminate\Support\Arr;
 use \Carbon\Carbon;
 use Session;
@@ -82,6 +83,9 @@ class adminUtilityController extends resourceController
 
     public function index(){
         return view('utilityOnline.admin.index', ['menus' => $this->menu, 'username' => $this->username]);
+    }
+    public function hariKerja(){
+        return view('utilityOnline.admin.hariKerja', ['menus' => $this->menu, 'username' => $this->username]);
     }
     public function report(){
         // 51, 52, 53, 54
@@ -169,6 +173,34 @@ class adminUtilityController extends resourceController
         $pengamatan = pengamatan::all();
         return view('utilityOnline.admin.report', ['menus' => $this->menu, 'username' => $this->username, 'report' => $report, 'bagian' => $bagian, 'pengamatan' => $pengamatan, 'kategori' => $kategori,'workcenter' => $workcenter]);
     }
+    public function reportGrafik(){
+        return view('utilityOnline.admin.reportGrafik', ['menus' => $this->menu, 'username' => $this->username]);
+    }
+    public function ambilHariKerja($tgl = ""){
+
+        return hariKerja::where('tgl', $tgl)->get();
+    }
+    public function ambilSemuaHariKerja(){
+
+        return hariKerja::all();
+    }
+
+    public function hariKerjaSave(Request $request){
+        if($request->id){
+            $hariKerja = hariKerja::find($request->id);
+            $hariKerja->hni = $request->hni;
+            $hariKerja->nfi = $request->nfi;
+            $hariKerja->save();
+        }else{
+            hariKerja::create([
+                'tgl' => $request->tgl,
+                'hni' => $request->hni,
+                'nfi' => $request->nfi,
+            ]);
+        }
+        return back()->with('success', 'Data Berhasil Ditambahkan');
+    }
+
     public function reportDate($from, $to){
         
         $rasioHead = rasioHead::all();        
@@ -714,7 +746,7 @@ class adminUtilityController extends resourceController
                 array_push($bagian, ['bagian' => 'Soft Water HB', 'nilai' => $softWaterHb, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
                 array_push($bagian, ['bagian' => 'Soft Water Bakery', 'nilai' => $softWaterBakery, 'satuan' => 'm3', 'tanggal_penggunaan' => $tgl]); 
             }
-            dd($bagian);
+            
             return $bagian;   
             
         }
