@@ -16,14 +16,17 @@
     @yield('content')
 
 @if ($message = Session::get('success'))
-    <div class="success" data-flashdata="{{ $message }}"></div>
-    
-    @endif
+    <div class="success" data-flashdata="{{ $message }}"></div>    
+@endif
+@if ($message = Session::get('failed'))
+    <div class="failed" data-flashdatas="{{ $message }}"></div>    
+@endif
 <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
 <script src="{!!asset('generalStyle/js/bootstrap.min.js')!!}"></script>
 <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
 <script>
-    const flashdatas = $('.failed').data('flashdata');
+    const flashdatas = $('.failed').data('flashdatas');
+    const flashdata = $('.success').data('flashdata');
     if(flashdatas){
         swal({
             title: "Failed",
@@ -31,7 +34,6 @@
             type: "error",
         });
     }
-    const flashdata = $('.success').data('flashdata');
     if(flashdata){
         swal({
             title: "Success",

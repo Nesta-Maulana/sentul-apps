@@ -29,15 +29,17 @@ Route::get('/administrator/pmb','masterApps\generalController\Administrator\Admi
 Route::get('/','userAccess\userAccessController@index')->name('halaman-login');
 Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
 Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
-Route::get('/ganti-password', 'userAccess\userAccessController@gantiPassword')->name('ganti-password');
+Route::get('/ganti-password/{id}', 'userAccess\userAccessController@gantiPassword')->name('ganti-password');
 Route::post('/ganti-user-password', 'userAccess\userAccessController@gantiUserPassword');
 Route::post('/login-form', 'userAccess\userAccessController@login')->name('user-login');
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
 Route::get('/logout', 'userAccess\userAccessController@logout');
 
+Route::get('/request-hak-akses', 'hakAkses\hakAksesController@hakAkses');
 
 Route::middleware('ceklogin')->group(function ()
 {
+
 
     Route::get('/home', 'masterApps\superAdminController@index');    
     Route::get('/master-apps', 'masterApps\superAdminController@home');

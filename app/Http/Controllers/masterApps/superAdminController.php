@@ -58,7 +58,7 @@ class superAdminController extends resourceController
         
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
-        
+            
         if($hakAksesAplikasi == "1"){
             $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status','1')->first();
             // dd($hakAksesUserAplikasi);

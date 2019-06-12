@@ -12,6 +12,7 @@
 </head>
  
 <body
+
 	class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 	<!-- begin:: Page -->
 	<div class="m-grid m-grid--hor m-grid--root m-page">
@@ -50,11 +51,11 @@
 								<hr>
 							</h3>
 						</div>
-						<form class="m-login__form m-form" action="ganti-user-password" method="post">
-                        {{ csrf_field() }}
+						<form class="m-login__form m-form" action="/sentul-apps/ganti-user-password" method="post">
+                    		{{ csrf_field() }}
                             <div class="form-group m-form__group">
 								<input style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " class="form-control m-input text-nesta" type="text" placeholder="Username" name="username"
-									autocomplete="off" autofocus>
+									autocomplete="off" readonly value="{{ $username }}" autofocus>
 							</div>
 							<div class="form-group m-form__group">
 								<input class="form-control m-input text-nesta" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; "
@@ -72,9 +73,9 @@
 								<button id="" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
 									Change
 								</button>
-								<a href="login-form"  class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
+								<!-- <a href="login-form"  class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
 									Back To Login
-								</a>
+								</a> -->
 							</div>
 						</form>
 					</div>
