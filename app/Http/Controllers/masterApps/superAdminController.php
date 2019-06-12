@@ -56,22 +56,19 @@ class superAdminController extends resourceController
 
     public function index(){
         
+        
+
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
-            
-        if($hakAksesAplikasi == "1"){
-            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status','1')->first();
-            // dd($hakAksesUserAplikasi);
-            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi);
-            // dd($aplikasi);
-            return redirect($aplikasi->link);
+        if($hakAksesAplikasi == "0"){
+            return view('userAccess.home', ['hakAkses' => null]);
         }
         $i = 0; 
         foreach ($hakAksesUserAplikasi as $h) {
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
         }
-        return view('userAccess.home', ['menus' => $this->menu, 'username' => $this->username, 'hakAkses' => $data]);
+        return view('userAccess.home', ['hakAkses' => $data]);
     }
 
     public function home(){

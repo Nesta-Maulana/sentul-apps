@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -51,8 +52,8 @@
 							</h3>
 						</div>
 						<form class="m-login__form m-form" action="login-form" method="post">
-                        {{ csrf_field() }}
-                        <div class="form-group m-form__group">
+							{{ csrf_field() }}
+							<div class="form-group m-form__group">
 								<input style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " class="form-control m-input text-nesta" type="text" placeholder="Username" name="username"
 									autocomplete="off" autofocus>
 							</div>
@@ -80,25 +81,62 @@
 								Enter your details to create your account:
 							</div>
 						</div>
-						<form class="m-login__form m-form" action="">
-                        
+						<form class="m-login__form m-form" action="register" method="POST">
+							{{ csrf_field() }}
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Fullname" name="fullname">
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Fullname" name="fullname" required>
 							</div>
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Email" name="email"
-									autocomplete="off">
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Username(NIK)" name="username" required>
 							</div>
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="password" placeholder="Password"
-									name="password">
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Email" name="email" autocomplete="off" required>
 							</div>
 							<div class="form-group m-form__group">
-								<input class="form-control m-input m-login__form-input--last" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="password"
-									placeholder="Confirm Password" name="rpassword">
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Tempat Lahir" name="tempatLahir" autocomplete="off" required>
+							</div>
+							<div class="form-group m-form__group">
+								<select name="jk" id="jk" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
+									<option value="" selected disabled>-- PILIH JENIS KELAMIN --</option>
+									<option value="1">Laki - Laki</option>
+									<option value="2">Perempuan</option>
+								</select>
+							</div>
+							<div class="form-group m-form__group">
+								<select name="agama" id="agama" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
+									<option value="" selected disabled>-- PILIH AGAMA --</option>
+									@foreach($agama as $a)
+										<option value="{{$a->id}}">{{ $a->agama }}</option>
+									@endforeach
+								</select>
+							</div>
+							<div class="form-group m-form__group">
+								<select name="status" id="status" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
+									<option value="" selected disabled>-- PILIH STATUS --</option>
+									<option value="0">Belum Menikah</option>
+									<option value="1">Sudah Menikah</option>
+									<option value="2">Duda / Janda</option>
+								</select>
+							</div>
+							<div class="form-group m-form__group">
+								<select name="golDarah" id="golDarah" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
+									<option value="" selected disabled>-- PILIH GOL DARAH --</option>
+									<option value="A">A</option>
+									<option value="AB">AB</option>
+									<option value="B">B</option>
+									<option value="O">O</option>
+								</select>
+							</div>
+							<div class="form-group m-form__group">
+								<select name="role" id="role" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
+									<option value="" selected disabled>-- PILIH ROLE --</option>
+									@foreach($roles as $role)
+										<option value="{{ $role->id }}">{{ $role->role }}</option>
+									@endforeach
+								</select>
 							</div>
 							<div class="m-login__form-action">
-								<button id="m_login_signup_submit"
+								<button id=""
 									class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
 									Sign Up
 								</button>
