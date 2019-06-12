@@ -152,7 +152,7 @@ class inspektorController extends resourceController
         
         foreach ($rpdfillinghead->detail_at_event as $key => $value) 
         {
-            if ($value->ls_sa_sealing_quality !== null && $value->ls_sa_sealing_quality !== '' && $value->ls_sa_proportion !== null && $value->ls_sa_proportion !== '' && $value->status_akhir !== null && $value->status_akhir !== '') 
+            if (is_null($value->ls_sa_sealing_quality) && is_null($value->ls_sa_proportion) && is_null($value->status_akhir)) 
             {
                 $detail_pi_nya  = [
                 'detail_id'             => $value->id,

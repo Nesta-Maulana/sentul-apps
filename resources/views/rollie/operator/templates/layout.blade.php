@@ -280,6 +280,8 @@
             document.getElementById('mesin_filling_id_sampel').value            = mesin_filling_id_sampel;
         }
 
+
+
         function submit_analisa_pi(rpd_filling_detail_id_pi,rpd_filling_head_id,nama_produk_analisa_pi,hasil_air_gap,hasil_ts_accurate_kanan,hasil_ts_accurate_kiri,hasil_ls_accurate,hasil_sa_accurate,hasil_surface_check,hasil_pinching,hasil_strip_folding,hasil_konduktivity_kanan,hasil_konduktivity_kiri,hasil_design_kanan,hasil_design_kiri,hasil_dye_test,hasil_residu_h2o2,hasil_prod_code_no_md,hasil_correction,ts_accurate_kanan_tidak_ok,ts_accurate_kiri_tidak_ok,ls_accurate_tidak_ok,sa_accurate_tidak_ok,surface_check_tidak_ok,wo_id,mesin_filling_id,overlap,ls_sa_proportion,volume_kanan,volume_kiri,user_id_inputer) 
         {
             console.log(overlap+','+ls_sa_proportion+','+volume_kanan+','+volume_kiri)
@@ -381,7 +383,6 @@
 
         function analisa_sampel_at_event(kode_sampel,event_sampel,mesin_filling,tanggal_filling,jam_filling,rpd_filling_detail_id)
         {
-            //
             var char_sampel = count(kode_sampel);
 
         }
@@ -456,6 +457,7 @@
                 dataType: 'JSON',
                 success : function(data) 
                 {
+                    console.log(data);
                     var isitable = '', $isitable = $('#detail_pi');
                     console.log(data.detail_pi_nya.length);
                     for (var i = 0; i < data.detail_pi_nya.length; i++)

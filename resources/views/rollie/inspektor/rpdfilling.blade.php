@@ -110,7 +110,7 @@
                     			<td style="display: none;">{{ $detail_at_event->tanggal_filling }}</td>
                     			<td>{{ $detail_at_event->jam_filling }}</td>
                     			<td>{{ $detail_at_event->kode_sampel->kode_sampel }} ( Event )</td>
-                    			<td><a data-toggle="modal" data-target="#analisa-sample-at-event">ANALISA</a></td>
+                    			<td><a data-toggle="modal" onclick="" data-target="#analisa-sample-at-event">ANALISA</a></td>
                     		</tr>
                     	@endforeach
                     </tbody>
