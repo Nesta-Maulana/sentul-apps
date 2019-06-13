@@ -180,6 +180,7 @@
     <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
     <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
+    {{-- select two , alert js --}}
     <script src="{{ asset('utilityOnline/admin/js/page/modules-datatables.js')}}"></script>
        <script>
         $('.select2').select2();
@@ -437,10 +438,9 @@
                     var hasil_ls_sa_proportion_event                =  $('#hasil_ls_sa_proportion_event').val();
                     var hasil_sideway_sealing_alignment_event       =  $('#hasil_sideway_sealing_alignment_event').val();
                     var hasil_overlap_event                         =  $('#hasil_overlap_event').val();
+                    var hasil_package_length_event                  =  $('#hasil_package_length_event').val();
                     var hasil_paper_splice_sealing_quality_event    =  $('#hasil_paper_splice_sealing_quality_event').val();
-                    var hasil_no_kk_event                           =  $('#hasil_no_kk_event').val();
-                    var hasil_nomor_md_event                        =  $('#hasil_nomor_md_event');
-                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 || hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event >= 16 || hasil_overlap_event <= 17))
+                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 || hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event >= 16 || hasil_overlap_event <= 17) && (hasil_package_length_event >= 118.5 && hasil_package_length_event <= 119.5))
                     {
                         document.getElementById('hasil_status_akhir_event').value = 'OK';
                     }
@@ -454,10 +454,9 @@
                     var hasil_ls_sa_proportion_event                =  $('#hasil_ls_sa_proportion_event').val();
                     var hasil_sideway_sealing_alignment_event       =  $('#hasil_sideway_sealing_alignment_event').val();
                     var hasil_overlap_event                         =  $('#hasil_overlap_event').val();
+                    var hasil_package_length_event                  =  $('#hasil_package_length_event').val();
                     var hasil_paper_splice_sealing_quality_event    =  $('#hasil_paper_splice_sealing_quality_event').val();
-                    var hasil_no_kk_event                           =  $('#hasil_no_kk_event').val();
-                    var hasil_nomor_md_event                        =  $('#hasil_nomor_md_event')
-                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 || hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event >= 16 || hasil_overlap_event <= 17))
+                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 || hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event >= 16 || hasil_overlap_event <= 17) && (hasil_package_length_event >= 118.5 && hasil_package_length_event <= 119.5))
                     {
                         document.getElementById('hasil_status_akhir_event').value = 'OK';
                     }
@@ -527,9 +526,60 @@
             }
         }   
 
-        function submit_at_event(kode_sampel, rpd_filling_detail_id_at_event, wo_id_sampel_event) 
+        function submit_at_event(kode_sampel, rpd_filling_detail_id_at_event, wo_id_sampel_event,hasil_ls_sa_sealing_quality_event,hasil_ls_sa_proportion_event,hasil_sideway_sealing_alignment_event,hasil_overlap_event,hasil_package_length_event,hasil_paper_splice_sealing_quality_event,hasil_no_kk_event,hasil_nomor_md_event,hasil_ls_sa_sealing_quality_strip_event,hasil_ls_short_stop_quality_event,hasil_sa_short_stop_quality_event,hasil_status_akhir_event,hasil_keterangan_event) 
         {
-            
+            console.log(kode_sampel+'--'+ rpd_filling_detail_id_at_event+'--'+ wo_id_sampel_event+'--'+hasil_ls_sa_sealing_quality_event+'--'+hasil_ls_sa_proportion_event+'--'+hasil_sideway_sealing_alignment_event+'--'+hasil_overlap_event+'--'+hasil_package_length_event+'--'+hasil_paper_splice_sealing_quality_event+'--'+hasil_no_kk_event+'--'+hasil_nomor_md_event+'--'+hasil_ls_sa_sealing_quality_strip_event+'--'+hasil_ls_short_stop_quality_event+'--'+hasil_sa_short_stop_quality_event+'--'+hasil_status_akhir_event+'--'+hasil_keterangan_event)
+            var paketan = [];
+            paketan.push(kode_sampel,rpd_filling_detail_id_at_event,wo_id_sampel_event);
+            switch(kode_sampel)
+            {
+                case 'B':
+                    if (hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_package_length_event !== null && hasil_paper_splice_sealing_quality_event !== null &&  hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_package_length_event !=='' && hasil_paper_splice_sealing_quality_event !=='') 
+                    {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url         : '{{ route('analisaevent-inspektor-qc') }}',
+                            method      : 'POST',
+                            dataType    : 'JSON',
+                            data        : 
+                            {
+                                paketan                             : paketan,
+                                ls_sa_sealing_quality_event         : hasil_ls_sa_sealing_quality_event,
+                                ls_sa_proportion_event              : hasil_ls_sa_proportion_event,
+                                sideway_sealing_alignment_event     : hasil_sideway_sealing_alignment_event,
+                                overlap_event                       : hasil_overlap_event,
+                                package_length_event                : hasil_package_length_event,
+                                paper_splice_sealing_quality_event  : hasil_paper_splice_sealing_quality_event,
+                                no_md                               : hasil_nomor_md_event,
+                                no_kk                               : hasil_no_kk_event,
+                                keterangan                          : hasil_keterangan_event
+                            },
+                            success      : function(data) 
+                            {
+                                console.log(data)
+                                // hapusdatapopup();
+                                // document.getElementById('close-button').click();
+                                // reloadTablePi();
+                            }
+                        });
+                    }
+                    else 
+                    {}
+                break;
+                
+                case 'C':
+                break;
+                case 'D':
+                break;
+                case 'E':
+                break;
+                case 'F':
+                break;  
+                case 'G':
+                break;          
+            }
         }
 
         // function reset popup pi at event

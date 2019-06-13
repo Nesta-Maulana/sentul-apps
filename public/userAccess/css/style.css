@@ -1,7 +1,10 @@
 body.body {
     background-image: url("../img/background2.JPG") !important;
-    background-size: cover;
-    background-repeat: no-repeat !important;
+            
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .home-logo {

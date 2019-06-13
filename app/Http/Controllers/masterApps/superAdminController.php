@@ -54,7 +54,8 @@ class superAdminController extends resourceController
         });
     }
 
-    public function index(){
+    public function index()
+    {
         
         
 

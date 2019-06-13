@@ -192,10 +192,12 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report/{from}/{to}', 'utilityOnline\adminUtilityController@reportDate');
     Route::get('/utility-online/admin/report/{id}', 'utilityOnline\adminUtilityController@reportKategori');
     Route::get('/utility-online/admin/report/{id}/{from}/{to}', 'utilityOnline\adminUtilityController@reportKategoriDate');
+    
     // Export Report 1
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPengamatan');
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{kategori}', 'utilityOnline\exportImportUtilityController@penggunaanKategori');
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{kategori}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@penggunaanKategoriTgl');
+    
     // Export Report 3
     Route::get('/utility-online/admin/report/export-3/{nama_report}/{from}/{kategori}', 'utilityOnline\exportImportUtilityController@report3Kategori');
     Route::get('/utility-online/admin/report/export-3/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@report3Tgl');
@@ -222,6 +224,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@prosesrpdfilling')->name('proses-rpd-filling');
     Route::post('/rollie-inspektor-qc/rpd-filling/tambah-sampel', 'rollie\inspektorController@tambahSampel')->name('tambahsampel-inspektor-qc');
     Route::post('/rollie-inspektor-qc/rpd-filling/analisa-sampel-pi', 'rollie\inspektorController@analisaSampelPi')->name('analisapi-inspektor-qc');
+    Route::post('/rollie-inspektor-qc/rpd-filling/analisa-sampel-event', 'rollie\inspektorController@analisaSampelEvent')->name('analisaevent-inspektor-qc');
 
     // Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@rpdfilling')->name('proses-rpd-filling');
     
