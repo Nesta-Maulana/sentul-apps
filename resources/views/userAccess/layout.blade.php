@@ -16,8 +16,16 @@
 
 </head>
 
+<style>
+    @media only screen and (max-width){
+        .navbar{
+            margin-top: -5%;
+        }
+    }
+</style>
+
 <body class="jumbotron">
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand home-logo" href="#">Sentul Apps</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"

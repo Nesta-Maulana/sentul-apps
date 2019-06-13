@@ -24,7 +24,6 @@ display: none;
     color: white;
 }
 .img-bg{
-    background-image: url('{{ asset("userAccess/img/background2.JPG")}}');
     background-position: center;
     background-size: cover;
     width: 120%;
@@ -123,6 +122,7 @@ $('.tablePreview').dataTable(
     $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
     });
+    
     new WOW().init();
 </script>
 </body>

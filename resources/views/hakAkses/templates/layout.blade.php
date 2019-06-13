@@ -71,7 +71,7 @@
         <!-- Akhir Info Panel -->
 
         @yield('content')
-
+    
         <!-- Testimonial -->
         <section class="testimonial">
             <div class="row justify-content-center">
@@ -92,6 +92,12 @@
 
         <!-- Akhir Container -->
     </div>
+    @if ($message = Session::get('success'))
+    <div class="success" data-flashdata="{{ $message }}"></div>
+    @endif
+    @if ($message = Session::get('failed'))
+    <div class="failed" data-flashdatas="{{ $message }}"></div>
+    @endif
     <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
     <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
     <script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
@@ -105,6 +111,23 @@
             scrollTop: $(sectionTo).offset().top
         }, 1500);
         });
+
+        const flashdatas = $('.failed').data('flashdatas');
+        const flashdata = $('.success').data('flashdata');
+        if (flashdatas) {
+            swal({
+                title: "Failed",
+                text: flashdatas,
+                type: "error",
+            });
+        }
+        if (flashdata) {
+            swal({
+                title: "Success",
+                text: flashdata,
+                type: "success",
+            });
+        }
     </script>
 </body>
 

@@ -56,21 +56,30 @@ class adminUtilityController extends resourceController
         return $dates;
     }    
 
-    public function rasioBagian($bagian, $company = "", $tgl){
+    public function rasioBagian($bagian, $company = "", $tgl)
+    {
         $nilai = 0;
         $cek = penggunaan::whereIn('id_bagian', $bagian)->where('tgl_penggunaan', $tgl)->get();
-        foreach ($cek as $penggunaan) {
-            if(!$penggunaan->bagian->rasioHead){
+        foreach ($cek as $penggunaan) 
+        {
+            if(!$penggunaan->bagian->rasioHead)
+            {
                 $nilaiBagian = $penggunaan->nilai;
                 $nilai =  $nilai + $nilaiBagian;
-            }else{
-                foreach ($penggunaan->bagian->rasioHead->rasioDetail as $rasioDetail) {                
-                    if ($rasioDetail->company->singkatan == $company) {
+            }
+            else
+            {
+                foreach ($penggunaan->bagian->rasioHead->rasioDetail as $rasioDetail) 
+                {                
+                    if ($rasioDetail->company->singkatan == $company) 
+                    {
                         $nilaiPenggunaan = $penggunaan->nilai;
                         $rasio = $rasioDetail->nilai/100;
                         $nilaiBagian = $penggunaan->nilai * $rasio;
                         $nilai =  $nilai + $nilaiBagian;
-                    }else{
+                    }
+                    else
+                    {
                         $nilaiBagian = $penggunaan->nilai;
                         $nilai =  $nilai + $nilaiBagian;
                     }
@@ -377,7 +386,8 @@ class adminUtilityController extends resourceController
     public function detailReport($id, $tgl){
         return view('utilityOnline.admin.detailReport', ['menus' => $this->menu, 'username' => $this->username]);
     } 
-    public function report3Tgl($from, $to){
+    public function report3Tgl($from, $to)
+    {
         $tz = 'Asia/Jakarta';
         $from1 = explode('-', $from);
         $to1 = explode('-', $to);        

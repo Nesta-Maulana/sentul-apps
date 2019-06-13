@@ -37,7 +37,8 @@ Route::post('/register', 'userAccess\userAccessController@register')->name('user
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
 Route::get('/logout', 'userAccess\userAccessController@logout');
 
-Route::get('/request-hak-akses', 'hakAkses\hakAksesController@hakAkses');
+Route::get('/halaman-help', 'hakAkses\hakAksesController@hakAkses');
+Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
 Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
 Route::get('/home-nothing', 'userAccess\userAccessController@homeNothing')->name('home-no-hak-akses');
 Route::middleware('ceklogin')->group(function ()

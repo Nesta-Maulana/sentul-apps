@@ -84,13 +84,13 @@
 						<form class="m-login__form m-form" action="register" method="POST">
 							{{ csrf_field() }}
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Fullname" name="fullname" required>
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Fullname" name="fullname" required autocomplete="off">
 							</div>
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Username(NIK)" name="username" required>
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Username(NIK)" name="username" required autocomplete="off">
 							</div>
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Email" name="email" autocomplete="off" required>
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Email" name="email" autocomplete="off" required >
 							</div>
 							<div class="form-group m-form__group">
 								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Tempat Lahir" name="tempatLahir" autocomplete="off" required>

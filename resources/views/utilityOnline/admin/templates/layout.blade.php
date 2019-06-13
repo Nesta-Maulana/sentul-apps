@@ -57,10 +57,10 @@
     <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-                <a href="dashboard-ecommerce.html">UTILITY ONLINE</a>
+                <a href="/sentul-apps/utility-online/admin">UTILITY ONLINE</a>
             </div>
             <div class="sidebar-brand sidebar-brand-sm">
-                <a href="dashboard-ecommerce.html">ULLIE</a>
+                <a href="/sentul-apps/utility-online/admin">ULLIE</a>
             </div>
             <ul class="sidebar-menu">
 
@@ -183,11 +183,7 @@
         method: 'get',
         dataType: 'json',
         success: function (data) {
-            
-            
             for (let i = 0; i < data.length; i++) {
-                
-                
                 if(data[i].hni){
                     var event={id:i , title: data[i].hni + ' SHIFT (HNI)', start:  data[i].tgl, backgroundColor: "#eaeaea", borderColor: "#fff", textColor: '#000'};
                     $("#myEvent").fullCalendar('renderEvent', event, true);

@@ -8,8 +8,11 @@ use App\Models\UserAccess\userAccess;
 use App\Models\UserAccess\role;
 use Illuminate\Support\Facades\Hash;
 use App\Models\masterApps\aplikasi;
+use App\Models\masterApps\menu;
 use App\Models\masterApps\karyawan;
 use App\Models\masterApps\agama;
+use App\Models\masterApps\hakAksesAplikasi;
+use App\Models\masterApps\hakAksesUserAplikasi;
 use \Carbon\Carbon;
 use DB;
 use Session;
@@ -172,16 +175,16 @@ class userAccessController extends resourceController
         $oldCountUser =  userAccess::count();
         $oldCountKaryawan = karyawan::count();
         $password = Hash::make('sentulappuser');
-        userAccess::create([
-            'rolesId' => $request->role,
-            'username' => $request->username,
-            'password' => $password,
-            'verified' => '0',
-            'verifiedByAdmin' => '0',
-            'lastUpdatePassword' => $today, 
-            'passwordWrong' => '0',
-            'status' => '0',
-        ]);
+        $user = userAccess::create([
+                    'rolesId' => $request->role,
+                    'username' => $request->username,
+                    'password' => $password,
+                    'verified' => '0',
+                    'verifiedByAdmin' => '0',
+                    'lastUpdatePassword' => $today, 
+                    'passwordWrong' => '0',
+                    'status' => '0',
+                ]);
         karyawan::create([
             'nik' => $request->username,
             'fullname' => $request->fullname,
@@ -192,6 +195,36 @@ class userAccessController extends resourceController
             'golongan_darah' => $request->golDarah,
             'email' => $request->email,
         ]);
+
+        // Input Hak Akses
+        $menus = menu::all();
+        foreach ($menus as $menu ) {
+            $cekakses = DB::table('hak_akses_menu')->select('*')->where('user_id',$user->id)->where('menu_id',$menu->id)->count();
+            if($cekakses == 0)
+            {
+                hakAksesAplikasi::create([
+                'user_id' =>$user->id,
+                'menu_id' => $menu->id,
+                'lihat' => '0',
+                'tambah' => '0',
+                'ubah' => '0',
+                'hapus' => '0',
+                ]);
+            }
+        }
+        $aplications = aplikasi::all();
+        foreach ($aplications as $aplication ) {
+            $cekAplikasiAkses = hakAksesUserAplikasi::select('*')->where('id_user',$user->id)->where('id_aplikasi',$aplication->id)->count();
+            if($cekAplikasiAkses == 0){
+                hakAksesUserAplikasi::create([
+                    'id_aplikasi' => $aplication->id,
+                    'id_user' => $user->id,
+                    'status' => '0',
+                ]);
+            }
+        }
+
+
         $newCountUser =  userAccess::count();
         $newCountKaryawan = karyawan::count();
         // Cek Berhasil / Tidak
