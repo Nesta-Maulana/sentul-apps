@@ -4,8 +4,9 @@
 @endsection
 @section('content')
 <style>
-    #particles-js{
-        height: 230vh;
+    #particles-js
+    {
+        height: 190vh;
     }
 </style>
 <div id="particles-js"></div>
@@ -111,18 +112,44 @@
         </div>
     </div>
 </div>
-<div class="row justify-content-center" style="width: 100%">
-    <div class="col-lg-4 mt-4 justify-content-center d-flex">
-        <a class="text-white" href="utility-online/water"><button class="btn btn-success tombol"><h1 class="judul">Air</h1></button></a>
+<div class="row" style="width: 100%;margin-top: 20px">
+    <div class="col-md-4 col-xs-4">
+        <a href="utility-online/water" class="text-white">
+            <button class="btn btn-success tombol" style="width: 100%; height: 100%">
+                <h1 class="judul">
+                    Air
+                </h1>
+            </button>
+        </a>
     </div>
-    <div class="col-lg-4 mt-4 justify-content-center d-flex">
-        <a class="text-white" href="utility-online/listrik"><button class="btn btn-success tombol"><h1 class="judul">Listrik</h4></button></a>
+    <div class="col-md-4 col-xs-4">
+        <a href="utility-online/listrik" class="text-white">
+            <button class="btn btn-success tombol" style="width: 100%; height: 100%">
+                <h1 class="judul">
+                    Listrik
+                </h1>
+            </button>
+        </a>
     </div>
-    <div class="col-lg-4 mt-4 justify-content-center d-flex">
-        <a class="text-white" href="utility-online/gas"><button class="btn btn-success tombol"><h1 class="judul">Gas</h1></button></a>
+    <div class="col-md-4 col-xs-4">
+        <a href="utility-online/gas" class="text-white">
+            <button class="btn btn-success tombol" style="width: 100%; height: 100%">
+                <h1 class="judul">
+                    Gas
+                </h1>
+            </button>
+        </a>
     </div>
-    <div class="col-lg-4 mt-4 justify-content-center d-flex">
-        <a class="text-white" href="utility-online/database"><button class="btn btn-success tombol"><h1 class="judul">Database</h1></button></a>
+</div>
+<div class="row" style="width: 100%;margin-top: 20px">
+    <div class="col-md-12 col-xs-12">
+        <a href="utility-online/database" class="text-white">
+            <button class="btn btn-success tombol" style="width: 100%; height: 100%">
+                <h1 class="judul">
+                    Database
+                </h1>
+            </button>
+        </a>
     </div>
 </div>
 @endsection

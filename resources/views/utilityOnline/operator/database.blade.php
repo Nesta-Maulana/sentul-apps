@@ -13,18 +13,18 @@
     <div class="row back-img-bg d-flex justify-content-center">
         <div class="img-bg">
             <div class="mt-5">
-                <h2 class="d-flex justify-content-center mt-5 xtreem" style="color: rgba(176, 255, 66, 0.69); text-shadow: 1px 1px 1px #000; font-size: 100px;"><span style="color: rgba(119, 202, 4, 0.69);">Data</span> base</h2>
+                <h2 class="d-flex justify-content-center mt-5 xtreem" style="color: rgba(240, 248, 254, 0.69); text-shadow: 1px 1px 1px #000; font-size: 100px;"><span style="color: rgba(251, 251, 242, 0.69);">Data</span> base</h2>
             </div>
         </div>
     </div>
     <div class="container">
-        <div class="row" style="margin-top: -18%;">
-            <div class="col teks" style="z-index: 10;">
+        <div class="row">
+            <div class="col teks" >
                 <div class="row p-3 rounded">
                     <div class="col-lg-4 p-2 teks text-white">
                         <label for="tanggal">Tanggal : </label>
                         <br>
-                        <input type="date" id="tanggal" class="form-control">
+                        <input class="form-control" placeholder="Harap Pilih Tanggal Pengamatan" onfocus="(this.type='date')" id="tanggal">
                         <label for="kategori">Kategori :</label>
                         <br>
                         <select name="kategori" id="kategori" class="form-control select2">
