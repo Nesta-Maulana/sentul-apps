@@ -5,16 +5,17 @@
 @section('content')
 <style>
     #particles-js{
-        height: 210vh;
+        height: 100%;
     }
-    @media only screen and (max-width: 992px){
+    @media only screen and (min-width: 920px)
+    {
         #particles-js{
-            height: 270vh;
+            height: 345vh;
         }
     }
     @media only screen and (max-width: 768px){
         #particles-js{
-            height: 315vh;
+            height: 190vh;
         }
     }
 </style>
@@ -23,7 +24,7 @@
 <div class="row back-img-bg d-flex justify-content-center">
         <div class="img-bg">
             <div class="mt-2">
-                <h2 class="d-flex justify-content-center mt-2 xtreem" style="color: rgba(201, 255, 126, 0.69); text-shadow: 1px 1px 1px #000; font-size: 100px;">Water</h2>
+                <h2 class="d-flex justify-content-center mt-2 xtreem" style="color: #00e2ff; text-shadow: 1px 1px 1px #000; font-size: 100px;">Water</h2>
             </div>
         </div>
     </div>
@@ -32,10 +33,9 @@
             <div class="col teks">
                 <div class="row p-3">
                     <div class="col-lg-4 p-3 teks text-white">
-                        <label for="workcenter">Workcenter :</label>
-                        <br>
+                        <p for="workcenter" style="font-size: 2.5em;" class="text-center">Workcenter</p>
                         @foreach($workcenter as $w)
-                            <button data-id="{{ $w->id }}" class="btn btn-success d-flex justify-content-center workcenter form-control">{{ $w->workcenter }}</button><br>
+                            <button data-id="{{ $w->id }}" class="btn d-flex justify-content-center workcenter form-control " style="background: #212529;color: #00e2ff" >{{ $w->workcenter }}</button><br>
                         @endforeach                
                     </div>
                     <div class="col-lg-8 teks ">
@@ -94,18 +94,18 @@
                     // console.log(data[0][data[0][index].id]);
                     if(data[0][index].pengamatan !== null)
                     {
-                        optionroles+='<td><input type="text" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[0][index].id +'" value="'+ data[0][index].pengamatan.nilai_meteran +'" /></td>';
+                        optionroles+='<td><input type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[0][index].id +'" value="'+ data[0][index].pengamatan.nilai_meteran +'" /></td>';
                         cek(data[0][index].id);
                     }
                     else{
-                        optionroles+='<td><input type="text" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[0][index].id +'"/></td>';
+                        optionroles+='<td><input type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" id="input'+ data[0][index].id +'"/></td>';
                     }
                     for (let i = 0; i < data[1].length; i++) {
                         if (data[0][index].satuan_id == data[1][i].id) {
                             optionroles+='<td>'+data[1][i].satuan+'</td>';
                         }
                     }
-                    optionroles+='<td style="display:none"><input type="text" value="'+data[0][index].id+'" id="idbagian'+ data[0][index].id +'"/></td>'
+                    optionroles+='<td style="display:none"><input type="number" value="'+data[0][index].id+'" id="idbagian'+ data[0][index].id +'"/></td>'
                     optionroles+='<td><button class="btn btn-primary simpan" id="simpan'+data[0][index].id+'" onclick="simpan($(\'#input'+data[0][index].id+'\').val(),$(\'#idbagian'+data[0][index].id+'\').val())">Simpan</button></td>'
                     optionroles+='</tr>';
                 }

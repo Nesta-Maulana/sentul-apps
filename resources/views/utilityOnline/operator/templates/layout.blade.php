@@ -11,65 +11,79 @@
     <link rel="stylesheet" href="{!!asset('utilityOnline/css/style.css')!!}">
     <link rel='stylesheet' href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
     <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
+
+    <style>
+        .dataTables_filter
+        {
+            display: none; 
+        }
+        .dataTables_length 
+        {
+            display: none; 
+        }
+        .dataTables_info
+        {
+            color: white;
+        }
+        .img-bg
+        {
+            background-position: center;
+            background-size: cover;
+            width: 120%;
+            height: 100%;
+            z-index: 9;
+        }
+        .back-img-bg
+        {
+            width: 101.1%;
+            opacity: 0.8;
+        }
+        @media only screen and (min-width: 920px)
+        {
+            .img-bg
+            {
+                background-position: 0 0px;
+                height: 100%;
+            }
+        }
+    </style>
 </head>
-<body >
-<style>
-.dataTables_filter {
-display: none; 
-}
-.dataTables_length {
-display: none; 
-}
-.dataTables_info{
-    color: white;
-}
-.img-bg{
-    background-position: center;
-    background-size: cover;
-    width: 120%;
-    height: 60vh;
-    z-index: 9;
-}
-.back-img-bg{
-    width: 101.1%;
-    opacity: 0.8;
-}
-@media only screen and (min-width: 920px){
-    .img-bg{
-        background-position: 0 0px;
-        height: 70vh;
-    }
-}
-</style>
-<nav class="navbar navbar-expand-lg navbar-dark bg-light bbotom">
-    <a class="navbar-brand text-success" href="/sentul-apps/utility-online">Utility Online</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon bg-success"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link text-success" href="#">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link text-success" href="#">User Guide</a>
-            <a class="nav-item nav-link text-success" href="#">Help</a>
-        </div>
-        <div class="navbar-nav ml-auto mr-5">
-            <div class="dropdown">
-                <a class="dropdown-toggle text-success mr-2" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Hello, {{ $username }}
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bbotom" style="background-color: #1f1f1f;">
+        <a class="navbar-brand" href="/sentul-apps/utility-online">
+            Utility Online
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon bg-success"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">Home 
+                    <span class="sr-only">(current)</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="/sentul-apps/logout">Logout</a>
+                <a class="nav-item nav-link" href="#">User Guide</a>
+                <a class="nav-item nav-link" href="#">Help</a>
+            </div>
+            <div class="navbar-nav ml-auto mr-5">
+                <div class="dropdown">
+                    <a class="dropdown-toggle mr-2 text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hello, {{ $username }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="/sentul-apps/logout">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </nav> 
+    <div class="text-white" style="background: #d8dad5;">
+        <span class="justify-content-start d-flex mr-3 pb-1" style="margin-right: 10px">
+            <a href="/sentul-apps/utility-online" class="text-white">
+                <i class="fa fa-home text-success mr-5">Utility Online</i>
+            </a>
+        </span>
     </div>
-</nav>
-<div class="text-white" style="background: #aef64a;">
-    <span class="justify-content-end d-flex mr-3 pb-1">
-        <a href="/sentul-apps/utility-online" class="text-white"><i class="fa fa-home text-success mr-5">Utility Online</i></a>
-    </span>
-</div>
     @if ($message = Session::get('success'))
         <div class="success" data-flashdata="{{ $message }}"></div>
     @endif

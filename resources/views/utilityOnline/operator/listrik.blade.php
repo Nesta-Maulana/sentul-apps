@@ -9,7 +9,7 @@
     }
     @media only screen and (max-width: 991px){
         #particles-js{
-            height: 230vh;
+            height: 200vh;
         }
     }
     @media only screen and (max-width: 767px){
@@ -23,7 +23,7 @@
     <div class="row back-img-bg d-flex justify-content-center">
         <div class="img-bg">
             <div class="mt-2">
-                <h2 class="d-flex justify-content-center mt-2 xtreem" style="color: rgba(176, 255, 66, 0.69); text-shadow: 1px 1px 1px #000; font-size: 100px;">Listrik</h2>
+                <h2 class="d-flex justify-content-center mt-2 xtreem" style="color: rgba(253, 255, 0, 0.8); text-shadow: 1px 1px 1px #000; font-size: 100px;">Listrik</h2>
             </div>
         </div>
     </div>
@@ -32,11 +32,9 @@
             <div class="col teks">
                 <div class="row p-3">
                     <div class="col-lg-4 p-3 teks text-white">
-                        <label for="workcenter" style="text-shadow: 1px 1px 1px #000;">Workcenter :</label>
-                        <br>
-                        
+                        <p for="workcenter" style="font-size: 2.5em;" class="text-center">Workcenter</p>
                         @foreach($workcenter as $w)
-                            <button data-id="{{ $w->id }}" class="btn btn-success d-flex justify-content-center workcenter form-control">{{ $w->workcenter }}</button><br>
+                            <button data-id="{{ $w->id }}" class="btn d-flex justify-content-center workcenter form-control " style="background: #212529;color: #a3a400" >{{ $w->workcenter }}</button><br>
                         @endforeach
                     </div>
                     <div class="col-lg-8 teks ">

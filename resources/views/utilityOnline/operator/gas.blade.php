@@ -7,9 +7,9 @@
     #particles-js{
         height: 110vh;
     }
-    @media only screen and (max-width: 991px){
+    @media only screen and (max-width: 920px){
         #particles-js{
-            height: 150vh;
+            height: 100%;
         }
     }  
 </style>
@@ -27,12 +27,10 @@
             <div class="col teks">
                 <div class="row p-3">
                     <div class="col-lg-4 p-3 teks text-white">
-                        <label for="workcenter" style="text-shadow: 1px 1px 1px #000;">Workcenter :</label>
-                        <br>
-                            @foreach($workcenter as $w)
-                                <button data-id="{{ $w->id }}" class="btn btn-success d-flex justify-content-center workcenter form-control">{{ $w->workcenter }}</button><br>
-                            @endforeach
-                
+                        <p for="workcenter" style="font-size: 2.5em;" class="text-center">Workcenter</p>
+                        @foreach($workcenter as $w)
+                            <button data-id="{{ $w->id }}" class="btn d-flex justify-content-center workcenter form-control " style="background: #212529;color: rgb(176, 255, 66)" >{{ $w->workcenter }}</button><br>
+                        @endforeach
                     </div>
                     <div class="col-lg-8 teks ">
                         <!--Table-->

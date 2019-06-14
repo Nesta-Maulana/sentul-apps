@@ -1,5 +1,5 @@
 .bbotom{
-  border-bottom: 5px solid #aef64a;
+  border-bottom: 4px solid #fff;
 }
 .stabilo{
 	background-color: #aef64a;
@@ -21,7 +21,7 @@ canvas {
     background: #000e1c;
 }
 .teks{
-    background: rgba(176, 255, 66, 0.69);
+    background:rgba(201, 202, 200, 0.2);
     
     
 }
