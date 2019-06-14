@@ -12,7 +12,7 @@
                     <h3 class="text-center">{{$h->aplikasi}}</h3>
                     <hr class="bg-white">
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate, odio?</p>
-                    <a href="{{ $h->link }}" class="btn btn-secondary d-flex justify-content-center">GO</a>
+                    <a href="{{ $h->link }}" class="btn btn-secondary d-flex justify-content-center" style="box-shadow: 1px 1px 5px black">GO</a>
                 </div>
             @endforeach
         </div>

@@ -77,35 +77,35 @@
                     $table += "<td>"+data[index].menu+"</td>";
                     if (data[index].lihat =='1') 
                     {
-                        $table+="<td> <label for=''>Y</label> <input type='radio'  name='lihat_" + index + "' value='" +data[index].id+ "_1' checked> <label for=''>T</label> <input type='radio' name='lihat_" + index + "' value='" +data[index].id+ "_0'> </td>"; 
+                        $table+="<td> <label for=''>Y</label> <input type='radio'  name='lihat_"+data[index].id+"' value='1' checked> <label for=''>T</label> <input type='radio' name='lihat_"+data[index].id+"' value='0'> </td>"; 
                     }
                     else
                     {
-                        $table += "<td> <label for=''>Y</label> <input type='radio' name='lihat_" + index + "' value='" +data[index].id+ "_1'> <label for=''>T</label> <input type='radio' name='lihat_" + index + "' value='" +data[index].id+ "_0' checked> </td>";
+                        $table += "<td> <label for=''>Y</label> <input type='radio' name='lihat_"+data[index].id+"' value='1'> <label for=''>T</label> <input type='radio' name='lihat_"+data[index].id+"' value='0' checked> </td>";
                     }
                     if (data[index].tambah =='1') 
                     {
-                        $table+="<td> <label for=''>Y</label> <input type='radio' name='tambah_" + index + "' value='" +data[index].id+ "_1' checked> <label for=''>T</label> <input type='radio' name='tambah_" + index + "' value='" +data[index].id+ "_0'> </td>"; 
+                        $table+="<td> <label for=''>Y</label> <input type='radio' name='tambah_"+data[index].id+"' value='1' checked> <label for=''>T</label> <input type='radio' name='tambah_"+data[index].id+"' value='0'> </td>"; 
                     }
                     else
                     {
-                        $table += "<td> <label for=''>Y</label> <input type='radio' name='tambah_" + index + "' value='" +data[index].id+ "_1'> <label for=''>T</label> <input type='radio' name='tambah_" + index + "' value='" +data[index].id+ "_0' checked> </td>";     
+                        $table += "<td> <label for=''>Y</label> <input type='radio' name='tambah_"+data[index].id+"' value='1'> <label for=''>T</label> <input type='radio' name='tambah_"+data[index].id+"' value='0' checked> </td>";     
                     }
                     if (data[index].ubah =='1') 
                     {
-                        $table+="<td> <label for=''>Y</label> <input type='radio' name='ubah_" + index + "' value='" +data[index].id+ "_1' checked> <label for=''>T</label> <input type='radio' name='ubah_" + index + "' value='" +data[index].id+ "_0'> </td>"; 
+                        $table+="<td> <label for=''>Y</label> <input type='radio' name='ubah_"+data[index].id+"' value='1' checked> <label for=''>T</label> <input type='radio' name='ubah_"+data[index].id+"' value='0'> </td>"; 
                     }
                     else
                     {
-                        $table += "<td> <label for=''>Y</label> <input type='radio' name='ubah_" + index + "' value='" +data[index].id+ "_1'> <label for=''>T</label> <input type='radio' name='ubah_" + index + "' value='" +data[index].id+ "_0' checked> </td>"; 
+                        $table += "<td> <label for=''>Y</label> <input type='radio' name='ubah_"+data[index].id+"' value='1'> <label for=''>T</label> <input type='radio' name='ubah_"+data[index].id+"' value='0' checked> </td>"; 
                     }        
                     if (data[index].hapus =='1') 
                     {
-                        $table+="<td> <label for=''>Y</label> <input type='radio' name='hapus_" + index + "' value='" +data[index].id+ "_1' checked> <label for=''>T</label> <input type='radio' name='hapus_" + index + "' value='" +data[index].id+ "_0'> </td>"; 
+                        $table+="<td> <label for=''>Y</label> <input type='radio' name='hapus_"+data[index].id+"' value='1' checked> <label for=''>T</label> <input type='radio' name='hapus_"+data[index].id+"' value='0'> </td>"; 
                     }
                     else
                     {
-                        $table += "<td> <label for=''>Y</label> <input type='radio' name='hapus_" + index + "' value='" +data[index].id+ "_1'> <label for=''>T</label> <input type='radio' name='hapus_" + index + "' value='" +data[index].id+ "_0' checked> </td>"; 
+                        $table += "<td> <label for=''>Y</label> <input type='radio' name='hapus_"+data[index].id+"' value='1'> <label for=''>T</label> <input type='radio' name='hapus_"+data[index].id+"' value='0' checked> </td>"; 
                     }
                     $table+="</tr>";
                     no++;
@@ -129,10 +129,10 @@
                     var $table = "<tr>";
                     $table += "<td>"+no+"</td>";
                     $table += "<td>"+data[index].menu+"</td>";
-                    $table+="<td> <label for=''>Y</label> <input type='radio'  name='lihat_" + index + "' value='" +data[index].id+ "_1' checked> <label for=''>T</label> <input type='radio' name='lihat_" + index + "' value='" +data[index].id+ "_0'> </td>"; 
-                    $table+="<td> <label for=''>Y</label> <input type='radio' name='tambah_" + index + "' value='" +data[index].id+ "_1' checked> <label for=''>T</label> <input type='radio' name='tambah_" + index + "' value='" +data[index].id+ "_0'> </td>"; 
-                    $table+="<td> <label for=''>Y</label> <input type='radio' name='ubah_" + index + "' value='" +data[index].id+ "_1' checked> <label for=''>T</label> <input type='radio' name='ubah_" + index + "' value='" +data[index].id+ "_0'> </td>"; 
-                    $table+="<td> <label for=''>Y</label> <input type='radio' name='hapus_" + index + "' value='" +data[index].id+ "_1' checked> <label for=''>T</label> <input type='radio' name='hapus_" + index + "' value='" +data[index].id+ "_0'> </td>"; 
+                    $table+="<td> <label for=''>Y</label> <input type='radio'  name='lihat_"+data[index].id+"' value='1' checked> <label for=''>T</label> <input type='radio' name='lihat_"+data[index].id+"' value='0'> </td>"; 
+                    $table+="<td> <label for=''>Y</label> <input type='radio' name='tambah_"+data[index].id+"' value='1' checked> <label for=''>T</label> <input type='radio' name='tambah_"+data[index].id+"' value='0'> </td>"; 
+                    $table+="<td> <label for=''>Y</label> <input type='radio' name='ubah_"+data[index].id+"' value='1' checked> <label for=''>T</label> <input type='radio' name='ubah_"+data[index].id+"' value='0'> </td>"; 
+                    $table+="<td> <label for=''>Y</label> <input type='radio' name='hapus_"+data[index].id+"' value='1' checked> <label for=''>T</label> <input type='radio' name='hapus_"+data[index].id+"' value='0'> </td>"; 
                     $table+="</tr>";
                     no++;
                     $(".table-hak-akses tbody").append($table);               

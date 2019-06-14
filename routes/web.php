@@ -72,6 +72,12 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/master-apps/form-hak-akses/{id}', 'masterApps\superAdminController@dataHakAkses');
     
     Route::get('/master-apps/form-pmb', 'masterApps\superAdminController@pmb');
+
+    Route::get('/master-apps/verify-request', 'masterApps\superAdminController@verifyRequest');
+    Route::get('/master-apps/verify-request/aplikasi/{id}', 'masterApps\superAdminController@verifyRequestAplikasi');
+    Route::get('/master-apps/verify-request/menu/{id}', 'masterApps\superAdminController@verifyRequestMenu');
+    Route::get('/master-apps/verify-request/user/{id}', 'masterApps\superAdminController@verifyRequestUser');
+    Route::get('/master-apps/verify-request/aksi/{id}', 'masterApps\superAdminController@verifyRequestAksi');
     
     Route::get('/master-apps/rasio', 'masterApps\superAdminController@rasio');
     Route::get('/master-apps/rasio/workcenter/{id}', 'masterApps\superAdminController@rasioWorkcenter');

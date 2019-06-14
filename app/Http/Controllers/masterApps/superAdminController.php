@@ -10,6 +10,8 @@ use App\Models\masterApps\hakAkses;
 use App\Models\masterApps\menu;
 use App\Models\masterApps\hakAksesAplikasi;
 use App\Models\masterApps\hakAksesUserAplikasi;
+use App\Models\masterApps\requestHakAplikasi;
+use App\Models\masterApps\requestHakAplikasiHead;
 use App\Models\masterApps\aplikasi;
 use App\Models\masterApps\karyawan;
 use App\Models\masterApps\plan;
@@ -202,6 +204,123 @@ class superAdminController extends resourceController
         $user = userAccess::all();
         $karyawan = karyawan::all();
         return view('masterApps.formHakAkses', ['menus' => $this->menu, 'hakAkses' => $hakAkses, 'users' => $user, 'username' => $this->username, 'karyawan' => $karyawan]);
+    }
+
+    public function verifyRequest(){
+        $requestHakAplikasiHead = requestHakAplikasiHead::all();
+        $requestHakAplikasi = requestHakAplikasi::all();
+        $menus = menu::all();
+        $users = userAccess::all();
+        $aplications = aplikasi::all();
+        
+        return view('masterApps.verifyRequest', ['aplications' => $aplications, 'allMenu' => $menus, 'users' => $users,'menus' => $this->menu, 'username' => $this->username, 'requestHakAplikasiHead' => $requestHakAplikasiHead, 'requestHakAplikasi' => $requestHakAplikasi]);
+    }
+
+    public function verifyRequestAplikasi($id){
+        $requestHakAplikasiHead = requestHakAplikasiHead::all();
+        $users = userAccess::all();
+        $aplications = aplikasi::all();
+        // DISiNI
+        $requestHakAplikasi = requestHakAplikasi::join('request_hak_app_head', 'request_hak_app.id_request_head', 'request_hak_app_head.id')
+                                                ->where('request_hak_app_head.id_aplikasi', $id)
+                                                ->select('request_hak_app.*', 'request_hak_app_head.id_aplikasi', 'request_hak_app_head.id_user_request')
+                                                ->get();                    
+        foreach ($requestHakAplikasi as $rh ) {
+            $rh->menu = $rh->menu->menu;
+            foreach ($users as $user ) {
+                if($user->id == $rh->id_user_request){
+                    $rh->user = $user->karyawan->fullname;
+                }
+            }
+            foreach ($aplications as $aplication ) {
+                
+                if($rh->id_aplikasi == $aplication->id)
+                {
+                    $rh->aplikasi = $aplication->aplikasi;
+                }
+            }
+        }
+        return $requestHakAplikasi;
+    }
+
+    public function verifyRequestUser($id){
+        $requestHakAplikasiHead = requestHakAplikasiHead::all();
+        $users = userAccess::find($id);
+        $aplications = aplikasi::all();
+        // DISiNI
+        $requestHakAplikasi = requestHakAplikasi::join('request_hak_app_head', 'request_hak_app.id_request_head', 'request_hak_app_head.id')
+                                                ->where('request_hak_app_head.id_user_request', $id)
+                                                ->select('request_hak_app.*', 'request_hak_app_head.id_aplikasi', 'request_hak_app_head.id_user_request')
+                                                ->get();                    
+        foreach ($requestHakAplikasi as $rh ) {
+            $rh->menu = $rh->menu->menu;
+            if($users->id == $rh->id_user_request){
+                $rh->user = $users->karyawan->fullname;
+            }
+            
+            foreach ($aplications as $aplication ) {
+                
+                if($rh->id_aplikasi == $aplication->id)
+                {
+                    $rh->aplikasi = $aplication->aplikasi;
+                }
+            }
+        }
+        return $requestHakAplikasi;
+    }
+
+    public function verifyRequestAksi($id){
+        $requestHakAplikasiHead = requestHakAplikasiHead::all();
+        $users = userAccess::all();
+        $aplications = aplikasi::all();
+        // DISiNI
+        $requestHakAplikasi = requestHakAplikasi::join('request_hak_app_head', 'request_hak_app.id_request_head', 'request_hak_app_head.id')
+                                                ->where('request_hak_app.aksi', $id)
+                                                ->select('request_hak_app.*', 'request_hak_app_head.id_aplikasi', 'request_hak_app_head.id_user_request')
+                                                ->get();                    
+        foreach ($requestHakAplikasi as $rh ) {
+            $rh->menu = $rh->menu->menu;
+            foreach ($users as $user ) {
+                if($user->id == $rh->id_user_request){
+                    $rh->user = $user->karyawan->fullname;
+                }
+            }
+            foreach ($aplications as $aplication ) {
+                
+                if($rh->id_aplikasi == $aplication->id)
+                {
+                    $rh->aplikasi = $aplication->aplikasi;
+                }
+            }
+        }
+        return $requestHakAplikasi;
+    }
+
+    public function verifyRequestMenu($id){
+        $requestHakAplikasiHead = requestHakAplikasiHead::all();
+        $users = userAccess::all();
+        $aplications = aplikasi::all();
+        // DISiNI
+        $requestHakAplikasi = requestHakAplikasi::join('request_hak_app_head', 'request_hak_app.id_request_head', 'request_hak_app_head.id')
+                                                ->where('request_hak_app.id_menu', $id)
+                                                ->select('request_hak_app.*', 'request_hak_app_head.id_aplikasi', 'request_hak_app_head.id_user_request')
+                                                ->get();                    
+        foreach ($requestHakAplikasi as $rh ) {
+            $rh->menu = $rh->menu->menu;
+            foreach ($users as $user ) {
+                if($user->id == $rh->id_user_request){
+                    $rh->user = $user->karyawan->fullname;
+                }
+            }
+            foreach ($aplications as $aplication ) {
+                
+                if($rh->id_aplikasi == $aplication->id)
+                {
+                    $rh->aplikasi = $aplication->aplikasi;
+                }
+            }
+        }
+        return $requestHakAplikasi;
     }
 
     public function aplikasi(){

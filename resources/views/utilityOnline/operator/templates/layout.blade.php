@@ -64,7 +64,7 @@ display: none;
             </div>
         </div>
     </div>
-</nav> 
+</nav>
 <div class="text-white" style="background: #aef64a;">
     <span class="justify-content-end d-flex mr-3 pb-1">
         <a href="/sentul-apps/utility-online" class="text-white"><i class="fa fa-home text-success mr-5">Utility Online</i></a>

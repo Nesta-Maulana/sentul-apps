@@ -209,6 +209,9 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 <script>
   $(document).ready(function() 
     {
+      $('.basic-data-table').dataTable({
+        bLengthChange:false,  
+      });
         $('#table-company').DataTable({
           bFilter:false,
           bInfo:false,

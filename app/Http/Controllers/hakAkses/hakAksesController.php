@@ -35,6 +35,7 @@ class hakAksesController extends resourceController
         return $menus;
     }
     public function requestHakAkses(Request $request){
+        
         if(!Session::get('login')){
             return back()->with('failed', 'Harap login terlebih dahulu');
         }
@@ -43,29 +44,38 @@ class hakAksesController extends resourceController
             'id_aplikasi' => $id,
             'id_user_request' => Session::get('login'),
         ]);
-
-        for ($i=0; $i < $request->nilai_hak_akses - 1; $i++) {
-            $kalimatLihat = "lihat_" . $i;
-            $kalimatUbah = "ubah_" . $i;
-            $kalimatHapus = "hapus_" . $i;
-            $kalimatTambah = "tambah_" . $i;
-
-            $aksiLihat = explode('_', $request->$kalimatLihat);
-            $aksiUbah = explode('_', $request->$kalimatUbah);
-            $aksiHapus = explode('_', $request->$kalimatHapus);
-            $aksiTambah = explode('_', $request->$kalimatTambah);
-            // dd($request->$kalimatTambah);
-
-            $idMenu = $aksiLihat[0];
-            requestHakAplikasi::create([
-                'id_request_head' => $head->id,
-                'id_menu' => $idMenu,
-                'tambah' => $aksiTambah[1],
-                'lihat' => $aksiLihat[1],
-                'ubah' => $aksiUbah[1],
-                'hapus' => $aksiHapus[1],
-            ]);
+        $menus = menu::all();
+        foreach ($menus as $menu) {
+            if($request['lihat_' . $menu->id] == '1'){
+                requestHakAplikasi::create([
+                    'id_request_head' => $head->id,
+                    'id_menu' => $menu->id,
+                    'aksi' => 'lihat'
+                ]);
+            }
+            if($request['ubah_' . $menu->id] == '1'){
+                requestHakAplikasi::create([
+                    'id_request_head' => $head->id,
+                    'id_menu' => $menu->id,
+                    'aksi' => 'ubah'
+                ]);
+            }
+            if($request['hapus_' . $menu->id] == '1'){
+                requestHakAplikasi::create([
+                    'id_request_head' => $head->id,
+                    'id_menu' => $menu->id,
+                    'aksi' => 'hapus'
+                ]);
+            }
+            if($request['tambah_' . $menu->id] == '1'){
+                requestHakAplikasi::create([
+                    'id_request_head' => $head->id,
+                    'id_menu' => $menu->id,
+                    'aksi' => 'tambah'
+                ]);
+            }
         }
+        
         return back()->with('success', "Berhasil Meminta Hak Akses");
     }
 }
