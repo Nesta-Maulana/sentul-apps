@@ -22,13 +22,13 @@
     <div id="particles-js"></div>
     <div class="row back-img-bg d-flex justify-content-center">
         <div class="img-bg">
-            <div class="mt-5">
-                <h2 class="d-flex justify-content-center mt-5 xtreem" style="color: rgba(176, 255, 66, 0.69); text-shadow: 1px 1px 1px #000; font-size: 100px;">Listrik</h2>
+            <div class="mt-2">
+                <h2 class="d-flex justify-content-center mt-2 xtreem" style="color: rgba(176, 255, 66, 0.69); text-shadow: 1px 1px 1px #000; font-size: 100px;">Listrik</h2>
             </div>
         </div>
     </div>
     <div class="container">
-        <div class="row teks" style="margin-top: -18%;">
+        <div class="row teks">
             <div class="col teks">
                 <div class="row p-3">
                     <div class="col-lg-4 p-3 teks text-white">

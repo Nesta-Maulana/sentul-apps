@@ -37,7 +37,8 @@ Route::post('/register', 'userAccess\userAccessController@register')->name('user
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
 Route::get('/logout', 'userAccess\userAccessController@logout');
 
-Route::get('/request-hak-akses', 'hakAkses\hakAksesController@hakAkses');
+Route::get('/halaman-help', 'hakAkses\hakAksesController@hakAkses');
+Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
 Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
 Route::get('/home-nothing', 'userAccess\userAccessController@homeNothing')->name('home-no-hak-akses');
 Route::middleware('ceklogin')->group(function ()
@@ -191,10 +192,12 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report/{from}/{to}', 'utilityOnline\adminUtilityController@reportDate');
     Route::get('/utility-online/admin/report/{id}', 'utilityOnline\adminUtilityController@reportKategori');
     Route::get('/utility-online/admin/report/{id}/{from}/{to}', 'utilityOnline\adminUtilityController@reportKategoriDate');
+    
     // Export Report 1
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@exportPengamatan');
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{kategori}', 'utilityOnline\exportImportUtilityController@penggunaanKategori');
     Route::get('/utility-online/admin/report/export/{nama_report}/{from}/{kategori}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@penggunaanKategoriTgl');
+    
     // Export Report 3
     Route::get('/utility-online/admin/report/export-3/{nama_report}/{from}/{kategori}', 'utilityOnline\exportImportUtilityController@report3Kategori');
     Route::get('/utility-online/admin/report/export-3/{nama_report}/{from}/{tgl1}/{tgl2}', 'utilityOnline\exportImportUtilityController@report3Tgl');
@@ -221,6 +224,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@prosesrpdfilling')->name('proses-rpd-filling');
     Route::post('/rollie-inspektor-qc/rpd-filling/tambah-sampel', 'rollie\inspektorController@tambahSampel')->name('tambahsampel-inspektor-qc');
     Route::post('/rollie-inspektor-qc/rpd-filling/analisa-sampel-pi', 'rollie\inspektorController@analisaSampelPi')->name('analisapi-inspektor-qc');
+    Route::post('/rollie-inspektor-qc/rpd-filling/analisa-sampel-event', 'rollie\inspektorController@analisaSampelEvent')->name('analisaevent-inspektor-qc');
 
     // Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@rpdfilling')->name('proses-rpd-filling');
     

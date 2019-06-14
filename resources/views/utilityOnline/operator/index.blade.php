@@ -110,7 +110,7 @@
             </div>
         </div>
     </div>
-</div>x
+</div>
 <div class="row justify-content-center" style="width: 100%">
     <div class="col-lg-4 mt-4 justify-content-center d-flex">
         <a class="text-white" href="utility-online/water"><button class="btn btn-success tombol"><h1 class="judul">Air</h1></button></a>

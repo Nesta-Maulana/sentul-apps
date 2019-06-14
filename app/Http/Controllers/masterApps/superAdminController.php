@@ -54,7 +54,8 @@ class superAdminController extends resourceController
         });
     }
 
-    public function index(){
+    public function index()
+    {
         
         
 
@@ -367,10 +368,11 @@ class superAdminController extends resourceController
     }
     public function mesinFillingHeadDetailSave(Request $request)
     {
+        dd($request->all());
         $head = mesinFillingHead::create([
             'nama_kelompok' => $request->kelompok,
             'status' => $request->status
-        ]);
+        ]); 
         for ($i=0; $i < count($request->company); $i++) 
         {
 
