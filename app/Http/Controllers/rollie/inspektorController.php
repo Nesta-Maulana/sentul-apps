@@ -342,4 +342,42 @@ class inspektorController extends resourceController
         }
 
     }
+    public function analisaSampelEvent(Request $request)
+    {
+        $kode_sampel                        = $request->paketan[0];
+        $idevent                            = resourceController::dekripsi($request->paketan[1]);
+        $wo_id                              = resourceController::dekripsi($request->paketan[2]);
+        $event_detail                       = rpdFillingDetailAtEvent::find($idevent);
+
+        switch ($kode_sampel) 
+        {
+            case 'B':
+                $ls_sa_sealing_quality_event        = $request->ls_sa_sealing_quality_event;
+                $ls_sa_proportion_event             = $request->ls_sa_proportion_event;
+                $sideway_sealing_alignment_event    = $request->sideway_sealing_alignment_event;
+                $overlap_event                      = $request->overlap_event;
+                $package_length_event               = $request->package_length_event;
+                $paper_splice_sealing_quality_event = $request->paper_splice_sealing_quality_event;
+                //update data detail                
+                $event_detail->ls_sa_sealing_quality          = $ls_sa_sealing_quality_event;
+                $event_detail->ls_sa_proportion               = $ls_sa_proportion_event;
+                $event_detail->sideway_sealing_alignment      = $sideway_sealing_alignment_event;
+                $event_detail->overlap                        = $overlap_event;
+                $event_detail->package_length                 = $package_length_event;
+                $event_detail->paper_splice_sealing_quality   = $paper_splice_sealing_quality_event;
+                $event_detail->save();
+            break;
+            case 'C':
+            break;
+            case 'D':
+            break;
+            case 'E':
+            break;
+            case 'F':
+            break;
+            case 'G':
+            break;
+        }
+
+    }
 }

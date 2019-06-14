@@ -24,7 +24,7 @@
     }
 </style>
 
-<body class="jumbotron">
+<body class="jumbotron body">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand home-logo" href="#">Sentul Apps</a>

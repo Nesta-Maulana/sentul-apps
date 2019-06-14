@@ -3,6 +3,7 @@
     {{ $menus[0]->aplikasi }} | RPD Filling
 @endsection
 @section('title')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div class="row">
     	@if ($rpd_filling_aktif->count() > 1)
 	    	<div class="col-lg-3">

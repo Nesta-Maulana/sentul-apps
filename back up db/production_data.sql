@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Bulan Mei 2019 pada 11.01
+-- Waktu pembuatan: 14 Jun 2019 pada 02.04
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -373,42 +373,95 @@ INSERT INTO `produk` (`id`, `sub_brand_id`, `nama_produk`, `kode_oracle`, `spek_
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `rpd_filling_detail_at_event`
+--
+
+CREATE TABLE `rpd_filling_detail_at_event` (
+  `id` int(11) NOT NULL,
+  `rpd_filling_head_id` int(11) NOT NULL,
+  `wo_id` int(11) NOT NULL,
+  `tanggal_filling` date NOT NULL,
+  `jam_filling` time NOT NULL,
+  `mesin_filling_id` int(11) NOT NULL,
+  `kode_sampel_id` int(11) NOT NULL,
+  `ls_sa_sealing_quality` enum('OK','#OK','-') DEFAULT NULL,
+  `ls_sa_proportion` varchar(5) DEFAULT NULL,
+  `sideway_sealing_alignment` double(4,2) DEFAULT NULL,
+  `overlap` double(5,2) DEFAULT NULL,
+  `package_length` double(6,2) DEFAULT NULL,
+  `paper_splice_sealing_quality` enum('OK','#OK','-') DEFAULT NULL,
+  `no_kk` varchar(50) DEFAULT NULL,
+  `no_md` varchar(50) DEFAULT NULL,
+  `ls_sa_sealing_quality_strip` enum('OK','#OK','-') DEFAULT NULL,
+  `ls_short_stop_quality` enum('OK','#OK','-') DEFAULT NULL,
+  `sa_short_stop_quality` enum('OK','#OK','-') DEFAULT NULL,
+  `status_akhir` enum('OK','#OK') DEFAULT NULL,
+  `keterangan` text,
+  `user_id_inputer` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `rpd_filling_detail_at_event`
+--
+
+INSERT INTO `rpd_filling_detail_at_event` (`id`, `rpd_filling_head_id`, `wo_id`, `tanggal_filling`, `jam_filling`, `mesin_filling_id`, `kode_sampel_id`, `ls_sa_sealing_quality`, `ls_sa_proportion`, `sideway_sealing_alignment`, `overlap`, `package_length`, `paper_splice_sealing_quality`, `no_kk`, `no_md`, `ls_sa_sealing_quality_strip`, `ls_short_stop_quality`, `sa_short_stop_quality`, `status_akhir`, `keterangan`, `user_id_inputer`, `created_at`, `updated_at`) VALUES
+(1, 2, 5, '2019-06-07', '23:14:20', 1, 2, 'OK', '40:60', 0.40, 16.56, 118.90, 'OK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, '2019-06-13 17:56:42', '2019-06-13 17:56:42');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `rpd_filling_detail_pi`
 --
 
 CREATE TABLE `rpd_filling_detail_pi` (
   `id` int(11) NOT NULL,
   `rpd_filling_head_id` int(11) NOT NULL,
+  `wo_id` int(11) NOT NULL,
   `tanggal_filling` date NOT NULL,
+  `jam_filling` time NOT NULL,
   `mesin_filling_id` int(11) NOT NULL,
   `kode_sampel_id` int(11) NOT NULL,
-  `berat_kanan` decimal(4,2) NOT NULL,
-  `berat_kiri` decimal(4,2) NOT NULL,
+  `berat_kanan` decimal(6,2) NOT NULL,
+  `berat_kiri` decimal(6,2) NOT NULL,
   `overlap` decimal(4,2) DEFAULT NULL,
-  `proporsi_ls_saa` varchar(10) DEFAULT NULL,
+  `ls_sa_proportion` varchar(10) DEFAULT NULL,
   `volume_kanan` int(11) DEFAULT NULL,
   `volume_kiri` int(11) DEFAULT NULL,
-  `airgap` enum('OK','#OK') DEFAULT NULL,
+  `airgap` enum('OK','#OK','-') DEFAULT NULL,
   `ts_accurate_kanan` varchar(100) DEFAULT NULL,
   `ts_accurate_kiri` varchar(100) DEFAULT NULL,
   `ls_accurate` varchar(100) DEFAULT NULL,
   `sa_accurate` varchar(100) DEFAULT NULL,
   `surface_check` varchar(100) DEFAULT NULL,
-  `pinching` enum('OK','#OK') DEFAULT NULL,
-  `strip_folding` enum('OK','#OK') DEFAULT NULL,
-  `konduktivity_kanan` enum('OK','#OK') DEFAULT NULL,
-  `konduktivity_kiri` enum('OK','#OK') DEFAULT NULL,
-  `design_kanan` enum('OK','#OK') DEFAULT NULL,
-  `design_kiri` enum('OK','#OK') DEFAULT NULL,
-  `dye_test` enum('OK','#OK') DEFAULT NULL,
-  `residu_h2o2` enum('OK','#OK') DEFAULT NULL,
-  `prod_code_dan_no_md` enum('OK','#OK') DEFAULT NULL,
-  `correction` enum('OK','#OK') DEFAULT NULL,
-  `dissolving_test` enum('OK','#OK') DEFAULT NULL,
+  `pinching` enum('OK','#OK','-') DEFAULT NULL,
+  `strip_folding` enum('OK','#OK','-') DEFAULT NULL,
+  `konduktivity_kanan` enum('OK','#OK','-') DEFAULT NULL,
+  `konduktivity_kiri` enum('OK','#OK','-') DEFAULT NULL,
+  `design_kanan` enum('OK','#OK','-') DEFAULT NULL,
+  `design_kiri` enum('OK','#OK','-') DEFAULT NULL,
+  `dye_test` enum('OK','#OK','-') DEFAULT NULL,
+  `residu_h2o2` enum('OK','#OK','-') DEFAULT NULL,
+  `prod_code_and_no_md` enum('OK','#OK','-') DEFAULT NULL,
+  `correction` enum('OK','#OK','-') DEFAULT NULL,
+  `dissolving_test` enum('OK','#OK','-') DEFAULT NULL,
   `user_id_inputer` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `rpd_filling_detail_pi`
+--
+
+INSERT INTO `rpd_filling_detail_pi` (`id`, `rpd_filling_head_id`, `wo_id`, `tanggal_filling`, `jam_filling`, `mesin_filling_id`, `kode_sampel_id`, `berat_kanan`, `berat_kiri`, `overlap`, `ls_sa_proportion`, `volume_kanan`, `volume_kiri`, `airgap`, `ts_accurate_kanan`, `ts_accurate_kiri`, `ls_accurate`, `sa_accurate`, `surface_check`, `pinching`, `strip_folding`, `konduktivity_kanan`, `konduktivity_kiri`, `design_kanan`, `design_kiri`, `dye_test`, `residu_h2o2`, `prod_code_and_no_md`, `correction`, `dissolving_test`, `user_id_inputer`, `created_at`, `updated_at`) VALUES
+(1, 2, 5, '2019-06-07', '23:10:55', 1, 1, '220.20', '220.09', '3.50', '40:60', 200, 200, 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', '-', NULL, 24, '2019-06-07 16:11:08', '2019-06-07 16:43:06'),
+(2, 2, 5, '2019-06-07', '23:11:16', 1, 8, '222.22', '220.12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, '2019-06-07 16:11:45', '2019-06-07 16:11:45'),
+(6, 2, 5, '2019-06-07', '23:14:20', 1, 2, '220.09', '220.10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, '2019-06-07 16:16:47', '2019-06-07 16:16:47'),
+(7, 2, 5, '2019-06-07', '23:17:06', 1, 4, '220.10', '229.09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, '2019-06-07 16:17:42', '2019-06-07 16:17:42'),
+(8, 2, 5, '2019-06-07', '23:19:01', 2, 1, '220.10', '220.10', '4.30', '40:60', 199, 199, 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', '-', NULL, 24, '2019-06-07 16:19:14', '2019-06-07 16:48:22'),
+(9, 2, 5, '2019-06-11', '14:07:26', 2, 14, '228.90', '229.09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, '2019-06-11 07:08:29', '2019-06-11 07:08:29');
 
 -- --------------------------------------------------------
 
@@ -419,10 +472,20 @@ CREATE TABLE `rpd_filling_detail_pi` (
 CREATE TABLE `rpd_filling_head` (
   `id` int(11) NOT NULL,
   `produk_id` int(11) NOT NULL,
+  `start_filling` date NOT NULL,
   `status` enum('1','2') NOT NULL COMMENT '1= On Progress, 2=Done',
+  `sensori_awal` enum('0','1') NOT NULL COMMENT '0 =  OK , 1 = #OK',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `rpd_filling_head`
+--
+
+INSERT INTO `rpd_filling_head` (`id`, `produk_id`, `start_filling`, `status`, `sensori_awal`, `created_at`, `updated_at`) VALUES
+(1, 20, '2019-06-07', '1', '0', '2019-06-07 15:16:42', '2019-06-07 15:16:42'),
+(2, 20, '2019-06-07', '1', '0', '2019-06-07 15:28:23', '2019-06-07 15:28:23');
 
 -- --------------------------------------------------------
 
@@ -472,6 +535,7 @@ CREATE TABLE `wo` (
   `keterangan_2` text COMMENT 'alasan_batal',
   `keterangan_3` text,
   `revisi_formula` text NOT NULL,
+  `rpd_filling_head_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -480,23 +544,23 @@ CREATE TABLE `wo` (
 -- Dumping data untuk tabel `wo`
 --
 
-INSERT INTO `wo` (`id`, `nomor_wo`, `produk_id`, `plan_id`, `production_plan_date`, `production_realisation_date`, `tanggal_fillpack`, `plan_batch_size`, `actual_batch_size`, `status`, `completion_date`, `keterangan_1`, `keterangan_2`, `keterangan_3`, `revisi_formula`, `created_at`, `updated_at`) VALUES
-(1, 'G1904214013', 13, 3, '2019-04-29', '2019-04-29', NULL, '9956.576', NULL, '2', '2019-04-30 07:54:25', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(2, 'G1904708003', 4, 3, '2019-04-29', '2019-04-29', NULL, '5887.11', NULL, '2', '2019-04-30 07:54:22', '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', '2019-04-29 06:18:08', NULL),
-(3, '084STTHNIIV2019/HB-YB-YO', 32, 3, '2019-04-29', '2019-04-29', NULL, '', NULL, '2', '2019-04-30 07:54:06', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
-(4, '085STTHNIIV2019/HB-YO-BB', 5, 3, '2019-04-29', '2019-04-29', NULL, '', NULL, '2', '2019-04-30 07:54:14', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
-(5, 'G1904214017', 20, 3, '2019-04-30', '2019-04-30', NULL, '9969.252', NULL, '2', '2019-04-30 07:53:54', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
-(6, 'G1904214018', 20, 3, '2019-04-30', '2019-04-30', NULL, '9969.252', NULL, '2', '2019-04-30 07:53:58', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
-(7, 'G1904214012', 13, 3, '2019-04-30', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(8, 'G1904214009', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(9, 'G1905214005', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(10, 'G1905214006', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', '2019-04-29 06:18:08', NULL),
-(11, 'G1905702001', 11, 3, '2019-05-02', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL),
-(12, 'G1904214019', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', '2019-04-29 06:18:08', NULL),
-(13, 'G1905214001', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
-(14, 'G1905214003', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', '-', '2019-04-29 06:18:08', NULL),
-(15, 'G1905702002', 11, 3, '2019-05-03', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL),
-(16, 'G1905702003', 11, 3, '2019-05-03', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', '2019-04-29 06:18:08', NULL);
+INSERT INTO `wo` (`id`, `nomor_wo`, `produk_id`, `plan_id`, `production_plan_date`, `production_realisation_date`, `tanggal_fillpack`, `plan_batch_size`, `actual_batch_size`, `status`, `completion_date`, `keterangan_1`, `keterangan_2`, `keterangan_3`, `revisi_formula`, `rpd_filling_head_id`, `created_at`, `updated_at`) VALUES
+(1, 'G1904214013', 13, 3, '2019-04-29', '2019-04-29', NULL, '9956.576', NULL, '2', '2019-04-30 07:54:25', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', 0, '2019-04-29 06:18:08', NULL),
+(2, 'G1904708003', 4, 3, '2019-04-29', '2019-04-29', NULL, '5887.11', NULL, '2', '2019-04-30 07:54:22', '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', 0, '2019-04-29 06:18:08', NULL),
+(3, '084STTHNIIV2019/HB-YB-YO', 32, 3, '2019-04-29', '2019-04-29', NULL, '', NULL, '2', '2019-04-30 07:54:06', '-', '-', '-', '-', 0, '2019-04-29 06:18:08', NULL),
+(4, '085STTHNIIV2019/HB-YO-BB', 5, 3, '2019-04-29', '2019-04-29', NULL, '', NULL, '2', '2019-04-30 07:54:14', '-', '-', '-', '-', 0, '2019-04-29 06:18:08', NULL),
+(5, 'G1904214017', 20, 3, '2019-04-30', '2019-04-30', '2019-06-07', '9969.252', NULL, '3', '2019-06-07 22:28:26', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', 2, '2019-04-29 06:18:08', '2019-06-07 15:28:26'),
+(6, 'G1904214018', 20, 3, '2019-04-30', '2019-04-30', NULL, '9969.252', NULL, '2', '2019-04-30 07:53:58', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', 0, '2019-04-29 06:18:08', NULL),
+(7, 'G1904214012', 13, 3, '2019-04-30', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', 0, '2019-04-29 06:18:08', NULL),
+(8, 'G1904214009', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', 0, '2019-04-29 06:18:08', NULL),
+(9, 'G1905214005', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', 0, '2019-04-29 06:18:08', NULL),
+(10, 'G1905214006', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', 0, '2019-04-29 06:18:08', NULL),
+(11, 'G1905702001', 11, 3, '2019-05-02', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', 0, '2019-04-29 06:18:08', NULL),
+(12, 'G1904214019', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', 0, '2019-04-29 06:18:08', NULL),
+(13, 'G1905214001', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', '-', 0, '2019-04-29 06:18:08', NULL),
+(14, 'G1905214003', 20, 3, '2019-05-03', NULL, NULL, '9969.252', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', '-', 0, '2019-04-29 06:18:08', NULL),
+(15, 'G1905702002', 11, 3, '2019-05-03', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', 0, '2019-04-29 06:18:08', NULL),
+(16, 'G1905702003', 11, 3, '2019-05-03', NULL, NULL, '10084.12', NULL, '6', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.4)', 0, '2019-04-29 06:18:08', NULL);
 
 --
 -- Indexes for dumped tables
@@ -572,6 +636,12 @@ ALTER TABLE `plan`
 -- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `rpd_filling_detail_at_event`
+--
+ALTER TABLE `rpd_filling_detail_at_event`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -675,16 +745,22 @@ ALTER TABLE `produk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
+-- AUTO_INCREMENT untuk tabel `rpd_filling_detail_at_event`
+--
+ALTER TABLE `rpd_filling_detail_at_event`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `rpd_filling_detail_pi`
 --
 ALTER TABLE `rpd_filling_detail_pi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `rpd_filling_head`
 --
 ALTER TABLE `rpd_filling_head`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `sub_brand`
