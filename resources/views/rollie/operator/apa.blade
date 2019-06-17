@@ -1,0 +1,44 @@
+<div class="row bg-white mt-3 p-3 rounded">
+    <div class="d-flex justify-content-center p-2">
+        <h5>DataTables</h5>
+    </div>
+    <hr>
+    <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="data-tables">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Tgl</th>
+                <th>Nama Produk</th>
+                <th class="hidden-phone">No WO.</th>
+                <th class="hidden-phone">No LOT A3</th>
+                <th class="hidden-phone">BOX</th>
+                <th class="hidden-phone">Pak</th>
+                <th class="hidden-phone">Total</th>
+                <th class="hidden-phone">Nomor LOT TBA</th>
+                <th class="hidden-phone">BOX</th>
+                <th class="hidden-phone">Pak</th>
+                <th class="hidden-phone">Total 2</th>
+                <th class="hidden-phone">Total Yield</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for($i = 1; $i <=100; $i++)
+                <tr class="gradeX">
+                    <td>{{ $i }}</td>
+                    <td>{{ $i }} - 01 -2018</td>
+                    <td>Internet Explorer {{$i}}.0</td>
+                    <td class="hidden-phone">11{{$i}}+</td>
+                    <td class="hidden-phone">No LOT A3</td>
+                    <td class="hidden-phone">BOX</td>
+                    <td class="hidden-phone">Pak</td>
+                    <td class="hidden-phone">Total</td>
+                    <td class="hidden-phone">Nomor LOT TBA</td>
+                    <td class="hidden-phone">BOX</td>
+                    <td class="hidden-phone">Pak</td>
+                    <td class="hidden-phone">Total 2</td>
+                    <td class="hidden-phone">Total Yield</td>
+                </tr>
+            @endfor
+        </tbody>
+    </table>
+</div>

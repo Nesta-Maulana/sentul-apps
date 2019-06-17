@@ -105,6 +105,7 @@
                     		@endif
                     	@endforeach
                     	@foreach ($rpd_filling->detail_at_event as $detail_at_event)
+                    	@if (is_null($detail_at_event->ls_sa_sealing_quality) && is_null($detail_at_event->ls_sa_proportion) && is_null($detail_at_event->status_akhir))
                     		<tr>
                     			<td>{{ $detail_at_event->wo->nomor_wo }}</td>
                     			<td>{{ $detail_at_event->mesin_filling->kode_mesin }}</td>
@@ -113,6 +114,7 @@
                     			<td>{{ $detail_at_event->kode_sampel->kode_sampel }} ( Event )</td>
                     			<td><a data-toggle="modal" data-target="#analisa-sample-at-event" onclick="analisa_sampel_at_event('{{ $detail_at_event->kode_sampel->kode_sampel }}','{{ ucwords($detail_at_event->kode_sampel->event) }}','{{ $detail_pi->mesin_filling->kode_mesin }}','{{ $detail_at_event->tanggal_filling }}','{{ $detail_at_event->jam_filling }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->wo->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->mesin_filling->id) }}')">ANALISA</a></td>
                     		</tr>
+                    	@endif
                     	@endforeach
                     </tbody>
 				</table>

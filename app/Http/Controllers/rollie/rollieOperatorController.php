@@ -15,7 +15,11 @@ use App\Models\masterApps\karyawan;
 use App\Models\masterApps\produk;
 use App\Models\masterApps\brand;
 use App\Models\productionData\wo;
+use App\Models\productionData\cppHead;
+use App\Models\productionData\cppDetail;
+use App\Models\masterApps\mesinFilling;
 use DB;
+use \Carbon\Carbon;
 use Session;
 
 class rollieOperatorController extends resourceController
@@ -43,8 +47,8 @@ class rollieOperatorController extends resourceController
 
     public function fillpackindex()
     {
-    	$hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
-        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+    	$hakAksesUserAplikasi      = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi          = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
         
         if($hakAksesAplikasi == "1")
         {
@@ -65,8 +69,58 @@ class rollieOperatorController extends resourceController
         return view('rollie.operator.dashboard',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
         // return view('rollie.operator.cpp');
     }
-    public function cpp()
+
+    public function prosesCpp(Request $request)
+    {
+        $wo_id                  = resourceController::dekripsi($request->wo_id);
+        $wo                     = wo::find($wo_id);
+        $start_packing          = date('Y-m-d');
+        $insertCppHead          = cppHead::create([
+                                    'produk_id'         => $wo->produk_id,
+                                    'tanggal_packing'   => $start_packing,
+                                    'status'            => '0'
+                                ]);
+        $wo->cpp_head_id        = $insertCppHead->id;
+        $wo->expired_date       = date('Y-m-d',strtotime("+".$wo->produk->expired_range." months", strtotime($wo->production_realisation_date)));
+        $wo->save();
+        $return                 = resourceController::enkripsi($insertCppHead->id);
+        return ['cpp_head_id'=>$return];
+
+
+    }
+    public function cpp($cpp_head_id)
     {    
-        return view('rollie.operator.cpp',['menus' => $this->menu,'username' => $this->username]);
+        $cpp_head_id                = resourceController::dekripsi($cpp_head_id);
+        $cpp_head                   = cppHead::find($cpp_head_id);
+        return view('rollie.operator.cpp',['menus' => $this->menu,'username' => $this->username,'cpps'=>$cpp_head]);
+    }
+
+    public function tambahCpp(Request $request)
+    {
+        $wo_id                      = resourceController::dekripsi($request->wo_id);
+        $wo                         = wo::find($wo_id);
+        $mesin_filling_id           = resourceController::dekripsi($request->mesin_filling_id);
+        $mesin_filling              = mesinFilling::find($mesin_filling_id);
+        $cpp_head_id                = resourceController::dekripsi($request->cpp_head_id);
+        $cppDetail                  = cppDetail::where('cpp_head_id',$cpp_head_id)->where('wo_id',$wo_id)->where('mesin_filling_id',$mesin_filling_id)->first();
+        if (is_null($cppDetail)) 
+        {
+            $tahunproduksi  =   explode('-', $wo->production_realisation_date);
+            $expired_date   =   explode('-', $wo->expired_date);
+            $huruf          =   resourceController::tahunKeHuruf($tahunproduksi[0]);
+            $length         =   strlen($mesin_filling->kode_mesin);
+            $index          =   $length-1;
+            $kode_mesin     =   $mesin_filling->kode_mesin[$index];
+            $nolot          =   $huruf.$kode_mesin.$expired_date[1].$expired_date[2].'A';
+
+            cppDetail::create([
+                'cpp_head_id'           => $cpp_head_id,
+                'wo_id'                 => $wo_id,
+                'mesin_filling_id'      => $mesin_filling_id,
+                'nolot'                 => $nolot
+            ]);
+
+            
+        }
     }
 }

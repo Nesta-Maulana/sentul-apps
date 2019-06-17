@@ -17,4 +17,8 @@ class wo extends Model
     {
         return $this->belongsTo('App\Models\productionData\rpdFillingHead', 'rpd_filling_head_id');
     }
+    public function cppHead()
+    {
+        return $this->belongsTo('App\Models\productionData\cppHead', 'cpp_id');
+    }
 }

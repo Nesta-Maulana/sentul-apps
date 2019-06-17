@@ -348,7 +348,17 @@ class inspektorController extends resourceController
         $idevent                            = resourceController::dekripsi($request->paketan[1]);
         $wo_id                              = resourceController::dekripsi($request->paketan[2]);
         $event_detail                       = rpdFillingDetailAtEvent::find($idevent);
+        if (strpos($kode_sampel, ' (Event)')) 
+        {
+            $kode_sampel_baru   = explode(' (Event)', $kode_sampel);
+            $kode_sampel        = $kode_sampel_baru[0];
+        }
 
+        if (strpos($kode_sampel, '(')) 
+        {
+            $kode_sampel_baru   = explode('(', $kode_sampel);
+            $kode_sampel        = $kode_sampel_baru[0];
+        }
         switch ($kode_sampel) 
         {
             case 'B':
@@ -358,6 +368,7 @@ class inspektorController extends resourceController
                 $overlap_event                      = $request->overlap_event;
                 $package_length_event               = $request->package_length_event;
                 $paper_splice_sealing_quality_event = $request->paper_splice_sealing_quality_event;
+                $status_akhir                       = $request->status_akhir;
                 //update data detail                
                 $event_detail->ls_sa_sealing_quality          = $ls_sa_sealing_quality_event;
                 $event_detail->ls_sa_proportion               = $ls_sa_proportion_event;
@@ -365,17 +376,84 @@ class inspektorController extends resourceController
                 $event_detail->overlap                        = $overlap_event;
                 $event_detail->package_length                 = $package_length_event;
                 $event_detail->paper_splice_sealing_quality   = $paper_splice_sealing_quality_event;
+                $event_detail->status_akhir                   = $status_akhir;
                 $event_detail->save();
+                return ['success'=>true,'message'=>'Berhasil']; 
             break;
             case 'C':
+                $ls_sa_sealing_quality_event        = $request->ls_sa_sealing_quality_event;
+                $ls_sa_proportion_event             = $request->ls_sa_proportion_event;
+                $sideway_sealing_alignment_event    = $request->sideway_sealing_alignment_event;
+                $overlap_event                      = $request->overlap_event;
+                $package_length_event               = $request->package_length_event;
+                $paper_splice_sealing_quality_event = $request->paper_splice_sealing_quality_event;
+                $status_akhir                       = $request->status_akhir;
+                //update data detail                
+                $event_detail->ls_sa_sealing_quality          = $ls_sa_sealing_quality_event;
+                $event_detail->ls_sa_proportion               = $ls_sa_proportion_event;
+                $event_detail->sideway_sealing_alignment      = $sideway_sealing_alignment_event;
+                $event_detail->overlap                        = $overlap_event;
+                $event_detail->package_length                 = $package_length_event;
+                $event_detail->paper_splice_sealing_quality   = $paper_splice_sealing_quality_event;
+                $event_detail->status_akhir                   = $status_akhir;
+                $event_detail->save();
+                return ['success'=>true,'message'=>'Berhasil'];
             break;
             case 'D':
+                $ls_sa_sealing_quality_event        = $request->ls_sa_sealing_quality_event;
+                $ls_sa_proportion_event             = $request->ls_sa_proportion_event;
+                $ls_sa_sealing_quality_strip        = $request->ls_sa_sealing_quality_strip;
+                $status_akhir                       = $request->status_akhir;
+                //update data detail                
+                $event_detail->ls_sa_sealing_quality            = $ls_sa_sealing_quality_event;
+                $event_detail->ls_sa_proportion                 = $ls_sa_proportion_event;
+                $event_detail->ls_sa_sealing_quality_strip      = $ls_sa_sealing_quality_strip;
+                $event_detail->status_akhir                     = $status_akhir;
+                $event_detail->save();
+                return ['success'=>true,'message'=>'Berhasil'];
             break;
             case 'E':
+                $ls_sa_sealing_quality_event        = $request->ls_sa_sealing_quality_event;
+                $ls_sa_proportion_event             = $request->ls_sa_proportion_event;
+                $ls_sa_sealing_quality_strip        = $request->ls_sa_sealing_quality_strip;
+                $status_akhir                       = $request->status_akhir;
+                //update data detail                
+                $event_detail->ls_sa_sealing_quality            = $ls_sa_sealing_quality_event;
+                $event_detail->ls_sa_proportion                 = $ls_sa_proportion_event;
+                $event_detail->ls_sa_sealing_quality_strip      = $ls_sa_sealing_quality_strip;
+                $event_detail->status_akhir                     = $status_akhir;
+                $event_detail->save();
+                return ['success'=>true,'message'=>'Berhasil'];
             break;
             case 'F':
+                $ls_sa_sealing_quality_event        = $request->ls_sa_sealing_quality_event;
+                $ls_sa_proportion_event             = $request->ls_sa_proportion_event;
+                $ls_short_stop_quality              = $request->ls_short_stop_quality;
+                $sa_short_stop_quality              = $request->sa_short_stop_quality;
+                $status_akhir                       = $request->status_akhir;
+                //update data detail                
+                $event_detail->ls_sa_sealing_quality            = $ls_sa_sealing_quality_event;
+                $event_detail->ls_sa_proportion                 = $ls_sa_proportion_event;
+                $event_detail->ls_short_stop_quality            = $ls_short_stop_quality;
+                $event_detail->sa_short_stop_quality            = $sa_short_stop_quality;
+                $event_detail->status_akhir                     = $status_akhir;
+                $event_detail->save();
+                return ['success'=>true,'message'=>'Berhasil'];            
             break;
             case 'G':
+                $ls_sa_sealing_quality_event        = $request->ls_sa_sealing_quality_event;
+                $ls_sa_proportion_event             = $request->ls_sa_proportion_event;
+                $ls_short_stop_quality              = $request->ls_short_stop_quality;
+                $sa_short_stop_quality              = $request->sa_short_stop_quality;
+                $status_akhir                       = $request->status_akhir;
+                //update data detail                
+                $event_detail->ls_sa_sealing_quality            = $ls_sa_sealing_quality_event;
+                $event_detail->ls_sa_proportion                 = $ls_sa_proportion_event;
+                $event_detail->ls_short_stop_quality            = $ls_short_stop_quality;
+                $event_detail->sa_short_stop_quality            = $sa_short_stop_quality;
+                $event_detail->status_akhir                     = $status_akhir;
+                $event_detail->save();
+                return ['success'=>true,'message'=>'Berhasil'];            
             break;
         }
 

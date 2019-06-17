@@ -3,122 +3,79 @@
     ROLLIE | CPP
 @endsection
 @section('content')
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="row d-flex justify-content-center">
     <div class="bg-white col-lg-6 rounded mt-2">
         <hr>
         <div class="form-group">
-            <label for="tglMixing">Tanggal Mixing : </label>
-            <input type="date" name="tglMixing" id="tglMixing" class="form-control">
+            <label for="tglMixing">Tanggal Packing : </label>
+            <input type="text" value="{{ $cpps->tanggal_packing }}" name="tglMixing" id="tglMixing" class="form-control" readonly>
         </div>
         <div class="form-group">
             <label for="produk">Nama Produk : </label>
-            <select name="produk" id="produk" class="form-control">
-                <option value="" disabled selected>-- PILIH PRODUK --</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="noWo">No WO : </label>
-            <input type="text" name="noWo" id="noWo" class="form-control">
+            <input type="text" value="{{ $cpps->wo[0]->produk->nama_produk }}" name="nama_produk" id="nama_produk" class="form-control" readonly>
         </div>
     </div>
     <div class="bg-white col-lg-6 rounded mt-2 ">
-        <hr>
+            <hr>
         <div class="form-group">
-            <label for="kodeMesinFilling">Kode Mesin Filling : </label>
-            <select name="kodeMesinFilling" id="kodeMesinFilling" class="form-control">
-                <option value="" disabled selected>-- PILIH KODE MESIN FILLING --</option>
+            <label for="noWo">No WO : </label>
+            <select name="no_wo" id="no_wo" class="form-control">
+                @foreach ($cpps->wo as $wo)
+                    <option value="{{  app('App\Http\Controllers\resourceController')->enkripsi($wo->id) }}">{{ $wo->nomor_wo }}</option>
+                @endforeach
             </select>
         </div>
-        <div class="form-group">
-            <label for="expiredDate">Expired Date : </label>
-            <input type="date" name="expiredDate" id="expiredDate" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="lot">No LOT : </label>
-            <input type="text" name="lot" id="lot" class="form-control">
-        </div>
-        <div class="float-right">
-            <button class="mb-2 btn btn-warning text-white">Save to Draft</button>
-            <button class="mb-2 btn btn-primary">Send</button>
-        </div>
     </div>
+    
+</div>
+<div class="form-group row bg-white mt-3 p-3 rounded" id="tambah_palet">
+    @foreach ($cpps->wo[0]->produk->mesinFillingHead->mesinFillingDetail as $mesinfilling)
+        <a class="btn btn-basic mesin mr-2 col-lg-3" style="background: #f0f0f0" onclick="tambahcpp('{{ app('App\Http\Controllers\resourceController')->enkripsi($mesinfilling->mesinFilling->id) }}',$('#no_wo').val(),'{{ app('App\Http\Controllers\resourceController')->enkripsi($cpps->id) }}')">{{ $mesinfilling->mesinFilling->kode_mesin }}</a>
+    @endforeach
 </div>
 
-<div class="row bg-white mt-3 p-3 rounded">
-    <button class="btn mesin mr-2">Nama Mesin</button>
-    <button class="btn mesin mr-2">Nama Mesin</button>
-    <button class="btn mesin mr-2">Nama Mesin</button>
-    <button class="btn mesin mr-2">Nama Mesin</button>
+<div class="row bg-white rounded" style="margin-top: -16px">
     <table class="table table-bordered mt-3" id="tablenya">
-        <thead class="bg-dark text-center text-white">
-            <th>No.</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Box</th>
-            <th>Pack</th>
-        </thead>
-        <tbody>
-            <td>1</td>
-            <td><input type="text" class="form-control" ></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-        </tbody>
-    </table>
-</div>
-
-<div class="row bg-white mt-3 p-3 rounded">
-    <div class="d-flex justify-content-center p-2">
-        <h5>DataTables</h5>
-    </div>
-    <hr>
-    <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="data-tables">
-        <thead>
+        <thead class="bg-dark text-center text-white" >
             <tr>
-                <th>No</th>
-                <th>Tgl</th>
-                <th>Nama Produk</th>
-                <th class="hidden-phone">No WO.</th>
-                <th class="hidden-phone">No LOT A3</th>
-                <th class="hidden-phone">BOX</th>
-                <th class="hidden-phone">Pak</th>
-                <th class="hidden-phone">Total</th>
-                <th class="hidden-phone">Nomor LOT TBA</th>
-                <th class="hidden-phone">BOX</th>
-                <th class="hidden-phone">Pak</th>
-                <th class="hidden-phone">Total 2</th>
-                <th class="hidden-phone">Total Yield</th>
+                <th>Nomor Wo</th>
+                <th>Exp. Date</th>
+                <th>Nomor Lot</th>
+                <th>Palet</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Box</th>
+                <th>Pack</th>
             </tr>
         </thead>
-        <tbody>
-            @for($i = 1; $i <=100; $i++)
-                <tr class="gradeX">
-                    <td>{{ $i }}</td>
-                    <td>{{ $i }} - 01 -2018</td>
-                    <td>Internet Explorer {{$i}}.0</td>
-                    <td class="hidden-phone">11{{$i}}+</td>
-                    <td class="hidden-phone">No LOT A3</td>
-                    <td class="hidden-phone">BOX</td>
-                    <td class="hidden-phone">Pak</td>
-                    <td class="hidden-phone">Total</td>
-                    <td class="hidden-phone">Nomor LOT TBA</td>
-                    <td class="hidden-phone">BOX</td>
-                    <td class="hidden-phone">Pak</td>
-                    <td class="hidden-phone">Total 2</td>
-                    <td class="hidden-phone">Total Yield</td>
+        <tbody id="detail_palet">
+            @foreach ($cpps->cppDetail as $detail_cpp)
+                @foreach ($detail_cpp->palet as $detail_palet)
+                <tr>
+                    <td><input type="text" value="{{ $detail_cpp->wo->nomor_wo }}" class="form-control" readonly></td>
+                    <td><input type="text" value="{{ $detail_cpp->wo->expired_date }}" class="form-control" readonly></td>
+                    <td><input type="text" value="{{ $detail_cpp->nolot }}" class="form-control" readonly></td>
+                    <td><input type="text" value="{{ $detail_palet->palet }}" class="form-control" readonly></td>
+                    <td><input type="text" value="{{ $detail_palet->start }}" class="form-control" readonly></td>
+                    <td><input type="text" value="{{ $detail_palet->end }}" class="form-control" readonly></td>
+                    <td><input type="text" value="{{ $detail_palet->jumlah_box }}" class="form-control" readonly></td>
+                    <td><input type="text" value="{{ $detail_palet->jumlah_pack }}" class="form-control" readonly></td>
+                   
                 </tr>
-            @endfor
+                @endforeach
+            @endforeach
         </tbody>
     </table>
 </div>
+
 
 <script>
 $('.mesin').click(function () {
     var $tableBody = $('#tablenya').find("tbody"),
-            $trLast = $tableBody.find("tr:last"),
-            $trNew = $trLast.clone();
-            $trLast.after($trNew);
+    $trLast = $tableBody.find("tr:last"),
+    $trNew = $trLast.clone();
+    $trLast.after($trNew);
 })
 </script>
 @endsection
