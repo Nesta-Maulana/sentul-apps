@@ -19,6 +19,6 @@ class wo extends Model
     }
     public function cppHead()
     {
-        return $this->belongsTo('App\Models\productionData\cppHead', 'cpp_id');
+        return $this->belongsTo('App\Models\productionData\cppHead', 'cpp_head_id');
     }
 }

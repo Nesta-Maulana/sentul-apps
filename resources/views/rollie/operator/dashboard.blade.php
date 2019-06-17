@@ -40,9 +40,14 @@
                                             </td>
                                         @elseif(!is_null($wo->cppHead))
                                             @php
-                                                $rpd_id = app('App\Http\Controllers\resourceController')->enkripsi($wo->rpdFillingHead->id);
+                                                $cpp_id = app('App\Http\Controllers\resourceController')->enkripsi($wo->cppHead->id);
                                             @endphp
-                                            <a href="{{ route('rpdfilling-inspektor-qc',['rpd_filling_head_id'=>$rpd_id]) }}">Proses Packing</a>
+                                            <td>
+                                                <a href="{{ route('operator-cpp',['cpp_head_id'=>$cpp_id]) }}">
+                                                    Proses Packing
+                                                </a>
+                                                    
+                                            </td>
                                         @endif
                                     </tr>
                                 @endif

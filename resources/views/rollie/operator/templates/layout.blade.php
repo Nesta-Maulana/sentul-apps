@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container">
+    <div class="page-container sbar_collapsed">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -271,6 +271,38 @@
             }); 
         }
 
+        function refreshTable() 
+        {
+            var $cpp_head_id = $('#cpp_head_id').val();
+            $.ajax({
+                url     : '/sentul-apps/rollie-operator-produksi/refresh-table-cpp/'+$cpp_head_id,
+                method  : 'GET',
+                dataType: 'JSON',
+                success : function(data) 
+                {
+                    var isitable = '', $isitable = $('#detail_pi');
+                    for (var i = 0; i < data.detail_pi_nya.length; i++)
+                    {
+                        isitable    += '<tr>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].nomor_wo+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].mesin_filling+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].jam_filling+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].kode_sampel+'</td>';
+                        if (data.detail_pi_nya[i].kodenya == 'Event') 
+                        {
+                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-at-event" onclick="analisa_sampel_at_event(\''+data.detail_pi_nya[i].kode_sampel+'\',\''+data.detail_pi_nya[i].event+'\',\''+data.detail_pi_nya[i].mesin_filling+'\',\''+data.detail_pi_nya[i].tanggal_filling+'\',\''+data.detail_pi_nya[i].jam_filling+'\',\''+data.detail_pi_nya[i].detail_id_enkripsi+'\',\''+data.detail_pi_nya[i].wo_id+'\',\''+data.detail_pi_nya[i].mesin_filling_id+'\')">Analisa</a></td>';
+                        } 
+                        else if (data.detail_pi_nya[i].kodenya == 'Bukan Event') 
+                        {
+                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-pi" onclick="analisa_sampel_pi(\''+data.detail_pi_nya[i].kode_sampel+'\',\''+data.detail_pi_nya[i].event+'\',\''+data.detail_pi_nya[i].mesin_filling+'\',\''+data.detail_pi_nya[i].tanggal_filling+'\',\''+data.detail_pi_nya[i].jam_filling+'\',\''+data.detail_pi_nya[i].detail_id_enkripsi+'\',\''+data.detail_pi_nya[i].nama_produk+'\',\''+data.detail_pi_nya[i].wo_id+'\',\''+data.detail_pi_nya[i].mesin_filling_id+'\')">Analisa</a></td>';
+                        }
+                        isitable    += '</tr>';
+                    }
+                    $isitable.html(isitable).on('change');
+                }
+            });
+        }
+
 
         $('.timepickernya').datetimepicker({
             format: 'HH:mm:ss',
@@ -283,7 +315,7 @@
             date: new Date()
         }); 
         $('.datetimepickernya').datetimepicker({
-            format: 'YYYY-mm-DD HH:mm:ss'
+            format: 'YYYY-MM-DD HH:mm:ss'
         }); 
     </script>  
 
