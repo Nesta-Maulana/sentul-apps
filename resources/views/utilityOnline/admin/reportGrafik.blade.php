@@ -1,8 +1,8 @@
 @extends('utilityOnline.admin.templates.layout')
-@section('title')
+@section('title')\
     Utility Online | Reports
 @endsection
-@section('active-report')
+@section('active-report-grafik')
     active
 @endsection
 @section('content')
@@ -16,7 +16,7 @@
                 <canvas id="myChart"></canvas>
             </div>
         </div>
-    </div>
+    </div>    
     <div class="col-12 col-md-6 col-lg-6">
         <div class="card">
             <div class="card-header">

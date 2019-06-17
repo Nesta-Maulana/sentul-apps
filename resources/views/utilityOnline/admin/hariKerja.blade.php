@@ -1,6 +1,6 @@
 @extends('utilityOnline.admin.templates.layout')
 @section('title')
-Master Apps
+    Utility Online
 @endsection
 @section('subtitle')
 Hari Kerja
@@ -13,20 +13,15 @@ Hari Kerja
 </style>
 <div class="section-header">
     <h1>Calendar</h1>
-    <div class="section-header-breadcrumb">
+    <!-- <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
         <div class="breadcrumb-item"><a href="#">Modules</a></div>
         <div class="breadcrumb-item">Calendar</div>
-    </div>
+    </div> -->
 </div>
 
 <div class="section-body">
-    <h2 class="section-title">Calendar</h2>
-    <p class="section-lead">
-        We use 'Full Calendar' made by @fullcalendar. You can check the full documentation <a
-            href="https://fullcalendar.io/">here</a>.
-    </p>
-
+    <h2 class="section-title">Form Hari Kerja</h2>
     <div class="row hariKerja">
         <div class="col-12">
             <div class="card">
@@ -74,6 +69,8 @@ Hari Kerja
                                 <option value="2">2 Shift</option>
                                 <option value="1">1 Shift</option>
                             </select>
+                            <label for="tonase">Tonase</label>
+                            <input type="text" class="form-control" name="tonase" placeholder="TON" id="tonase">
                         </div>
                     </div>
                     <div class="modal-footer">

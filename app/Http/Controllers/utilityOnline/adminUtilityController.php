@@ -182,6 +182,20 @@ class adminUtilityController extends resourceController
         $pengamatan = pengamatan::all();
         return view('utilityOnline.admin.report', ['menus' => $this->menu, 'username' => $this->username, 'report' => $report, 'bagian' => $bagian, 'pengamatan' => $pengamatan, 'kategori' => $kategori,'workcenter' => $workcenter]);
     }
+    public function report2(){
+        $kategori = kategori::all();
+        $workcenter = workcenter::all();
+        $pengamatan = pengamatan::all();
+        return view('utilityOnline.admin.report2', ['menus' => $this->menu, 'username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'pengamatan' => $pengamatan]);
+    }
+    public function report3(){
+        $kategori = kategori::all();
+        return view('utilityOnline.admin.report3', ['menus' => $this->menu, 'username' => $this->username, 'kategori' => $kategori]);
+    }
+    public function report4(){
+        $kategori = kategori::all();
+        return view('utilityOnline.admin.report4', ['menus' => $this->menu, 'username' => $this->username, 'kategori' => $kategori]);
+    }
     public function reportGrafik(){
         return view('utilityOnline.admin.reportGrafik', ['menus' => $this->menu, 'username' => $this->username]);
     }
@@ -199,12 +213,14 @@ class adminUtilityController extends resourceController
             $hariKerja = hariKerja::find($request->id);
             $hariKerja->hni = $request->hni;
             $hariKerja->nfi = $request->nfi;
+            $hariKerja->tonase = $request->tonase;
             $hariKerja->save();
         }else{
             hariKerja::create([
                 'tgl' => $request->tgl,
                 'hni' => $request->hni,
                 'nfi' => $request->nfi,
+                'tonase' => $request->tonase,
             ]);
         }
         return back()->with('success', 'Data Berhasil Ditambahkan');
