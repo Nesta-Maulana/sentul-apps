@@ -221,7 +221,9 @@ Route::middleware('ceklogin')->group(function ()
 
     // Rollie operator
     Route::get('/rollie-operator-produksi', 'rollie\rollieOperatorController@fillpackindex')->name('dashboard-operator-fillpack');
-    Route::get('/rollie-operator-produksi/cpp', 'rollie\rollieOperatorController@cpp')->name('dashboard-operator-fillpack');
+    Route::post('/rollie-operator-produksi/cpp/proses-cpp', 'rollie\rollieOperatorController@prosesCpp')->name('proses-cpp');
+    Route::post('/rollie-operator-produksi/cpp/tambah-cpp', 'rollie\rollieOperatorController@tambahCpp')->name('tambah-cpp');
+    Route::get('/rollie-operator-produksi/cpp/{id}', 'rollie\rollieOperatorController@cpp')->name('operator-cpp');
 
     // Rollie Inspektor
     Route::get('/rollie-inspektor-qc', 'rollie\inspektorController@index')->name('dashboard-inspektor-qc');

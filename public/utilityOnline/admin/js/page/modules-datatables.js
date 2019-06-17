@@ -44,16 +44,23 @@ $("#table-pengamatan").dataTable({
           { "sortable": false, "targets": [5] }
       ]
 });
-  $('#table-jadwal').dataTable({
-      bFilter:false,
-      bInfo:false,
-      bLengthChange:false,
-      pageLength:10,
-      scrollY: 400,
-      scrollX: true,
-      ordering:false,
-  });
- var tablenya =  $('#table-draft-analisa').dataTable({
+$('#table-jadwal').dataTable({
+    bFilter:false,
+    bInfo:false,
+    bLengthChange:false,
+    pageLength:10,
+    scrollY: 400,
+    scrollX: true,
+    ordering:false,
+});
+var tablenya =  $('#table-draft-analisa').dataTable({
+    bFilter:false,
+    bInfo:false,
+    bLengthChange:false,
+    pageLength:10,
+    aaSorting: [[2,'asc'],[3,'asc']] 
+});
+  var tablecpp =  $('#table-cpp').dataTable({
       bFilter:false,
       bInfo:false,
       bLengthChange:false,

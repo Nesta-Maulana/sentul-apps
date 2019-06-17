@@ -75,4 +75,23 @@ class resourceController extends Controller
 		}
 
 	}
+	public function tahunKeHuruf($years)
+	{
+		$length	= strlen($years);
+		$index 	= $length-1;
+		$tahunambil = $years[$index];
+		$arrayHuruf 	= [
+				'0'	=> 'K',
+				'1'	=> 'L',
+				'2'	=> 'M',
+				'3'	=> 'N',
+				'4'	=> 'O',
+				'5'	=> 'P',
+				'6'	=> 'Q',
+				'7'	=> 'R',
+				'8'	=> 'S',
+				'9'	=> 'T'
+		];
+		return $arrayHuruf[$tahunambil];
+	}
 }

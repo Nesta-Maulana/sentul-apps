@@ -13,4 +13,5 @@ class mesinFillingHead extends Model
     {
     	return $this->hasMany('App\Models\masterApps\mesinFillingDetail','kelompok_mesin_filling_head_id','id');
     }
+    
 }
