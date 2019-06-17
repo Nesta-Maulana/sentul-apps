@@ -179,13 +179,17 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report', 'utilityOnline\adminUtilityController@report');
     Route::get('/utility-online/admin/report-grafik', 'utilityOnline\adminUtilityController@reportGrafik');
     Route::get('/utility-online/admin/report/bagian/{idBagian}/{from}/{to}', 'utilityOnline\adminUtilityController@reportBagianTgl');
+
+    Route::get('/utility-online/admin/report-2', 'utilityOnline\adminUtilityController@report2');
     Route::get('/utility-online/admin/report-2/{from}/{to}', 'utilityOnline\adminUtilityController@report2Tgl');
     
 
+    Route::get('/utility-online/admin/report-3', 'utilityOnline\adminUtilityController@report3');
     Route::get('/utility-online/admin/report-3/{from}/{to}', 'utilityOnline\adminUtilityController@report3Tgl');
     Route::get('/utility-online/admin/report-3/{kategori}/{from}/{to}', 'utilityOnline\adminUtilityController@report3Kategori');
     Route::get('/utility-online/admin/report-3/{kategori}', 'utilityOnline\adminUtilityController@report3Kategori');
 
+    Route::get('/utility-online/admin/report-4', 'utilityOnline\adminUtilityController@report4');
     Route::get('/utility-online/admin/report-4/{from}/{to}', 'utilityOnline\adminUtilityController@report4Tgl');
     Route::get('/utility-online/admin/report-4/{kategori}/{from}/{to}', 'utilityOnline\adminUtilityController@report4TglKategori');
     Route::get('/utility-online/admin/report-4/{kategori}', 'utilityOnline\adminUtilityController@report4Kategori');

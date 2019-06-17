@@ -65,8 +65,20 @@
             <ul class="sidebar-menu">
 
                 <li class="menu-header">Main</li>
-                    <li class="dropdown @yield('active-report')">
-                        <a href="/sentul-apps/utility-online/admin/report" class="nav-link"><i class="fa fa-columns"></i> <span>Reports</span></a>                        
+                    <li class="dropdown @yield('active-report-penggunaan')">
+                        <a href="/sentul-apps/utility-online/admin/report" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Penggunaan</span></a>       
+                    </li>
+                    <li class="dropdown @yield('active-report-pengamatan')">
+                        <a href="/sentul-apps/utility-online/admin/report-2" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Pengamatan</span></a>       
+                    </li>
+                    <li class="dropdown @yield('active-report-3')">
+                        <a href="/sentul-apps/utility-online/admin/report-3" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 3</span></a>       
+                    </li>
+                    <li class="dropdown @yield('active-report-4')">
+                        <a href="/sentul-apps/utility-online/admin/report-4" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 4</span></a>       
+                    </li>
+                    <li class="dropdown @yield('active-report-grafik')">
+                        <a href="/sentul-apps/utility-online/admin/report-grafik" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Grafik</span></a>       
                     </li>
                 <li class="menu-header">Menu</li>
                 <?php $idUser = Session::get('login') ?>
@@ -79,7 +91,7 @@
                     ?>
                     @if($cekchilds[0] == 0)
                     <li class="dropdown">
-                        <a href="{{ $menu->link }}" class="nav-link"><i class="fa {{ $menu->icon }}"></i> <span>{{$menu->menu}}</span></a>
+                        <a href="/sentul-apps/utility-online/admin/{{ $menu->link }}" class="nav-link"><i class="fa {{ $menu->icon }}"></i> <span>{{$menu->menu}}</span></a>
                     </li>
                     @else
                     <li class="dropdown">
@@ -94,7 +106,7 @@
                                 <?php $cek = mysqli_fetch_array($cek) ?>
                                 @if($cek[0] == 0)
                                 <li class="dropdown">
-                                    <a class="nav-link" href="/sentul-apps/master-apps/{{ $c['link'] }}"><i class="fa {{ $c['icon'] }}"></i> <span>{{ $c['menu'] }}</span></a>
+                                    <a class="nav-link" href="/sentul-apps/utility-online/admin/{{ $c['link'] }}"><i class="fa {{ $c['icon'] }}"></i> <span>{{ $c['menu'] }}</span></a>
                                 </li>
                                 @else
                                     <li class=" ">
@@ -192,6 +204,10 @@
                     var event={id:i , title: data[i].nfi + ' SHIFT(NFI)', start:  data[i].tgl, backgroundColor: "#eaeaea", borderColor: "#fff", textColor: '#000'};
                     $("#myEvent").fullCalendar('renderEvent', event, true);
                 }
+                if(data[i].tonase){
+                    var event={id:i , title: data[i].tonase + ' Tonase', start:  data[i].tgl, backgroundColor: "#eaeaea", borderColor: "#fff", textColor: '#000'};
+                    $("#myEvent").fullCalendar('renderEvent', event, true);
+                }
                 
             }
         }
@@ -211,6 +227,7 @@
                     $('#id').val(data[0].id);
                     $("#hni option[value= '" + data[0].hni + "']").prop('selected', true);
                     $("#nfi option[value= '" + data[0].nfi + "']").prop('selected', true);
+                    $('#tonase').val(datda[0].tonase);
                 }
              }
         });
