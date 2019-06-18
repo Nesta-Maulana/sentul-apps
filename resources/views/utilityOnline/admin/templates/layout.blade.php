@@ -76,6 +76,9 @@
                     </li>
                     <li class="dropdown @yield('active-report-4')">
                         <a href="/sentul-apps/utility-online/admin/report-4" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 4</span></a>       
+                    </li> 
+                    <li class="dropdown @yield('active-report-5')">
+                        <a href="/sentul-apps/utility-online/admin/report-5" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 5</span></a>       
                     </li>
                     <li class="dropdown @yield('active-report-grafik')">
                         <a href="/sentul-apps/utility-online/admin/report-grafik" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Grafik</span></a>       
@@ -189,7 +192,6 @@
   <script src="{{ asset('utilityOnline/admin/js/page/modules-chartjs.js')}}"></script>
   <script src="{{ asset('generalStyle/plugins/select2/js/select2.min.js') }}"></script>
   <script>
-    
     $.ajax({
         url: 'form-hari-kerja-ambil/',
         method: 'get',
@@ -205,10 +207,9 @@
                     $("#myEvent").fullCalendar('renderEvent', event, true);
                 }
                 if(data[i].tonase){
-                    var event={id:i , title: data[i].tonase + ' Tonase', start:  data[i].tgl, backgroundColor: "#eaeaea", borderColor: "#fff", textColor: '#000'};
+                    var event={id:i , title: data[i].tonase + ' TON Tonase', start:  data[i].tgl, backgroundColor: "#eaeaea", borderColor: "#fff", textColor: '#000'};
                     $("#myEvent").fullCalendar('renderEvent', event, true);
                 }
-                
             }
         }
     });
@@ -240,23 +241,23 @@
         $('#exampleModal').modal('hide');
      })
 
-  $('.select2').select2();
-    const flashdatas = $('.failed').data('flashdata');
-    if(flashdatas){
-        swal({
-            title: "Failed",
-            text: flashdatas,
-            type: "error",
-        });
-    }
-    const flashdata = $('.success').data('flashdata');
-    if(flashdata){
-        swal({
-            title: "Success",
-            text: flashdata,
-            type: "success",
-        });
-    }
+    $('.select2').select2();
+        const flashdatas = $('.failed').data('flashdata');
+        if(flashdatas){
+            swal({
+                title: "Failed",
+                text: flashdatas,
+                type: "error",
+            });
+        }
+        const flashdata = $('.success').data('flashdata');
+        if(flashdata){
+            swal({
+                title: "Success",
+                text: flashdata,
+                type: "success",
+            });
+        }
   </script>
   <script>
 
@@ -546,6 +547,76 @@
                         }
                         $("#table-report-4").html(table).on('change');
                         $(".table-4").DataTable().order([4, 'asc']).draw();
+                    }
+                })
+            }
+
+
+        }
+    )
+    $('#daterange-btn-5').daterangepicker(
+        {
+            ranges   : {
+                'Today'       : [moment(), moment()],
+                'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                'Last 2 Week'   : [moment().subtract(3, 'week').startOf('week'), moment().subtract(2, 'week').endOf('week')],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+        },
+        function (start, end) {             
+            $('#daterange-btn-5 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY')); 
+            $('#tgl-report-5-1').val(start.format('YYYY-MM-DD'));
+            $('#tgl-report-5-2').val(end.format('YYYY-MM-DD'));
+            $('#export-5').show();
+            $('#info-export-5').hide();
+
+            if($('#kategori-5').val()){
+                $.ajax({
+                    url: 'report-5/' + $('#kategori-5').val() + '/' + $('#tgl-report-5-1').val() + '/' + $('#tgl-report-5-2').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $(".table-5").DataTable().destroy();
+                        $("#table-report-5").empty();
+                        var table = "";
+                        for (let i = 0; i < data.length; i++) {
+                            var no = i + 1;
+                            table+="<tr>";
+                            table+="<td>" + no + "</td>"
+                            table+="<td>" + data[i].bagian + "</td>";
+                            table+="<td>" + data[i].nilai + "</td>";
+                            table+="<td>" + data[i].satuan + "</td>";
+                            table+="<td>" + data[i].tgl_penggunaan + "</td>";
+                            table+="</tr>";   
+                        }
+                        $("#table-report-5").html(table).on('change');
+                        $(".table-5").DataTable().order([4, 'asc']).draw();
+                    }
+                })
+            }else{
+                $.ajax({
+                    url: "report-5/" + $('#tgl-report-5-1').val() + '/' + $('#tgl-report-5-2').val(),
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) { 
+                        $(".table-5").DataTable().destroy();
+                        $("#table-report-5").empty();
+                        var table = "";
+                        for (let i = 0; i < data.length; i++) {
+                            var no = i + 1;
+                            table+="<tr>";
+                            table+="<td>" + no + "</td>"
+                            table+="<td>" + data[i].bagian + "</td>";
+                            table+="<td>" + data[i].nilai + "</td>";
+                            table+="<td>" + data[i].satuan + "</td>";
+                            table+="<td>" + data[i].tgl_penggunaan + "</td>";
+                            table+="</tr>";   
+                        }
+                        $("#table-report-5").html(table).on('change');
+                        $(".table-5").DataTable().order([4, 'asc']).draw();
                     }
                 })
             }
