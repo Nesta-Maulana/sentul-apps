@@ -148,8 +148,8 @@ class rollieOperatorController extends resourceController
                 if (strpos($wo->produk->nama_produk,'Gundam')) 
                 {    
                     $pecah  = explode('G',$cekpalet->palet);
-                    $pecah  = explode('P',$cekpalet->palet);
-                    $palet  = $pecah[0]+1;
+                    $pecah  = explode('P',$pecah[0]);
+                    $palet  = $pecah[1]+1;
                     if (strlen($palet) == 1) 
                     {
                         $palet = "0".$palet;
@@ -164,7 +164,7 @@ class rollieOperatorController extends resourceController
                 else
                 {
                     $pecah  = explode('P',$cekpalet->palet);
-                    $palet  = $pecah[0]+1;
+                    $palet  = $pecah[1]+1;
                     if (strlen($palet) == 1) 
                     {
                         $palet = "0".$palet;
@@ -179,11 +179,79 @@ class rollieOperatorController extends resourceController
             }
             return ['success'=>true,'message'=>'berhasil'];
         }
+        else
+        {
+            $cekpalet           = palet::where('cpp_detail_id',$cppDetail->id)->latest()->first();
+        
+            $now                = date('Y-m-d H:i:s');
+            if (is_null($cekpalet)) 
+            {
+                if (strpos($wo->produk->nama_produk,'Gundam')) 
+                {    
+                    palet::create([
+                        'cpp_detail_id' => $cppDetail->id,
+                        'palet'         => 'P01G',
+                        'start'         => $now
+                    ]);
+                }
+                else
+                {
+                    palet::create([
+                        'cpp_detail_id' => $cppDetail->id,
+                        'palet'         => 'P01',
+                        'start'         => $now
+                    ]);   
+                }
+            }
+            elseif (!is_null($cekpalet)) 
+            {
+                if (strpos($wo->produk->nama_produk,'Gundam')) 
+                {    
+                    $pecah  = explode('G',$cekpalet->palet);
+                    $pecah  = explode('P',$pecah[0]);
+                    $palet  = $pecah[1]+1;
+                    if (strlen($palet) == 1) 
+                    {
+                        $palet = "0".$palet;
+                    }
+                    $palet  = 'P'.$palet.'G';
+                    palet::create([
+                        'cpp_detail_id' => $cppDetail->id,
+                        'palet'         => $palet,
+                        'start'         => $now
+                    ]);
+                }
+                else
+                {
+                    $pecah  = explode('P',$cekpalet->palet);
+                    $palet  = $pecah[1]+1;
+                    if (strlen($palet) == 1) 
+                    {
+                        $palet = "0".$palet;
+                    }
+                    $palet  = 'P'.$palet;
+                    palet::create([
+                        'cpp_detail_id' => $cppDetail->id,
+                        'palet'         => $palet,
+                        'start'         => $now
+                    ]);   
+                }   
+            }
+        }
     }
 
     public function refreshTableCpp($cpp_head_id)
     {
         $cpp_head_id    = resourceController::dekripsi($cpp_head_id);
-        
+        $cpp_head     = cppHead::find($cpp_head_id);
+        foreach ($cpp_head->cppDetail as $key => $detail) 
+        {
+            foreach ($detail->palet as $key => $palet) 
+            {
+                $detail->palet          = $palet;    
+            }
+            $cpp_head->cpp_detail       = $detail;
+        }
+        return $cpp_head;
     }
 }

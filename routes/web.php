@@ -241,7 +241,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie-operator-produksi', 'rollie\rollieOperatorController@fillpackindex')->name('dashboard-operator-fillpack');
     Route::post('/rollie-operator-produksi/cpp/proses-cpp', 'rollie\rollieOperatorController@prosesCpp')->name('proses-cpp');
     Route::post('/rollie-operator-produksi/cpp/tambah-cpp', 'rollie\rollieOperatorController@tambahCpp')->name('tambah-cpp');
-    Route::post('/rollie-operator-produksi/cpp/refresh-table-cpp/{cpp_head_id}', 'rollie\rollieOperatorController@refreshTableCpp')->name('refresh-table-cpp');
+    Route::get('/rollie-operator-produksi/cpp/refresh-table-cpp/{cpp_head_id}', 'rollie\rollieOperatorController@refreshTableCpp')->name('refresh-table-cpp');
     Route::get('/rollie-operator-produksi/cpp/{id}', 'rollie\rollieOperatorController@cpp')->name('operator-cpp');
 
     // Rollie Inspektor
