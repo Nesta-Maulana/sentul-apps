@@ -1,3 +1,27 @@
 14.39 11/06/2019
 Database utility Online:
 	hari_kerja
+
+08.41 17/06/2019
+Database Utility Online: 
+	hari_kerja->addRow('tonase')
+
+14.43 18/06/2019
+Report 1.3 AIR
+	Dibebankan ke gas
+		Demin Water Boiler => Dibebankan ke gas tapi rumus gas belum selesai
+		Boiler - Ruby
+		Boiler - Greek
+		Boiler - Retort
+Report 1.3 Gas
+	NFI PRODUKSI(GAS)
+		If hari kerja
+	HNI Ruby (GAS)
+		if hari kerja
+Report 1.4 Gas
+	Semua rumusnya belum bisa
+	penggunaan gas nya banyak yang ngambil ke HNI RUBY dan NFI PRODUKSI
+	trus ada juga tonase HNI dan NFI , tonase produksi, HK produksi
+Report 1.3 Listrik
+	Boiler => Pemakaian gas
+
