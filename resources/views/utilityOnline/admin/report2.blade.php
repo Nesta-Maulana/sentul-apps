@@ -79,7 +79,7 @@
 <script>
         $('#export-pengamatan').hide();
         $('#export-pengamatan-info').show();
-        $('#kategori').attr('disabled', true);
+        
         $('#workcenter').attr('disabled', true);
         $('#kategori').change(function () {
             var id = $('#kategori option:selected').val();

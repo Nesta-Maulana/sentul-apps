@@ -178,6 +178,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin', 'utilityOnline\adminUtilityController@index');
     Route::get('/utility-online/admin/report', 'utilityOnline\adminUtilityController@report');
     Route::get('/utility-online/admin/report-grafik', 'utilityOnline\adminUtilityController@reportGrafik');
+
+    Route::get('/utility-online/admin/report/bagian/{id}', 'utilityOnline\adminUtilityController@reportBagian');
     Route::get('/utility-online/admin/report/bagian/{idBagian}/{from}/{to}', 'utilityOnline\adminUtilityController@reportBagianTgl');
 
     Route::get('/utility-online/admin/report-2', 'utilityOnline\adminUtilityController@report2');
@@ -224,6 +226,9 @@ Route::middleware('ceklogin')->group(function ()
 
     // UtilityOnline UserGuide
     Route::get('/utility-online/user-guide', 'utilityOnline\utilityOnlineController@userGuide');
+
+    // Utility Online Report Grafik Highchart
+    Route::get('/utility-online/admin/report-grafik/penggunaan/{tahun}/{id}', 'utilityOnline\utilityOnlineGrafikController@pengunaanPertahun');
 
 
     // Rollie penyelia

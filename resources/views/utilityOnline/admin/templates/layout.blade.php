@@ -12,8 +12,10 @@
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')}}">
+  <link rel="stylesheet"
+      href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet"
+      href="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/fullcalendar/fullcalendar.min.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/daterangepicker.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/bootstrap-timepicker.min.css')}}">
@@ -23,19 +25,25 @@
   <link rel='stylesheet' href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
 
   <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
   
 </head>
 
 <body>
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
-      <div class="navbar-bg"></div>
-      <nav class="navbar navbar-expand-lg main-navbar">
-        <form class="form-inline mr-auto">
-            <ul class="navbar-nav mr-3">
-                <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fa fa-bars"></i></a></li>            
-            </ul>
-        </form>
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <form class="form-inline mr-auto">
+                <ul class="navbar-nav mr-3">
+                    <li>
+                        <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fa fa-bars"></i></a>
+                    </li>
+                </ul>
+            </form>
         <ul class="navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
@@ -191,6 +199,8 @@
   <script src="{{ asset('utilityOnline/admin/js/page/modules-datatables.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/page/modules-chartjs.js')}}"></script>
   <script src="{{ asset('generalStyle/plugins/select2/js/select2.min.js') }}"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/annotations.js"></script>
   <script>
     $.ajax({
         url: 'form-hari-kerja-ambil/',
@@ -260,8 +270,6 @@
         }
   </script>
   <script>
-
-    
 
     $('#daterange-btn').daterangepicker(
       {

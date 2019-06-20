@@ -47,47 +47,47 @@ class adminUtilityController extends resourceController
         });
     }
 
-    public function generateDateRange(Carbon $start_date, Carbon $end_date)
-    {
-        $dates = [];
-        for($date = $start_date; $date->lte($end_date); $date->addDay()) {
-            $dates[] = $date->format('Y-m-d');
-        }
-        return $dates;
-    }    
-
-    public function rasioBagian($bagian, $company = "", $tgl)
-    {
-        $nilai = 0;
-        $cek = penggunaan::whereIn('id_bagian', $bagian)->where('tgl_penggunaan', $tgl)->get();
-        foreach ($cek as $penggunaan) 
+        public function generateDateRange(Carbon $start_date, Carbon $end_date)
         {
-            if(!$penggunaan->bagian->rasioHead)
-            {
-                $nilaiBagian = $penggunaan->nilai;
-                $nilai =  $nilai + $nilaiBagian;
+            $dates = [];
+            for($date = $start_date; $date->lte($end_date); $date->addDay()) {
+                $dates[] = $date->format('Y-m-d');
             }
-            else
+            return $dates;
+        }    
+
+        public function rasioBagian($bagian, $company = "", $tgl)
+        {
+            $nilai = 0;
+            $cek = penggunaan::whereIn('id_bagian', $bagian)->where('tgl_penggunaan', $tgl)->get();
+            foreach ($cek as $penggunaan) 
             {
-                foreach ($penggunaan->bagian->rasioHead->rasioDetail as $rasioDetail) 
-                {                
-                    if ($rasioDetail->company->singkatan == $company) 
-                    {
-                        $nilaiPenggunaan = $penggunaan->nilai;
-                        $rasio = $rasioDetail->nilai/100;
-                        $nilaiBagian = $penggunaan->nilai * $rasio;
-                        $nilai =  $nilai + $nilaiBagian;
-                    }
-                    else
-                    {
-                        $nilaiBagian = $penggunaan->nilai;
-                        $nilai =  $nilai + $nilaiBagian;
+                if(!$penggunaan->bagian->rasioHead)
+                {
+                    $nilaiBagian = $penggunaan->nilai;
+                    $nilai =  $nilai + $nilaiBagian;
+                }
+                else
+                {
+                    foreach ($penggunaan->bagian->rasioHead->rasioDetail as $rasioDetail) 
+                    {                
+                        if ($rasioDetail->company->singkatan == $company) 
+                        {
+                            $nilaiPenggunaan = $penggunaan->nilai;
+                            $rasio = $rasioDetail->nilai/100;
+                            $nilaiBagian = $penggunaan->nilai * $rasio;
+                            $nilai =  $nilai + $nilaiBagian;
+                        }
+                        else
+                        {
+                            $nilaiBagian = $penggunaan->nilai;
+                            $nilai =  $nilai + $nilaiBagian;
+                        }
                     }
                 }
             }
+                return $nilai;
         }
-            return $nilai;
-    }
     
 
     public function index(){
@@ -201,7 +201,10 @@ class adminUtilityController extends resourceController
         return view('utilityOnline.admin.report5', ['menus' => $this->menu, 'username' => $this->username, 'kategori' => $kategori]);
     }
     public function reportGrafik(){
-        return view('utilityOnline.admin.reportGrafik', ['menus' => $this->menu, 'username' => $this->username]);
+        $kategori = kategori::all();
+        $workcenter = workcenter::all();
+        $bagian = bagian::all();
+        return view('utilityOnline.admin.reportGrafik', ['menus' => $this->menu, 'username' => $this->username,'kategori' => $kategori,'workcenter' => $workcenter,'bagian' => $bagian]);
     }
     public function ambilHariKerja($tgl = ""){
 
@@ -210,6 +213,10 @@ class adminUtilityController extends resourceController
     public function ambilSemuaHariKerja(){
 
         return hariKerja::all();
+    }
+
+    public function reportBagian($id){
+       return bagian::where('workcenter_id', $id)->get();
     }
 
     public function hariKerjaSave(Request $request){
