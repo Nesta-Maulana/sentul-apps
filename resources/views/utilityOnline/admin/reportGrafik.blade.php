@@ -6,6 +6,9 @@
     active
 @endsection
 @section('content')
+<div class="section-header">
+    <h1>Report Grafik Perbulan</h1>
+</div>
 <div class="row">
     <div class="col-lg-3">
         <div class="bg-white p-2 rounded" style="box-shadow: 1px 1px 10px #000">
@@ -37,18 +40,13 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
-                <label for="">Bagian : </label>
-                <select name="bagian" id="bagian" class="form-control ">
-                </select>
-            </div>
         </div>
     </div>
     <div class="col-lg-9">
         <div id="pertahun" class="mt-4 p-2 rounded" style="box-shadow: 1px 1px 5px #000"></div>
     </div>
-    
 </div>
+
 
 <script>
     $('#kategori').attr('disabled', true);
@@ -98,12 +96,10 @@
     })
     function penggunaanGrafikPerTahun(id) { 
         $.ajax({
-            url: 'report-grafik/penggunaan/'+ $('#tahun').val() +'/' + id,
+            url: 'report-grafik/penggunaan/pertahun/'+ $('#tahun').val() +'/' + id,
             method: 'get',
             dataType: 'JSON',
             success: function (data) { 
-                console.log(data);
-                
                 highChartPertahun(data);
             }
         })
@@ -151,12 +147,54 @@
                 useHTML: true
             },
             plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function() {
+                                alert('Category: ' + this.category + ', value: ' + this.x);
+                            }
+                        }
+                    }
+                },
                 column: {
                     pointPadding: 0.2,
                     borderWidth: 0
                 }
             },
-            series:  data
+            series: data,
+            series: [
+                {
+                    name: 'jadwal',
+                    type: 'column',
+                    data: [
+                        {
+                            y: 9,
+                            key: 'aksjdf',
+                        },
+                        {
+                            y: 9,
+                            key: 'aksjdf',
+                        },
+                    ]
+                }
+            ],
+            series: [
+                {
+                    name: 'name',
+                    type: 'column',
+                    data: [
+                        {
+                            y: 7,
+                            key: 'aksjdasdff',
+                        },
+                        {
+                            y: 2,
+                            key: 'aksjjdf',
+                        },
+                    ]
+                }
+            ],
         });
     }
     

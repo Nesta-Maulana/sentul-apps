@@ -47,49 +47,48 @@ class adminUtilityController extends resourceController
         });
     }
 
-        public function generateDateRange(Carbon $start_date, Carbon $end_date)
-        {
-            $dates = [];
-            for($date = $start_date; $date->lte($end_date); $date->addDay()) {
-                $dates[] = $date->format('Y-m-d');
-            }
-            return $dates;
-        }    
+    public function generateDateRange(Carbon $start_date, Carbon $end_date)
+    {
+        $dates = [];
+        for($date = $start_date; $date->lte($end_date); $date->addDay()) {
+            $dates[] = $date->format('Y-m-d');
+        }
+        return $dates;
+    }    
 
-        public function rasioBagian($bagian, $company = "", $tgl)
+    public function rasioBagian($bagian, $company = "", $tgl)
+    {
+        $nilai = 0;
+        $cek = penggunaan::whereIn('id_bagian', $bagian)->where('tgl_penggunaan', $tgl)->get();
+        foreach ($cek as $penggunaan) 
         {
-            $nilai = 0;
-            $cek = penggunaan::whereIn('id_bagian', $bagian)->where('tgl_penggunaan', $tgl)->get();
-            foreach ($cek as $penggunaan) 
+            if(!$penggunaan->bagian->rasioHead)
             {
-                if(!$penggunaan->bagian->rasioHead)
-                {
-                    $nilaiBagian = $penggunaan->nilai;
-                    $nilai =  $nilai + $nilaiBagian;
-                }
-                else
-                {
-                    foreach ($penggunaan->bagian->rasioHead->rasioDetail as $rasioDetail) 
-                    {                
-                        if ($rasioDetail->company->singkatan == $company) 
-                        {
-                            $nilaiPenggunaan = $penggunaan->nilai;
-                            $rasio = $rasioDetail->nilai/100;
-                            $nilaiBagian = $penggunaan->nilai * $rasio;
-                            $nilai =  $nilai + $nilaiBagian;
-                        }
-                        else
-                        {
-                            $nilaiBagian = $penggunaan->nilai;
-                            $nilai =  $nilai + $nilaiBagian;
-                        }
+                $nilaiBagian = $penggunaan->nilai;
+                $nilai =  $nilai + $nilaiBagian;
+            }
+            else
+            {
+                foreach ($penggunaan->bagian->rasioHead->rasioDetail as $rasioDetail) 
+                {                
+                    if ($rasioDetail->company->singkatan == $company) 
+                    {
+                        $nilaiPenggunaan = $penggunaan->nilai;
+                        $rasio = $rasioDetail->nilai/100;
+                        $nilaiBagian = $penggunaan->nilai * $rasio;
+                        $nilai =  $nilai + $nilaiBagian;
+                    }
+                    else
+                    {
+                        $nilaiBagian = $penggunaan->nilai;
+                        $nilai =  $nilai + $nilaiBagian;
                     }
                 }
             }
-                return $nilai;
         }
+            return $nilai;
+    }
     
-
     public function index(){
         return view('utilityOnline.admin.index', ['menus' => $this->menu, 'username' => $this->username]);
     }
@@ -555,40 +554,51 @@ class adminUtilityController extends resourceController
             array_push($bagian, ['bagian' => 'FRC', 'nilai' => $frc, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'UPS FRC', 'nilai' => ($frc/$fr)* $ups, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'LAB', 'nilai' => $lab, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
-            // 'WTP & WWTP'
+            // Start
+            array_push($bagian, ['bagian' => 'WTP & WWTP', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            // End
             array_push($bagian, ['bagian' => 'LPGP', 'nilai' => $lpgp, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'AC', 'nilai' => $ac1 - $ac2, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian,  ['bagian' => 'RC', 'nilai' => $rc1, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'HYDRANT', 'nilai' => $hydrant, 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
-            // 'DEEPWELL' => penggunaan::where
-            // 'UTILITY TOTAL'
-            // 'Boiler'
+            // start
+            array_push($bagian, ['bagian' => 'DEEPWELL', 'nilai' => " ", 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'UTILITY TOTAL', 'nilai' => " ", 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'Boiler', 'nilai' => " ", 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
+            // End
             array_push($bagian,  ['bagian' => 'Chiller', 'nilai' => $chiller - (($ruby/$rgf) * $chiller) - ($greek/$rgf) * $chiller, 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Compressor', 'nilai' => $compressor - (($ruby/$rgf) * $compressor) -  (($greek/$rgf) * $compressor), 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Cooling Tower', 'nilai' => $coolingTower, 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
-            // 'HNI TOTAL'
-            // 'PRODUKSI'
+            // start
+            array_push($bagian, ['bagian' => 'HNI TOTAL', 'nilai' => $coolingTower, 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'PRODUKSI', 'nilai' => $coolingTower, 'satuan' => '', 'tanggal_penggunaan' => $tgl]); 
+            // End
             array_push($bagian, ['bagian' => 'RUBY', 'nilai' => $ruby, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'UPS RUBY', 'nilai' => ($ruby / $fr) * $ups, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'GREEK', 'nilai' => $greek, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'BAKERY', 'nilai' => $bakery, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'OFFICE-RD', 'nilai' => $officeRd, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'AC GUDANG', 'nilai' => $acGudang, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
-            // 'WTP & WWTP'
-            // 'RUBY'
-            // 'GREEK'
-            // 'Non-Produksi'
+            // Start
+            array_push($bagian, ['bagian' => 'WTP & WWTP', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'RUBY', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'GREEK', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'Non-Produksi', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            // End
             array_push($bagian, ['bagian' => 'RC', 'nilai' => $rc, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
-            // 'DEEPWELL'
-            // 'UTILITY'
-            // 'RUBY Utility'
-            // 'Boiler' => ($ruby/$rgf) * $chiller,
+            // Start
+            array_push($bagian, ['bagian' => 'DEEPWELL', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'UTILITY', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'RUBY Utility', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'Boiler', 'nilai' => " ", 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            // End
             array_push($bagian, ['bagian' => 'Chiller', 'nilai' => ($ruby/$rgf) * $chiller, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Compressor', 'nilai' => ($ruby/$rgf) * $compressor, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Colling Tower', 'nilai' => ($ruby/$rgf) * $coolingTower, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
-            // 'GREEK  Utility'
-            // 'Boiler'
-
+            // Start
+            array_push($bagian, ['bagian' => 'GREEK  Utility', 'nilai' => ($ruby/$rgf) * $coolingTower, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            array_push($bagian, ['bagian' => 'Boiler', 'nilai' => ($ruby/$rgf) * $coolingTower, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
+            // End
             array_push($bagian, ['bagian' => 'Chiller', 'nilai' => ($greek/$rgf) * $chiller, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Compressor', 'nilai' => ($greek/$rgf) * $compressor, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
             array_push($bagian, ['bagian' => 'Colling Tower', 'nilai' => ($greek/$rgf) * ($greek/$rgf) * $coolingTower, 'satuan' => 'Mwh', 'tanggal_penggunaan' => $tgl]); 
@@ -677,7 +687,7 @@ class adminUtilityController extends resourceController
             $tz = 'Asia/Jakarta';
             $from1 = explode('-', $from);
             $to1 = explode('-', $to);        
-            $from1 = Carbon::createFromDate($from1[0], $from1[1], $from1[2], $tz);        
+            $from1 = Carbon::createFromDate($from1[0], $from1[1], $from1[2], $tz);     
             $to1 = Carbon::createFromDate($to1[0], $to1[1], $to1[2], $tz);
             $cek = $this->generateDateRange($from1, $to1);  
             $no = 0;

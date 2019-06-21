@@ -13,11 +13,6 @@ Hari Kerja
 </style>
 <div class="section-header">
     <h1>Calendar</h1>
-    <!-- <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-        <div class="breadcrumb-item"><a href="#">Modules</a></div>
-        <div class="breadcrumb-item">Calendar</div>
-    </div> -->
 </div>
 
 <div class="section-body">

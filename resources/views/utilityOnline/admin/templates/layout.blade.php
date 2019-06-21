@@ -89,8 +89,15 @@
                         <a href="/sentul-apps/utility-online/admin/report-5" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 5</span></a>       
                     </li>
                     <li class="dropdown @yield('active-report-grafik')">
-                        <a href="/sentul-apps/utility-online/admin/report-grafik" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Grafik</span></a>       
+                        <a href="/sentul-apps/utility-online/admin/report-penggunaan/report-grafik-perbulan" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Penggunaan Grafik Perbulan</span></a>       
                     </li>
+                    <li class="dropdown @yield('active-report-grafik')">
+                        <a href="/sentul-apps/utility-online/admin/report-penggunaan/report-grafik-perhari" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Penggunaan Grafik Perhari</span></a>       
+                    </li>
+                    <li class="dropdown @yield('active-report-grafik')">
+                        <a href="/sentul-apps/utility-online/admin/report-grafik-perhari/report-3" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 3 Grafik Perhari</span></a>       
+                    </li>
+                    
                 <li class="menu-header">Menu</li>
                 <?php $idUser = Session::get('login') ?>
                 @foreach($menus as $menu)
@@ -197,13 +204,13 @@
   <script src="{{ asset('utilityOnline/admin/js/bootstrap-datetimepicker.min.js')}}"></script>
   <!-- Page Specific JS File -->
   <script src="{{ asset('utilityOnline/admin/js/page/modules-datatables.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/js/page/modules-chartjs.js')}}"></script>
+
   <script src="{{ asset('generalStyle/plugins/select2/js/select2.min.js') }}"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/annotations.js"></script>
   <script>
     $.ajax({
-        url: 'form-hari-kerja-ambil/',
+        url: '/sentul-apps/utility-online/admin/form-hari-kerja-ambil/',
         method: 'get',
         dataType: 'json',
         success: function (data) {

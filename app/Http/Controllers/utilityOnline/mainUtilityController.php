@@ -39,16 +39,19 @@ class mainUtilityController extends Controller
         $gas = bagian::join('workcenter', 'bagian.workcenter_id', '=', 'workcenter.id')
                     ->join('kategori', 'workcenter.kategori_id', '=', 'kategori.id')
                     ->where('kategori.id', '3')
+                    ->where('bagian.status', '1')
                     ->select('bagian.*')
                     ->get();
         $listrik = bagian::join('workcenter', 'bagian.workcenter_id', '=', 'workcenter.id')
                     ->join('kategori', 'workcenter.kategori_id', '=', 'kategori.id')
                     ->where('kategori.id', '2')
+                    ->where('bagian.status', '1')
                     ->select('bagian.*')
                     ->get();
         $water = bagian::join('workcenter', 'bagian.workcenter_id', '=', 'workcenter.id')
                     ->join('kategori', 'workcenter.kategori_id', '=', 'kategori.id')
                     ->where('kategori.id', '1')
+                    ->where('bagian.status', '1')
                     ->select('bagian.*')
                     ->get();
         $kategoriPencatatan = kategoriPencatatan::all();
@@ -93,6 +96,13 @@ class mainUtilityController extends Controller
     public function bagianSimpan(Request $request){
         $now = Carbon::now('Asia/Jakarta');
         $time = $now->toTimeString();
+        $nilaiPengamatan = pengamatan::where('id_bagian', $request->idBagian)->latest()->first();
+        if($nilaiPengamatan){ 
+            if($nilaiPengamatan->nilai_meteran >= $request->input){
+                return ['success' => false,'message' => 'message'];
+            }
+        }
+
         $pengamatan = bagian::where('id', $request->idBagian)->latest()->first();
         if ($pengamatan->kategori_pencatatan_id == '1') {
             // Cek Waktu
@@ -225,7 +235,7 @@ class mainUtilityController extends Controller
             // Input Pengamatan dan penggunaan
             $pengamatanbagian = pengamatan::where('id_bagian', $request->idBagian)->latest()->first();
             if($pengamatanbagian){
-                $nilai = $pengamatanbagian->nilai_meteran - $request->input;
+                $nilai = $request->input - $pengamatanbagian->nilai_meteran;
             }else{
                 $nilai = $request->input;
             }
@@ -283,7 +293,7 @@ class mainUtilityController extends Controller
                 ]);
         }
 
-        return ['asdf'];
+        return ['success' => true,'message' => 'Success'];
     }
     public function listrik(){
         $workcenter = workcenter::all();
@@ -474,7 +484,7 @@ class mainUtilityController extends Controller
     }
     public function showInput($id){
         
-        $bagian = bagian::where('workcenter_id', $id)->get();
+        $bagian = bagian::where('workcenter_id', $id)->where('status', '1')->get();
         foreach ($bagian as  $value) 
         {
         

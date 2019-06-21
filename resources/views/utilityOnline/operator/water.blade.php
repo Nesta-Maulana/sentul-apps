@@ -133,19 +133,32 @@
             dataType: 'JSON',
             data: { 'input': input, 'idBagian': idbagian},
             success: function (data) {
-                swal({
-                    title: "Success",
-                    text: "Berhasil Menyimpan",
-                    type: 'success'
-                });
-                var inp = '#input'+idbagian;
-                var simpan = '#simpan'+idbagian;
-                $(inp).attr('disabled', true);
-                $(inp).attr('class', 'text-center');
-                $(simpan).attr('class', ' btn bg-white text-primary font-weight-bold');
-                $(simpan).text('Tersimpan');
-                $(simpan).attr('disabled', true);
+                if (data.success == true) 
+                {
+                    
+                    swal({
+                        title: "Success",
+                        text: "Berhasil Menyimpan",
+                        type: 'success'
+                    });
+                    var inp = '#input'+idbagian;
+                    var simpan = '#simpan'+idbagian;
+                    $(inp).attr('disabled', true);
+                    $(inp).attr('class', 'text-center');
+                    $(simpan).attr('class', ' btn bg-white text-primary font-weight-bold');
+                    $(simpan).text('Tersimpan');
+                    $(simpan).attr('disabled', true);    
+                }
+                else 
+                {
+                    swal({
+                        title: "Failed",
+                        text: "Harap cek meteran kembali !",
+                        type: 'error'
+                    })
+                }
             },
+        
             
         });
     }
