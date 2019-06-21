@@ -17,6 +17,7 @@ use App\Models\masterApps\brand;
 use App\Models\productionData\wo;
 use App\Models\productionData\cppHead;
 use App\Models\productionData\cppDetail;
+use App\Models\productionData\palet;
 use App\Models\masterApps\mesinFilling;
 use DB;
 use \Carbon\Carbon;
@@ -112,15 +113,145 @@ class rollieOperatorController extends resourceController
             $index          =   $length-1;
             $kode_mesin     =   $mesin_filling->kode_mesin[$index];
             $nolot          =   $huruf.$kode_mesin.$expired_date[1].$expired_date[2].'A';
-
-            cppDetail::create([
-                'cpp_head_id'           => $cpp_head_id,
-                'wo_id'                 => $wo_id,
-                'mesin_filling_id'      => $mesin_filling_id,
-                'nolot'                 => $nolot
-            ]);
-
-            
+            $cpp_detail     =   cppDetail::create([
+                                    'cpp_head_id'           => $cpp_head_id,
+                                    'wo_id'                 => $wo_id,
+                                    'mesin_filling_id'      => $mesin_filling_id,
+                                    'nolot'                 => $nolot
+                                ]);
+            // ini untuk mengecek palet nantinya yang mesinya sama. maka Nomor Palet akan continous
+            $cpp_detail_lot     = cppDetail::where('nolot',$nolot)->first();
+            //cek jumlah cpp jika nomor lot sama lebih dari satu maka paletnya akan continous deh
+            $cekpalet           = palet::where('cpp_detail_id',$cpp_detail_lot->id)->latest()->first();
+            $now                = date('Y-m-d H:i:s');
+            if (is_null($cekpalet)) 
+            {
+                if (strpos($wo->produk->nama_produk,'Gundam')) 
+                {    
+                    palet::create([
+                        'cpp_detail_id' => $cpp_detail->id,
+                        'palet'         => 'P01G',
+                        'start'         => $now
+                    ]);
+                }
+                else
+                {
+                    palet::create([
+                        'cpp_detail_id' => $cpp_detail->id,
+                        'palet'         => 'P01',
+                        'start'         => $now
+                    ]);   
+                }
+            }
+            elseif (!is_null($cekpalet)) 
+            {
+                if (strpos($wo->produk->nama_produk,'Gundam')) 
+                {    
+                    $pecah  = explode('G',$cekpalet->palet);
+                    $pecah  = explode('P',$pecah[0]);
+                    $palet  = $pecah[1]+1;
+                    if (strlen($palet) == 1) 
+                    {
+                        $palet = "0".$palet;
+                    }
+                    $palet  = 'P'.$palet.'G';
+                    palet::create([
+                        'cpp_detail_id' => $cpp_detail->id,
+                        'palet'         => $palet,
+                        'start'         => $now
+                    ]);
+                }
+                else
+                {
+                    $pecah  = explode('P',$cekpalet->palet);
+                    $palet  = $pecah[1]+1;
+                    if (strlen($palet) == 1) 
+                    {
+                        $palet = "0".$palet;
+                    }
+                    $palet  = 'P'.$palet;
+                    palet::create([
+                        'cpp_detail_id' => $cpp_detail->id,
+                        'palet'         => $palet,
+                        'start'         => $now
+                    ]);   
+                }   
+            }
+            return ['success'=>true,'message'=>'berhasil'];
         }
+        else
+        {
+            $cekpalet           = palet::where('cpp_detail_id',$cppDetail->id)->latest()->first();
+        
+            $now                = date('Y-m-d H:i:s');
+            if (is_null($cekpalet)) 
+            {
+                if (strpos($wo->produk->nama_produk,'Gundam')) 
+                {    
+                    palet::create([
+                        'cpp_detail_id' => $cppDetail->id,
+                        'palet'         => 'P01G',
+                        'start'         => $now
+                    ]);
+                }
+                else
+                {
+                    palet::create([
+                        'cpp_detail_id' => $cppDetail->id,
+                        'palet'         => 'P01',
+                        'start'         => $now
+                    ]);   
+                }
+            }
+            elseif (!is_null($cekpalet)) 
+            {
+                if (strpos($wo->produk->nama_produk,'Gundam')) 
+                {    
+                    $pecah  = explode('G',$cekpalet->palet);
+                    $pecah  = explode('P',$pecah[0]);
+                    $palet  = $pecah[1]+1;
+                    if (strlen($palet) == 1) 
+                    {
+                        $palet = "0".$palet;
+                    }
+                    $palet  = 'P'.$palet.'G';
+                    palet::create([
+                        'cpp_detail_id' => $cppDetail->id,
+                        'palet'         => $palet,
+                        'start'         => $now
+                    ]);
+                }
+                else
+                {
+                    $pecah  = explode('P',$cekpalet->palet);
+                    $palet  = $pecah[1]+1;
+                    if (strlen($palet) == 1) 
+                    {
+                        $palet = "0".$palet;
+                    }
+                    $palet  = 'P'.$palet;
+                    palet::create([
+                        'cpp_detail_id' => $cppDetail->id,
+                        'palet'         => $palet,
+                        'start'         => $now
+                    ]);   
+                }   
+            }
+        }
+    }
+
+    public function refreshTableCpp($cpp_head_id)
+    {
+        $cpp_head_id    = resourceController::dekripsi($cpp_head_id);
+        $cpp_head     = cppHead::find($cpp_head_id);
+        foreach ($cpp_head->cppDetail as $key => $detail) 
+        {
+            foreach ($detail->palet as $key => $palet) 
+            {
+                $detail->palet          = $palet;    
+            }
+            $cpp_head->cpp_detail       = $detail;
+        }
+        return $cpp_head;
     }
 }

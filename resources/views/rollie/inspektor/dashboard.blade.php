@@ -1,4 +1,4 @@
-@extends('rollie.inspektor.templates.layout')
+@extends('rollie.inspektor.template.layout')
 @section('title')
     {{ $menus[0]->aplikasi }} | Dashboard
 @endsection
@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                             @foreach ($wos as $wo)
-                                @if ($wo->status == '2')
+                                @if ($wo->status == '2' || $wo->status == '3')
                                     <tr>
                                         <td>{{ $wo->nomor_wo }}</td>
                                         <td>{{ $wo->produk->nama_produk }}</td>

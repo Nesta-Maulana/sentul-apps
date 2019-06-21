@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container">
+    <div class="page-container sbar_collapsed">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -271,6 +271,32 @@
             }); 
         }
 
+        function refreshcpp() 
+        {
+            var $cpp_head_id = $('#cpp_head_id').val();
+            $.ajax({
+                url     : '/sentul-apps/rollie-operator-produksi/cpp/refresh-table-cpp/'+$cpp_head_id,
+                method  : 'GET',
+                dataType: 'JSON',
+                success : function(data) 
+                {
+                    console.log(data);
+                    var isitable = '', $isitable = $('#detail_palet');
+                    for (var i = 0; i < data.detail_pi_nya.length; i++)
+                    {
+                        isitable    += '<tr>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].nomor_wo+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].mesin_filling+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].jam_filling+'</td>';
+                        isitable    += '<td>'+data.detail_pi_nya[i].kode_sampel+'</td>';
+                       
+                        isitable    += '</tr>';
+                    }
+                    $isitable.html(isitable).on('change');
+                }
+            });
+        }
+
 
         $('.timepickernya').datetimepicker({
             format: 'HH:mm:ss',
@@ -283,7 +309,7 @@
             date: new Date()
         }); 
         $('.datetimepickernya').datetimepicker({
-            format: 'YYYY-mm-DD HH:mm:ss'
+            format: 'YYYY-MM-DD HH:mm:ss'
         }); 
     </script>  
 
