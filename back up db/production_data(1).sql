@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jun 2019 pada 02.16
+-- Waktu pembuatan: 21 Jun 2019 pada 11.41
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -84,6 +84,14 @@ CREATE TABLE `cpp_detail` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `cpp_detail`
+--
+
+INSERT INTO `cpp_detail` (`id`, `cpp_head_id`, `wo_id`, `mesin_filling_id`, `nolot`, `created_at`, `updated_at`) VALUES
+(1, 1, 5, 1, 'TC0430A', '2019-06-17 01:49:36', '2019-06-17 01:49:36'),
+(2, 1, 5, 2, 'TB0430A', '2019-06-20 01:56:02', '2019-06-20 01:56:02');
+
 -- --------------------------------------------------------
 
 --
@@ -104,10 +112,7 @@ CREATE TABLE `cpp_head` (
 --
 
 INSERT INTO `cpp_head` (`id`, `produk_id`, `tanggal_packing`, `status`, `created_at`, `updated_at`) VALUES
-(1, 20, '2019-06-17', '0', '2019-06-16 18:18:33', '2019-06-16 18:18:33'),
-(2, 20, '2019-06-17', '0', '2019-06-16 18:20:16', '2019-06-16 18:20:16'),
-(3, 20, '2019-06-17', '0', '2019-06-16 18:21:08', '2019-06-16 18:21:08'),
-(4, 20, '2019-06-17', '0', '2019-06-16 18:22:04', '2019-06-16 18:22:04');
+(1, 20, '2019-06-17', '0', '2019-06-17 00:54:01', '2019-06-17 00:54:01');
 
 -- --------------------------------------------------------
 
@@ -279,14 +284,29 @@ INSERT INTO `mesin_filling` (`id`, `nama_mesin`, `kode_mesin`, `status`, `create
 CREATE TABLE `palet` (
   `id` int(11) NOT NULL,
   `cpp_detail_id` int(11) NOT NULL,
-  `palet` int(11) NOT NULL,
+  `palet` varchar(5) NOT NULL,
   `start` datetime NOT NULL,
-  `end` datetime NOT NULL,
-  `jumlah_box` int(11) NOT NULL,
-  `jumlah_pack` int(11) NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `jumlah_box` int(11) DEFAULT NULL,
+  `jumlah_pack` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `palet`
+--
+
+INSERT INTO `palet` (`id`, `cpp_detail_id`, `palet`, `start`, `end`, `jumlah_box`, `jumlah_pack`, `created_at`, `updated_at`) VALUES
+(1, 1, 'P01', '2019-06-17 08:49:36', NULL, NULL, NULL, '2019-06-17 01:49:36', '2019-06-17 01:49:36'),
+(2, 2, 'P01', '2019-06-20 08:56:02', NULL, NULL, NULL, '2019-06-20 01:56:02', '2019-06-20 01:56:02'),
+(3, 1, 'P02', '2019-06-20 09:49:13', NULL, NULL, NULL, '2019-06-20 02:49:13', '2019-06-20 02:49:13'),
+(4, 1, 'P03', '2019-06-20 09:49:24', NULL, NULL, NULL, '2019-06-20 02:49:24', '2019-06-20 02:49:24'),
+(5, 1, 'P04', '2019-06-20 09:49:51', NULL, NULL, NULL, '2019-06-20 02:49:51', '2019-06-20 02:49:51'),
+(6, 2, 'P02', '2019-06-21 14:06:11', NULL, NULL, NULL, '2019-06-21 07:06:11', '2019-06-21 07:06:11'),
+(7, 2, 'P03', '2019-06-21 14:06:11', NULL, NULL, NULL, '2019-06-21 07:06:11', '2019-06-21 07:06:11'),
+(8, 1, 'P05', '2019-06-21 14:06:22', NULL, NULL, NULL, '2019-06-21 07:06:22', '2019-06-21 07:06:22'),
+(9, 1, 'P06', '2019-06-21 14:06:39', NULL, NULL, NULL, '2019-06-21 07:06:39', '2019-06-21 07:06:39');
 
 -- --------------------------------------------------------
 
@@ -567,7 +587,7 @@ INSERT INTO `wo` (`id`, `nomor_wo`, `produk_id`, `plan_id`, `production_plan_dat
 (2, 'G1904708003', 4, 3, '2019-04-29', '2019-04-29', NULL, '5887.11', NULL, '2', '2019-04-30 07:54:22', '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', 0, 0, '0000-00-00', '2019-04-29 06:18:08', NULL),
 (3, '084STTHNIIV2019/HB-YB-YO', 32, 3, '2019-04-29', '2019-04-29', NULL, '', NULL, '2', '2019-04-30 07:54:06', '-', '-', '-', '-', 0, 0, '0000-00-00', '2019-04-29 06:18:08', NULL),
 (4, '085STTHNIIV2019/HB-YO-BB', 5, 3, '2019-04-29', '2019-04-29', NULL, '', NULL, '2', '2019-04-30 07:54:14', '-', '-', '-', '-', 0, 0, '0000-00-00', '2019-04-29 06:18:08', NULL),
-(5, 'G1904214017', 20, 3, '2019-04-30', '2019-04-30', '2019-06-07', '9969.252', NULL, '3', '2019-06-17 01:22:04', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', 2, 4, '2020-04-30', '2019-04-29 06:18:08', '2019-06-16 18:22:04'),
+(5, 'G1904214017', 20, 3, '2019-04-30', '2019-04-30', '2019-06-07', '9969.252', NULL, '3', '2019-06-17 07:54:01', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', 2, 1, '2020-04-30', '2019-04-29 06:18:08', '2019-06-17 00:54:01'),
 (6, 'G1904214018', 20, 3, '2019-04-30', '2019-04-30', NULL, '9969.252', NULL, '2', '2019-04-30 07:53:58', '-', '-', '-', 'FORMULA PHANTOM HILO RTD TEEN CHOCOLATE 200ML ( AX/34.18)', 0, 0, '0000-00-00', '2019-04-29 06:18:08', NULL),
 (7, 'G1904214012', 13, 3, '2019-04-30', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', 0, 0, '0000-00-00', '2019-04-29 06:18:08', NULL),
 (8, 'G1904214009', 13, 3, '2019-05-02', NULL, NULL, '9956.576', NULL, '0', '0000-00-00 00:00:00', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AJ/34.44)', 0, 0, '0000-00-00', '2019-04-29 06:18:08', NULL),
@@ -706,13 +726,13 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT untuk tabel `cpp_detail`
 --
 ALTER TABLE `cpp_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `cpp_head`
 --
 ALTER TABLE `cpp_head`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_produk`
@@ -748,7 +768,7 @@ ALTER TABLE `mesin_filling`
 -- AUTO_INCREMENT untuk tabel `palet`
 --
 ALTER TABLE `palet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `plan`

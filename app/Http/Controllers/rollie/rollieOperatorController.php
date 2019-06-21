@@ -242,16 +242,35 @@ class rollieOperatorController extends resourceController
 
     public function refreshTableCpp($cpp_head_id)
     {
+        $return     = array();
+        $tampung    = array();
         $cpp_head_id    = resourceController::dekripsi($cpp_head_id);
         $cpp_head     = cppHead::find($cpp_head_id);
         foreach ($cpp_head->cppDetail as $key => $detail) 
         {
             foreach ($detail->palet as $key => $palet) 
             {
-                $detail->palet          = $palet;    
+                $detail->palet              = $palet;    
+                array_push($return, $tampung);
             }
             $cpp_head->cpp_detail       = $detail;
         }
         return $cpp_head;
+    }
+    function array_orderby()
+    {
+        $args = func_get_args();
+        $data = array_shift($args);
+        foreach ($args as $n => $field) {
+            if (is_string($field)) {
+                $tmp = array();
+                foreach ($data as $key => $row)
+                    $tmp[$key] = $row[$field];
+                $args[$n] = $tmp;
+                }
+        }
+        $args[] = &$data;
+        call_user_func_array('array_multisort', $args);
+        return array_pop($args);
     }
 }
