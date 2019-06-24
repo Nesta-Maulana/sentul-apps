@@ -280,4 +280,25 @@ class rollieOperatorController extends resourceController
         call_user_func_array('array_multisort', $args);
         return array_pop($args);
     }
+
+    public function ubahJamAwal(Request $request)
+    {
+        // dd($request->all());
+        $palet_id       = resourceController::dekripsi($request->id_palet);
+        $jam_start      = $request->jam_start;
+        // ini mengambil palet nya 
+        $palet          = palet::find($palet_id);
+        if ($jam_start >= $palet->end) 
+        {
+            // ini jika jam start > dari jam end
+            return ['success'=>false,'message'=>'Jam awal palet tidak boleh melebihi dari jam akhir palet . Harap menyesuaikan jam akhir palet terlebih dahulu'];
+        }   
+        else
+        {
+
+        }
+
+
+
+    }
 }

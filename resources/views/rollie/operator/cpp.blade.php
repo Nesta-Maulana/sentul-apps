@@ -81,7 +81,7 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control"  value="{{ $detail_palet->start }}">
+                                                <input type="text" class="datetimepickernya form-control" id="start_palet_{{ $detail_palet->id }}" onblur="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" value="{{ $detail_palet->start }}">
                                             </div>
                                         </div>
                                     </td>
@@ -119,9 +119,9 @@
                             <?php if (strpos($detail_cpp->nolot,'B')) { ?>
                                 @foreach ($detail_cpp->palet as $detail_palet)
                                 <tr>
+                                    <input type="hidden" id="palet_{{ $detail_palet->id }}" value="{{  app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}">
                                     <td>
                                         <div class="form-inline row">
-                                                
                                             <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
                                             <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
                                         </div>
@@ -129,14 +129,14 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control"  value="{{ $detail_palet->start }}">
+                                                <input type="text" class="datetimepickernya form-control"  value="{{ $detail_palet->start }}" id="start_palet_{{ $detail_palet->id }}" onblur="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')">
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="row">
                                             <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control" value="{{ $detail_palet->end }}">
+                                                <input type="text" class="datetimepickernya form-control" value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
                                             </div>
                                         </div>
                                     </td>
@@ -155,7 +155,7 @@
     </div>    
 @endif
 
-<button onclick="refreshcpp()">CEK CEK</button>
+<button onclick="ubahjamstart('1')">CEK CEK</button>
 
 
 <script>

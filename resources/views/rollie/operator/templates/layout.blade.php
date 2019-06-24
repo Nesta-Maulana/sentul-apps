@@ -206,13 +206,26 @@
         new WOW().init();
     </script>
     <script src="{{ asset('rollie/js/webfont.js')}}"></script>
-    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
+    <script src="{{ asset('generalStyle/plugins/datetime-picker/js/jquery.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
     <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
+        $('.timepickernya').datetimepicker({
+            format: 'HH:mm:ss',
+            locale:'en',
+            date: new Date()
+        }); 
+        $('.datepickernya').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale:'en',
+            date: new Date()
+        }); 
+        $('.datetimepickernya').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        }); 
         function prosescpp(namaproduk,nomorwo,wo_id) 
         {
             Swal.fire
@@ -395,28 +408,70 @@
                                 table_a3b     +=    '</tr>';
                                 $table_a3b.html(table_a3b).on('change');
                             }
+                            
                         } 
                         else 
                         {}    
+                        $('.timepickernya').datetimepicker({
+                            format: 'HH:mm:ss',
+                            locale:'en',
+                            date: new Date()
+                        }); 
+                        $('.datepickernya').datetimepicker({
+                            format: 'YYYY-MM-DD',
+                            locale:'en',
+                            date: new Date()
+                        }); 
+                        $('.datetimepickernya').datetimepicker({
+                            format: 'YYYY-MM-DD HH:mm:ss'
+                        }); 
                     }
                 }
             });
         }
+        function ubahjamstart(idpalet) 
+        {
+            $.ajax({
+                url     : '/sentul-apps/dekripsi/'+idpalet,
+                method  : 'GET',
+                dataType: 'JSON',
+                success : function(palet_id) 
+                {
+                    palet_id        = palet_id.toString();
+                    var start       = $('#start_palet_'+palet_id).val();
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url         : '{{ route('ubah-jam-awal-cpp') }}',
+                        method      : 'POST',
+                        dataType    : 'JSON',
+                        data        : 
+                        {
+                            jam_start   : start,
+                            id_palet    : idpalet
+                        },
+                        success      : function(data) 
+                        {
+                            if (data.success == true) 
+                            {
 
+                            } 
+                            else 
+                            {
+                                swal({
+                                    title: "Proses Gagal",
+                                    text: data.message,
+                                    type: "error",
+                                });
+                                refreshcpp();
+                            }
+                        }
+                    });
+                }
+            });   
+        }
 
-        $('.timepickernya').datetimepicker({
-            format: 'HH:mm:ss',
-            locale:'en',
-            date: new Date()
-        }); 
-        $('.datepickernya').datetimepicker({
-            format: 'YYYY-MM-DD',
-            locale:'en',
-            date: new Date()
-        }); 
-        $('.datetimepickernya').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        }); 
     </script>  
 
                     
