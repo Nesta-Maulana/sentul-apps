@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container sbar_collapsed">
+    <div class="page-container ">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -206,7 +206,7 @@
         new WOW().init();
     </script>
     <script src="{{ asset('rollie/js/webfont.js')}}"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
     <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
     <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
@@ -266,7 +266,7 @@
                 },
                 success: function (data) 
                 {
-                    window.location.href    = "rollie-operator-produksi/cpp/"+data.cpp_head_id
+                    refreshcpp();
                 },
             }); 
         }
@@ -280,19 +280,125 @@
                 dataType: 'JSON',
                 success : function(data) 
                 {
-                    console.log(data);
-                    var isitable = '', $isitable = $('#detail_palet');
-                    for (var i = 0; i < data.detail_pi_nya.length; i++)
+                    for (var i = 0; i < data.cpp_detail.length; i++) 
                     {
-                        isitable    += '<tr>';
-                        isitable    += '<td>'+data.detail_pi_nya[i].nomor_wo+'</td>';
-                        isitable    += '<td>'+data.detail_pi_nya[i].mesin_filling+'</td>';
-                        isitable    += '<td>'+data.detail_pi_nya[i].jam_filling+'</td>';
-                        isitable    += '<td>'+data.detail_pi_nya[i].kode_sampel+'</td>';
-                       
-                        isitable    += '</tr>';
+                        if (data.cpp_detail[i].nolot.includes('TC')) 
+                        {
+                            // ini untuk mesin TBA C
+                            var table_tba_c = '', $table_tba_c = $('#detail_tbac');
+                            for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
+                            {
+                                table_tba_c     +=   '<tr>';
+                                // lot palet
+                                table_tba_c     +=   '<td>';
+                                table_tba_c     +=   '<div class="form-inline row">';
+                                table_tba_c     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                table_tba_c     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
+                                table_tba_c     +=   '</div>';
+                                table_tba_c     +=   '</td>';
+                                //start
+                                table_tba_c     +=    '<td>';
+                                table_tba_c     +=    '<div class="row">';
+                                table_tba_c     +=    '<div class="col-lg-12">';                            
+                                table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                table_tba_c     +=    '</div>';
+                                table_tba_c     +=    '</div>';
+                                table_tba_c     +=    '</td>';
+                                //end
+                                table_tba_c     +=    '<td>';
+                                table_tba_c     +=    '<div class="row">';
+                                table_tba_c     +=    '<div class="col-lg-12">';                            
+                                if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                                {
+                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].end+'">';
+                                } 
+                                else 
+                                {
+                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="">';
+                                }                            
+                                table_tba_c     +=    '</div>';
+                                table_tba_c     +=    '</div>';
+                                table_tba_c     +=    '</td>';
+                                // jumlah_box
+                                table_tba_c     +=    '<td>';
+                                table_tba_c     +=    '<div class="row">';
+                                table_tba_c     +=    '<div class="col-lg-12">';                            
+                                if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
+                                {
+                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                } 
+                                else 
+                                {
+                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="">';
+                                }
+                                table_tba_c     +=    '</div>';
+                                table_tba_c     +=    '</div>';
+                                table_tba_c     +=    '</td>';
+                                table_tba_c     +=    '</tr>';
+                                $table_tba_c.html(table_tba_c).on('change');
+                            }
+                        } 
+                        else if (data.cpp_detail[i].nolot.includes('TB'))
+                        {
+                            // ini untuk mesin A 3B
+                            var table_a3b = '', $table_a3b = $('#detail_a3b');
+                            for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
+                            {
+                                table_a3b     +=   '<tr>';
+                                // lot palet
+                                table_a3b     +=   '<td>';
+                                table_a3b     +=   '<div class="form-inline row">';
+                                table_a3b     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                table_a3b     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
+                                table_a3b     +=   '</div>';
+                                table_a3b     +=   '</td>';
+                                //start
+                                table_a3b     +=    '<td>';
+                                table_a3b     +=    '<div class="row">';
+                                table_a3b     +=    '<div class="col-lg-12">';                            
+                                table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                table_a3b     +=    '</div>';
+                                table_a3b     +=    '</div>';
+                                table_a3b     +=    '</td>';
+                                //end
+                                table_a3b     +=    '<td>';
+                                table_a3b     +=    '<div class="row">';
+                                table_a3b     +=    '<div class="col-lg-12">';
+                                if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                                {
+
+                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].end+'">';
+                                } 
+                                else 
+                                {
+                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="">';
+                                }                            
+                                table_a3b     +=    '</div>';
+                                table_a3b     +=    '</div>';
+                                table_a3b     +=    '</td>';
+                                // jumlah_box
+                                table_a3b     +=    '<td>';
+                                table_a3b     +=    '<div class="row">';
+                                table_a3b     +=    '<div class="col-lg-12">';
+                                if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
+                                {
+                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                } 
+                                else 
+                                {
+                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="">';
+                                }
+                                
+                                table_a3b     +=    '</div>';
+                                table_a3b     +=    '</div>';
+                                table_a3b     +=    '</td>';
+                                table_a3b     +=    '</tr>';
+                                $table_a3b.html(table_a3b).on('change');
+                            }
+                        } 
+                        else 
+                        {}    
                     }
-                    $isitable.html(isitable).on('change');
                 }
             });
         }

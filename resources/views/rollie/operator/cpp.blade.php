@@ -53,7 +53,7 @@
     @endforeach
 </div>
 {{-- jika mesin fillingnya 2 --}}
-@if ($cpps->wo[0]->produk->mesinFillingHead->mesinFillingDetail->count())
+@if ($cpps->wo[0]->produk->mesinFillingHead->mesinFillingDetail->count() > 1)
     <div class="row" id="ini_table_cpp">
         <div class="col-lg-6">
             <div class="row bg-white rounded" style="margin-top: -16px">
@@ -66,7 +66,7 @@
                             <th>Box</th>
                         </tr>
                     </thead>
-                    <tbody id="detail_palet">
+                    <tbody id="detail_tbac">
                         @foreach ($cpps->cppDetail as $detail_cpp)
                             <?php if (strpos($detail_cpp->nolot,'C')) { ?>
                                 @foreach ($detail_cpp->palet as $detail_palet)
@@ -114,7 +114,7 @@
                             <th>Box</th>
                         </tr>
                     </thead>
-                    <tbody id="detail_palet_b">
+                    <tbody id="detail_a3b">
                         @foreach ($cpps->cppDetail as $detail_cpp)
                             <?php if (strpos($detail_cpp->nolot,'B')) { ?>
                                 @foreach ($detail_cpp->palet as $detail_palet)

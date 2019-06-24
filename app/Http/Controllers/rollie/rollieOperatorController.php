@@ -145,6 +145,9 @@ class rollieOperatorController extends resourceController
             }
             elseif (!is_null($cekpalet)) 
             {
+              
+                $cekpalet->end      = $now;
+                $cekpalet->save();
                 if (strpos($wo->produk->nama_produk,'Gundam')) 
                 {    
                     $pecah  = explode('G',$cekpalet->palet);
@@ -158,7 +161,7 @@ class rollieOperatorController extends resourceController
                     palet::create([
                         'cpp_detail_id' => $cpp_detail->id,
                         'palet'         => $palet,
-                        'start'         => $now
+                        'start'         => $cekpalet->end
                     ]);
                 }
                 else
@@ -173,8 +176,9 @@ class rollieOperatorController extends resourceController
                     palet::create([
                         'cpp_detail_id' => $cpp_detail->id,
                         'palet'         => $palet,
-                        'start'         => $now
-                    ]);   
+                        'start'         => $cekpalet->end
+                    ]);
+
                 }   
             }
             return ['success'=>true,'message'=>'berhasil'];
@@ -182,7 +186,6 @@ class rollieOperatorController extends resourceController
         else
         {
             $cekpalet           = palet::where('cpp_detail_id',$cppDetail->id)->latest()->first();
-        
             $now                = date('Y-m-d H:i:s');
             if (is_null($cekpalet)) 
             {
@@ -205,6 +208,9 @@ class rollieOperatorController extends resourceController
             }
             elseif (!is_null($cekpalet)) 
             {
+                $cekpalet->end      = $now;
+                $cekpalet->save();
+            
                 if (strpos($wo->produk->nama_produk,'Gundam')) 
                 {    
                     $pecah  = explode('G',$cekpalet->palet);
@@ -218,7 +224,7 @@ class rollieOperatorController extends resourceController
                     palet::create([
                         'cpp_detail_id' => $cppDetail->id,
                         'palet'         => $palet,
-                        'start'         => $now
+                        'start'         => $cekpalet->end
                     ]);
                 }
                 else
@@ -233,11 +239,12 @@ class rollieOperatorController extends resourceController
                     palet::create([
                         'cpp_detail_id' => $cppDetail->id,
                         'palet'         => $palet,
-                        'start'         => $now
+                        'start'         => $cekpalet->end
                     ]);   
                 }   
             }
         }
+        return ['success'=>true];
     }
 
     public function refreshTableCpp($cpp_head_id)
