@@ -67,10 +67,14 @@ class resourceController extends Controller
 	 
 	    return $output;
 	}
-	public function deleteData($connection, $table, $id){
-		if(DB::connection($connection)->table($table)->where('id', $id)->delete() > 0){
+	public function deleteData($connection, $table, $id)
+	{
+		if(DB::connection($connection)->table($table)->where('id', $id)->delete() > 0)
+		{
 			return back()->with('success', 'Berhasil Menghapus');
-		}else{
+		}
+		else
+		{
 			return back()->with('failed', 'Gagal Menghapus');
 		}
 

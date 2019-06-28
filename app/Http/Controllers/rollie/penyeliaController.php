@@ -18,7 +18,8 @@ use App\Models\productionData\wo;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Imports\Penyelia\mtolImport;
-
+use App\Imports\mtolUpload;
+use Illuminate\Http\RedirectResponse;
 use DB;
 use Session;
 
@@ -88,8 +89,17 @@ class penyeliaController extends resourceController
                 if (in_array($request->jadwalUpload->getClientOriginalExtension(), $arrayekstensi)) 
                 {
                     // Apabila ekstensi XLS /  XLSX
-                    $filejadwal     = $request->file('jadwalUpload');
-                    $uploadjadwal = Excel::import(new mtolImport, $filejadwal);
+                    $filejadwal         = $request->file('jadwalUpload');
+                    $uploadjadwal       =   Excel::toArray(new mtolUpload, $filejadwal);
+                    $cektidaknull       = array();
+                    foreach ($uploadjadwal['Mampu Telusur Produk Online (MT'] as $key => $value) 
+                    {
+                        if ($value[2] !== "" && !is_null($value[2]) && $value[8] && !is_null($value[8]) && $value[7] !== "" && !is_null($value[7])) 
+                        {
+                            # code...
+                        }
+                    }
+                    $uploadjadwal   =   Excel::import(new mtolUpload, $filejadwal);
                     return redirect()->route('penyelia-index')->with('success',"File Mtol Berhasil Di upload");
                 }
                 else
@@ -114,9 +124,7 @@ class penyeliaController extends resourceController
                 "production_plan_date" => $request->plan_date[$i] . ' 00:00:00',
                 "plan_id" => $request->nama_plan[$i],
                 "plan_batch_size" => $request->plan_batch_size[$i],
-                "status" => $request->
-                
-                status[$i],
+                "status" => $request->status[$i],
                 "revisi_formula" => $request->revisi_formula[$i],
                 ]);
             }   

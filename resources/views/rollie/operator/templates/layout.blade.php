@@ -313,7 +313,7 @@
                                 table_tba_c     +=    '<td>';
                                 table_tba_c     +=    '<div class="row">';
                                 table_tba_c     +=    '<div class="col-lg-12">';                            
-                                table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onblur="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
                                 table_tba_c     +=    '</div>';
                                 table_tba_c     +=    '</div>';
                                 table_tba_c     +=    '</td>';
@@ -338,11 +338,11 @@
                                 table_tba_c     +=    '<div class="col-lg-12">';                            
                                 if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
                                 {
-                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                    table_tba_c     +=    '<input type="text" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
                                 } 
                                 else 
                                 {
-                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="">';
+                                    table_tba_c     +=    '<input type="text" class="form-control"  value="">';
                                 }
                                 table_tba_c     +=    '</div>';
                                 table_tba_c     +=    '</div>';
@@ -369,7 +369,7 @@
                                 table_a3b     +=    '<td>';
                                 table_a3b     +=    '<div class="row">';
                                 table_a3b     +=    '<div class="col-lg-12">';                            
-                                table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                table_a3b     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onblur="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
                                 table_a3b     +=    '</div>';
                                 table_a3b     +=    '</div>';
                                 table_a3b     +=    '</td>';
@@ -395,11 +395,11 @@
                                 table_a3b     +=    '<div class="col-lg-12">';
                                 if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
                                 {
-                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                    table_a3b     +=    '<input type="text" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
                                 } 
                                 else 
                                 {
-                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="">';
+                                    table_a3b     +=    '<input type="text" class="form-control"  value="">';
                                 }
                                 
                                 table_a3b     +=    '</div>';
@@ -437,6 +437,7 @@
                 dataType: 'JSON',
                 success : function(palet_id) 
                 {
+                    // return false;
                     palet_id        = palet_id.toString();
                     var start       = $('#start_palet_'+palet_id).val();
                     $.ajax({
@@ -455,7 +456,12 @@
                         {
                             if (data.success == true) 
                             {
-
+                                swal({
+                                    title: "Proses Berhasil",
+                                    text: data.message,
+                                    type: "success",
+                                });
+                                refreshcpp();
                             } 
                             else 
                             {
@@ -465,6 +471,7 @@
                                     type: "error",
                                 });
                                 refreshcpp();
+
                             }
                         }
                     });
