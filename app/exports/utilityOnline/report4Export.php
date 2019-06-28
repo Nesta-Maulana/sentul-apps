@@ -245,7 +245,7 @@ class report4Export implements FromView, WithHeadings, ShouldAutoSize
                     array_push($bagian[17]['nilai'], ['bagian' => 'Ruby', 'satuan' => 'Mwh', 'nilai' => 'Unknown', 'tgl_penggunaan' => $tgl]);
                     array_push($bagian[18]['nilai'], ['bagian' => 'Greek', 'satuan' => 'Mwh', 'nilai' => 'Unknown', 'tgl_penggunaan' => $tgl]);
                     array_push($bagian[19]['nilai'], ['bagian' => 'Bakery', 'satuan' => 'Mwh', 'nilai' => 'Unknown', 'tgl_penggunaan' => $tgl]);
-                if($hniVarLoad + $hniFixLoad){
+                if($hniVarLoad + $hniFixLoad == '0'){
                     array_push($bagian[20]['nilai'], ['bagian' => 'HNI % VAR LOAD', 'satuan' => '%', 'nilai' => "0", 'tgl_penggunaan' => $tgl]);
                     array_push($bagian[21]['nilai'], ['bagian' => 'HNI % FIX LOAD', 'satuan' => '%', 'nilai' => "0", 'tgl_penggunaan' => $tgl]);
                 }else{

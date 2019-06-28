@@ -92,7 +92,6 @@
 $('#update').hide();
 $('#batal').hide();
 $('#simpan').show();
-
 window.setInterval(function(){
     if($(window).width() <= 440){
         $('.table').addClass('table-responsive');

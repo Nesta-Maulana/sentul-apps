@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use \Carbon\Carbon;
 
-class report4Export implements FromView, WithHeadings, ShouldAutoSize
+class report5Export implements FromView, WithHeadings, ShouldAutoSize
 {
     use Exportable; 
 

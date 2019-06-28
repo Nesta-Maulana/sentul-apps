@@ -161,6 +161,21 @@
                 })
             }
         })
-</script>
+        $('#export-penggunaan').click(function () {
+            if($('#kategori-penggunaan').val() == "" && $('#tgl-penggunaan-1').val() != "" && $('#tgl-penggunaan-1').val() != ""){        
+                document.location.href='/sentul-apps/utility-online/admin/report/export/penggunaan/UtilityOnline/' + $('#tgl-penggunaan-1').val() + '/'  + $('#tgl-penggunaan-1').val();
+            }
+            else if($('#tgl-penggunaan-1').val() == "" && $('#tgl-penggunaan-2').val() == ""){
+                document.location.href='/sentul-apps/utility-online/admin/report/export/penggunaan/UtilityOnline/' + $('#kategori-penggunaan').val();                
+            }
+            else{
+                if($('#kategori-4').val() == null){
+                    document.location.href='/sentul-apps/utility-online/admin/report/export/penggunaan/UtilityOnline/' + $('#tgl-penggunaan-1').val() + '/'  + $('#tgl-penggunaan-1').val();
+                }else{
+                    document.location.href='/sentul-apps/utility-online/admin/report/export/penggunaan/UtilityOnline/'  + '/' + $('#kategori-penggunaan').val() + $('#tgl-penggunaan-1').val() + '/'  + $('#tgl-penggunaan-2').val();
+                }
+            }
+        })
+</script> 
 @endsection
 

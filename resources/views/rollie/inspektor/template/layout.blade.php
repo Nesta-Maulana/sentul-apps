@@ -437,6 +437,7 @@
 
         function status_akhir_at_event(kode_sampel) 
         {
+
             if (kode_sampel.includes(' (Event)')) 
             {
                 kode_sampel_baru    = kode_sampel.split(' (Event)')

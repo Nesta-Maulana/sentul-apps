@@ -230,13 +230,15 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/utility-online/admin/report-penggunaan/report-grafik-perbulan', 'utilityOnline\utilityOnlineGrafikController@reportGrafik');
     Route::get('/utility-online/admin/report-penggunaan/report-grafik-perhari', 'utilityOnline\utilityOnlineGrafikController@reportGrafikPerhari');
     Route::get('/utility-online/admin/report-grafik-perhari/report-3', 'utilityOnline\utilityOnlineGrafikController@report3GrafikPerhari');
+    Route::get('/utility-online/admin/report-grafik-pertahun-bar/report-3', 'utilityOnline\utilityOnlineGrafikController@report3GrafikPertahunBar');
 
     // Ajax
     Route::get('/utility-online/admin/option/report-3/bagian/{id}', 'utilityOnline\utilityOnlineGrafikController@optionReport3Bagian');
     Route::get('/utility-online/admin/report-penggunaan/report-grafik/penggunaan/pertahun/{tahun}/{id}', 'utilityOnline\utilityOnlineGrafikController@pengunaanPertahun');
     Route::get('/utility-online/admin/report-penggunaan/report-grafik/penggunaan/perbulan/{tahun}/{bulan}/{id}', 'utilityOnline\utilityOnlineGrafikController@penggunaanPerhari');
     Route::get('/utility-online/admin/report-3/perhari/{tahun}/{bulan}/{id}', 'utilityOnline\utilityOnlineGrafikController@report3Perhari');
-
+    Route::get('/utility-online/admin/report-penggunaan/nama-bagian/{bagian}/{bulan}/{tahun}', 'utilityOnline\utilityOnlineGrafikController@penggunaanPerbulanBagian');
+    Route::get('/utility-online/admin/report-grafik-pertahun-bar/report-3/{tahun}/{id}', 'utilityOnline\utilityOnlineGrafikController@report3GrafikPertahunBarAjax');
 
     // Rollie penyelia
     Route::get('/rollie-penyelia', 'rollie\penyeliaController@index')->name('penyelia-index');

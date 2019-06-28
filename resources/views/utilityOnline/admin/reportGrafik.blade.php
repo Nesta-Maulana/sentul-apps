@@ -2,10 +2,11 @@
 @section('title')
     Utility Online | Reports
 @endsection
-@section('active-report-grafik')
+@section('active-report-grafik-perbulan')
     active
 @endsection
 @section('content')
+
 <div class="section-header">
     <h1>Report Grafik Perbulan</h1>
 </div>
@@ -44,10 +45,16 @@
     </div>
     <div class="col-lg-9">
         <div id="pertahun" class="mt-4 p-2 rounded" style="box-shadow: 1px 1px 5px #000"></div>
+        <table id="datatable" style="visibility: hidden">
+            <thead>
+
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
 </div>
-
-
 <script>
     $('#kategori').attr('disabled', true);
     $('#bagian').attr('disabled', true);
@@ -61,12 +68,12 @@
                 method: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
-                    var optionroles = '', $comboroles = $('#workcenter');
+                    var optionroles = '',
+                        $comboroles = $('#workcenter');
                     $('#workcenter').attr('disabled', false);
-                    optionroles+='<option selected disabled>-- PILIH WORKCENTER --</option>';
-                    for (index = 0; index < data.length; index++)
-                    {
-                        optionroles+='<option value="'+data[index].id+'">'+data[index].workcenter+'</option>'
+                    optionroles += '<option selected disabled>-- PILIH WORKCENTER --</option>';
+                    for (index = 0; index < data.length; index++) {
+                        optionroles += '<option value="' + data[index].id + '">' + data[index].workcenter + '</option>'
                     }
                     $comboroles.html(optionroles).on('change');
 
@@ -85,7 +92,7 @@
                         //         }
                         //         $('#bagian').append(option);
                         //         $("#bagian").change(function () {
-                                    penggunaanGrafikPerTahun($(this).val());
+                        penggunaanGrafikPerTahun($(this).val());
                         //         })
                         //     }
                         // });
@@ -94,57 +101,68 @@
             });
         });
     })
-    function penggunaanGrafikPerTahun(id) { 
+
+    function penggunaanGrafikPerTahun(id) {
         $.ajax({
-            url: 'report-grafik/penggunaan/pertahun/'+ $('#tahun').val() +'/' + id,
+            url: 'report-grafik/penggunaan/pertahun/' + $('#tahun').val() + '/' + id,
             method: 'get',
             dataType: 'JSON',
-            success: function (data) { 
+            success: function (data) {
+                
+                var td = "";
+                td += '<tr>';
+                td += '<th></th>';
+                for (let i = 0; i < data[0].length; i++) {
+                    td += '<th>' + data[0][i].bagian +'</th>';
+                }
+                td += '</tr>';
+                $('#datatable thead').html(td).on('change');
+                var table = "";
+                for (let i = 0; i < data[1].length; i++) 
+                {
+                table += '<tr>';
+                    for (let a = 0; a < data[1][i].length; a++)
+                    {
+                        if (data[1][i][a] == null) 
+                        {
+                            data[1][i][a] = 0;
+                        }
+
+                        if(a == 0)
+                        {
+                            table += '<th>' + data[1][i][a] + '</th>';
+                        }
+                        else
+                        {
+                            table += '<td>' + data[1][i][a] + '</td>';
+                        }
+                    }
+                    
+                table += '</tr>';
+                }
+                $('#datatable tbody').html(table).on('change');
                 highChartPertahun(data);
             }
-        })
+        });
     }
-    function highChartPertahun(data){
+
+    function highChartPertahun(data) {
+    
         Highcharts.chart('pertahun', {
+            data: {
+                table: 'datatable'
+            },
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Report Penggunaan Per Bulan'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
+                text: 'Report Pertahun'
             },
             yAxis: {
-                min: 0,
+                allowDecimals: true,
                 title: {
-                    text: 'Rainfall (mm)'
+                    text: 'Nilai'
                 }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:30px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
             },
             plotOptions: {
                 series: {
@@ -152,52 +170,63 @@
                     point: {
                         events: {
                             click: function() {
-                                alert('Category: ' + this.category + ', value: ' + this.x);
+                                document.location.href = 'http://localhost/sentul-apps/utility-online/admin/report-penggunaan/nama-bagian/' + this.series.name + '/' + this.x + '/' + $('#tahun').val();
                             }
                         }
                     }
-                },
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
                 }
             },
-            series: data,
-            series: [
-                {
-                    name: 'jadwal',
-                    type: 'column',
-                    data: [
-                        {
-                            y: 9,
-                            key: 'aksjdf',
-                        },
-                        {
-                            y: 9,
-                            key: 'aksjdf',
-                        },
-                    ]
+            tooltip: {
+                formatter: function () {
+                    console.log(this);
+                    switch (this.point.category) {
+                        case 1:
+                            this.point.category = "Januari";
+                            break;
+                        case 2:
+                            this.point.category = "Februari";
+                            break;
+                        case 3:
+                            this.point.category = "Maret";
+                            break;
+                        case 4:
+                            this.point.category = "April";
+                            break;
+                        case 5:
+                            this.point.category = "Mei";
+                            break;
+                        case 6:
+                            this.point.category = "Juni";
+                            break;
+                        case 7:
+                            this.point.category = "Juli";
+                            break;
+                        case 8:
+                            this.point.category = "Agustus";
+                            break;
+                        case 9:
+                            this.point.category = "September";
+                            break;
+                        case 10:
+                            this.point.category = "Oktober";
+                            break;
+                        case 11:
+                            this.point.category = "November";
+                            break;
+                        case 12:
+                            this.point.category = "Desember";
+                            break;
+                        default:
+                            break;
+                    }
+                    return '<b>' + this.series.name + '</b><br/>' + this.point.y + '<br />' + this.point.category;
+                    
                 }
-            ],
-            series: [
-                {
-                    name: 'name',
-                    type: 'column',
-                    data: [
-                        {
-                            y: 7,
-                            key: 'aksjdasdff',
-                        },
-                        {
-                            y: 2,
-                            key: 'aksjjdf',
-                        },
-                    ]
-                }
-            ],
+            }
         });
-    }
     
+    }
 </script>
+
 @endsection
 

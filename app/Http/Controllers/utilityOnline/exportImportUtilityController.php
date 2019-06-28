@@ -10,6 +10,7 @@ use App\exports\utilityOnline\pengamatanExport;
 use App\exports\utilityOnline\penggunaanExport;
 use App\exports\utilityOnline\report3Export;
 use App\exports\utilityOnline\report4Export;
+use App\exports\utilityOnline\report5Export;
 use App\Models\utilityOnline\bagian;
 use DB;
 use Excel;
@@ -31,7 +32,6 @@ class exportImportUtilityController extends Controller
         }
     }
     public function penggunaanKategori($nama_report, $from, $kategori){
-        
         $tgl1 = "";
         $tgl2 = "";
         return Excel::download(new penggunaanExport($tgl1, $tgl2, $kategori), $nama_report . $from . $tgl1 . '-' . $tgl2 . '.xlsx');
@@ -62,5 +62,12 @@ class exportImportUtilityController extends Controller
     }
     public function exportReport4TglKategori($nama_report, $from, $tgl1, $tgl2, $kategori){
         return Excel::download(new report4Export($tgl1, $tgl2, $kategori), $nama_report . $from . $tgl1 . '-' . $tgl2 . '.xlsx');   
+    }
+    public function exportReport5Tgl($nama_report, $from, $tgl1, $tgl2){
+        $kategori = "";
+        return Excel::download(new report5Export($tgl1, $tgl2, $kategori), $nama_report . $from . $tgl1 . '-' . $tgl2 . '.xlsx');   
+    }
+    public function exportReport5TglKategori($nama_report, $from, $tgl1, $tgl2, $kategori){
+        return Excel::download(new report5Export($tgl1, $tgl2, $kategori), $nama_report . $from . $tgl1 . '-' . $tgl2 . '.xlsx');   
     }
 }

@@ -25,10 +25,10 @@
   <link rel='stylesheet' href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
 
   <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/highcharts-more.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highcharts/highcharts.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highcharts/data.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highcharts/exporting.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highcharts/export-data.js')}}"></script>
   
 </head>
 
@@ -97,7 +97,9 @@
                     <li class="dropdown @yield('active-report-grafik')">
                         <a href="/sentul-apps/utility-online/admin/report-grafik-perhari/report-3" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 3 Grafik Perhari</span></a>       
                     </li>
-                    
+                    <li class="dropdown @yield('active-report-grafik')">
+                        <a href="/sentul-apps/utility-online/admin/report-grafik-pertahun-bar/report-3" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 3 Grafik Perbulan</span></a>       
+                    </li>
                 <li class="menu-header">Menu</li>
                 <?php $idUser = Session::get('login') ?>
                 @foreach($menus as $menu)
@@ -206,8 +208,8 @@
   <script src="{{ asset('utilityOnline/admin/js/page/modules-datatables.js')}}"></script>
 
   <script src="{{ asset('generalStyle/plugins/select2/js/select2.min.js') }}"></script>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/annotations.js"></script>
+  <!-- <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/annotations.js"></script> -->
   <script>
     $.ajax({
         url: '/sentul-apps/utility-online/admin/form-hari-kerja-ambil/',

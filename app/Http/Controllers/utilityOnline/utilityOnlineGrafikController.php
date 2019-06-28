@@ -77,12 +77,51 @@ class utilityOnlineGrafikController extends resourceController
             return $nilai;
     }
 
+    public function rasioBagianTahun($bagian, $company = "", $month){
+        $nilai = 0;
+        $cek = penggunaan::whereIn('id_bagian', $bagian)->whereMonth('tgl_penggunaan', $month)->get();
+        foreach ($cek as $penggunaan) 
+        {
+            if(!$penggunaan->bagian->rasioHead)
+            {
+                $nilaiBagian = $penggunaan->nilai;
+                $nilai =  $nilai + $nilaiBagian;
+            }
+            else
+            {
+                foreach ($penggunaan->bagian->rasioHead->rasioDetail as $rasioDetail) 
+                {                
+                    if ($rasioDetail->company->singkatan == $company) 
+                    {
+                        $nilaiPenggunaan = $penggunaan->nilai;
+                        $rasio = $rasioDetail->nilai/100;
+                        $nilaiBagian = $penggunaan->nilai * $rasio;
+                        $nilai =  $nilai + $nilaiBagian;
+                    }
+                    else
+                    {
+                        $nilaiBagian = $penggunaan->nilai;
+                        $nilai =  $nilai + $nilaiBagian;
+                    }
+                }
+            }
+        }
+        return $nilai;
+    }
+
     // Return View
+
+    public function report3GrafikPertahunBar(){
+        $kategori = kategori::all();
+        $workcenter = workcenter::all();
+        $bagian = bagian::all();
+        return view('utilityOnline.admin.reportGrafikBar', ['menus' => $this->menu, 'username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'bagian' => $bagian]);
+    }
 
     public function reportGrafik(){
         $kategori = kategori::all();
         $workcenter = workcenter::all();
-        return view('utilityOnline.admin.reportGrafik', ['menus' => $this->menu, 'username' => $this->username,'kategori' => $kategori,'workcenter' => $workcenter]);
+        return view('utilityOnline.admin.reportGrafik', ['menus' => $this->menu, 'username' => $this->username,'kategori' => $kategori,'workcenter' => $workcenter, 'redirect' => null]);
     }
     public function reportGrafikPerhari(){
         $kategori = kategori::all();
@@ -97,25 +136,291 @@ class utilityOnlineGrafikController extends resourceController
         return view('utilityOnline.admin.report3GrafikPerhari', ['menus' => $this->menu, 'username' => $this->username,'kategori' => $kategori,'workcenter' => $workcenter]);
     }
 
-
     // AJAX
+    public function report3GrafikPertahunBarAjax($tahun, $kategori){
+            $bagian = [
+                "1" => [],
+                "2" => [],
+                "3" => [],
+                "4" => [],
+                "5" => [],
+                "6" => [],
+                "7" => [],
+                "8" => [],
+                "9" => [],
+                "10" => [],
+                "11" => [],
+                "12" => [],
+
+            ];
+            for ($i=1; $i <= 12; $i++) { 
+                if($kategori == 1){
+
+                    // Rumus
+                        $esdm = $this->rasioBagianTahun(['74', '75', '76', '77'], 'NFI', $i);       
+                            
+                        $inputRainWater = $this->rasioBagianTahun(['78'], '', $i);
+                        $inputRawWater = $this->rasioBagianTahun(['79'], '', $i);
+                        $inputProcessDemin = $this->rasioBagianTahun(['80'], '', $i);
+                        $inputProcessSoft = $this->rasioBagianTahun(['81'], '', $i);
+                        $inputEmbung = $this->rasioBagianTahun(['82'], '', $i);
+                        $inputProcessRecycle = $this->rasioBagianTahun(['83'], '', $i);
+                        $permeateRo = $this->rasioBagianTahun(['84'], '', $i);
+                        $rejectWater = $this->rasioBagianTahun(['85'], '', $i);
+                        $wasteWtpIe = $this->rasioBagianTahun(['86'], '', $i);
+                        $wasteWtpRecycle = $this->rasioBagianTahun(['87'], '', $i);        
+                        $waterRecycleRate = $this->rasioBagianTahun(['92', '93'], '', $i);
+                        if($waterRecycleRate == '0'){
+                            $waterRecycleRate = 0;
+                        }else{
+                            $cekcek = $this->rasioBagianTahun(['92', '93'], '', $i);
+                            if($cekcek == 0){
+                                $waterRecycleRate = 0;
+                            }else{
+                                $waterRecycleRate = $wasteWtpRecycle / $cekcek;
+                            }
+                        }
+                        
+                        // NFI
+                        $softWaterProduksi = $this->rasioBagianTahun(['92', '93'], 'NFI', $i) - $this->rasioBagianTahun(['95', '96', '97', '98', '99', '100'], 'NFI', $i);;
+                        $softWaterNonProduksi = $this->rasioBagianTahun(['95'], 'NFI', $i);        
+                        $softWaterLubrikasi = $this->rasioBagianTahun(['99'], 'NFI', $i);        
+                        $serviceWater = $this->rasioBagianTahun(['101'], 'NFI', $i);
+                        $deminWaterProduksiNfi = $this->rasioBagianTahun(['118'], 'NFI', $i);
+                        // HNI
+                        $deminWaterRuby = $this->rasioBagianTahun(['90'], 'HNI', $i);        
+                        $deminWaterGreek = $this->rasioBagianTahun(['91'], 'HNI', $i);        
+                        $deminWaterProdukHb = $deminWaterRuby + $deminWaterGreek;
+                        $softWaterRuby = $this->rasioBagianTahun(['94'], 'HNI', $i);        
+                        $softWaterGreek = $this->rasioBagianTahun(['97'], 'HNI', $i);        
+                        $softWaterProduksiHb = $softWaterRuby + $softWaterGreek;
+                
+                        // Demin Water Boiler
+                        //  Boiler - Ruby
+                        // Boiler - Greek
+                        // Boiler - Retort
+                
+                        $softWaterGedungDepan = $this->rasioBagianTahun(['96'], 'HNI', $i);        
+                        $softWaterHb = $this->rasioBagianTahun(['98'], 'HNI', $i);        
+                        $softWaterGreek = $this->rasioBagianTahun(['97'], 'HNI', $i);        
+                        $softWaterBakery = $this->rasioBagianTahun(['102'], 'HNI', $i);        
+                    // End Rumus
+                    array_push($bagian[$i], ['name' => 'ESDM', 'data' => [$esdm]]); 
+                    array_push($bagian[$i], ['name' => 'Input Rain water WTP IE', 'data' => [$inputRainWater]]); 
+                    array_push($bagian[$i], ['name' => 'Input Raw water WTP IE', 'data' => [$inputRawWater]]); 
+                    array_push($bagian[$i], ['name' => 'Input process Demin', 'data' => [$inputProcessDemin]]); 
+                    array_push($bagian[$i], ['name' => 'Input process Soft', 'data' => [$inputProcessSoft]]); 
+                    array_push($bagian[$i], ['name' => 'Input Embung', 'data' => [$inputEmbung]]); 
+                    array_push($bagian[$i], ['name' => 'Input Process Recycle', 'data' => [$inputProcessRecycle]]); 
+                    array_push($bagian[$i], ['name' => 'Permeate RO ', 'data' => [$permeateRo]]); 
+                    array_push($bagian[$i], ['name' => 'Reject Water', 'data' => [$rejectWater]]); 
+                    array_push($bagian[$i], ['name' => 'Waste WTP IE', 'data' => [$wasteWtpIe]]); 
+                    array_push($bagian[$i], ['name' => 'Waste WTP Recycle', 'data' => [$wasteWtpRecycle]]); 
+                    array_push($bagian[$i], ['name' => 'Waste Recycle Rate', 'data' => [0]]); 
+                    array_push($bagian[$i], ['name' => 'NFI (Water)', 'data' => [$inputEmbung + $inputEmbung + $softWaterProduksi + $softWaterLubrikasi + $inputEmbung + $softWaterNonProduksi + $serviceWater]]); 
+                    array_push($bagian[$i], ['name' => 'Demin Water Produksi', 'data' => [$deminWaterProduksiNfi]]); 
+                    array_push($bagian[$i], ['name' => 'Demin Water Boiler', 'data' => [$inputEmbung]]); 
+                    array_push($bagian[$i], ['name' => 'Soft Water Produksi', 'data' => [$softWaterProduksi]]); 
+                    array_push($bagian[$i], ['name' => 'Soft Water Non Produksi', 'data' => [$softWaterNonProduksi]]); 
+                    array_push($bagian[$i], ['name' => 'Soft Water Lubrikasi', 'data' => [$softWaterLubrikasi]]); 
+                    array_push($bagian[$i], ['name' => 'Soft Water Cooling Tower', 'data' => [$inputEmbung]]); 
+                    array_push($bagian[$i], ['name' => 'Service Water', 'data' => [$serviceWater]]); 
+
+                    // array_push($bagian[$i], ['name' => 'HNI', 'data' => [$deminWaterProdukHb + $deminWaterRuby + $deminWaterGreek + $softWaterProduksiHb + $softWaterRuby + $softWaterGreek + $inputEmbung + $inputEmbung + $inputEmbung + $inputEmbung + $softWaterGedungDepan + $softWaterHb + $softWaterBakery]]); 
+                    // array_push($bagian[$i], ['name' => 'Demin Water Produksi', 'data' => [$deminWaterProdukHb]]); 
+                    // array_push($bagian[$i], ['name' => 'Demin Water Ruby', 'data' => [$deminWaterRuby]]); 
+                    // array_push($bagian[$i], ['name' => 'Demin Water Greek', 'data' => [$deminWaterGreek]]); 
+                    // array_push($bagian[$i], ['name' => 'Soft Water Produksi', 'data' => [$softWaterProduksiHb]]); 
+                    // array_push($bagian[$i], ['name' => 'Soft Water Ruby', 'data' => [$softWaterRuby]]); 
+                    // array_push($bagian[$i], ['name' => 'Soft Water Greek', 'data' => [$softWaterGreek]]); 
+                    
+                    // array_push($bagian[$i], ['name' => 'Demin Water Boiler', 'data' => [$inputEmbung]]); 
+                    // array_push($bagian[$i], ['name' => 'Boiler - Ruby', 'data' => [$inputEmbung]]); 
+                    // array_push($bagian[$i], ['name' => 'Boiler - Greek', 'data' => [$inputEmbung]]); 
+                    // array_push($bagian[$i], ['name' => 'Boiler - Retort', 'data' => [$inputEmbung]]); 
+                    
+                    // array_push($bagian[$i], ['name' => 'Soft Water Gedung Depan', 'data' => [$softWaterGedungDepan]]); 
+                    // array_push($bagian[$i], ['name' => 'Soft Water HB', 'data' => [$softWaterHb]]); 
+                    // array_push($bagian[$i], ['name' => 'Soft Water Bakery', 'data' => [$softWaterBakery]]); 
+
+                    foreach ($bagian[$i] as $key => $row)
+                    {
+                        $vc_array_name[$key] = $row['data'][0];
+                    }
+                    array_multisort($vc_array_name, SORT_ASC, $bagian[$i]);
+                
+                }
+                else if($kategori == 2){
+
+                    // Rumus
+                        $a = $this->rasioBagianTahun(['70','71'], '', $i);
+                        
+                        if($a == 0){
+                            $lbwp = 0;
+                            $wbp = 0;
+                        }else{
+                            $lbwp = $this->rasioBagianTahun(['70'], '', $i) / $a * 1;
+                            $wbp = $this->rasioBagianTahun(['71'], '', $i) / $a * 100;    
+                        }
+                        $lpgp = $this->rasioBagianTahun(['58'], 'NFI', $i);
+                        $ups1 = $this->rasioBagianTahun(['37'], '', $i);
+                        $ups2 = $this->rasioBagianTahun(['38', '39', '72', '73'], '', $i);
+                        $nfiTotal = $this->rasioBagianTahun(['44', '59', '60', '61', '62', '70', '71', '72', '73', '37', '38', '39', '40', '41', '42', '43', '56', '58', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '57'], 'NFI', $i);
+                        $frc1 = $this->rasioBagianTahun(['38'], 'NFI', $i);
+                        $frc2 = $this->rasioBagianTahun(['72', '73'], 'NFI', $i);
+                        $lab = $this->rasioBagianTahun(['39'], 'NFI', $i);    
+                        $ac1 = $this->rasioBagianTahun(['55'], 'NFI', $i);
+                        $ac2 = $this->rasioBagianTahun(['56'], 'NFI', $i);
+                        $rc1 = $this->rasioBagianTahun(['48'], 'NFI', $i);    
+                        $hydrant = $this->rasioBagianTahun(['46'], 'NFI', $i);            
+                        $ruby = $this->rasioBagianTahun(['72', '73'], 'HNI', $i);
+                        $greek = $this->rasioBagianTahun(['43'], 'HNI', $i);
+                        $bakery = $this->rasioBagianTahun(['57'], 'HNI', $i);
+                        $officeRd = $this->rasioBagianTahun(['42'], 'HNI', $i);
+                        $acGudang = $this->rasioBagianTahun(['6'], 'HNI', $i);
+                        $rcHni = $this->rasioBagianTahun(['49'], 'HNI', $i);
+                        $rc = $this->rasioBagianTahun(['48'], 'HNI', $i);
+                        $boiler = $this->rasioBagianTahun(['51'], 'HNI', $i) * 3 / 4;
+                        $chiller = $this->rasioBagianTahun(['52', '53'], 'HNI', $i);                
+                        $compressor = $this->rasioBagianTahun(['54'], 'HNI', $i);
+                        $coolingTowers = $this->rasioBagianTahun(['69'], 'NFI', $i);
+                        $coolingTower =  $coolingTowers - $this->rasioBagianTahun(['51', '52', '53', '54'], 'NFI', $i);
+                        $frc = $frc1 - $frc2;
+                        $ups = $ups1 - $ups2;
+                        
+                        if($frc + $ruby == 0){
+                            $fr = 1;
+                        }else{
+                            $fr = $frc + $ruby;
+                        }
+                        if($ruby + $greek + $frc == 0){
+                            $rgf = 1;
+                        }else{
+                            $rgf = $ruby + $greek + $frc;
+                        }
+                    // End Rumus
+        
+                    array_push($bagian[$i], ['name' => 'PLN', 'data' => [$a * 3.2]]); 
+                    array_push($bagian[$i], ['name' => 'LWBP', 'data' => [$lbwp]]); 
+                    array_push($bagian[$i], ['name' => 'WBP', 'data' => [$wbp,]]); 
+                    array_push($bagian[$i], ['name' => 'UPS Charging', 'data' => [$ups]]); 
+                    array_push($bagian[$i], ['name' => 'NFI TOTAl', 'data' => [$nfiTotal]]); 
+                    array_push($bagian[$i], ['name' => 'FRC', 'data' => [$frc]]); 
+                    array_push($bagian[$i], ['name' => 'UPS FRC', 'data' => [($frc/$fr)* $ups]]); 
+                    array_push($bagian[$i], ['name' => 'LAB', 'data' => [$lab]]); 
+                    // 'WTP & WWTP'
+                    array_push($bagian[$i], ['name' => 'LPGP', 'data' => [$lpgp]]); 
+                    array_push($bagian[$i], ['name' => 'AC', 'data' => [$ac1 - $ac2]]); 
+                    array_push($bagian[$i],  ['name' => 'RC', 'data' => [$rc1]]); 
+                    array_push($bagian[$i], ['name' => 'HYDRANT', 'data' => [$hydrant]]); 
+                    // 'DEEPWELL' => penggunaan::where
+                    // 'UTILITY TOTAL'
+                    // 'Boiler'
+                    array_push($bagian[$i],  ['name' => 'Chiller', 'data' => [$chiller - (($ruby/$rgf) * $chiller) - ($greek/$rgf) * $chiller]]); 
+                    array_push($bagian[$i], ['name' => 'Compressor', 'data' => [$compressor - (($ruby/$rgf) * $compressor) -  (($greek/$rgf) * $compressor)]]); 
+                    array_push($bagian[$i], ['name' => 'Cooling Tower', 'data' => [$coolingTower]]); 
+                    // 'HNI TOTAL'
+                    // // 'PRODUKSI'
+                    // array_push($bagian[$i], ['name' => 'RUBY', 'data' => [$ruby]]); 
+                    // array_push($bagian[$i], ['name' => 'UPS RUBY', 'data' => [($ruby / $fr) * $ups]]); 
+                    // array_push($bagian[$i], ['name' => 'GREEK', 'data' => [$greek]]); 
+                    // array_push($bagian[$i], ['name' => 'BAKERY', 'data' => [$bakery]]); 
+                    // array_push($bagian[$i], ['name' => 'OFFICE-RD', 'data' => [$officeRd]]); 
+                    // array_push($bagian[$i], ['name' => 'AC GUDANG', 'data' => [$acGudang]]); 
+                    // // 'WTP & WWTP'
+                    // 'RUBY'
+                    // 'GREEK'
+                    // 'Non-Produksi'
+                    // array_push($bagian[$i], ['name' => 'RC', 'data' => [$rc]]); 
+                    // // 'DEEPWELL'
+                    // // 'UTILITY'
+                    // // 'RUBY Utility'
+                    // // 'Boiler' => ($ruby/$rgf) * $chiller,
+                    // array_push($bagian[$i], ['name' => 'Chiller', 'data' => [($ruby/$rgf) * $chiller]]); 
+                    // array_push($bagian[$i], ['name' => 'Compressor', 'data' => [($ruby/$rgf) * $compressor]]); 
+                    // array_push($bagian[$i], ['name' => 'Colling Tower', 'data' => [($ruby/$rgf) * $coolingTower]]); 
+                    // // 'GREEK  Utility'
+                    // // 'Boiler'
+                    // array_push($bagian[$i], ['name' => 'Chiller', 'data' => [($greek/$rgf) * $chiller]]); 
+                    // array_push($bagian[$i], ['name' => 'Compressor', 'data' => [($greek/$rgf) * $compressor]]); 
+                    // array_push($bagian[$i], ['name' => 'Colling Tower', 'data' => [($greek/$rgf) * ($greek/$rgf) * $coolingTower]]); 
+                    foreach ($bagian[$i] as $key => $row)
+                    {
+                        $vc_array_name[$key] = $row['data'][0];
+                    }
+                    array_multisort($vc_array_name, SORT_ASC, $bagian[$i]);
+                }
+                else if($kategori == 3){
+                    // Rumus
+                        $nm3 = $this->rasioBagianTahun(['108'], '', $i);        
+                        $mmbtu = $this->rasioBagianTahun(['109'], '', $i);        
+                        $plantSolar = $this->rasioBagianTahun(['110'], '', $i);        
+                        $gasBoiler10Ton = $this->rasioBagianTahun(['111'], '', $i);                    
+                        $gasBoiler10Ton = (3.81 * $gasBoiler10Ton * 288) / (1.01 * 298);
+                        $gasBoiler5Ton = $nm3 - $gasBoiler10Ton;
+                        $nfiProduksi = $nm3 - $gasBoiler10Ton;
+                        $plantHeader = $this->rasioBagianTahun(['112'], '', $i);        
+                        $hniRuby = $this->rasioBagianTahun(['113'], '', $i);        
+                        $hniGreek = $this->rasioBagianTahun(['114'], '', $i);                    
+                        $hniRubySteam = $plantHeader - $hniRuby;
+                        $hniRetort = $this->rasioBagianTahun(['115'], '', $i);        
+                        
+                        if($hniGreek + $hniRubySteam + $hniRetort + $nfiProduksi == 0){
+                            $hniGreekGas = 0;            
+                            $hniRetortGas = 0;
+                            $hniProduksiSolar = 0;
+                        }else{
+                            $hniGreekGas = ($hniGreek / ($hniGreek + $hniRubySteam + $hniRetort + $nfiProduksi)) * $nm3;
+                            $hniRetortGas = ($hniRetort / ($hniGreek + $hniRubySteam + $hniRetort + $nfiProduksi)) * $nm3;
+                            $hniProduksiSolar = ($hniGreek + $hniRubySteam + $hniRetort) / ($hniGreek + $hniRubySteam + $hniRetort + $nfiProduksi) * $plantSolar;
+                        }
+                    // End Rumus
+                    array_push($bagian[$i], ['name' => 'PGN MRS', 'data' => ["0"], 'satuan' => 'nm3']); 
+                    array_push($bagian[$i], ['name' => 'nm3', 'data' => [$nm3], 'satuan' => 'nm3']); 
+                    array_push($bagian[$i], ['name' => 'MMBTU', 'data' => [$mmbtu], 'satuan' => 'MMBTU']); 
+                    array_push($bagian[$i], ['name' => 'PLANT SOLAR', 'data' => [$plantSolar], 'satuan' => 'm3']); 
+                    array_push($bagian[$i], ['name' => 'GAS BOILER 10 TON', 'data' => [$gasBoiler10Ton], 'satuan' => 'nm3']); 
+                    array_push($bagian[$i], ['name' => 'GAS BOILER 5 TON', 'data' => [$gasBoiler5Ton], 'satuan' => 'nm3']); 
+                    array_push($bagian[$i], ['name' => 'NFI (GAS)', 'data' => ["0"], 'satuan' => 'm3']); 
+                    array_push($bagian[$i], ['name' => 'NFI PRODUKSI (STEAM)', 'data' => [$nfiProduksi], 'satuan' => 'kg']); 
+                    array_push($bagian[$i], ['name' => 'NFI PRODUKSI (GAS)', 'data' => ["0"], 'satuan' => 'nm3']); 
+                    array_push($bagian[$i], ['name' => 'NFI PRODUKSI (SOLAR)', 'data' => ["0"], 'satuan' => 'nm3']); 
+                    // array_push($bagian[$i], ['name' => 'HNI (GAS)', 'data' => ["0"], 'satuan' => 'm3']); 
+                    // array_push($bagian[$i], ['name' => 'HNI RUBY (STEAM)', 'data' => [$hniRubySteam], 'satuan' => 'kg']); 
+                    // array_push($bagian[$i], ['name' => 'HNI GREEK (STEAM)', 'data' => [$hniGreekGas], 'satuan' => 'kg']); 
+                    // array_push($bagian[$i], ['name' => 'HNI RETORT (STEAM)', 'data' => [$hniRetortGas], 'satuan' => 'kg']); 
+                    // array_push($bagian[$i], ['name' => 'HNI RUBY (GAS)', 'data' => [$hniRuby], 'satuan' => 'nm3']); 
+                    // array_push($bagian[$i], ['name' => 'HNI GREEK (GAS)', 'data' => [$hniGreekGas], 'satuan' => 'nm3']); 
+                    // array_push($bagian[$i], ['name' => 'HNI RETORT (GAS)', 'data' => [$hniRetortGas], 'satuan' => 'nm3']); 
+                    // array_push($bagian[$i], ['name' => 'HNI PRODUKSI (SOLAR)', 'data' => [$hniProduksiSolar], 'satuan' => 'nm3']); 
+                    foreach ($bagian[$i] as $key => $row)
+                    {
+                        $vc_array_name[$key] = $row['data'][0];
+                    }
+                    array_multisort($vc_array_name, SORT_ASC, $bagian[$i]);
+                }
+            }
+
+            return [$bagian];
+    }
 
     public function pengunaanPertahun($tahun, $id){
-        $bagians = bagian::where('workcenter_id', $id)->get();
-        foreach ($bagians as $bagian ) {
-            $bagiannya = array();
-            
-            for ($i=1; $i <= 12; $i++) { 
-                $nilai = penggunaan::where('id_bagian', $bagian->id)->selectRaw('sum(nilai) as data')->whereMonth('created_at', $i)->whereYear('created_at', $tahun)->first();
-                array_push($bagiannya,$nilai->data);
-                $bagian->name = $bagian->bagian;
+        $bagians    = bagian::where('workcenter_id', $id)->get();
+        $nilai = [];
+        $i = 0;
+        for ($bulan=1; $bulan <= 12; $bulan++) { 
+            $isiBulan = [
+                $bulan
+            ];
+            array_push($nilai, $isiBulan);
+            foreach ($bagians as $bagian ) {
+                $penggunaan = penggunaan::where('id_bagian', $bagian->id)->selectRaw('sum(nilai) as data')->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->first();
+                array_push($nilai[$i], $penggunaan->data);
             }
-            $bagian->data = $bagiannya;
-            $bagian->link = 'http://localhost/sentul-apps/utility-online/admin/report-penggunaan/' . $bagian->id;
-            // dd($bagian->url);
+            $i ++;
         }
 
-        return $bagians;
+        return [$bagians, $nilai];
     }
     public function penggunaanPerhari($tahun, $bulan, $id){
         $bagians = bagian::where('id', $id)->first();
@@ -134,6 +439,29 @@ class utilityOnlineGrafikController extends resourceController
         $bagians->name = $bagians->bagian;
         $bagians->data = $bagiannya;
         return [$bagians];
+    }
+    public function penggunaanPerbulanBagian($bagian, $bulan, $tahun){
+        $bagians = bagian::where('bagian', $bagian)->latest()->first();
+        $idBagian = $bagians->id;
+        $workcenterSelected = workcenter::find($bagians->workcenter_id);
+        $kategoriSelected = kategori::find($workcenterSelected->kategori_id);
+        $kategori = kategori::all();
+        $workcenter = workcenter::all();
+        $tz = 'Asia/Jakarta';
+        $from = Carbon::createFromDate($tahun, $bulan, "01", $tz);
+        $to = Carbon::createFromDate($tahun, $bulan, "01", $tz);
+        $from = $from->startOfMonth();
+        $to = $to->endOfMonth();
+        $dateRange = $this->generateDateRange($from, $to);
+        $bagiannya = array();
+        foreach ($dateRange as $d ) {
+            $nilai = penggunaan::where('id_bagian', $idBagian)->selectRaw('sum(nilai) as data')->where('tgl_penggunaan', $d)->first();
+            array_push($bagiannya,$nilai->data);
+        }
+        $bagians->name = $bagians->bagian;
+        $bagians->data = $bagiannya;
+        $allBagian = bagian::all();
+        return view('utilityOnline.admin.reportGrafikPerhari', ['menus' => $this->menu, 'username' => $this->username,'kategori' => $kategori,'workcenter' => $workcenter,'allBagian' => $allBagian, 'bagian' => $bagian, 'tahun' => $tahun, 'bulan' => $bulan, "idBagian" => $idBagian,"workcenterSelected" => $workcenterSelected, "kategoriSelected" => $kategoriSelected, "redirect" => 'Oke']);
     }
     public function optionReport3Bagian($id){
         if($id == 1){
@@ -671,4 +999,6 @@ class utilityOnlineGrafikController extends resourceController
         ];
         return [$bagian];
     }
+    
 }
+
