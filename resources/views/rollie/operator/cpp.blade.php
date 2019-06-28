@@ -81,7 +81,7 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control" id="start_palet_{{ $detail_palet->id }}" onblur="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" value="{{ $detail_palet->start }}">
+                                                <input type="text" class="datetimepickernya form-control" id="start_palet_{{ $detail_palet->id }}" onfocusout="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" value="{{ $detail_palet->start }}">
                                             </div>
                                         </div>
                                     </td>

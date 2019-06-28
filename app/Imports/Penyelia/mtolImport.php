@@ -7,10 +7,14 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Maatwebsite\Excel\Concerns\ToModel;
-use App\productionData\wo;
+use App\Models\productionData\wo;
 use App\Models\masterApps\produk;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-class mtolImport implements WithMappedCells,ToModel
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\RedirectResponse;
+class mtolImport implements WithMappedCells,ToModel,WithValidation
 {
 	use Importable;
 	public function mapping(): array
@@ -112,7 +116,15 @@ class mtolImport implements WithMappedCells,ToModel
 				else
 				{
 					$produk 	= produk::where('kode_oracle',$kode_produk)->first();
-					$produk_id 	= $produk->id;
+					if (is_null($produk)) 
+					{
+						$produk_id 	= '';
+						//return redirect()->back()->with(['warning' => 'File CPP sudah di upload']);
+					}
+					else
+					{
+						$produk_id 	= $produk->id;
+					}
 				}
 			}
 			// pengecekan status dari excel lalu di rubah sesuai indexing dalam database
@@ -150,11 +162,18 @@ class mtolImport implements WithMappedCells,ToModel
 			$arrayrow['keterangan_3']				= $keterangan_3;
 			$arrayrow['plan_batch_size']			= $plan_batch_size;
 			$arrayrow['revisi_formula']				= $revisi_formula;
-
-
+			// dd($arrayrow);
 			// satu variabel insert di push
 			array_push($jadwalinsert, $arrayrow);
+    		
     	}
+
     	$insertjadwal 	= wo::insert($jadwalinsert);
+    }
+	public function rules(): array
+    {
+        return [
+        	'produk_id' => 'required|numeric'
+        ];
     }
 }
