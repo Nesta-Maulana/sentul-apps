@@ -141,8 +141,7 @@ class report5Export implements FromView, WithHeadings, ShouldAutoSize
                     
                 }
             }
-        }
-        
+        } 
         return view('utilityOnline.admin.export.penggunaanReport4', ['bagian' => $bagian, 'tgl' => $cek, 'jmlTgl' => count($cek)]);
     }
 }
