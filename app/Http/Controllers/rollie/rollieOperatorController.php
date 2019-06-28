@@ -145,6 +145,9 @@ class rollieOperatorController extends resourceController
             }
             elseif (!is_null($cekpalet)) 
             {
+              
+                $cekpalet->end      = $now;
+                $cekpalet->save();
                 if (strpos($wo->produk->nama_produk,'Gundam')) 
                 {    
                     $pecah  = explode('G',$cekpalet->palet);
@@ -158,7 +161,7 @@ class rollieOperatorController extends resourceController
                     palet::create([
                         'cpp_detail_id' => $cpp_detail->id,
                         'palet'         => $palet,
-                        'start'         => $now
+                        'start'         => $cekpalet->end
                     ]);
                 }
                 else
@@ -173,8 +176,9 @@ class rollieOperatorController extends resourceController
                     palet::create([
                         'cpp_detail_id' => $cpp_detail->id,
                         'palet'         => $palet,
-                        'start'         => $now
-                    ]);   
+                        'start'         => $cekpalet->end
+                    ]);
+
                 }   
             }
             return ['success'=>true,'message'=>'berhasil'];
@@ -182,7 +186,6 @@ class rollieOperatorController extends resourceController
         else
         {
             $cekpalet           = palet::where('cpp_detail_id',$cppDetail->id)->latest()->first();
-        
             $now                = date('Y-m-d H:i:s');
             if (is_null($cekpalet)) 
             {
@@ -205,6 +208,9 @@ class rollieOperatorController extends resourceController
             }
             elseif (!is_null($cekpalet)) 
             {
+                $cekpalet->end      = $now;
+                $cekpalet->save();
+            
                 if (strpos($wo->produk->nama_produk,'Gundam')) 
                 {    
                     $pecah  = explode('G',$cekpalet->palet);
@@ -218,7 +224,7 @@ class rollieOperatorController extends resourceController
                     palet::create([
                         'cpp_detail_id' => $cppDetail->id,
                         'palet'         => $palet,
-                        'start'         => $now
+                        'start'         => $cekpalet->end
                     ]);
                 }
                 else
@@ -233,25 +239,66 @@ class rollieOperatorController extends resourceController
                     palet::create([
                         'cpp_detail_id' => $cppDetail->id,
                         'palet'         => $palet,
-                        'start'         => $now
+                        'start'         => $cekpalet->end
                     ]);   
                 }   
             }
         }
+        return ['success'=>true];
     }
 
     public function refreshTableCpp($cpp_head_id)
     {
+        $return     = array();
+        $tampung    = array();
         $cpp_head_id    = resourceController::dekripsi($cpp_head_id);
         $cpp_head     = cppHead::find($cpp_head_id);
         foreach ($cpp_head->cppDetail as $key => $detail) 
         {
             foreach ($detail->palet as $key => $palet) 
             {
-                $detail->palet          = $palet;    
+                $detail->palet              = $palet;    
+                array_push($return, $tampung);
             }
             $cpp_head->cpp_detail       = $detail;
         }
         return $cpp_head;
+    }
+    function array_orderby()
+    {
+        $args = func_get_args();
+        $data = array_shift($args);
+        foreach ($args as $n => $field) {
+            if (is_string($field)) {
+                $tmp = array();
+                foreach ($data as $key => $row)
+                    $tmp[$key] = $row[$field];
+                $args[$n] = $tmp;
+                }
+        }
+        $args[] = &$data;
+        call_user_func_array('array_multisort', $args);
+        return array_pop($args);
+    }
+
+    public function ubahJamAwal(Request $request)
+    {
+        // dd($request->all());
+        $palet_id       = resourceController::dekripsi($request->id_palet);
+        $jam_start      = $request->jam_start;
+        // ini mengambil palet nya 
+        $palet          = palet::find($palet_id);
+        if ($jam_start >= $palet->end) 
+        {
+            // ini jika jam start > dari jam end
+            return ['success'=>false,'message'=>'Jam awal palet tidak boleh melebihi dari jam akhir palet . Harap menyesuaikan jam akhir palet terlebih dahulu'];
+        }   
+        else
+        {
+
+        }
+
+
+
     }
 }

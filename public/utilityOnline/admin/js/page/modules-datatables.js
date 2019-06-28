@@ -60,10 +60,26 @@ var tablenya =  $('#table-draft-analisa').dataTable({
     pageLength:10,
     aaSorting: [[2,'asc'],[3,'asc']] 
 });
-  var tablecpp =  $('#table-cpp').dataTable({
-      bFilter:false,
-      bInfo:false,
-      bLengthChange:false,
-      pageLength:10,
-      aaSorting: [[2,'asc'],[3,'asc']] 
-  });
+var tablecppb =  $('#table-cppb').dataTable({
+    bFilter:false,
+    bInfo:false,
+    bLengthChange:false,
+    pageLength:100,
+    paging:false  
+});
+var tablecppa =  $('#table-cppa').dataTable({
+    bFilter:false,
+    bInfo:false,
+    bLengthChange:false,
+    pageLength:100,
+    paging:false 
+   
+});
+var tablecppa =  $('#table-cppc').dataTable({
+    bFilter:false,
+    bInfo:false,
+    bLengthChange:false,
+    pageLength:100,
+    paging:false 
+
+});

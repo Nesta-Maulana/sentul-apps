@@ -41,6 +41,9 @@ Route::get('/halaman-help', 'hakAkses\hakAksesController@hakAkses');
 Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
 Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
 Route::get('/home-nothing', 'userAccess\userAccessController@homeNothing')->name('home-no-hak-akses');
+Route::get('/enkripsi/{enkripsiannya}','resourceController@enkripsi')->name('enkripsi');
+
+Route::get('/dekripsi/{dekripsi}','resourceController@dekripsi')->name('dekripsi');
 Route::middleware('ceklogin')->group(function ()
 {
 
@@ -250,6 +253,9 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie-operator-produksi', 'rollie\rollieOperatorController@fillpackindex')->name('dashboard-operator-fillpack');
     Route::post('/rollie-operator-produksi/cpp/proses-cpp', 'rollie\rollieOperatorController@prosesCpp')->name('proses-cpp');
     Route::post('/rollie-operator-produksi/cpp/tambah-cpp', 'rollie\rollieOperatorController@tambahCpp')->name('tambah-cpp');
+
+    Route::post('/rollie-operator-produksi/cpp/ubah-jam-awal-cpp', 'rollie\rollieOperatorController@ubahJamAwal')->name('ubah-jam-awal-cpp');
+    
     Route::get('/rollie-operator-produksi/cpp/refresh-table-cpp/{cpp_head_id}', 'rollie\rollieOperatorController@refreshTableCpp')->name('refresh-table-cpp');
     Route::get('/rollie-operator-produksi/cpp/{id}', 'rollie\rollieOperatorController@cpp')->name('operator-cpp');
 
@@ -276,7 +282,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie/sortasi', 'rollie\rollieController@sortasi');
     Route::get('/rollie/rpr', 'rollie\rollieController@rpr');
     Route::get('/rollie/reports', 'rollie\rollieController@report');
-
     // GoOffice
     Route::get('/go-office', 'goOffice\goOfficeController@index');
+    
+
 });
