@@ -162,6 +162,7 @@
     <script src="{{ asset('rollie/penyelia/js/table.js')}}"></script>
 
     <!-- My JS -->
+
     <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
     <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
     <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
@@ -201,6 +202,16 @@
             document.getElementById("uploadFile").value = this.value.replace("C:\\fakepath\\", "");
         };
 
+    </script>
+
+    <script>
+        function prosesbatch(namaproduk,idproduk,nomorwo,plandate) 
+        {
+            $('#nomor_wo_proses').val(nomorwo);
+            $('#proses_id').val(idproduk);
+            $('#plan_date_proses').val(plandate);
+            $('#proses_produk').val(namaproduk);
+        }
     </script>
 </body>
 

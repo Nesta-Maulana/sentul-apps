@@ -32,13 +32,13 @@ active
                     <thead>
                         <tr>
                             <th title="Field #1">No</th>
-                            <th title="Field #2" class="hidden-phone">Plan Date</th>
-                            <th title="Field #3" class="hidden-phone">Realisation Date</th>
-                            <th title="Field #4">Nomor Wo</th>
-                            <th title="Field #5">Kode Produk</th>
-                            <th title="Field #6">Nama Produk</th>
-                            <th title="Field #7">Plan Batch Size</th>
-                            <th title="Field #8">Status</th>
+                            <th title="Field #2">Nomor Wo</th>
+                            <th title="Field #3">Kode Produk</th>
+                            <th title="Field #4">Nama Produk</th>
+                            <th title="Field #5" class="hidden-phone">Plan Date</th>
+                            <th title="Field #6" class="hidden-phone">Realisation Date</th>
+                            <th title="Field #7">Status</th>
+                            <th title="Field #8">Plan Batch Size</th>
                             <th title="Field #9">Actual Batch Size</th>
                             <th title="Field #10">Keterangan 1</th>
                             <th title="Field #11">Keterangan 2</th>
@@ -56,27 +56,68 @@ active
                         <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($wo->id) ?>
                         <tr class="text-center">
                             <td>{{ $i }}</td>
+
+                            <td>
+                                <a data-toggle="modal" data-target="#proses-batch" onclick="prosesbatch('{{ $wo->produk->nama_produk }}','{{ $id }}','{{ $wo->nomor_wo }}','{{ $wo->production_plan_date }}')">
+                                    {{ $wo->nomor_wo }}
+                                </a>
+                            </td>
+
+                            <td>{{ $wo->produk->kode_oracle }}</td>
+
+                            <td class="text-left">{{ $wo->produk->nama_produk }}</td>
+
                             <td>{{ $wo->production_plan_date }}</td>
+
                             {{-- Pengecekan apa tanggal realisasinya belum ada atau sudah ada --}}
                             @if (is_null($wo->production_realisation_date))
-                            <td>-</td>
+                                <td>-</td>
                             @else
-                            <td>{{ $wo->production_realisation_date }}</td>
+                                <td>{{ $wo->production_realisation_date }}</td>
                             @endif
+
                             {{-- end pengecekan --}}
-                            <td>{{ $wo->nomor_wo }}</td>
-                            <td>{{ $wo->produk->kode_oracle }}</td>
-                            <td class="text-left">{{ $wo->produk->nama_produk }}</td>
+                            @switch($wo->status)
+                                @case('0')        
+                                    <td>Pending</td>
+                                @break
+
+                                @case('1')        
+                                    <td>On Progress Mixing</td>
+                                @break
+
+                                @case('2')        
+                                    <td>WIP Fillpack</td>
+                                @break
+
+                                @case('3')        
+                                    <td>On Progress Fillpack</td>
+                                @break
+
+                                @case('4')        
+                                    <td>Waiting For Close</td>
+                                @break
+
+                                @case('5')        
+                                    <td>Close</td>
+                                @break
+                                
+                                @case('6')        
+                                    <td>Canceled</td>
+                                @break
+                            @endswitch
+                            
+                            
                             @if (!is_null($wo->plan_batch_size) && $wo->plan_batch_size !== "")
-                            <td>{{ $wo->plan_batch_size }} KG</td>
+                                <td>{{ $wo->plan_batch_size }} KG</td>
                             @else
-                            <td>-</td>
+                                <td>-</td>
                             @endif
-                            <td>{{ $wo->status }}</td>
+                            
                             @if (is_null($wo->actual_batch_size))
-                            <td>0</td>
+                                <td>0</td>
                             @else
-                            <td>{{ $wo->actual_batch_size }} KG</td>
+                                <td>{{ $wo->actual_batch_size }} KG</td>
                             @endif
                             <td>{{ $wo->keterangan_1 }}</td>
                             <td>{{ $wo->keterangan_2 }}</td>
@@ -126,6 +167,7 @@ active
     </div>
 </div>
 @include('rollie.penyelia.popup_tambah_jadwal')
+@include('rollie.penyelia.popup_proses_wo')
 <script>
     $('.jenis').change(function () {
         var isi = $('.jenis option:selected').val();

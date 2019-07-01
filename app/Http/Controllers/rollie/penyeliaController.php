@@ -92,12 +92,17 @@ class penyeliaController extends resourceController
                     $filejadwal         = $request->file('jadwalUpload');
                     $uploadjadwal       =   Excel::toArray(new mtolUpload, $filejadwal);
                     $cektidaknull       = array();
-                    foreach ($uploadjadwal['Mampu Telusur Produk Online (MT'] as $key => $value) 
-                    {
-                        if ($value[2] !== "" && !is_null($value[2]) && $value[8] && !is_null($value[8]) && $value[7] !== "" && !is_null($value[7])) 
+                    for ($i=4; $i < count($uploadjadwal['Mampu Telusur Produk Online (MT']) ; $i++) 
+                    { 
+                        if ($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][3] !== "" && !is_null($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][3]) && $uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9] && !is_null($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9]) && $uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8] !== "" && !is_null($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8])) 
                         {
-                            # code...
-                        }
+                            // array_push($cektidaknull,$uploadjadwal['Mampu Telusur Produk Online (MT'][$i]);
+                            $cekproduk  = produk::where('kode_oracle',$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8])->first();
+                            if (is_null($cekproduk)) 
+                            {
+                                return redirect()->route('penyelia-jadwal-dashboard')->with('failed','Item '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9].' dengan kode oracle '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8].' belum terdaftar. Harap hubungi administrator untuk menyelesaikannya');
+                            }
+                        }   
                     }
                     $uploadjadwal   =   Excel::import(new mtolUpload, $filejadwal);
                     return redirect()->route('penyelia-index')->with('success',"File Mtol Berhasil Di upload");
@@ -143,5 +148,19 @@ class penyeliaController extends resourceController
         $wo->keterangan_2 = $request->alasan;
         $wo->save();
         return $wo;
+    }
+    public function prosesWo(Request $request)
+    {
+        $idwo               = resourceController::dekripsi($request->proses_id);
+        $nowo               = $request->nomor_wo_proses;
+        $realisation_date   = $request->realisation_date;
+
+        $wo                 = wo::find($idwo);
+        $wo->production_realisation_date    = $realisation_date;
+        $wo->status                         = '2';
+        $wo->save();
+        return redirect()->route('penyelia-jadwal-dashboard')->with('success','Produki dengan nomor wo '.$nowo.' sudah melakukan proses mixing');
+
+
     }
 }

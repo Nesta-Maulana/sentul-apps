@@ -116,15 +116,8 @@ class mtolImport implements WithMappedCells,ToModel,WithValidation
 				else
 				{
 					$produk 	= produk::where('kode_oracle',$kode_produk)->first();
-					if (is_null($produk)) 
-					{
-						$produk_id 	= '';
-						//return redirect()->back()->with(['warning' => 'File CPP sudah di upload']);
-					}
-					else
-					{
-						$produk_id 	= $produk->id;
-					}
+					$produk_id 	= $produk->id;
+					
 				}
 			}
 			// pengecekan status dari excel lalu di rubah sesuai indexing dalam database

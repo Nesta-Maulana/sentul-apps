@@ -248,6 +248,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie-penyelia/jadwal-produksi', 'rollie\penyeliaController@index')->name('penyelia-jadwal-dashboard');
     Route::post('/rollie-penyelia/jadwal-produksi/delete/{id}', 'rollie\penyeliaController@cancel');
     Route::post('/rollie-penyelia/jadwal-produksi', 'rollie\penyeliaController@importJadwalProduksi')->name('import-jadwal-produksi');
+    Route::post('/rollie-penyelia/proses-wo', 'rollie\penyeliaController@prosesWo')->name('penyelia-proses-wo');
 
     // Rollie operator
     Route::get('/rollie-operator-produksi', 'rollie\rollieOperatorController@fillpackindex')->name('dashboard-operator-fillpack');

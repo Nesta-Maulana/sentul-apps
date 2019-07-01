@@ -387,7 +387,7 @@
             }
             else
             {
-                console.log(rpd_filling_detail_id_pi+rpd_filling_head_id+nama_produk_analisa_pi+hasil_air_gap+hasil_ts_accurate_kanan+hasil_ts_accurate_kiri+hasil_ls_accurate+hasil_sa_accurate+hasil_surface_check+hasil_pinching+hasil_strip_folding+hasil_konduktivity_kanan+hasil_konduktivity_kiri+hasil_design_kanan+hasil_design_kiri+hasil_dye_test+hasil_residu_h2o2+hasil_prod_code_no_md+hasil_correction+ts_accurate_kanan_tidak_ok+ts_accurate_kiri_tidak_ok+ls_accurate_tidak_ok+sa_accurate_tidak_ok+surface_check_tidak_ok)
+                // console.log(rpd_filling_detail_id_pi+rpd_filling_head_id+nama_produk_analisa_pi+hasil_air_gap+hasil_ts_accurate_kanan+hasil_ts_accurate_kiri+hasil_ls_accurate+hasil_sa_accurate+hasil_surface_check+hasil_pinching+hasil_strip_folding+hasil_konduktivity_kanan+hasil_konduktivity_kiri+hasil_design_kanan+hasil_design_kiri+hasil_dye_test+hasil_residu_h2o2+hasil_prod_code_no_md+hasil_correction+ts_accurate_kanan_tidak_ok+ts_accurate_kiri_tidak_ok+ls_accurate_tidak_ok+sa_accurate_tidak_ok+surface_check_tidak_ok)l
             }
         }
 
@@ -912,7 +912,6 @@
                 dataType: 'JSON',
                 success : function(data) 
                 {
-                    console.log(data);
                     var isitable = '', $isitable = $('#detail_pi');
                     for (var i = 0; i < data.detail_pi_nya.length; i++)
                     {

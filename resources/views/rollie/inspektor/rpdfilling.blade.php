@@ -1,4 +1,4 @@
-@extends('rollie.operator.templates.layout')
+@extends('rollie.inspektor.template.layout')
 @section('judul')
     {{ $menus[0]->aplikasi }} | RPD Filling
 @endsection

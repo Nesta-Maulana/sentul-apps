@@ -3,9 +3,7 @@
         <div class="modal-content" style="width: 226%;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Jadwal Produksi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                l
             </div>
             {!! Form::open(['route'=>'import-jadwal-produksi','enctype'=>'multipart/form-data','method'=>'post']) !!}
                 <div class="modal-body">
