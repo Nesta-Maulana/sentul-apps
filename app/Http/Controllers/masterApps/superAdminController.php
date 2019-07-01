@@ -58,9 +58,6 @@ class superAdminController extends resourceController
 
     public function index()
     {
-        
-        
-
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
         if($hakAksesAplikasi == "0"){
@@ -383,7 +380,7 @@ class superAdminController extends resourceController
     }
 
     public function produk(){
-        $brands = brand::all();
+        $brands = subBrand::all();
         $jenisProducts = jenisProduk::all();
         $mesinFillingHeads = mesinFillingHead::all();
         $products = produk::all();
@@ -400,7 +397,7 @@ class superAdminController extends resourceController
     public function dataProduk(Request $request){
         if(!$request->id){
             produk::create([
-                'brand_id' => $request->brand,
+                'sub_brand_id' => $request->brand,
                 'nama_produk' => $request->namaProduk,
                 'kode_oracle' => $request->kodeOracle,
                 'spek_ts_min' => $request->spekTsMin,
@@ -408,6 +405,8 @@ class superAdminController extends resourceController
                 'spek_ph_min' => $request->spekPhMin,
                 'spek_ph_max' => $request->spekPhMax,
                 'sla' => $request->sla,
+                'kode_trial' => $request->kode_trial,
+                'expired_range' => $request->expiredRange,
                 'waktu_analisa_mikro' => $request->waktuAnalisaMikro,
                 'kelompok_mesin_filling_head_id' => $request->kelompokMesinFillingHead,
                 'jenis_produk_id' => $request->jenisProduk,

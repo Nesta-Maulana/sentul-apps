@@ -16,21 +16,17 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="brand">Brand :</label>
-                        <select name="brand" id="brand" class="form-control select2">
-                            <option value="" selected disabled>-- PILIH BRAND --</option>
-                            @foreach($brands as $brand)
-                                <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="produk">Nama Produk : </label>
                         <input type="text" name="namaProduk" class="form-control" id="namaProduk">
                     </div>
                     <div class="form-group">
                         <label for="oracle">Kode Oracle : </label>
                         <input type="text" name="kodeOracle" class="form-control" id="kodeOracle">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kode_trial">Kode Trial : </label>
+                        <input type="text" name="kode_trial" class="form-control" id="kode_trial">
                     </div>
                     <div class="form-group">
                         <label for="spekTsMin">Spek TS Min : </label>
@@ -40,12 +36,33 @@
                         <label for="spekTsMax">Spek TS Max : </label>
                         <input type="text" name="spekTsMax" class="form-control" id="spekTsMax">
                     </div>
+
+                    <div class="form-group">
+                        <label for="brand">Sub Brand :</label>
+                        <select name="brand" id="brand" class="form-control">
+                            <option value="" selected disabled>-- PILIH SUB BRAND --</option>
+                            @foreach($brands as $subbrand)
+                                <option value="{{ $subbrand->id }}">{{ $subbrand->sub_brand }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jenisProduk">Jenis Produk : </label>
+                        <select name="jenisProduk" class="form-control" id="jenisProduk">
+                            <option value="" selected disabled>-- PILIH JENIS PRODUK --</option>
+                            @foreach($jenisProducts as $jenisProduct)
+                                <option value="{{ $jenisProduct->id }}">{{ $jenisProduct->jenis_produk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+
                     <div class="form-group">
                         <label for="spekPhMin">Spek PH Min : </label>
                         <input type="text" name="spekPhMin" class="form-control" id="spekPhMin">
                     </div>
-                </div>
-                <div class="col-lg-6">
                     <div class="form-group">
                         <label for="spekPhMax">Spek PH Max : </label>
                         <input type="text" name="spekPhMax" class="form-control" id="spekPhMax">
@@ -60,19 +77,10 @@
                     </div>
                     <div class="form-group">
                         <label for="kelompokMesinFillingHead">Kelompok Mesing Fillng Head : </label>
-                        <select name="kelompokMesinFillingHead" class="form-control select2" id="kelompokMesinFillingHead">
+                        <select name="kelompokMesinFillingHead" class="form-control" id="kelompokMesinFillingHead">
                             <option value="">-- PILIH MESIN FILLING HEAD --</option>
                             @foreach($mesinFillingHeads as $mesinFillingHead)
                                 <option value="{{ $mesinFillingHead->id }}">{{ $mesinFillingHead->nama_kelompok }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="jenisProduk">Jenis Produk : </label>
-                        <select name="jenisProduk" class="form-control select2" id="jenisProduk">
-                            <option value="" selected disabled>-- PILIH JENIS PRODUK --</option>
-                            @foreach($jenisProducts as $jenisProduct)
-                                <option value="{{ $jenisProduct->id }}">{{ $jenisProduct->jenis_produk }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -83,6 +91,11 @@
                             <option value="0">Tidak Aktif</option>
                             <option value="1">Aktif</option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiredRange">Expired Range (dalam bulan): </label>
+                        <input type="text" name="expiredRange" class="form-control" id="expiredRange">
                     </div>
                 </div>
                 <div class="p-2">
@@ -116,7 +129,7 @@
                         <?php $id=app('App\Http\Controllers\resourceController')->enkripsi($product->id) ?>
                             <tr>
                                 <td>{{ $i }}</td>
-                                <td>{{ $product->brand->brand }}</td>
+                                <td>{{ $product->subbrand->sub_brand }}</td>
                                 <td>{{ $product->nama_produk }}</td>
                                 <td>{{ $product->kode_oracle }}</td>
                                 <td>{{ $product->spek_ts_min }}</td>
@@ -125,7 +138,13 @@
                                 <td>{{ $product->spek_ph_max }}</td>
                                 <td>{{ $product->sla }}</td>
                                 <td>{{ $product->waktu_analisa_mikro }}</td>
-                                <td>{{ $product->mesinFillingHead->nama_kelompok }}</td>
+                                @if ($product->kelompok_mesin_filling_head_id === 0)
+                                    <td>Yobase</td>
+                                @else
+                                    <td>@foreach ($product->mesinFillingHead->mesinFillingDetail as $detail){{ $detail->mesinFilling->nama_mesin }} @endforeach
+                                    </td>   
+                                @endif
+                                {{-- <td>{{ $product->kelompok_mesin_filling_head_id }}</td> --}}
                                 <td>{{ $product->jenisProduk->jenis_produk }}</td>
                                 @if($product->status == '0')
                                     <td>Tidak Aktif</td>
@@ -134,7 +153,7 @@
                                 @endif
                                 <td>
                                     <a href="#" class="btn btn-primary edit" onclick="edit('{{ $id }}')">Edit</a>
-                                    <a href="delete/mysql4/produk/{{$produk ->id}}" class="text-white btn btn-danger">Delete</a>
+                                    <a href="delete/mysql4/produk/{{$product->id}}" class="text-white btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             <?php $i++ ?>
