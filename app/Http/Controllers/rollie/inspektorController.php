@@ -20,6 +20,7 @@ use App\Models\productionData\rpdFillingDetailPi;
 use App\Models\productionData\rpdFillingDetailAtEvent;
 use App\Models\productionData\kodeSampelPi;
 use App\Models\masterApps\mesinFilling;
+use App\Models\productionData\ppqfg;
 use DB;
 use Session;
 
@@ -285,9 +286,10 @@ class inspektorController extends resourceController
         $ls_sa_proportion                   = $request->ls_sa_proportion;
         $volume_kanan                       = $request->volume_kanan;
         $volume_kiri                        = $request->volume_kiri;
+        $status_akhir                        = $request->status_akhir;
         $user_id_inputer                    = app('App\Http\Controllers\resourceController')->dekripsi($request->user_inputer_id);
         // if semua itu okeoke aja 
-        if ($airgap == 'OK' && $ts_accurate_kanan == 'OK' && $ts_accurate_kiri == 'OK' && $ls_accurate == 'OK' && $sa_accurate == 'OK' && $surface_check == 'OK' && $pinching == 'OK' && $strip_folding == 'OK' && $konduktivity_kanan == 'OK' && $konduktivity_kiri == 'OK' && $design_kanan == 'OK' && $design_kiri == 'OK' && $dye_test == 'OK' && $residu_h2o2 == 'OK' && $prod_code_no_md == 'OK' && ($ls_sa_proportion !== '10:90' || $ls_sa_proportion !== '90:10') && ($volume_kanan >= 198 || $volume_kanan <= 202) && ($volume_kiri >= 198 || $volume_kiri <= 202)) 
+        if ($airgap == 'OK' && $ts_accurate_kanan == 'OK' && $ts_accurate_kiri == 'OK' && $ls_accurate == 'OK' && $sa_accurate == 'OK' && $surface_check == 'OK' && $pinching == 'OK' && $strip_folding == 'OK' && $konduktivity_kanan == 'OK' && $konduktivity_kiri == 'OK' && $design_kanan == 'OK' && $design_kiri == 'OK' && $dye_test == 'OK' && $residu_h2o2 == 'OK' && $prod_code_no_md == 'OK' && ($ls_sa_proportion !== '10:90' || $ls_sa_proportion !== '90:10' || $ls_sa_proportion !== '80:20' || $ls_sa_proportion !== '70:30') && ($volume_kanan >= 198 || $volume_kanan <= 202) && ($volume_kiri >= 198 || $volume_kiri <= 202) && ($overlap >= 3.5 || $overlap <= 4.5)) 
         {
             // pengecekan sampel sebelumnya dimesin tersebut dan saat produk tersebut OK atau tidak OK
             $ambilsemua     = rpdFillingDetailPi::where('rpd_filling_head_id',$rpd_filling_head_id)->where('wo_id',$wo_id)->where('mesin_filling_id',$mesin_filling_id)->get();
@@ -301,6 +303,104 @@ class inspektorController extends resourceController
             if ($idaktif != '0' ) 
             {
                 $datasebelum    = $ambilsemua[$idaktif-1];
+                if ($datasebelum->status_akhir === 'OK') 
+                {
+                    // ini apabila sampel tersebut sampel dengan kode sampel pertama atau kode sampel pertama
+                    $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
+                                        'airgap'                => $airgap,
+                                        'ts_accurate_kanan'     => $ts_accurate_kanan,
+                                        'ts_accurate_kiri'      => $ts_accurate_kiri,
+                                        'ls_accurate'           => $ls_accurate,
+                                        'sa_accurate'           => $sa_accurate,
+                                        'surface_check'         => $surface_check,
+                                        'pinching'              => $pinching,
+                                        'strip_folding'         => $strip_folding,
+                                        'konduktivity_kanan'    => $konduktivity_kanan,
+                                        'konduktivity_kiri'     => $konduktivity_kiri,
+                                        'design_kanan'          => $design_kanan,
+                                        'design_kiri'           => $design_kiri,
+                                        'dye_test'              => $dye_test,
+                                        'residu_h2o2'           => $residu_h2o2,
+                                        'prod_code_and_no_md'   => $prod_code_no_md,
+                                        'correction'            => $correction,
+                                        'overlap'               => $overlap,
+                                        'ls_sa_proportion'      => $ls_sa_proportion,
+                                        'volume_kanan'          => $volume_kanan,
+                                        'volume_kiri'           => $volume_kiri,
+                                        'status_akhir'          => $status_akhir,
+                                        'user_id_inputer'       => $user_id_inputer,
+                                        ]);
+                    if ($updatedata) 
+                    {
+                        return ['success'=>true,'message'=>'1'];
+                    }
+                    else
+                    {
+                        return ['success'=>true,'message'=>'0'];
+                    }       
+                }
+                else
+                {
+                    $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
+                                        'airgap'                => $airgap,
+                                        'ts_accurate_kanan'     => $ts_accurate_kanan,
+                                        'ts_accurate_kiri'      => $ts_accurate_kiri,
+                                        'ls_accurate'           => $ls_accurate,
+                                        'sa_accurate'           => $sa_accurate,
+                                        'surface_check'         => $surface_check,
+                                        'pinching'              => $pinching,
+                                        'strip_folding'         => $strip_folding,
+                                        'konduktivity_kanan'    => $konduktivity_kanan,
+                                        'konduktivity_kiri'     => $konduktivity_kiri,
+                                        'design_kanan'          => $design_kanan,
+                                        'design_kiri'           => $design_kiri,
+                                        'dye_test'              => $dye_test,
+                                        'residu_h2o2'           => $residu_h2o2,
+                                        'prod_code_and_no_md'   => $prod_code_no_md,
+                                        'correction'            => $correction,
+                                        'overlap'               => $overlap,
+                                        'ls_sa_proportion'      => $ls_sa_proportion,
+                                        'volume_kanan'          => $volume_kanan,
+                                        'volume_kiri'           => $volume_kiri,
+                                        'status_akhir'          => $status_akhir,
+                                        'user_id_inputer'       => $user_id_inputer,
+                                        ]);
+                    $ambil_wo       = wo::find($wo_id);
+                    $ambil_mesin    = mesinFilling::find($mesin_filling_id);
+                    $ppq            = ppqfg::all();
+                    $ppqakhir       = $ppq->last();
+                    if ($ppqakhir !== null) 
+                    {      
+                      $pecah      = explode('/', $ppqakhir->no_ppq);
+                    }
+                    else
+                    {
+                      $pecah = null;
+                    }
+                    if($pecah == null)
+                    {
+                      $x   = 1;
+                    }
+                    else
+                    {
+                      $x   = $pecah['0']+1;
+                    }
+                    $jumlahdata     = count($ambilsemua);
+                    for ($i = $idaktif; $i >= 1 ; $i--) 
+                    { 
+                    
+                    }
+                    dd($idaktif);
+                    $data = array('nama_produk' => $nama_produk_analisa_pi, 'tanggal_produksi'=> $ambil_wo->production_realisation_date, 'mesin_filling'=> $ambil_mesin->kode_mesin,'mesin_filling_id' => resourceController::enkripsi($ambil_mesin->id),'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$x,'kode_oracle'=>$ambil_wo->produk->kode_oracle);
+                    if ($updatedata) 
+                    {
+                        return view('rollie.inspektor.ppg-fq',['data'=>$data]);
+                    }
+                    else
+                    {
+                        return ['success'=>true,'message'=>'0'];
+                    }       
+                }
             }
             else if ($idaktif == '0') 
             {
@@ -326,6 +426,7 @@ class inspektorController extends resourceController
                                     'ls_sa_proportion'      => $ls_sa_proportion,
                                     'volume_kanan'          => $volume_kanan,
                                     'volume_kiri'           => $volume_kiri,
+                                    'status_akhir'          => $status_akhir,
                                     'user_id_inputer'       => $user_id_inputer,
                                     ]);
                 if ($updatedata) 
@@ -337,8 +438,41 @@ class inspektorController extends resourceController
                     return ['success'=>true,'message'=>'0'];
                 }
             }
-            
-
+        }
+        else
+        {
+            $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
+                                        'airgap'                => $airgap,
+                                        'ts_accurate_kanan'     => $ts_accurate_kanan,
+                                        'ts_accurate_kiri'      => $ts_accurate_kiri,
+                                        'ls_accurate'           => $ls_accurate,
+                                        'sa_accurate'           => $sa_accurate,
+                                        'surface_check'         => $surface_check,
+                                        'pinching'              => $pinching,
+                                        'strip_folding'         => $strip_folding,
+                                        'konduktivity_kanan'    => $konduktivity_kanan,
+                                        'konduktivity_kiri'     => $konduktivity_kiri,
+                                        'design_kanan'          => $design_kanan,
+                                        'design_kiri'           => $design_kiri,
+                                        'dye_test'              => $dye_test,
+                                        'residu_h2o2'           => $residu_h2o2,
+                                        'prod_code_and_no_md'   => $prod_code_no_md,
+                                        'correction'            => $correction,
+                                        'overlap'               => $overlap,
+                                        'ls_sa_proportion'      => $ls_sa_proportion,
+                                        'volume_kanan'          => $volume_kanan,
+                                        'volume_kiri'           => $volume_kiri,
+                                        'status_akhir'          => $status_akhir,
+                                        'user_id_inputer'       => $user_id_inputer,
+                                        ]);
+                    if ($updatedata) 
+                    {
+                        return ['success'=>true,'message'=>'1'];
+                    }
+                    else
+                    {
+                        return ['success'=>true,'message'=>'0'];
+                    }       
         }
 
     }

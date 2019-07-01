@@ -103,7 +103,23 @@ class rollieController extends resourceController
         return view('rollie.packageIntegrity');
     }
     public function ppq(){
-        return view('rollie.ppq');
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.ppq',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
     }
     public function analisaMikro(){
         return view('rollie.analisaMikro');

@@ -3,13 +3,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5>Hasil Analisa PI - <label style="color: black;" id="nama_produk_analisa_pi"></label></h5>
-                <button type="button" id="close-button-pi" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" id="close-button-pi" class="close" data-dismiss="modal" onclick="hapusdatapopupanalisapi()">&times;</button>
             </div>
             <meta name="csrf-token" content="{{ csrf_token() }}" />
             <input type="hidden" name="user_id_inputer" id="user_id_inputer" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($username->user->id) }}">
             <input type="hidden" id="rpd_filling_detail_id_pi">
             <input type="hidden" id="wo_id_sampel">
             <input type="hidden" id="mesin_filling_id_sampel">
+            <input type="hidden" id="nama_produk_analisa_pi_kirim">
             <input type="hidden" id="rpd_filling_head_id" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($rpd_filling->id) }}">
             <div class="modal-body">
                     <div class="row">
@@ -92,7 +93,7 @@
                     </select>
 
                     <select name="ts_accurate_kanan_tidak_ok" id="ts_accurate_kanan_tidak_ok" class="select col-lg-4 form-control sembunyi" style="padding: 0 .8rem;" required="true">
-                        <option value="" selected disabled>Pilih Kategori #OK</option>
+                        <option value="#ok" selected disabled>Pilih Kategori #OK</option>
                         <option value="Block Seal">Block Seal</option>
                         <option value="Crack">Crack</option>
                         <option value="Plastic Lump">Plastic Lump</option>
@@ -109,7 +110,7 @@
                     </select>
 
                     <select name="ts_accurate_kiri_tidak_ok" id="ts_accurate_kiri_tidak_ok" class="select col-lg-4 form-control sembunyi" style="padding: 0 .8rem;" required="true">
-                        <option value="" selected disabled>Pilih Kategori #OK</option>
+                        <option value="#ok" selected disabled>Pilih Kategori #OK</option>
                         <option value="Block Seal">Block Seal</option>
                         <option value="Crack">Crack</option>
                         <option value="Plastic Lump">Plastic Lump</option>
@@ -126,7 +127,7 @@
                     </select>
 
                     <select name="ls_accurate_tidak_ok" id="ls_accurate_tidak_ok" class="select col-lg-4 form-control sembunyi" style="padding: 0 .8rem;" required="true">
-                        <option value="" selected disabled>Pilih Kategori #OK</option>
+                        <option value="#ok" selected disabled>Pilih Kategori #OK</option>
                         <option value="Block Seal">Block Seal</option>
                         <option value="Strip Wrinkle">Strip Wrinkle</option>
                     </select>
@@ -141,7 +142,7 @@
                     </select>
 
                     <select name="sa_accurate_tidak_ok" id="sa_accurate_tidak_ok" class="select col-lg-4 form-control sembunyi" style="padding: 0 .8rem;" required="true">
-                        <option value="" selected disabled>Pilih Kategori #OK</option>
+                        <option value="#ok" selected disabled>Pilih Kategori #OK</option>
                         <option value="Block Seal">Block Seal</option>
                         <option value="Strip Wrinkle">Strip Wrinkle</option>
                     </select>
@@ -156,7 +157,7 @@
                     </select>
 
                     <select name="surface_check_tidak_ok" id="surface_check_tidak_ok" class="select col-lg-4 form-control sembunyi" style="padding: 0 .8rem;" required="true">
-                        <option value="" selected disabled>Pilih Kategori #OK</option>
+                        <option value="#ok" selected disabled>Pilih Kategori #OK</option>
                         <option value="Block Seal">Block Seal</option>
                         <option value="Strip Wrinkle">Strip Wrinkle</option>
                     </select>
@@ -240,7 +241,7 @@
                 <div class="form-group row">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3"></div>
-                    <button class="btn btn-info col-lg-5 form-control" onclick="submit_analisa_pi($('#rpd_filling_detail_id_pi').val(),$('#rpd_filling_head_id').val(),$('#nama_produk_analisa_pi').val(),$('#hasil_air_gap').val(),$('#hasil_ts_accurate_kanan').val(),$('#hasil_ts_accurate_kiri').val(),$('#hasil_ls_accurate').val(),$('#hasil_sa_accurate').val(),$('#hasil_surface_check').val(),$('#hasil_pinching').val(),$('#hasil_strip_folding').val(),$('#hasil_konduktivity_kanan').val(),$('#hasil_konduktivity_kiri').val(),$('#hasil_design_kanan').val(),$('#hasil_design_kiri').val(),$('#hasil_dye_test').val(),$('#hasil_residu_h2o2').val(),$('#hasil_prod_code_no_md').val(),$('#hasil_correction').val(),$('#ts_accurate_kanan_tidak_ok').val(),$('#ts_accurate_kiri_tidak_ok').val(),$('#ls_accurate_tidak_ok').val(),$('#sa_accurate_tidak_ok').val(),$('#surface_check_tidak_ok').val(),$('#wo_id_sampel').val(),$('#mesin_filling_id_sampel').val(),$('#hasil_overlap').val(),$('#hasil_ls_sa_proportion').val(),$('#hasil_volume_kanan').val(),$('#hasil_volume_kiri').val(),$('#user_id_inputer').val())">
+                    <button class="btn btn-info col-lg-5 form-control" onclick="submit_analisa_pi($('#rpd_filling_detail_id_pi').val(),$('#rpd_filling_head_id').val(),$('#nama_produk_analisa_pi_kirim').val(),$('#hasil_air_gap').val(),$('#hasil_ts_accurate_kanan').val(),$('#hasil_ts_accurate_kiri').val(),$('#hasil_ls_accurate').val(),$('#hasil_sa_accurate').val(),$('#hasil_surface_check').val(),$('#hasil_pinching').val(),$('#hasil_strip_folding').val(),$('#hasil_konduktivity_kanan').val(),$('#hasil_konduktivity_kiri').val(),$('#hasil_design_kanan').val(),$('#hasil_design_kiri').val(),$('#hasil_dye_test').val(),$('#hasil_residu_h2o2').val(),$('#hasil_prod_code_no_md').val(),$('#hasil_correction').val(),$('#ts_accurate_kanan_tidak_ok').val(),$('#ts_accurate_kiri_tidak_ok').val(),$('#ls_accurate_tidak_ok').val(),$('#sa_accurate_tidak_ok').val(),$('#surface_check_tidak_ok').val(),$('#wo_id_sampel').val(),$('#mesin_filling_id_sampel').val(),$('#hasil_overlap').val(),$('#hasil_ls_sa_proportion').val(),$('#hasil_volume_kanan').val(),$('#hasil_volume_kiri').val(),$('#user_id_inputer').val())">
                         Input Hasil Analisa
                     </button>
                 </div>

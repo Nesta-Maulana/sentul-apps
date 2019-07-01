@@ -272,6 +272,7 @@
         {
             // set analisa sampel popup value untuk input ke database
             document.getElementById('nama_produk_analisa_pi').innerHTML         = nama_produk;
+            document.getElementById('nama_produk_analisa_pi_kirim').value       = nama_produk;
             document.getElementById('sampel_pi_analisa').value                  = kode_sampel+" - "+event_sampel;
             document.getElementById('mesin_filling_pi_analisa').value           = mesin_filling;
             document.getElementById('tanggal_filling_pi_analisa').value         = tanggal_filling;
@@ -285,8 +286,8 @@
 
         function submit_analisa_pi(rpd_filling_detail_id_pi,rpd_filling_head_id,nama_produk_analisa_pi,hasil_air_gap,hasil_ts_accurate_kanan,hasil_ts_accurate_kiri,hasil_ls_accurate,hasil_sa_accurate,hasil_surface_check,hasil_pinching,hasil_strip_folding,hasil_konduktivity_kanan,hasil_konduktivity_kiri,hasil_design_kanan,hasil_design_kiri,hasil_dye_test,hasil_residu_h2o2,hasil_prod_code_no_md,hasil_correction,ts_accurate_kanan_tidak_ok,ts_accurate_kiri_tidak_ok,ls_accurate_tidak_ok,sa_accurate_tidak_ok,surface_check_tidak_ok,wo_id,mesin_filling_id,overlap,ls_sa_proportion,volume_kanan,volume_kiri,user_id_inputer) 
         {
-            if (!rpd_filling_detail_id_pi || !rpd_filling_head_id || !nama_produk_analisa_pi || !hasil_air_gap || !hasil_ts_accurate_kanan || !hasil_ts_accurate_kiri || !hasil_ls_accurate || !hasil_sa_accurate || !hasil_surface_check || !hasil_pinching || !hasil_strip_folding || !hasil_konduktivity_kanan || !hasil_konduktivity_kiri || !hasil_design_kanan || !hasil_design_kiri || !hasil_dye_test || !hasil_residu_h2o2 || !hasil_prod_code_no_md || !hasil_correction || !ts_accurate_kanan_tidak_ok || !ts_accurate_kiri_tidak_ok || !ls_accurate_tidak_ok || !sa_accurate_tidak_ok || !surface_check_tidak_ok || !wo_id || !mesin_filling_id || !overlap || !ls_sa_proportion || !volume_kanan || !volume_kiri || !user_id_inputer || rpd_filling_detail_id_pi=='' || rpd_filling_head_id=='' || nama_produk_analisa_pi=='' || hasil_air_gap=='' || hasil_ts_accurate_kanan=='' || hasil_ts_accurate_kiri=='' || hasil_ls_accurate=='' || hasil_sa_accurate=='' || hasil_surface_check=='' || hasil_pinching=='' || hasil_strip_folding=='' || hasil_konduktivity_kanan=='' || hasil_konduktivity_kiri=='' || hasil_design_kanan=='' || hasil_design_kiri=='' || hasil_dye_test=='' || hasil_residu_h2o2=='' || hasil_prod_code_no_md=='' || hasil_correction=='' || ts_accurate_kanan_tidak_ok=='' || ts_accurate_kiri_tidak_ok=='' || ls_accurate_tidak_ok=='' || sa_accurate_tidak_ok=='' || surface_check_tidak_ok=='' || wo_id=='' || mesin_filling_id=='' || overlap=='' || ls_sa_proportion=='' || volume_kanan=='' || volume_kiri=='' || user_id_inputer=='')
-            {
+            if (!rpd_filling_detail_id_pi || !rpd_filling_head_id || !nama_produk_analisa_pi || !hasil_air_gap || !hasil_ts_accurate_kanan || !hasil_ts_accurate_kiri || !hasil_ls_accurate || !hasil_sa_accurate || !hasil_surface_check || !hasil_pinching || !hasil_strip_folding || !hasil_konduktivity_kanan || !hasil_konduktivity_kiri || !hasil_design_kanan || !hasil_design_kiri || !hasil_dye_test || !hasil_residu_h2o2 || !hasil_prod_code_no_md || !hasil_correction || !wo_id || !mesin_filling_id || !overlap || !ls_sa_proportion || !volume_kanan || !volume_kiri || !user_id_inputer || rpd_filling_detail_id_pi=='' || rpd_filling_head_id=='' || nama_produk_analisa_pi=='' || hasil_air_gap=='' || hasil_ts_accurate_kanan=='' || hasil_ts_accurate_kiri=='' || hasil_ls_accurate=='' || hasil_sa_accurate=='' || hasil_surface_check=='' || hasil_pinching=='' || hasil_strip_folding=='' || hasil_konduktivity_kanan=='' || hasil_konduktivity_kiri=='' || hasil_design_kanan=='' || hasil_design_kiri=='' || hasil_dye_test=='' || hasil_residu_h2o2=='' || hasil_prod_code_no_md=='' || hasil_correction=='' || wo_id=='' || mesin_filling_id=='' || overlap=='' || ls_sa_proportion=='' || volume_kanan=='' || volume_kiri=='' || user_id_inputer=='')
+            {         
                 swal({
                     title: "Proses Gagal",
                     text : "Harap Lengkapi Data Analisa",
@@ -316,8 +317,8 @@
                     });
                 return false;
             }
-
-            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK'  && (ls_sa_proportion !== '10:90' || ls_sa_proportion !== '90:10' || ls_sa_proportion !== '80:20' ||ls_sa_proportion !== '70:30' ) && (volume_kanan >= 198 || volume_kanan <= 202) && (volume_kiri >= 198 || volume_kiri <= 202) || (overlap >= 3,5 && overlap <= 4,5))
+            console.log(hasil_ts_accurate_kanan);
+            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK'  && (ls_sa_proportion !== '10:90' || ls_sa_proportion !== '90:10' || ls_sa_proportion !== '80:20' ||ls_sa_proportion !== '70:30') && (volume_kanan >= 198 || volume_kanan <= 202) && (volume_kiri >= 198 || volume_kiri <= 202) && (overlap >= 3.5 || overlap <= 4.5))
             {
                 Swal.fire({
                     title: 'Apa benar hasil semua pengecekan OK?',
@@ -370,24 +371,76 @@
                                 'ls_sa_proportion'          :ls_sa_proportion,
                                 'volume_kanan'              :volume_kanan,
                                 'volume_kiri'               :volume_kiri,
+                                'status_akhir'              :'OK',
                                 'user_inputer_id'           :user_id_inputer,
                             },
                             success      : function(data) 
                             {
                                 if (data.success == true) 
                                 {                                                    
-                                    hapusdatapopup();
+                                    hapusdatapopupanalisapi();
                                     document.getElementById('close-button-pi').click();
                                     reloadTablePi();
                                 } 
                             }
                         });
                     }
-                })
+                });
             }
             else
             {
-                // console.log(rpd_filling_detail_id_pi+rpd_filling_head_id+nama_produk_analisa_pi+hasil_air_gap+hasil_ts_accurate_kanan+hasil_ts_accurate_kiri+hasil_ls_accurate+hasil_sa_accurate+hasil_surface_check+hasil_pinching+hasil_strip_folding+hasil_konduktivity_kanan+hasil_konduktivity_kiri+hasil_design_kanan+hasil_design_kiri+hasil_dye_test+hasil_residu_h2o2+hasil_prod_code_no_md+hasil_correction+ts_accurate_kanan_tidak_ok+ts_accurate_kiri_tidak_ok+ls_accurate_tidak_ok+sa_accurate_tidak_ok+surface_check_tidak_ok)l
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url         : '{{ route('analisapi-inspektor-qc') }}',
+                    method      : 'POST',
+                    dataType    : 'JSON',
+                    data        : 
+                    {
+                        'rpd_filling_detail_id_pi'  :rpd_filling_detail_id_pi,
+                        'rpd_filling_head_id'       :rpd_filling_head_id,
+                        'nama_produk_analisa_pi'    :nama_produk_analisa_pi,
+                        'air_gap'                   :hasil_air_gap,
+                        'ts_accurate_kanan'         :hasil_ts_accurate_kanan,
+                        'ts_accurate_kiri'          :hasil_ts_accurate_kiri,
+                        'ls_accurate'               :hasil_ls_accurate,
+                        'sa_accurate'               :hasil_sa_accurate,
+                        'surface_check'             :hasil_surface_check,
+                        'pinching'                  :hasil_pinching,
+                        'strip_folding'             :hasil_strip_folding,
+                        'konduktivity_kanan'        :hasil_konduktivity_kanan,
+                        'konduktivity_kiri'         :hasil_konduktivity_kiri,
+                        'design_kanan'              :hasil_design_kanan,
+                        'design_kiri'               :hasil_design_kiri,
+                        'dye_test'                  :hasil_dye_test,
+                        'residu_h2o2'               :hasil_residu_h2o2,
+                        'prod_code_no_md'           :hasil_prod_code_no_md,
+                        'correction'                :hasil_correction,
+                        'ts_accurate_kanan_tidak_ok':ts_accurate_kanan_tidak_ok,
+                        'ts_accurate_kiri_tidak_ok' :ts_accurate_kiri_tidak_ok,
+                        'ls_accurate_tidak_ok'      :ls_accurate_tidak_ok,
+                        'sa_accurate_tidak_ok'      :sa_accurate_tidak_ok,
+                        'surface_check_tidak_ok'    :surface_check_tidak_ok,
+                        'wo_id'                     :wo_id,
+                        'mesin_filling_id'          :mesin_filling_id,
+                        'overlap'                   :overlap,
+                        'ls_sa_proportion'          :ls_sa_proportion,
+                        'volume_kanan'              :volume_kanan,
+                        'volume_kiri'               :volume_kiri,
+                        'status_akhir'              :'#OK',
+                        'user_inputer_id'           :user_id_inputer,
+                    },
+                    success      : function(data) 
+                    {
+                        if (data.success == true) 
+                        {                                                    
+                            hapusdatapopupanalisapi();
+                            document.getElementById('close-button-pi').click();
+                            reloadTablePi();
+                        } 
+                    }
+                });
             }
         }
 
@@ -1033,10 +1086,10 @@
             $('#mesin_filling_id option').prop('selected', function() {
                 return this.defaultSelected;
             })
-            $('#overlap').val('');
-            $('#ls_sa_proportion').val('');
-            $('#volume_kanan').val('');
-            $('#volume_kiri').val('');
+            $('#hasil_overlap').val('');
+            $('#hasil_ls_sa_proportion').val('');
+            $('#hasil_volume_kanan').val('');
+            $('#hasil_volume_kiri').val('');
         }
         $('.timepickernya').datetimepicker({
             format: 'HH:mm:ss',
