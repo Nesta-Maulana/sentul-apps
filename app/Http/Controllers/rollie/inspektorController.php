@@ -17,9 +17,11 @@ use App\Models\masterApps\brand;
 use App\Models\productionData\wo;
 use App\Models\productionData\rpdFillingHead;
 use App\Models\productionData\rpdFillingDetailPi;
+use App\Models\productionData\cppDetail;
 use App\Models\productionData\rpdFillingDetailAtEvent;
 use App\Models\productionData\kodeSampelPi;
 use App\Models\masterApps\mesinFilling;
+use App\Models\productionData\palet;
 use App\Models\productionData\ppqfg;
 use DB;
 use Session;
@@ -341,6 +343,74 @@ class inspektorController extends resourceController
                 }
                 else
                 {
+                    
+                    $ambil_wo       = wo::find($wo_id);
+                    $ambil_mesin    = mesinFilling::find($mesin_filling_id);
+                    $ppq            = ppqfg::all();
+                    $ppqakhir       = $ppq->last();
+                    if ($ppqakhir !== null) 
+                    {      
+                      $pecah      = explode('/', $ppqakhir->no_ppq);
+                    }
+                    else
+                    {
+                      $pecah = null;
+                    }
+                    if($pecah == null)
+                    {
+                      $x   = 1;
+                    }
+                    else
+                    {
+                      $x   = $pecah['0']+1;
+                    }
+                    $jumlahdata     = count($ambilsemua);
+                    $idsebelum      = $idaktif-1;
+
+                    while ($idsebelum >= 0) 
+                    {
+                        $ceksebelumnya = $ambilsemua[$idsebelum-1];
+                        if ($ceksebelumnya->status_akhir == 'OK') 
+                        {
+                            $oksebelum  = $ceksebelumnya;
+                            break;
+                        }
+                        else
+                        {
+                            $idsebelum = $idsebelum-1;
+                        }
+                    }
+                    $jam_filling_mulai      = $oksebelum->tanggal_filling.' '.$oksebelum->jam_filling;
+                    $jam_filling_akhir      = $ambilsemua[$idaktif]->tanggal_filling.' '.$ambilsemua[$idaktif]->jam_filling;
+                    $cppdetail              = cppDetail::where('wo_id',$ambilsemua[$idaktif]->wo_id)->where('mesin_filling_id',$ambilsemua[$idaktif]->mesin_filling_id)->first();
+                    // $palet                  = palet::where('cpp_detail_id',$cppdetail->id)->get();
+                    $paletmulai             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_mulai."' BETWEEN `start` AND `end`");
+                    foreach ($paletmulai as $key => $value) 
+                    {
+                        if ($value->cpp_detail_id === $cppdetail->id) 
+                        {
+                            $palet_mulai = $value;
+                        }
+                    }
+
+                    $paletakhir             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_akhir."' BETWEEN `start` AND `end`");
+                    foreach ($paletakhir as $key => $value) 
+                    {
+                        if ($value->cpp_detail_id === $cppdetail->id) 
+                        {
+                            $palet_akhir = $value;
+                        }
+                    }
+                    
+                    $ambilpalet             =   DB::connection('mysql4')->select("SELECT * FROM palet where SUBSTR(`palet`,2,2) BETWEEN SUBSTR('".$palet_mulai->palet."',2,2) AND SUBSTR('".$palet_akhir->palet."',2,2)");
+                    $paletfix               = array();
+                    foreach ($ambilpalet as $key => $paletnya) 
+                    {
+                        if ($paletnya->) {
+                            # code...
+                        }
+                    }
+                    $data = array('nama_produk' => $nama_produk_analisa_pi, 'tanggal_produksi'=> $ambil_wo->production_realisation_date, 'mesin_filling'=> $ambil_mesin->kode_mesin,'mesin_filling_id' => resourceController::enkripsi($ambil_mesin->id),'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$x,'kode_oracle'=>$ambil_wo->produk->kode_oracle);
                     $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
                                         'airgap'                => $airgap,
                                         'ts_accurate_kanan'     => $ts_accurate_kanan,
@@ -365,33 +435,6 @@ class inspektorController extends resourceController
                                         'status_akhir'          => $status_akhir,
                                         'user_id_inputer'       => $user_id_inputer,
                                         ]);
-                    $ambil_wo       = wo::find($wo_id);
-                    $ambil_mesin    = mesinFilling::find($mesin_filling_id);
-                    $ppq            = ppqfg::all();
-                    $ppqakhir       = $ppq->last();
-                    if ($ppqakhir !== null) 
-                    {      
-                      $pecah      = explode('/', $ppqakhir->no_ppq);
-                    }
-                    else
-                    {
-                      $pecah = null;
-                    }
-                    if($pecah == null)
-                    {
-                      $x   = 1;
-                    }
-                    else
-                    {
-                      $x   = $pecah['0']+1;
-                    }
-                    $jumlahdata     = count($ambilsemua);
-                    for ($i = $idaktif; $i >= 1 ; $i--) 
-                    { 
-                    
-                    }
-                    dd($idaktif);
-                    $data = array('nama_produk' => $nama_produk_analisa_pi, 'tanggal_produksi'=> $ambil_wo->production_realisation_date, 'mesin_filling'=> $ambil_mesin->kode_mesin,'mesin_filling_id' => resourceController::enkripsi($ambil_mesin->id),'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$x,'kode_oracle'=>$ambil_wo->produk->kode_oracle);
                     if ($updatedata) 
                     {
                         return view('rollie.inspektor.ppg-fq',['data'=>$data]);

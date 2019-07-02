@@ -317,8 +317,7 @@
                     });
                 return false;
             }
-            console.log(hasil_ts_accurate_kanan);
-            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK'  && (ls_sa_proportion !== '10:90' || ls_sa_proportion !== '90:10' || ls_sa_proportion !== '80:20' ||ls_sa_proportion !== '70:30') && (volume_kanan >= 198 || volume_kanan <= 202) && (volume_kiri >= 198 || volume_kiri <= 202) && (overlap >= 3.5 || overlap <= 4.5))
+            if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK'  && (ls_sa_proportion !== '10:90' &&  ls_sa_proportion !== '90:10' &&  ls_sa_proportion !== '80:20' && ls_sa_proportion !== '70:30') && (volume_kanan <= 202 && volume_kanan >= 198) && (volume_kiri <= 202 && volume_kiri >= 198) && (overlap <= 4.5 && overlap >= 3.5))
             {
                 Swal.fire({
                     title: 'Apa benar hasil semua pengecekan OK?',
