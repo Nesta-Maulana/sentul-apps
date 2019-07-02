@@ -406,10 +406,12 @@ class inspektorController extends resourceController
                     $paletfix               = array();
                     foreach ($ambilpalet as $key => $paletnya) 
                     {
-                        if ($paletnya->) {
-                            # code...
+                        if ($paletnya->cpp_detail_id === $cppdetail->id) 
+                        {
+                            array_push($paletfix,$paletnya);
                         }
                     }
+                    dd($paletfix);
                     $data = array('nama_produk' => $nama_produk_analisa_pi, 'tanggal_produksi'=> $ambil_wo->production_realisation_date, 'mesin_filling'=> $ambil_mesin->kode_mesin,'mesin_filling_id' => resourceController::enkripsi($ambil_mesin->id),'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$x,'kode_oracle'=>$ambil_wo->produk->kode_oracle);
                     $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
                                         'airgap'                => $airgap,
@@ -634,5 +636,51 @@ class inspektorController extends resourceController
             break;
         }
 
+    }
+    public function tambahWo($jenis_penambahan)
+    {
+        $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
+        if (count($rpdfillingaktif)>1) 
+        {
+            return ['success'=>false,'message'=>'2 RPD Filling Dengan Mesin Berbeda Sudah Aktif . Harap Selesaikan Proses Filling Terlebih Dahulu'];
+        }
+        else
+        {
+            switch ($jenis_penambahan) 
+            {
+                case '1':
+                    //ini untuk penambahan WO beda mesin
+                    if ($rpdfillingaktif[0]->wo[0]->produk->mesinFillingHead->nama_kelompok == 'Brix') 
+                    {
+                        $wowip      = wo::where('status','2')->whereNotIn('produk_id',['30','31','32'])->get();
+                        $arraywo    = array();
+                        foreach ($wowip as $key => $value) 
+                        {
+                            if ($value->produk->mesinFillingHead->nama_kelompok !== 'Brix') 
+                            {
+                                array_push($arraywo, $value);
+                            }
+                        }
+                        return ['success'=>false,'data'=>$arraywo];
+                    }
+                    else if ($rpdfillingaktif[0]->wo[0]->produk->mesinFillingHead->nama_kelompok == 'Prisma') 
+                    {
+                        $wowip      = wo::where('status','2')->whereNotIn('produk_id',['30','31','32'])->get();
+                        $arraywo    = array();
+                        foreach ($wowip as $key => $value) 
+                        {
+                            if ($value->produk->mesinFillingHead->nama_kelompok !== 'Brix') 
+                            {
+                                array_push($arraywo, $value);
+                            }
+                        }
+                        return ['success'=>false,'data'=>$arraywo];   
+                    }
+                break;
+                case '2':
+                
+                break;
+            }
+        }
     }
 }

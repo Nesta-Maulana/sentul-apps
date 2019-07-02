@@ -78,13 +78,13 @@
                 </div>
                 <div class="form-group has-warning row">
                     <label for="beratkanansampel" class="col-lg-4">Berat Kanan</label>
-                    <input type="text" name="beratkanansampel" id="beratkanansampel" class="form-control col-lg-7" maxlength="6" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
+                    <input type="number" name="beratkanansampel" id="beratkanansampel" class="form-control col-lg-7" maxlength="6" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
                     <small class="form-text text-muted" style="margin-left: 216px">Pemisah desimal menggunakan titik. <br> Desimal 2 angka dibelakang koma contoh : 222.30</small>
                 </div>
 
                 <div class="form-group has-warning row">
                     <label for="beratkirisampel" class="col-lg-4">Berat Kiri</label>
-                    <input type="text" name="beratkirisampel" id="beratkirisampel" class="form-control col-lg-7" maxlength="6" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
+                    <input type="number" name="beratkirisampel" id="beratkirisampel" class="form-control col-lg-7" maxlength="6" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
                     <small class="form-text text-muted" style="margin-left: 216px">Pemisah desimal menggunakan titik. <br> Desimal 2 angka dibelakang koma contoh : 222.30</small>
                 </div>
                 <div class="form-group has-warning row">

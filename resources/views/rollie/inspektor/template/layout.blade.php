@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container">
+    <div class="page-container sbar_collapsed">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -951,6 +951,29 @@
                     hapusdatapopup();
                     document.getElementById('close-button').click();
                     reloadTablePi();
+                }
+            });
+        }
+        function tambah_wo_batch(jenis_penambahan) 
+        {
+            $.ajax({
+                url     : '/sentul-apps/rollie-inspektor-qc/tambah-wo-batch/'+jenis_penambahan+'/'+,
+                method  : 'GET',
+                dataType: 'JSON',
+                success : function(data) 
+                {
+                    if (data.success == true) 
+                    {
+
+                    } 
+                    else 
+                    {
+                        swal({
+                            title   : "Proses Gagal",
+                            text    : data.message,
+                            type    : "error",
+                        });
+                    }
                 }
             });
         }
