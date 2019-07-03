@@ -58,6 +58,7 @@ var tablenya =  $('#table-draft-analisa').dataTable({
     bInfo:false,
     bLengthChange:false,
     pageLength:10,
+    paging:false,
     aaSorting: [[2,'asc'],[3,'asc']] 
 });
 var tablecppb =  $('#table-cppb').dataTable({

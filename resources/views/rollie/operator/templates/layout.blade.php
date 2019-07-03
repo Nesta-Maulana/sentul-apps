@@ -479,6 +479,56 @@
             });   
         }
 
+        function ubahjamend(idpalet) 
+        {
+            $.ajax({
+                url     : '/sentul-apps/dekripsi/'+idpalet,
+                method  : 'GET',
+                dataType: 'JSON',
+                success : function(palet_id) 
+                {
+                    // return false;
+                    palet_id        = palet_id.toString();
+                    var end       = $('#end_palet_'+palet_id).val();
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url         : '{{ route('ubah-jam-end-cpp') }}',
+                        method      : 'POST',
+                        dataType    : 'JSON',
+                        data        : 
+                        {
+                            jam_end   : end,
+                            id_palet    : idpalet
+                        },
+                        success      : function(data) 
+                        {
+                            if (data.success == true) 
+                            {
+                                swal({
+                                    title: "Proses Berhasil",
+                                    text: data.message,
+                                    type: "success",
+                                });
+                                refreshcpp();
+                            } 
+                            else 
+                            {
+                                swal({
+                                    title: "Proses Gagal",
+                                    text: data.message,
+                                    type: "error",
+                                });
+                                refreshcpp();
+
+                            }
+                        }
+                    });
+                }
+            });   
+        }
+
     </script>  
 
                     

@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container sbar_collapsed">
+    <div class="page-container">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -458,7 +458,7 @@
             document.getElementById('mesin_filling_at_event').value         = mesin_filling;
             document.getElementById('mesin_filling_at_event_id').value      = mesin_filling_id;
             document.getElementById('rpd_filling_detail_id_at_event').value = rpd_filling_detail_id;
-            document.getElementById('wo_id_sampel_event').value             = wo_id_sampel;
+            document.getElementById('wo_id_sampel_event').value             = wo_id;
             document.getElementById('jam_filling_at_event').value           = jam_filling;
             document.getElementById('tanggal_filling_at_event').value       = tanggal_filling;
             if (kode_sampel.includes(' (Event)')) 
@@ -516,7 +516,7 @@
                     var hasil_overlap_event                         =  $('#hasil_overlap_event').val();
                     var hasil_package_length_event                  =  $('#hasil_package_length_event').val();
                     var hasil_paper_splice_sealing_quality_event    =  $('#hasil_paper_splice_sealing_quality_event').val();
-                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 || hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event >= 16 || hasil_overlap_event <= 17) && (hasil_package_length_event >= 118.5 && hasil_package_length_event <= 119.5))
+                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 && hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event <= 17 && hasil_overlap_event >= 16) && (hasil_package_length_event >= 118.5 && hasil_package_length_event <= 119.5))
                     {
                         document.getElementById('hasil_status_akhir_event').value = 'OK';
                     }
@@ -632,6 +632,7 @@
                             {
                                 paketan                             : paketan,
                                 ls_sa_sealing_quality_event         : hasil_ls_sa_sealing_quality_event,
+                                status_akhir                        : hasil_status_akhir_event,
                                 ls_sa_proportion_event              : hasil_ls_sa_proportion_event,
                                 sideway_sealing_alignment_event     : hasil_sideway_sealing_alignment_event,
                                 overlap_event                       : hasil_overlap_event,
@@ -640,7 +641,6 @@
                                 no_md                               : hasil_nomor_md_event,
                                 no_kk                               : hasil_no_kk_event,
                                 keterangan                          : hasil_keterangan_event,
-                                status_akhir                        : hasil_status_akhir_event
                             },
                             success      : function(data) 
                             {
@@ -675,6 +675,7 @@
                             {
                                 paketan                             : paketan,
                                 ls_sa_sealing_quality_event         : hasil_ls_sa_sealing_quality_event,
+                                status_akhir                        : hasil_status_akhir_event,
                                 ls_sa_proportion_event              : hasil_ls_sa_proportion_event,
                                 sideway_sealing_alignment_event     : hasil_sideway_sealing_alignment_event,
                                 overlap_event                       : hasil_overlap_event,
@@ -682,7 +683,7 @@
                                 paper_splice_sealing_quality_event  : hasil_paper_splice_sealing_quality_event,
                                 no_md                               : hasil_nomor_md_event,
                                 no_kk                               : hasil_no_kk_event,
-                                keterangan                          : hasil_keterangan_event
+                                keterangan                          : hasil_keterangan_event,
                             },
                             success      : function(data) 
                             {
@@ -719,6 +720,8 @@
                                 ls_sa_sealing_quality_event         : hasil_ls_sa_sealing_quality_event,
                                 ls_sa_proportion_event              : hasil_ls_sa_proportion_event,
                                 ls_sa_sealing_quality_strip         : hasil_ls_sa_sealing_quality_strip_event,
+                                
+                                status_akhir                        : hasil_status_akhir_event,
                                 keterangan                          : hasil_keterangan_event
                             },
                             success      : function(data) 
@@ -754,6 +757,7 @@
                                 paketan                             : paketan,
                                 ls_sa_sealing_quality_event         : hasil_ls_sa_sealing_quality_event,
                                 ls_sa_proportion_event              : hasil_ls_sa_proportion_event,
+                                status_akhir                        : hasil_status_akhir_event,
                                 ls_sa_sealing_quality_strip         : hasil_ls_sa_sealing_quality_strip_event,
                                 keterangan                          : hasil_keterangan_event
                             },
@@ -791,6 +795,7 @@
                                 ls_sa_sealing_quality_event         : hasil_ls_sa_sealing_quality_event,
                                 ls_sa_proportion_event              : hasil_ls_sa_proportion_event,
                                 ls_short_stop_quality               : hasil_ls_short_stop_quality_event,
+                                status_akhir                        : hasil_status_akhir_event,
                                 sa_short_stop_qulity                : hasil_sa_short_stop_quality_event,
                                 keterangan                          : hasil_keterangan_event
                             },
@@ -828,6 +833,7 @@
                                 ls_sa_sealing_quality_event         : hasil_ls_sa_sealing_quality_event,
                                 ls_sa_proportion_event              : hasil_ls_sa_proportion_event,
                                 ls_short_stop_quality               : hasil_ls_short_stop_quality_event,
+                                status_akhir                        : hasil_status_akhir_event,
                                 sa_short_stop_qulity                : hasil_sa_short_stop_quality_event,
                                 keterangan                          : hasil_keterangan_event
                             },
@@ -1162,6 +1168,42 @@
         function pindahrpd(id_rpd_head) 
         {
             window.location.href = "/sentul-apps/rollie-inspektor-qc/rpd-filling/"+id_rpd_head.value; 
+        }
+        function close_rpd(id_rpd_head) 
+        {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url         : '{{ route('closerpd-inspektor-qc') }}',
+                method      : 'POST',
+                dataType    : 'JSON',
+                data        : 
+                {
+                    rpd_filling_head_id : id_rpd_head
+                },
+                success      : function(data) 
+                {
+                    if (data.success == true) 
+                    {
+                        swal({
+                            title: "Proses Berhasil",
+                            text: data.message,
+                            type: "success",
+                        });   
+                        window.location.href='{{ route("dashboard-inspektor-qc") }}';
+                    } 
+                    else 
+                    {
+                        swal({
+                            title: "Proses Gagal",
+                            text: data.message,
+                            type: "error",
+                        });
+                        return false;
+                    }
+                }
+            });
         }
     </script>  
 

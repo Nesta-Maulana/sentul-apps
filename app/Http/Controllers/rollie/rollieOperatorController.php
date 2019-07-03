@@ -365,9 +365,81 @@ class rollieOperatorController extends resourceController
             
             }
         }
-        
+    
+    }
+    public function ubahJamAkhir(Request $request)
+    {
+        $palet_id       = resourceController::dekripsi($request->id_palet);
+        $jam_end        = $request->jam_end;
+        // ini mengambil palet nya 
+        $palet          = palet::find($palet_id);
+        // ini ambil semua palet dan cek palet sebelumnya
+        $ambilsemua     = palet::where('cpp_detail_id',$palet->cpp_detail_id)->get();
+        foreach ($ambilsemua as $key => $value) 
+        {
+            if ($value->id === $palet->id) 
+            {
+                $keyaktif   = $key;
+            }
+        }
+        if ($keyaktif !== 0) 
+        {
+            if (!is_null($ambilsemua[$keyaktif+1])) 
+            {
+                if ($jam_end <= $palet->start) 
+                {
+                    // ini jika jam start > dari jam end
+                    return ['success'=>false,'message'=>'Jam Akhir palet tidak boleh lebih awal dari jam awal palet . Harap menyesuaikan jam awal palet terlebih dahulu'];
+                }   
+                else if ($jam_end >= $ambilsemua[$keyaktif+1]->end)
+                {
+                    return ['success'=>false,'message'=>'Jam Akhir palet tidak boleh lebih dari jam akhir palet sesudah. Harap menyesuaikan jam palet lebih akhir terlebih dahulu'];
+                }
+                else if($jam_end > $palet->start && $jam_end < $ambilsemua[$keyaktif+1]->end)
+                {
+                    $paletsesudah           = $ambilsemua[$keyaktif+1];
+                    $paletsesudah->start    = $jam_end;
+                    $paletsesudah->save();
 
+                    $palet->end           = $jam_end;
+                    $palet->save();
+                    return ['success'=>true,'message'=>'Jam Akhir Berhasil Diubah'];
 
+                }
+            }
+            else
+            {
+                if ($jam_end <= $palet->start) 
+                {
+                    // ini jika jam start > dari jam end
+                    return ['success'=>false,'message'=>'Jam Akhir palet tidak boleh lebih awal dari jam awal palet . Harap menyesuaikan jam awal palet terlebih dahulu'];
+                }
+                else if($jam_end > $palet->start)
+                {
+                    $palet->end           = $jam_end;
+                    $palet->save();
+                    return ['success'=>true,'message'=>'Jam Akhir Berhasil Diubah'];
 
+                }
+            }
+        }
+        else
+        {
+            if (!is_null($palet->start)) 
+            {
+                if ($jam_end <= $palet->start) 
+                {
+                    // ini jika jam start > dari jam end
+                    return ['success'=>false,'message'=>'Jam akhir palet tidak boleh kurang dari jam awal palet . Harap menyesuaikan jam awal palet terlebih dahulu'];
+                }   
+                else if($jam_end > $palet->start)
+                {
+                    $palet->end           = $jam_end;
+                    $palet->save();
+                    return ['success'=>true,'message'=>'Jam Awal Berhasil Diubah'];
+                }
+            }
+        }
+    
     }
 }

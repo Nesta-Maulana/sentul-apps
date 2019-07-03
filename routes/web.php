@@ -256,6 +256,7 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/rollie-operator-produksi/cpp/tambah-cpp', 'rollie\rollieOperatorController@tambahCpp')->name('tambah-cpp');
 
     Route::post('/rollie-operator-produksi/cpp/ubah-jam-awal-cpp', 'rollie\rollieOperatorController@ubahJamAwal')->name('ubah-jam-awal-cpp');
+    Route::post('/rollie-operator-produksi/cpp/ubah-jam-akhir-cpp', 'rollie\rollieOperatorController@ubahJamAkhir')->name('ubah-jam-end-cpp');
     
     Route::get('/rollie-operator-produksi/cpp/refresh-table-cpp/{cpp_head_id}', 'rollie\rollieOperatorController@refreshTableCpp')->name('refresh-table-cpp');
     Route::get('/rollie-operator-produksi/cpp/{id}', 'rollie\rollieOperatorController@cpp')->name('operator-cpp');
@@ -271,7 +272,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/rollie-inspektor-qc/rpd-filling/analisa-sampel-event', 'rollie\inspektorController@analisaSampelEvent')->name('analisaevent-inspektor-qc');
     Route::post('/rollie-inspektor-qc/rpd-filling/tambah-wo-batch', 'rollie\inspektorController@tambahWoBatch')->name('tambah-wo-rpd');
     Route::get('/rollie-inspektor-qc/rpd-filling/input-ppq-fg/{rpd_filling_head_id}/{wo_id}/{mesin_filling_id}/{rpd_filling_detail_id}', 'rollie\inspektorController@viewPPQ')->name('ppq-fg-form-rpd');
-    Route::post('/rollie-inspektor-qc/ppq-fg/input-ppq-fg', 'rollie\inspektorController@tambahppq')->name('ppq-fg-input');
+    Route::post('/rollie-inspektor-qc/ppq-fg/input-ppq-fg', 'rollie\inspektorController@tambahPpq')->name('ppq-fg-input');
+    Route::post('/rollie-inspektor-qc/close-rpd', 'rollie\inspektorController@closeRpd')->name('closerpd-inspektor-qc');
 
     
 

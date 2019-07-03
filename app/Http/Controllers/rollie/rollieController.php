@@ -90,17 +90,92 @@ class rollieController extends resourceController
         }
         return view('rollie.analisa_kimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
     }
-    public function analisaKimiaAnalisa(){
-        return view('rollie.analisa_kimia_analisa');
+    public function analisaKimiaAnalisa()
+    {
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.analisa_kimia_analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        // return view('');
     }
-    public function rkj(){
-        return view('rollie.rkj');
+    public function rkj()
+    {
+
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.rkj',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        // return view('rollie.rkj');
     }
     public function rkjInput(){
-        return view('rollie.rkjInput');
+
+        
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.rkjInput',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        // return view('');
     }
-    public function packageIntegrity(){
-        return view('rollie.packageIntegrity');
+    public function packageIntegrity()
+    {
+
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.packageIntegrity',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        // return view('rollie.packageIntegrity');
     }
     public function ppq(){
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
@@ -122,15 +197,88 @@ class rollieController extends resourceController
         return view('rollie.ppq',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
     }
     public function analisaMikro(){
-        return view('rollie.analisaMikro');
+
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.analisaMikro',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        // return view('rollie.analisaMikro');
     }
     public function sortasi(){
-        return view('rollie.sortasi');
+
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.sortasi',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        // return view('');
     }
     public function rpr(){
-        return view('rollie.rpr');
+
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.rpr',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        // return view('');
     }
-    public function report(){
-        return view('rollie.report');
+    public function report()
+    {
+        
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.report',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        // return view('');
     }
 }

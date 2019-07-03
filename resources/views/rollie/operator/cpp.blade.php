@@ -87,8 +87,7 @@
                                     </td>
                                     <td>
                                         <div class="row">
-                                            <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control" value="{{ $detail_palet->end }}">
+                                            <div class="col-lg-12">                            <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
                                             </div>
                                         </div>
                                     </td>
@@ -136,7 +135,7 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control" value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
+                                                <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
                                             </div>
                                         </div>
                                     </td>

@@ -55,7 +55,7 @@
 
                 <div class="form-group has-warning row">
                     <label for="hasil_overlap" class="col-lg-3">Overlap (3.5-4.5)</label>
-                    <input type="text" name="hasil_overlap" id="hasil_overlap" class="form-control col-lg-8" maxlength="3" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
+                    <input type="number" name="hasil_overlap" id="hasil_overlap" class="form-control col-lg-8" maxlength="3" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
                     <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 3.5 Batas Max. 4.5</small>
                 </div>
                 <div class="form-group row">
@@ -66,12 +66,12 @@
 
                 <div class="form-group row">
                     <label for="hasil_volume_kanan" class="col-lg-3">Hasil Volume Kanan</label>
-                    <input type="text" class="col-lg-8 form-control" name="hasil_volume_kanan" id="hasil_volume_kanan" maxlength="3" placeholder="Ex : 200" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    <input type="number" class="col-lg-8 form-control" name="hasil_volume_kanan" id="hasil_volume_kanan" maxlength="3" placeholder="Ex : 200" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                     <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 198 Batas Max. 200</small>
                 </div>
                 <div class="form-group row">
                     <label for="hasil_volume_kiri" class="col-lg-3">Hasil Volume Kiri</label>
-                    <input type="text" class="col-lg-8 form-control" name="hasil_volume_kiri" id="hasil_volume_kiri" maxlength="3" placeholder="Ex : 200" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    <input type="number" class="col-lg-8 form-control" name="hasil_volume_kiri" id="hasil_volume_kiri" maxlength="3" placeholder="Ex : 200" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                     <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 198 Batas Max. 200</small>
                 </div>
                 <div class="form-group row">

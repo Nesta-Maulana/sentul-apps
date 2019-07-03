@@ -334,13 +334,13 @@ class inspektorController extends resourceController
                                         ]);
                     if ($updatedata) 
                     {
-                        return ['success'=>true,'message'=>'1'];
+                        return ['success'=>true,'ppq'=>false,'message'=>'1'];
                     }       
                 }
                 else
                 {
                    
-                    /*$updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
+                    $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
                                         'airgap'                => $airgap,
                                         'ts_accurate_kanan'     => $ts_accurate_kanan,
                                         'ts_accurate_kiri'      => $ts_accurate_kiri,
@@ -363,16 +363,11 @@ class inspektorController extends resourceController
                                         'volume_kiri'           => $volume_kiri,
                                         'status_akhir'          => $status_akhir,
                                         'user_id_inputer'       => $user_id_inputer,
-                                        ]);*/
+                                        ]);
                     // $html       = view('rollie.inspektor.ppq-fg',['data'=>$data])->render();
                     // return response()->json(['success'=>true,'ppq'=>true,'html'=>$html]);
                     $data       = ['rpd_filling_head_id'=>resourceController::enkripsi($rpd_filling_head_id),'wo_id'=>resourceController::enkripsi($wo_id),'mesin_filling_id'=>resourceController::enkripsi($mesin_filling_id),'id_aktif'=>resourceController::enkripsi($rpd_filling_detail_id_pi)];
                     return ['success'=>true,'ppq'=>true,'isidatanya'=>$data];
-
-                    if ($updatedata) 
-                    {
-                        return ['success'=>true,'ppq'=>true,'isidatanya'=>$data];
-                    }
                 }
             }
             else if ($idaktif == '0') 
@@ -773,7 +768,7 @@ class inspektorController extends resourceController
                 array_push($paletfix,$paletnya);
             }
         }
-        $isi    = array('nama_produk' => $ambil_wo->produk->nama_produk, 'tanggal_produksi'=> $ambil_wo->production_realisation_date, 'mesin_filling'=> $ambil_mesin->kode_mesin,'mesin_filling_id' => resourceController::enkripsi($ambil_mesin->id),'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$nomor_ppq,'kode_oracle'=>$ambil_wo->produk->kode_oracle, 'palet'=>$paletfix,'jam_filling_mulai'=>$jam_filling_mulai,'jam_filling_akhir'=>$jam_filling_akhir,'nomor_wo'=>$ambil_wo->nomor_wo,'jumlah_pack'=>$jumlahpack);
+        $isi    = array('nama_produk' => $ambil_wo->produk->nama_produk, 'tanggal_produksi'=> $ambil_wo->production_realisation_date, 'mesin_filling'=> $ambil_mesin->kode_mesin,'mesin_filling_id' => resourceController::enkripsi($ambil_mesin->id),'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$nomor_ppq,'kode_oracle'=>$ambil_wo->produk->kode_oracle, 'palet'=>$paletfix,'jam_filling_mulai'=>$jam_filling_mulai,'jam_filling_akhir'=>$jam_filling_akhir,'nomor_wo'=>$ambil_wo->nomor_wo,'jumlah_pack'=>$jumlahpack,'jenis_ppq'=>'3','rpd_filling_head_id'=>resourceController::enkripsi($rpd_filling_head_id));
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
         
@@ -791,5 +786,87 @@ class inspektorController extends resourceController
             $i++;
         }
         return view('rollie.inspektor.ppq-fg',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'data'=>$isi]);
+    }
+    public function tambahPpq(Request $request)
+    {
+        $nomor_ppq          = $request->nomor_ppq;
+        $tanggal_ppq        = $request->tanggal_ppq;
+        $jam_awal_ppq       = $request->jam_filling_mulai;
+        $jam_akhir_ppq      = $request->jam_filling_akhir;
+        $jumlah_pack        = $request->jumlah_pack;
+        $alasan             = $request->alasan_ppq;
+        $jenis_ppq          = $request->jenis_ppq;
+        $kategori_ppq       = $request->kategori_ppq_value;
+        $user_inputer_id    = $request->user_inputer_id;
+        $status_akhir       = '0';
+        
+        $nomor_lot_id       = $request->nomor_lot_id;
+        $pecah              = explode(',',$nomor_lot_id);
+        if (count($pecah) > 1) 
+        {
+            $nomor_lot_id   = rtrim($nomor_lot_id,',');
+        }
+        $ppq                = ppqfg::create([
+                                'nomor_ppq'     => $nomor_ppq,
+                                'tanggal_ppq'   => $tanggal_ppq,
+                                'jam_awal_ppq'  => $jam_awal_ppq,
+                                'jam_akhir_ppq' => $jam_akhir_ppq,
+                                'jumlah_pack'   => $jumlah_pack,
+                                'alasan'        => $alasan,
+                                'jenis_ppq'     => $jenis_ppq,
+                                'kategori_ppq'  => $kategori_ppq,
+                                'user_inputer_id'=> $user_inputer_id,
+                                'status_akhir'  => $status_akhir
+                            ]);
+        if ($ppq) 
+        {
+            foreach ($pecah as $key => $idpalet) 
+            {
+                $palet          = palet::find($idpalet);
+                if (!is_null($palet)) 
+                {
+                    $palet->ppq_id  = $ppq->id;
+                    $palet->save();
+                }
+            }
+            return redirect()->route('rpdfilling-inspektor-qc',['id'=>$request->rpd_filling_head_id]);
+        }
+    }
+
+    public function closeRpd(Request $request)
+    {
+        $rpd_filling_head_id    = resourceController::dekripsi($request->rpd_filling_head_id);
+        $rpd_filling_head       = rpdFillingHead::find($rpd_filling_head_id);
+        foreach ($rpd_filling_head->detail_pi as $key => $value)
+        {
+            if (is_null($value->status_akhir)) 
+            {
+                dd($value);
+                return ['success'=>false,'message'=>'Masih ada sampel yang belum dianalisa. Harap selesaikan semua draft analisa lalu close rpd filling.'];
+            }
+        }   
+        foreach ($rpd_filling_head->detail_at_event as $key => $value) 
+        {
+            if (is_null($value->status_akhir)) 
+            {
+
+                // dd($value);
+                return ['success'=>false,'message'=>'Masih ada sampel yang belum dianalisa. Harap selesaikan semua draft analisa lalu close rpd filling.'];
+            }
+        }
+
+        $rpd_filling_head->status   = '2';
+        $rpd_filling_head->save();
+        foreach ($rpd_filling_head->wo as $key => $value) 
+        {
+            $wonya         = wo::find($value->id);
+            if ($wonya->cppHead->status == '1') 
+            {
+                $wonya->status = '4';
+                $wonya->save();
+            }
+        }
+        return ['success'=>true,'message'=>'RPD Filling sudah terselesaikan.'];
+
     }
 }

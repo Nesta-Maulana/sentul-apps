@@ -82,18 +82,18 @@
 
                         <div class="form-group has-warning row">
                             <label for="hasil_sideway_sealing_alignment" class="col-lg-3" >Sideway sealing alignment (0-0.5)</label>
-                            <input type="text" name="hasil_sideway_sealing_alignment" id="hasil_sideway_sealing_alignment_event" class="form-control col-lg-8" maxlength="3" onkeyup="status_akhir_at_event($('#sampel_at_event_kode').val())" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
+                            <input type="number" name="hasil_sideway_sealing_alignment" id="hasil_sideway_sealing_alignment_event" class="form-control col-lg-8" maxlength="3" onkeyup="status_akhir_at_event($('#sampel_at_event_kode').val())" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
                             <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 0 batas Max. 0.5</small>
                         </div>
                         <div class="form-group has-warning row">
                             <label for="hasil_overlap" class="col-lg-3">Overlap (16-17)</label>
-                            <input type="text" name="hasil_overlap" id="hasil_overlap_event" class="form-control col-lg-8" onkeyup="status_akhir_at_event($('#sampel_at_event_kode').val())" maxlength="5" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
+                            <input type="number" name="hasil_overlap" id="hasil_overlap_event" class="form-control col-lg-8" onkeyup="status_akhir_at_event($('#sampel_at_event_kode').val())" maxlength="5" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
                             <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 16 Batas Max. 17</small>
                         </div>
 
                         <div class="form-group has-warning row">
                             <label for="hasil_package_length" class="col-lg-3">Package Length</label>
-                            <input type="text" name="hasil_package_length" id="hasil_package_length_event" class="form-control col-lg-8" onkeyup="status_akhir_at_event($('#sampel_at_event_kode').val())" maxlength="6" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
+                            <input type="number" name="hasil_package_length" id="hasil_package_length_event" class="form-control col-lg-8" onkeyup="status_akhir_at_event($('#sampel_at_event_kode').val())" maxlength="6" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
                             <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 118.5 Batas Max. 119.5</small>
                         </div>
 
