@@ -377,9 +377,16 @@
                             {
                                 if (data.success == true) 
                                 {                                                    
-                                    hapusdatapopupanalisapi();
-                                    document.getElementById('close-button-pi').click();
-                                    reloadTablePi();
+                                    if (data.ppq == false) 
+                                    {
+                                        hapusdatapopupanalisapi();
+                                        document.getElementById('close-button-pi').click();
+                                        reloadTablePi();
+                                    } 
+                                    else 
+                                    {
+                                        window.location.href = "/sentul-apps/rollie-inspektor-qc/rpd-filling/input-ppq-fg/"+data.isidatanya.rpd_filling_head_id+'/'+data.isidatanya.wo_id+'/'+data.isidatanya.mesin_filling_id+'/'+data.isidatanya.id_aktif;
+                                    }
                                 } 
                             }
                         });
@@ -954,16 +961,24 @@
                 }
             });
         }
-        function tambah_wo_batch(jenis_penambahan) 
+        function tambah_wo_batch(jenis_penambahan,rpd_filling_head_id) 
         {
             $.ajax({
-                url     : '/sentul-apps/rollie-inspektor-qc/tambah-wo-batch/'+jenis_penambahan+'/'+,
+                url     : '/sentul-apps/rollie-inspektor-qc/tambah-wo-batch/'+jenis_penambahan+'/'+rpd_filling_head_id,
                 method  : 'GET',
                 dataType: 'JSON',
                 success : function(data) 
                 {
                     if (data.success == true) 
                     {
+                        console.log(data);
+                        var optionwo = '<option disabled selected>-- PILIH Nomor Wo --</option>', $combowo = $('#nomor_wo_tambah');
+                        for (index = 0; index < data.data.length; index++) 
+                        {
+                            optionwo+='<option  value="'+data.data[index].nomor_wo+'" >'+data.data[index].nomor_wo+' - '+data.data[index].produk.nama_produk+'</option>';   
+
+                        }
+                        $combowo.html(optionwo).on('change');
 
                     } 
                     else 
@@ -973,9 +988,26 @@
                             text    : data.message,
                             type    : "error",
                         });
+                        document.getElementById('close-button-tambah-wo').click();
+
                     }
                 }
             });
+        }
+        function close_popup_tambah_batch() 
+        {
+            $('#jenis_tambah option').prop('selected', function() {
+                return this.defaultSelected;
+            });
+            // $('#nomor_wo_tambah option').prop('selected', function() {
+            //     return this.defaultSelected;
+            // });
+            var select = document.getElementById("nomor_wo_tambah");
+            var length = select.options.length;
+            for (i = 0; i < length; i++) {
+              select.options[i] = null;
+            }
+
         }
         //reload otomatis table
         function reloadTablePi() 
@@ -1126,6 +1158,11 @@
         $('.datetimepickernya').datetimepicker({
             format: 'YYYY-mm-DD HH:mm:ss'
         }); 
+
+        function pindahrpd(id_rpd_head) 
+        {
+            window.location.href = "/sentul-apps/rollie-inspektor-qc/rpd-filling/"+id_rpd_head.value; 
+        }
     </script>  
 
                     

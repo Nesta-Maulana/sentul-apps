@@ -9,9 +9,12 @@
 	    	<div class="col-lg-3">
 	    		<H3>RPD Filling</H3> 
 	    	</div>
-	    	<select name="produkrpd" id="produkrpd" class="col-lg-6 pull-left select form-control" style="padding: 0 .8rem">
-	            <option value="idnya1">Produk Satu</option>
-	            <option value="idnya2">Produk Dua</option>	
+	    	<select name="produkrpd" id="produkrpd" class="col-lg-6 pull-left select form-control" style="padding: 0 .8rem" onchange="pindahrpd(this)">
+            @foreach ($rpd_filling_aktif as $rpdaktif)
+	            <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($rpdaktif->id) }}" @if ($rpdaktif->id == $rpd_filling->id)
+	            	selected
+	            @endif>{{ $rpdaktif->wo[0]->produk->nama_produk }}</option>        	
+            @endforeach	
 			</select>	
     	@else
 			<div class="col-lg-12">
@@ -39,8 +42,7 @@
 						<textarea class="form-control col-md-7" readonly><?php
 							foreach ($rpd_filling->wo as $key => $value) 
 							{
-								$tampil = $value->nomor_wo." => ".$value->production_realisation_date.",";
-								$tampil = rtrim($tampil,",");
+								$tampil = $value->nomor_wo." => ".$value->production_realisation_date."&#13;&#10;";
 								echo $tampil;
 							}
 						?></textarea>

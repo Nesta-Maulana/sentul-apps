@@ -335,85 +335,12 @@ class inspektorController extends resourceController
                     if ($updatedata) 
                     {
                         return ['success'=>true,'message'=>'1'];
-                    }
-                    else
-                    {
-                        return ['success'=>true,'message'=>'0'];
                     }       
                 }
                 else
                 {
-                    
-                    $ambil_wo       = wo::find($wo_id);
-                    $ambil_mesin    = mesinFilling::find($mesin_filling_id);
-                    $ppq            = ppqfg::all();
-                    $ppqakhir       = $ppq->last();
-                    if ($ppqakhir !== null) 
-                    {      
-                      $pecah      = explode('/', $ppqakhir->no_ppq);
-                    }
-                    else
-                    {
-                      $pecah = null;
-                    }
-                    if($pecah == null)
-                    {
-                      $x   = 1;
-                    }
-                    else
-                    {
-                      $x   = $pecah['0']+1;
-                    }
-                    $jumlahdata     = count($ambilsemua);
-                    $idsebelum      = $idaktif-1;
-
-                    while ($idsebelum >= 0) 
-                    {
-                        $ceksebelumnya = $ambilsemua[$idsebelum-1];
-                        if ($ceksebelumnya->status_akhir == 'OK') 
-                        {
-                            $oksebelum  = $ceksebelumnya;
-                            break;
-                        }
-                        else
-                        {
-                            $idsebelum = $idsebelum-1;
-                        }
-                    }
-                    $jam_filling_mulai      = $oksebelum->tanggal_filling.' '.$oksebelum->jam_filling;
-                    $jam_filling_akhir      = $ambilsemua[$idaktif]->tanggal_filling.' '.$ambilsemua[$idaktif]->jam_filling;
-                    $cppdetail              = cppDetail::where('wo_id',$ambilsemua[$idaktif]->wo_id)->where('mesin_filling_id',$ambilsemua[$idaktif]->mesin_filling_id)->first();
-                    // $palet                  = palet::where('cpp_detail_id',$cppdetail->id)->get();
-                    $paletmulai             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_mulai."' BETWEEN `start` AND `end`");
-                    foreach ($paletmulai as $key => $value) 
-                    {
-                        if ($value->cpp_detail_id === $cppdetail->id) 
-                        {
-                            $palet_mulai = $value;
-                        }
-                    }
-
-                    $paletakhir             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_akhir."' BETWEEN `start` AND `end`");
-                    foreach ($paletakhir as $key => $value) 
-                    {
-                        if ($value->cpp_detail_id === $cppdetail->id) 
-                        {
-                            $palet_akhir = $value;
-                        }
-                    }
-                    
-                    $ambilpalet             =   DB::connection('mysql4')->select("SELECT * FROM palet where SUBSTR(`palet`,2,2) BETWEEN SUBSTR('".$palet_mulai->palet."',2,2) AND SUBSTR('".$palet_akhir->palet."',2,2)");
-                    $paletfix               = array();
-                    foreach ($ambilpalet as $key => $paletnya) 
-                    {
-                        if ($paletnya->cpp_detail_id === $cppdetail->id) 
-                        {
-                            array_push($paletfix,$paletnya);
-                        }
-                    }
-                    dd($paletfix);
-                    $data = array('nama_produk' => $nama_produk_analisa_pi, 'tanggal_produksi'=> $ambil_wo->production_realisation_date, 'mesin_filling'=> $ambil_mesin->kode_mesin,'mesin_filling_id' => resourceController::enkripsi($ambil_mesin->id),'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$x,'kode_oracle'=>$ambil_wo->produk->kode_oracle);
-                    $updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
+                   
+                    /*$updatedata     = rpdFillingDetailPi::where('id',$rpd_filling_detail_id_pi)->update([
                                         'airgap'                => $airgap,
                                         'ts_accurate_kanan'     => $ts_accurate_kanan,
                                         'ts_accurate_kiri'      => $ts_accurate_kiri,
@@ -436,15 +363,16 @@ class inspektorController extends resourceController
                                         'volume_kiri'           => $volume_kiri,
                                         'status_akhir'          => $status_akhir,
                                         'user_id_inputer'       => $user_id_inputer,
-                                        ]);
+                                        ]);*/
+                    // $html       = view('rollie.inspektor.ppq-fg',['data'=>$data])->render();
+                    // return response()->json(['success'=>true,'ppq'=>true,'html'=>$html]);
+                    $data       = ['rpd_filling_head_id'=>resourceController::enkripsi($rpd_filling_head_id),'wo_id'=>resourceController::enkripsi($wo_id),'mesin_filling_id'=>resourceController::enkripsi($mesin_filling_id),'id_aktif'=>resourceController::enkripsi($rpd_filling_detail_id_pi)];
+                    return ['success'=>true,'ppq'=>true,'isidatanya'=>$data];
+
                     if ($updatedata) 
                     {
-                        return view('rollie.inspektor.ppg-fq',['data'=>$data]);
+                        return ['success'=>true,'ppq'=>true,'isidatanya'=>$data];
                     }
-                    else
-                    {
-                        return ['success'=>true,'message'=>'0'];
-                    }       
                 }
             }
             else if ($idaktif == '0') 
@@ -476,11 +404,7 @@ class inspektorController extends resourceController
                                     ]);
                 if ($updatedata) 
                 {
-                    return ['success'=>true,'message'=>'1'];
-                }
-                else
-                {
-                    return ['success'=>true,'message'=>'0'];
+                    return ['success'=>true,'ppq'=>false,'message'=>'1'];
                 }
             }
         }
@@ -512,12 +436,8 @@ class inspektorController extends resourceController
                                         ]);
                     if ($updatedata) 
                     {
-                        return ['success'=>true,'message'=>'1'];
+                        return ['success'=>true, 'ppq'=>false,'message'=>'1'];
                     }
-                    else
-                    {
-                        return ['success'=>true,'message'=>'0'];
-                    }       
         }
 
     }
@@ -637,18 +557,19 @@ class inspektorController extends resourceController
         }
 
     }
-    public function tambahWo($jenis_penambahan)
+    public function tambahWo($jenis_penambahan,$rpd_filling_head_id)
     {
+        $rpd_filling_id     = resourceController::dekripsi($rpd_filling_head_id);
         $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
-        if (count($rpdfillingaktif)>1) 
+        switch ($jenis_penambahan) 
         {
-            return ['success'=>false,'message'=>'2 RPD Filling Dengan Mesin Berbeda Sudah Aktif . Harap Selesaikan Proses Filling Terlebih Dahulu'];
-        }
-        else
-        {
-            switch ($jenis_penambahan) 
-            {
-                case '1':
+            case '1':
+                if (count($rpdfillingaktif)>1) 
+                {
+                    return ['success'=>false,'message'=>'2 RPD Filling Dengan Mesin Berbeda Sudah Aktif . Harap Selesaikan Proses Filling Terlebih Dahulu'];
+                }
+                else
+                {
                     //ini untuk penambahan WO beda mesin
                     if ($rpdfillingaktif[0]->wo[0]->produk->mesinFillingHead->nama_kelompok == 'Brix') 
                     {
@@ -658,10 +579,13 @@ class inspektorController extends resourceController
                         {
                             if ($value->produk->mesinFillingHead->nama_kelompok !== 'Brix') 
                             {
+                                foreach ($value->produk as $produk)
+                                {
+                                }
                                 array_push($arraywo, $value);
                             }
                         }
-                        return ['success'=>false,'data'=>$arraywo];
+                        return ['success'=>true,'data'=>$arraywo];
                     }
                     else if ($rpdfillingaktif[0]->wo[0]->produk->mesinFillingHead->nama_kelompok == 'Prisma') 
                     {
@@ -674,13 +598,198 @@ class inspektorController extends resourceController
                                 array_push($arraywo, $value);
                             }
                         }
-                        return ['success'=>false,'data'=>$arraywo];   
+                        return ['success'=>true,'data'=>$arraywo];   
                     }
-                break;
-                case '2':
+                }
+            break;
+            //jika tambah produk
+            case '2':
+                $rpd_filling_head   = rpdFillingHead::find($rpd_filling_id);
+                $produk_id          = $rpd_filling_head->wo[0]->produk_id;
+                $rangesebelum       = date('Y-m-d', strtotime($rpd_filling_head->wo[0]->production_realisation_date. ' - 2 days'));
+                $rangesesudah       = date('Y-m-d', strtotime($rpd_filling_head->wo[0]->production_realisation_date. ' + 2 days'));
+                $ambilproduk        = DB::connection('mysql4')->select("SELECT * FROM wo where `production_realisation_date` BETWEEN '".$rangesebelum."' AND '".$rangesesudah."'");
+                $arraywo    = array();
+                if ($ambilproduk !== []) 
+                {
                 
-                break;
+                    foreach ($ambilproduk as $key => $value) 
+                    {
+                        if ($value->produk_id === $produk_id && $value->status == 2) 
+                        {
+                            $produk        = produk::find($value->produk_id);
+                            $value->produk = $produk;
+                            array_push($arraywo, $value);
+                        }
+                    }
+                }
+
+                if (count($arraywo) == 0) 
+                {
+                    return ['success'=>false,'message'=>'Tidak Ada Batch Lain Yang Siap Filling'];
+                }
+                else
+                {
+                    return ['success'=>true,'data'=>$arraywo];
+                }
+                
+            break;
+        }
+    }
+    public function tambahWoBatch(Request $request)
+    {
+        $startfilling               = date('Y-m-d');
+        if ($request->jenis_tambah == '1') 
+        {
+            $datawo                     = wo::where('nomor_wo',$request->nomor_wo_tambah)->first();
+            $datawo                     = wo::find($datawo->id);
+            $produk_id                  = $datawo->produk_id;
+            $datawo->status             = '3';
+            //insert ke head table rpd filling
+            $insertrpdfillinghead   = rpdFillingHead::create([
+                                    'produk_id'     =>$produk_id,
+                                    'start_filling' =>$startfilling,
+                                    'status'        =>'1'    
+                                    ]);
+            $datawo->rpd_filling_head_id= $insertrpdfillinghead->id;
+            $datawo->tanggal_fillpack   = $startfilling;
+            $datawo->save();
+            //update data wo ubah status dan ubah tanggal fillpack sesuai dengan start filling hari ini. 
+            $return                     = app('App\Http\Controllers\resourceController')->enkripsi($insertrpdfillinghead->id);
+            return redirect()->route('rpdfilling-inspektor-qc',['id'=>$return]);
+        }
+        else if ($request->jenis_tambah == '2') 
+        {
+            // dd($request->all());
+            $rpd_filling_head_id        = resourceController::dekripsi($request->rpd_filling_head_idnya);
+            $datawo                     = wo::where('nomor_wo',$request->nomor_wo_tambah)->first();
+            $datawo                     = wo::find($datawo->id);
+            $datawo->rpd_filling_head_id= $rpd_filling_head_id;
+            $datawo->tanggal_fillpack   = $startfilling;
+            $datawo->status             = '3';
+            $datawo->save();
+            return redirect()->route('rpdfilling-inspektor-qc',['id'=>$request->rpd_filling_head_idnya]);
+        }
+    }
+    public function viewPPQ($rpd_filling_head_id,$wo_id,$mesin_filling_id,$rpd_filling_detail_id_pi)
+    {   
+        $rpd_filling_head_id        = resourceController::dekripsi($rpd_filling_head_id);
+        $wo_id                      = resourceController::dekripsi($wo_id);
+        $mesin_filling_id           = resourceController::dekripsi($mesin_filling_id);
+        $rpd_filling_detail_id_pi   = resourceController::dekripsi($rpd_filling_detail_id_pi);
+
+        $ambilsemua     = rpdFillingDetailPi::where('rpd_filling_head_id',$rpd_filling_head_id)->where('wo_id',$wo_id)->where('mesin_filling_id',$mesin_filling_id)->get();
+        foreach ($ambilsemua as $key => $rpdfillingdetail) 
+        {
+            if ($rpdfillingdetail->id == $rpd_filling_detail_id_pi) 
+            {
+                $idaktif = $key;
             }
         }
+        $ambil_wo       = wo::find($wo_id);
+        $ambil_mesin    = mesinFilling::find($mesin_filling_id);
+        $ppq            = ppqfg::all();
+        $ppqakhir       = $ppq->last();
+        if ($ppqakhir !== null) 
+        {      
+          $pecah      = explode('/', $ppqakhir->no_ppq);
+        }
+        else
+        {
+          $pecah = null;
+        }
+        if($pecah == null)
+        {
+          $x   = 1;
+        }
+        else
+        {
+          $x   = $pecah['0']+1;
+        }
+
+        if (strlen($x) == 1) 
+        {
+            $x = '00'.$x;
+        }
+        else if(strlen($x) == 2)
+        {
+            $x = '0'.$x;
+        }
+        else if (strlen($x) == 3) 
+        {
+            $x = $x;
+        }
+
+        $bulan          = ['01'=>'I','02'=>'II','03'=>'III','04'=>'IV','05'=>'V','06'=>'VI','07'=>'VII','08'=>'VIII','09'=>'IX','10'=>'X','11'=>'XI','12'=>'XII'];
+        $nomor_ppq      = $x.'/PPQ/'.$bulan[date('m')].'/'.date('Y');
+        $jumlahdata     = count($ambilsemua);
+        $idsebelum      = $idaktif-1;
+
+        while ($idsebelum >= 0) 
+        {
+            $ceksebelumnya = $ambilsemua[$idsebelum-1];
+            if ($ceksebelumnya->status_akhir == 'OK') 
+            {
+                $oksebelum  = $ceksebelumnya;
+                break;
+            }
+            else
+            {
+                $idsebelum = $idsebelum-1;
+            }
+        }
+        $jam_filling_mulai      = $oksebelum->tanggal_filling.' '.$oksebelum->jam_filling;
+        $jam_filling_akhir      = $ambilsemua[$idaktif]->tanggal_filling.' '.$ambilsemua[$idaktif]->jam_filling;
+        $cppdetail              = cppDetail::where('wo_id',$ambilsemua[$idaktif]->wo_id)->where('mesin_filling_id',$ambilsemua[$idaktif]->mesin_filling_id)->first();
+        // $palet                  = palet::where('cpp_detail_id',$cppdetail->id)->get();
+        $paletmulai             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_mulai."' BETWEEN `start` AND `end`");
+        foreach ($paletmulai as $key => $value) 
+        {
+            if ($value->cpp_detail_id === $cppdetail->id) 
+            {
+                $palet_mulai = $value;
+            }
+        }
+
+        $paletakhir             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_akhir."' BETWEEN `start` AND `end`");
+        foreach ($paletakhir as $key => $value) 
+        {
+            if ($value->cpp_detail_id === $cppdetail->id) 
+            {
+                $palet_akhir = $value;
+            }
+        }
+        
+        $ambilpalet             =   DB::connection('mysql4')->select("SELECT * FROM palet where SUBSTR(`palet`,2,2) BETWEEN SUBSTR('".$palet_mulai->palet."',2,2) AND SUBSTR('".$palet_akhir->palet."',2,2)");
+        $paletfix               = array();
+        $jumlahpack             = 0;
+        foreach ($ambilpalet as $key => $paletnya) 
+        {
+            if ($paletnya->cpp_detail_id === $cppdetail->id) 
+            {
+                $cppdetailnya   = cppDetail::find($paletnya->cpp_detail_id);
+                $paletnya->cpp_detail       = $cppdetailnya;
+                $jumlahpack+=$paletnya->jumlah_pack;
+                array_push($paletfix,$paletnya);
+            }
+        }
+        $isi    = array('nama_produk' => $ambil_wo->produk->nama_produk, 'tanggal_produksi'=> $ambil_wo->production_realisation_date, 'mesin_filling'=> $ambil_mesin->kode_mesin,'mesin_filling_id' => resourceController::enkripsi($ambil_mesin->id),'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$nomor_ppq,'kode_oracle'=>$ambil_wo->produk->kode_oracle, 'palet'=>$paletfix,'jam_filling_mulai'=>$jam_filling_mulai,'jam_filling_akhir'=>$jam_filling_akhir,'nomor_wo'=>$ambil_wo->nomor_wo,'jumlah_pack'=>$jumlahpack);
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        return view('rollie.inspektor.ppq-fg',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'data'=>$isi]);
     }
 }

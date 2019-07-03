@@ -11,4 +11,9 @@ class palet extends Model
 	protected $table 		= 'palet';
 	protected $guarded 		= ['id'];
 
+	public function cppDetail()
+	{
+		return $this->belongsTo('App\Models\productionData\cppDetail', 'cpp_detail_id','id');
+	}
+
 }

@@ -14,16 +14,22 @@
                     <select name="nomorwosampel" id="nomorwosampel" class="select col-lg-7 form-control" style="padding: 0 .8rem;" required="true">
                         <option selected disabled value="">Pilih Wo / Batch</option>
                     @php
-                        $batchke = 1;    
+                        $batchke        = 1;
+                        $hitungbatch    = count($rpd_filling->wo);  
                     @endphp
                     @if (count($rpd_filling->detail_pi) == 0)
-                        @foreach ($rpd_filling->wo as $detail_pi)
-                            <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->id) }}">Batch Ke {{ $batchke }} - {{ $detail_pi->nomor_wo }}</option>
+                        @foreach ($rpd_filling->wo as $detail_pi)  
+                            <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->id) }}" @if ($detail_pi->id === $rpd_filling->wo[$hitungbatch-1]->id)
+                                selected
+                            @endif>Batch Ke {{ $batchke }} - {{ $detail_pi->nomor_wo }}</option>
                         @php $batchke++; @endphp 
                         @endforeach                        
                     @else
                         @foreach ($rpd_filling->detail_pi->unique('wo_id')->sortBy('jam_filling') as $detail_pi)
-                            <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->wo->id) }}">Batch Ke {{ $batchke }} - {{ $detail_pi->wo->nomor_wo }}</option>
+                            <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->wo->id) }}" @if ($detail_pi->wo->id === $rpd_filling->wo[$hitungbatch-1]->id)
+                                selected 
+                            @endif>
+                            Batch Ke {{ $batchke }} - {{ $detail_pi->wo->nomor_wo }}</option>
                         @php $batchke++; @endphp 
                         @endforeach
                     @endif
@@ -32,10 +38,17 @@
                 <div class="form-group row">
                     <label for="mesinfillingsampel" class="col-lg-4">Mesin Filling</label>
                     <select name="mesinfillingsampel" id="mesinfillingsampel" class="select col-lg-7 form-control" style="padding: 0 .8rem;" required="true">
-                        <option selected disabled value="">Pilih Mesin Filling</option>
-                        @foreach ($rpd_filling->wo[0]->produk->mesinFillingHead->mesinFillingDetail as $mesinFillingDetail)
-                            <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($mesinFillingDetail->mesinfilling->id) }}">{{ $mesinFillingDetail->mesinfilling->kode_mesin }}</option>
-                        @endforeach
+                        @if ($rpd_filling->wo[0]->produk->mesinFillingHead->nama_kelompok == 'Prisma')
+                            @foreach ($rpd_filling->wo[0]->produk->mesinFillingHead->mesinFillingDetail as $mesinFillingDetail)
+                                <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($mesinFillingDetail->mesinfilling->id) }}" selected>{{ $mesinFillingDetail->mesinfilling->kode_mesin }}</option>
+                            @endforeach
+                        @else
+                            <option selected disabled value="">Pilih Mesin Filling</option>
+                            @foreach ($rpd_filling->wo[0]->produk->mesinFillingHead->mesinFillingDetail as $mesinFillingDetail)
+                                <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($mesinFillingDetail->mesinfilling->id) }}">{{ $mesinFillingDetail->mesinfilling->kode_mesin }}</option>
+                            @endforeach
+                            {{-- false expr --}}
+                        @endif
                     </select>
                 </div>
         

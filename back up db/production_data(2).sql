@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Jul 2019 pada 03.48
+-- Waktu pembuatan: 03 Jul 2019 pada 11.29
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -84,6 +84,14 @@ CREATE TABLE `cpp_detail` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `cpp_detail`
+--
+
+INSERT INTO `cpp_detail` (`id`, `cpp_head_id`, `wo_id`, `mesin_filling_id`, `nolot`, `created_at`, `updated_at`) VALUES
+(1, 1, 7, 1, 'TC0701A', '2019-07-01 03:45:03', '2019-07-01 03:45:03'),
+(2, 1, 7, 2, 'TB0701A', '2019-07-02 04:29:56', '2019-07-02 04:29:56');
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +106,13 @@ CREATE TABLE `cpp_head` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `cpp_head`
+--
+
+INSERT INTO `cpp_head` (`id`, `produk_id`, `tanggal_packing`, `status`, `created_at`, `updated_at`) VALUES
+(1, 13, '2019-07-01', '0', '2019-07-01 03:42:26', '2019-07-01 03:42:26');
 
 -- --------------------------------------------------------
 
@@ -274,9 +289,28 @@ CREATE TABLE `palet` (
   `end` datetime DEFAULT NULL,
   `jumlah_box` int(11) DEFAULT NULL,
   `jumlah_pack` int(11) DEFAULT NULL,
+  `ppq_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `palet`
+--
+
+INSERT INTO `palet` (`id`, `cpp_detail_id`, `palet`, `start`, `end`, `jumlah_box`, `jumlah_pack`, `ppq_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 'P01', '2019-07-02 06:45:03', '2019-07-02 06:51:15', NULL, NULL, NULL, '2019-07-01 03:45:03', '2019-07-02 00:52:35'),
+(2, 1, 'P02', '2019-07-02 06:51:15', '2019-07-02 07:09:24', NULL, NULL, NULL, '2019-07-01 03:51:15', '2019-07-02 00:50:09'),
+(3, 1, 'P03', '2019-07-02 07:09:24', '2019-07-02 07:32:30', 25, 600, NULL, '2019-07-01 04:09:24', '2019-07-03 09:24:51'),
+(4, 1, 'P04', '2019-07-02 07:32:30', '2019-07-02 07:44:53', 25, 600, NULL, '2019-07-01 06:33:50', '2019-07-03 09:24:55'),
+(5, 1, 'P05', '2019-07-02 07:44:53', '2019-07-02 08:27:00', 25, 600, NULL, '2019-07-01 06:33:53', '2019-07-03 09:24:57'),
+(6, 1, 'P06', '2019-07-02 08:27:00', '2019-07-02 09:27:03', 25, 600, NULL, '2019-07-02 04:27:01', '2019-07-03 09:25:00'),
+(7, 1, 'P07', '2019-07-02 09:27:03', '2019-07-02 11:27:32', NULL, NULL, NULL, '2019-07-02 04:27:03', '2019-07-02 04:27:36'),
+(8, 1, 'P08', '2019-07-02 11:27:32', NULL, NULL, NULL, NULL, '2019-07-02 04:27:32', '2019-07-02 04:27:32'),
+(9, 2, 'P01', '2019-07-02 07:09:24', '2019-07-02 07:32:30', NULL, NULL, NULL, '2019-07-02 04:29:56', '2019-07-02 07:56:39'),
+(10, 2, 'P02', '2019-07-02 08:27:00', '2019-07-03 12:59:26', NULL, NULL, NULL, '2019-07-02 04:29:58', '2019-07-03 05:59:37'),
+(11, 2, 'P03', '2019-07-03 12:59:26', '2019-07-03 12:59:30', NULL, NULL, NULL, '2019-07-03 05:59:27', '2019-07-03 05:59:37'),
+(12, 2, 'P04', '2019-07-03 12:59:30', NULL, NULL, NULL, NULL, '2019-07-03 05:59:30', '2019-07-03 05:59:30');
 
 -- --------------------------------------------------------
 
@@ -305,6 +339,28 @@ INSERT INTO `plan` (`id`, `plan`, `company_id`, `alamat`, `status`, `created_at`
 (4, 'PT. Nutrifood Indonesia Head Office', 1, 'jakarta', '1', '2019-04-26 02:17:12', '2019-04-26 02:17:12'),
 (5, 'PT. Heavenly Blush Sentul', 2, 'sentul', '1', '2019-04-26 02:17:12', '2019-04-26 02:17:12'),
 (6, 'PT. Heavenly Nutrition Head Office', 2, 'jakarta', '1', '2019-04-26 02:17:12', '2019-04-26 02:17:12');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `ppq`
+--
+
+CREATE TABLE `ppq` (
+  `id` int(11) NOT NULL,
+  `nomor_ppq` varchar(30) NOT NULL,
+  `tanggal_ppq` date NOT NULL,
+  `jam_awal_ppq` datetime NOT NULL,
+  `jam_akhir_ppq` datetime NOT NULL,
+  `jumlah_pack` int(11) NOT NULL,
+  `alasan` text NOT NULL,
+  `jenis_ppq` enum('0','1','2','3') NOT NULL COMMENT '0 = Kimia , 1 =  Mikro , 2 = Sortasi Gudang , 3 = Package Integrity',
+  `kategori_ppq` enum('0','1','2','3','4','5','6','7') NOT NULL COMMENT '0 = Man , 1 = machine , 2 = method , 3 = material , 4= enviroment , 5 = sortasi , 6 = miss handling , 7 = dan lain lain',
+  `user_inputer_id` int(11) NOT NULL,
+  `status_akhir` enum('0','1','2') NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -440,12 +496,28 @@ CREATE TABLE `rpd_filling_detail_pi` (
   `dye_test` enum('OK','#OK','-') DEFAULT NULL,
   `residu_h2o2` enum('OK','#OK','-') DEFAULT NULL,
   `prod_code_and_no_md` enum('OK','#OK','-') DEFAULT NULL,
-  `correction` enum('OK','#OK','-') DEFAULT NULL,
+  `correction` text,
+  `status_akhir` enum('OK','#OK') DEFAULT NULL,
   `dissolving_test` enum('OK','#OK','-') DEFAULT NULL,
   `user_id_inputer` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `rpd_filling_detail_pi`
+--
+
+INSERT INTO `rpd_filling_detail_pi` (`id`, `rpd_filling_head_id`, `wo_id`, `tanggal_filling`, `jam_filling`, `mesin_filling_id`, `kode_sampel_id`, `berat_kanan`, `berat_kiri`, `overlap`, `ls_sa_proportion`, `volume_kanan`, `volume_kiri`, `airgap`, `ts_accurate_kanan`, `ts_accurate_kiri`, `ls_accurate`, `sa_accurate`, `surface_check`, `pinching`, `strip_folding`, `konduktivity_kanan`, `konduktivity_kiri`, `design_kanan`, `design_kiri`, `dye_test`, `residu_h2o2`, `prod_code_and_no_md`, `correction`, `status_akhir`, `dissolving_test`, `user_id_inputer`, `created_at`, `updated_at`) VALUES
+(1, 1, 7, '2019-07-02', '06:45:03', 1, 1, '229.09', '229.09', '4.30', '40:60', 199, 199, 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', '-', 'OK', NULL, 24, '2019-07-01 02:26:24', '2019-07-01 03:07:02'),
+(2, 1, 7, '2019-07-02', '07:16:56', 2, 1, '220.36', '222.36', '4.30', '40:60', 199, 199, 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', '-', 'OK', NULL, 24, '2019-07-01 03:17:13', '2019-07-01 03:17:27'),
+(3, 1, 7, '2019-07-02', '07:19:07', 1, 2, '220.30', '220.30', '3.50', '40:60', 200, 200, 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', '-', 'OK', NULL, 24, '2019-07-01 03:19:18', '2019-07-01 04:05:30'),
+(4, 1, 7, '2019-07-02', '07:25:06', 1, 4, '228.36', '228.69', '3.50', '40:60', 200, 200, 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', '-', 'OK', NULL, 24, '2019-07-01 04:10:21', '2019-07-01 04:20:09'),
+(5, 1, 7, '2019-07-02', '07:30:05', 1, 4, '220.30', '225.63', '3.50', '40:60', 198, 200, 'OK', '#OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'Block seal', '#OK', NULL, 24, '2019-07-01 04:21:27', '2019-07-01 06:27:37'),
+(6, 1, 7, '2019-07-02', '07:44:37', 1, 10, '228.96', '223.36', '3.50', '40:60', 200, 204, 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'lebih berat', '#OK', NULL, 24, '2019-07-02 00:44:51', '2019-07-02 01:24:30'),
+(8, 1, 7, '2019-07-02', '09:22:30', 1, 13, '222.30', '225.36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, '2019-07-02 02:22:51', '2019-07-02 02:22:51'),
+(11, 2, 6, '2019-07-03', '11:08:59', 3, 1, '220.36', '222.36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, '2019-07-03 04:09:09', '2019-07-03 04:09:09'),
+(12, 1, 7, '2019-07-03', '12:54:46', 1, 2, '200.00', '200.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, '2019-07-03 05:55:41', '2019-07-03 05:55:41');
 
 -- --------------------------------------------------------
 
@@ -462,6 +534,15 @@ CREATE TABLE `rpd_filling_head` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `rpd_filling_head`
+--
+
+INSERT INTO `rpd_filling_head` (`id`, `produk_id`, `start_filling`, `status`, `sensori_awal`, `created_at`, `updated_at`) VALUES
+(1, 13, '2019-07-01', '1', '0', '2019-07-01 02:25:16', '2019-07-01 02:25:16'),
+(2, 4, '2019-07-03', '1', '0', '2019-07-03 00:53:10', '2019-07-03 00:53:10'),
+(3, 11, '2019-07-03', '1', '0', '2019-07-03 06:50:41', '2019-07-03 06:50:41');
 
 -- --------------------------------------------------------
 
@@ -529,13 +610,13 @@ INSERT INTO `wo` (`id`, `nomor_wo`, `produk_id`, `plan_id`, `production_plan_dat
 (3, 'G1907700002', 31, 3, '2019-07-01', NULL, NULL, '2240.11', NULL, '0', NULL, '-', '-', '-', 'FORMULA PHANTOM YOBASE LOW FAT HB YOGURT (3.3)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
 (4, 'G1905702011', 11, 3, '2019-07-01', NULL, NULL, '10084.12', NULL, '0', NULL, '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.5)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
 (5, 'G1906702004', 11, 3, '2019-07-01', NULL, NULL, '10084.12', NULL, '0', NULL, '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.5)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
-(6, 'G1907708003', 4, 3, '2019-07-01', NULL, NULL, '5887.11', NULL, '0', NULL, '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
-(7, 'G1905214026', 13, 3, '2019-07-02', '2019-07-01', NULL, '9956.576', NULL, '2', '2019-07-01 08:37:54', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AK/34.44)', NULL, NULL, NULL, '2019-07-01 01:37:26', '2019-07-01 01:37:54'),
+(6, 'G1907708003', 4, 3, '2019-07-01', '2019-07-03', '2019-07-03', '5887.11', NULL, '3', '2019-07-03 07:53:10', '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', 2, NULL, NULL, '2019-07-01 01:37:26', '2019-07-03 00:53:10'),
+(7, 'G1905214026', 13, 3, '2019-07-02', '2019-07-01', '2019-07-01', '9956.576', NULL, '3', '2019-07-01 10:42:26', '-', '-', '-', 'FORMULA PHANTOM HILO RTD SCHOOL CHOCOLATE 200ML ( AK/34.44)', 1, 1, '2020-07-01', '2019-07-01 01:37:26', '2019-07-01 03:42:26'),
 (8, 'G1906700017', 32, 3, '2019-07-02', NULL, NULL, '2726.722', NULL, '0', NULL, '-', '-', '-', 'FORMULA PHANTOM YOBASE HB YO (1.7)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
-(9, 'G1907702002', 11, 3, '2019-07-02', NULL, NULL, '10084.12', NULL, '0', NULL, '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.5)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
+(9, 'G1907702002', 11, 3, '2019-07-02', '2019-07-03', '2019-07-03', '10084.12', NULL, '3', '2019-07-03 13:50:41', '-', '-', '-', 'FORMULA PHANTOM HB YOGURT STRAWBERRY (4.5)', 3, NULL, NULL, '2019-07-01 01:37:26', '2019-07-03 06:50:41'),
 (10, 'G1906707001', 7, 3, '2019-07-02', NULL, NULL, '4847.937', NULL, '0', NULL, '-', '-', '-', '-', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
 (11, 'G1906707001K', 33, 3, '2019-07-02', NULL, NULL, '4847.937', NULL, '0', NULL, '-', '-', '-', '-', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
-(12, 'G1905708010', 4, 3, '2019-07-02', NULL, NULL, '5887.11', NULL, '6', NULL, '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
+(12, 'G1905708010', 4, 3, '2019-07-02', '2019-07-03', '2019-07-03', '5887.11', NULL, '3', '2019-07-03 11:27:46', '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', 2, NULL, NULL, '2019-07-01 01:37:26', '2019-07-03 04:24:21'),
 (13, 'G1905708011', 4, 3, '2019-07-02', NULL, NULL, '5887.11', NULL, '6', NULL, '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
 (14, 'G1907708006', 4, 3, '2019-07-02', NULL, NULL, '5887.11', NULL, '0', NULL, '-', '-', '-', 'FORMULA PHANTOM HB GREEK CLASSIC 200ML (0.2)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
 (15, 'G1906700016', 31, 3, '2019-07-03', NULL, NULL, '2222.45', NULL, '0', NULL, '-', '-', '-', 'FORMULA PHANTOM YOBASE LOW FAT HB YOGURT (3.3)', NULL, NULL, NULL, '2019-07-01 01:37:26', NULL),
@@ -624,6 +705,12 @@ ALTER TABLE `plan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `ppq`
+--
+ALTER TABLE `ppq`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
@@ -679,13 +766,13 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT untuk tabel `cpp_detail`
 --
 ALTER TABLE `cpp_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `cpp_head`
 --
 ALTER TABLE `cpp_head`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_produk`
@@ -721,13 +808,19 @@ ALTER TABLE `mesin_filling`
 -- AUTO_INCREMENT untuk tabel `palet`
 --
 ALTER TABLE `palet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `plan`
 --
 ALTER TABLE `plan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `ppq`
+--
+ALTER TABLE `ppq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk`
@@ -745,13 +838,13 @@ ALTER TABLE `rpd_filling_detail_at_event`
 -- AUTO_INCREMENT untuk tabel `rpd_filling_detail_pi`
 --
 ALTER TABLE `rpd_filling_detail_pi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `rpd_filling_head`
 --
 ALTER TABLE `rpd_filling_head`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `sub_brand`

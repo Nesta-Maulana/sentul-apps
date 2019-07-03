@@ -264,11 +264,16 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie-inspektor-qc', 'rollie\inspektorController@index')->name('dashboard-inspektor-qc');
     Route::get('/rollie-inspektor-qc/rpd-filling/{rpd_filling_head_id}', 'rollie\inspektorController@rpdfilling')->name('rpdfilling-inspektor-qc');
     Route::get('/rollie-inspektor-qc/refresh-rpd-filling/{rpd_filling_head_id}', 'rollie\inspektorController@refreshTablePi')->name('refresh-rpd-filling');
-    Route::get('/rollie-inspektor-qc/tambah-wo-batch/{jenis_tambah}', 'rollie\inspektorController@tambahWo')->name('tambah-wo-batch');
+    Route::get('/rollie-inspektor-qc/tambah-wo-batch/{jenis_tambah}/{rpd_filling_head_id}', 'rollie\inspektorController@tambahWo')->name('tambah-wo-batch');
     Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@prosesrpdfilling')->name('proses-rpd-filling');
     Route::post('/rollie-inspektor-qc/rpd-filling/tambah-sampel', 'rollie\inspektorController@tambahSampel')->name('tambahsampel-inspektor-qc');
     Route::post('/rollie-inspektor-qc/rpd-filling/analisa-sampel-pi', 'rollie\inspektorController@analisaSampelPi')->name('analisapi-inspektor-qc');
     Route::post('/rollie-inspektor-qc/rpd-filling/analisa-sampel-event', 'rollie\inspektorController@analisaSampelEvent')->name('analisaevent-inspektor-qc');
+    Route::post('/rollie-inspektor-qc/rpd-filling/tambah-wo-batch', 'rollie\inspektorController@tambahWoBatch')->name('tambah-wo-rpd');
+    Route::get('/rollie-inspektor-qc/rpd-filling/input-ppq-fg/{rpd_filling_head_id}/{wo_id}/{mesin_filling_id}/{rpd_filling_detail_id}', 'rollie\inspektorController@viewPPQ')->name('ppq-fg-form-rpd');
+    Route::post('/rollie-inspektor-qc/ppq-fg/input-ppq-fg', 'rollie\inspektorController@tambahppq')->name('ppq-fg-input');
+
+    
 
     // Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@rpdfilling')->name('proses-rpd-filling');
     
