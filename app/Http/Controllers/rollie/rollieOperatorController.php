@@ -93,11 +93,13 @@ class rollieOperatorController extends resourceController
     {    
         $cpp_head_id                = resourceController::dekripsi($cpp_head_id);
         $cpp_head                   = cppHead::find($cpp_head_id);
-        return view('rollie.operator.cpp',['menus' => $this->menu,'username' => $this->username,'cpps'=>$cpp_head]);
+        $cpp_aktif                  = cppHead::where('status','0')->get();
+        return view('rollie.operator.cpp',['menus' => $this->menu,'username' => $this->username,'cpps'=>$cpp_head,'cpp_aktif'=>$cpp_aktif]);
     }
 
     public function tambahCpp(Request $request)
     {
+        // dd($request->all());
         $wo_id                      = resourceController::dekripsi($request->wo_id);
         $wo                         = wo::find($wo_id);
         $mesin_filling_id           = resourceController::dekripsi($request->mesin_filling_id);
@@ -108,6 +110,7 @@ class rollieOperatorController extends resourceController
         {
             $tahunproduksi  =   explode('-', $wo->production_realisation_date);
             $expired_date   =   explode('-', $wo->expired_date);
+            // dd($expired_date);
             $huruf          =   resourceController::tahunKeHuruf($tahunproduksi[0]);
             $length         =   strlen($mesin_filling->kode_mesin);
             $index          =   $length-1;
@@ -384,7 +387,7 @@ class rollieOperatorController extends resourceController
         }
         if ($keyaktif !== 0) 
         {
-            if (!is_null($ambilsemua[$keyaktif+1])) 
+            if ($keyaktif+1 > count($ambilsemua)) 
             {
                 if ($jam_end <= $palet->start) 
                 {
@@ -439,7 +442,169 @@ class rollieOperatorController extends resourceController
                     return ['success'=>true,'message'=>'Jam Awal Berhasil Diubah'];
                 }
             }
+        }   
+    }
+    public function ubahBox(Request $request)
+    {
+        $palet_id       = resourceController::dekripsi($request->id_palet);
+        $jumlah_box        = $request->jumlah_box;
+        // ini mengambil palet nya 
+        $palet                  = palet::find($palet_id);
+        $palet->jumlah_box      = $jumlah_box;
+        $palet->jumlah_pack     = $jumlah_box*24;
+        $palet->save();
+        return ['success'=>true];        
+
+    }
+    public function tambahWo($jenis_penambahan,$cpp_head_id)
+    {
+        $cpp_head_id     = resourceController::dekripsi($cpp_head_id);
+        $cppheadaktif    = cppHead::where('status','0')->get();
+        switch ($jenis_penambahan) 
+        {
+            case '1':
+                if (count($cppheadaktif)>1) 
+                {
+                    return ['success'=>false,'message'=>'2 CPP Dengan Mesin Berbeda Sudah Aktif . Harap Selesaikan Proses Packing Terlebih Dahulu'];
+                }
+                else
+                {
+                    //ini untuk penambahan WO beda mesin
+                    if ($cppheadaktif[0]->wo[0]->produk->mesinFillingHead->nama_kelompok == 'Brix') 
+                    {
+                        $wowip      = wo::where('status','3')->whereNotIn('produk_id',['30','31','32'])->get();
+                        $arraywo    = array();
+                        foreach ($wowip as $key => $value) 
+                        {
+                            if ($value->produk->mesinFillingHead->nama_kelompok !== 'Brix') 
+                            {
+                                foreach ($value->produk as $produk)
+                                {
+                                }
+                                array_push($arraywo, $value);
+                            }
+                        }
+                        return ['success'=>true,'data'=>$arraywo];
+                    }
+                    else if ($cppheadaktif[0]->wo[0]->produk->mesinFillingHead->nama_kelompok == 'Prisma') 
+                    {
+                        $wowip      = wo::where('status','3')->whereNotIn('produk_id',['30','31','32'])->get();
+                        $arraywo    = array();
+                        foreach ($wowip as $key => $value) 
+                        {
+                            if ($value->produk->mesinFillingHead->nama_kelompok !== 'Brix') 
+                            {
+                                array_push($arraywo, $value);
+                            }
+                        }
+                        return ['success'=>true,'data'=>$arraywo];   
+                    }
+                }
+            break;
+            //jika tambah produk
+            case '2':
+                $cpp_head           = cppHead::find($cpp_head_id);
+                $produk_id          = $cpp_head->wo[0]->produk_id;
+                $rangesebelum       = date('Y-m-d', strtotime($cpp_head->wo[0]->production_realisation_date. ' - 2 days'));
+                $rangesesudah       = date('Y-m-d', strtotime($cpp_head->wo[0]->production_realisation_date. ' + 2 days'));
+                $ambilproduk        = DB::connection('mysql4')->select("SELECT * FROM wo where `production_realisation_date` BETWEEN '".$rangesebelum."' AND '".$rangesesudah."'");
+                $arraywo    = array();
+                if ($ambilproduk !== []) 
+                {
+                
+                    foreach ($ambilproduk as $key => $value) 
+                    {
+                        if ($value->produk_id === $produk_id && $value->status == '3' && is_null($value->cpp_head_id)) 
+                        {
+                            $produk        = produk::find($value->produk_id);
+                            $value->produk = $produk;
+                            array_push($arraywo, $value);
+                        }
+                    }
+                }
+
+                if (count($arraywo) == 0) 
+                {
+                    return ['success'=>false,'message'=>'Tidak Ada Batch Lain Yang Siap Filling'];
+                }
+                else
+                {
+                    return ['success'=>true,'data'=>$arraywo];
+                }
+                
+            break;
         }
-    
+    }
+
+    public function tambahWoBatch(Request $request)
+    {
+        $tanggal_packing               = date('Y-m-d');
+        if ($request->jenis_tambah == '1') 
+        {
+            $datawo                     = wo::where('nomor_wo',$request->nomor_wo_tambah)->first();
+            $datawo                     = wo::find($datawo->id);
+            $produk_id                  = $datawo->produk_id;
+            $datawo->status             = '3';
+            //insert ke head table cpp
+            $insertCppHead   = cppHead::create([
+                                    'produk_id'     =>$produk_id,
+                                    'tanggal_packing' =>$tanggal_packing,
+                                    'status'        =>'0'    
+                                    ]);
+
+            $datawo->cpp_head_id        = $insertCppHead->id;
+            $datawo->expired_date       = date('Y-m-d',strtotime("+".$datawo->produk->expired_range." months", strtotime($datawo->production_realisation_date)));
+
+            $datawo->save();
+            //update data wo ubah status dan ubah tanggal fillpack sesuai dengan start filling hari ini. 
+            $return                     = app('App\Http\Controllers\resourceController')->enkripsi($insertCppHead->id);
+            return redirect()->route('operator-cpp',['id'=>$return]);
+        }
+        else if ($request->jenis_tambah == '2') 
+        {
+            $cpp_head_id                = resourceController::dekripsi($request->cpp_head_id_nya);
+            $datawo                     = wo::where('nomor_wo',$request->nomor_wo_f)->first();
+            $datawo                     = wo::find($datawo->id);
+            $datawo->cpp_head_id        = $cpp_head_id;
+            // $datawo->tanggal_fillpack   = $startfilling;
+            $datawo->expired_date       = date('Y-m-d',strtotime("+".$datawo->produk->expired_range." months", strtotime($datawo->production_realisation_date)));
+
+            $datawo->status             = '3';
+            $datawo->save();
+            return redirect()->route('operator-cpp',['id'=>$request->cpp_head_id_nya]);
+
+            // return redirect()->route('operator-cpp',['id'=>]);
+        }
+    }
+    public function closeCpp(Request $request)
+    {
+
+        $cpp_head_id    = resourceController::dekripsi($request->cpp_head_id);
+        $cpp_head       = cppHead::find($cpp_head_id);
+        foreach ($cpp_head->cppDetail as $key => $cpp_detail)
+        {
+            foreach ($cpp_detail->palet as $kunci => $palet) 
+            {
+                if ($palet->start!=='' && !is_null($palet->start) && !empty($palet->start) && $palet->end!=='' && !is_null($palet->end) && !empty($palet->end) && $palet->jumlah_box!=='' && !is_null($palet->jumlah_box) && !empty($palet->jumlah_box)) 
+                {
+                    $cpp_head->status='1';
+                    $cpp_head->save();
+                }
+                else
+                {
+                    return ['false'=>true,'message'=>'Harap lengkapi Start Palet, End Palet dan Jumlah Box terlebih dahulu.'];                    
+                }
+            }
+        }   
+        foreach ($cpp_head->wo as $key => $value) 
+        {
+            $wonya         = wo::find($value->id);
+            if ($wonya->rpdFillingHead->status == '2') 
+            {
+                $wonya->status = '4';
+                $wonya->save();
+            }
+        }
+        return ['success'=>true,'message'=>'CPP Packing sudah terselesaikan.'];
     }
 }

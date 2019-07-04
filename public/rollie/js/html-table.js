@@ -41,6 +41,20 @@ var Tableanalisakimia= {
                     cookie: !1
                 }
             }
+        }
+        )
+    }
+}
+
+var TableRPR= {
+    init:function() {
+        var e;
+        e = $("#table-rpr").mDatatable({
+            data: {
+                saveState: {
+                    cookie: !1
+                }
+            }
             , search: {
                 input: $("#generalSearch")
             }
@@ -67,7 +81,8 @@ var Tableanalisakimia= {
 ;
 jQuery(document).ready(function() {
     DatatableHtmlTableDemo.init();
-    Tableanalisakimia.init()
+    Tableanalisakimia.init();
+    TableRPR.init();
 }
 
 );

@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container ">
+    <div class="page-container sbar_collapsed">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -313,7 +313,7 @@
                                 table_tba_c     +=    '<td>';
                                 table_tba_c     +=    '<div class="row">';
                                 table_tba_c     +=    '<div class="col-lg-12">';                            
-                                table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onblur="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
                                 table_tba_c     +=    '</div>';
                                 table_tba_c     +=    '</div>';
                                 table_tba_c     +=    '</td>';
@@ -323,11 +323,11 @@
                                 table_tba_c     +=    '<div class="col-lg-12">';                            
                                 if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
                                 {
-                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].end+'">';
+                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'" >';
                                 } 
                                 else 
                                 {
-                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control"  value="">';
+                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
                                 }                            
                                 table_tba_c     +=    '</div>';
                                 table_tba_c     +=    '</div>';
@@ -338,11 +338,11 @@
                                 table_tba_c     +=    '<div class="col-lg-12">';                            
                                 if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
                                 {
-                                    table_tba_c     +=    '<input type="text" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                    table_tba_c     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
                                 } 
                                 else 
                                 {
-                                    table_tba_c     +=    '<input type="text" class="form-control"  value="">';
+                                    table_tba_c     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
                                 }
                                 table_tba_c     +=    '</div>';
                                 table_tba_c     +=    '</div>';
@@ -369,7 +369,7 @@
                                 table_a3b     +=    '<td>';
                                 table_a3b     +=    '<div class="row">';
                                 table_a3b     +=    '<div class="col-lg-12">';                            
-                                table_a3b     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onblur="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                table_a3b     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
                                 table_a3b     +=    '</div>';
                                 table_a3b     +=    '</div>';
                                 table_a3b     +=    '</td>';
@@ -380,11 +380,11 @@
                                 if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
                                 {
 
-                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="'+data.cpp_detail[i].palet[a].end+'">';
+                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'">';
                                 } 
                                 else 
                                 {
-                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control"  value="">';
+                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
                                 }                            
                                 table_a3b     +=    '</div>';
                                 table_a3b     +=    '</div>';
@@ -395,11 +395,11 @@
                                 table_a3b     +=    '<div class="col-lg-12">';
                                 if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
                                 {
-                                    table_a3b     +=    '<input type="text" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                    table_a3b     +=    '<input type="text" class="form-control" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
                                 } 
                                 else 
                                 {
-                                    table_a3b     +=    '<input type="text" class="form-control"  value="">';
+                                    table_a3b     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
                                 }
                                 
                                 table_a3b     +=    '</div>';
@@ -411,7 +411,62 @@
                             
                         } 
                         else 
-                        {}    
+                        {
+
+                            // ini untuk mesin TBA C
+                            var table_tpa = '', $table_tpa = $('#detail_tpa');
+                            for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
+                            {
+                                table_tpa     +=   '<tr>';
+                                // lot palet
+                                table_tpa     +=   '<td>';
+                                table_tpa     +=   '<div class="form-inline row">';
+                                table_tpa     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                table_tpa     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
+                                table_tpa     +=   '</div>';
+                                table_tpa     +=   '</td>';
+                                //start
+                                table_tpa     +=    '<td>';
+                                table_tpa     +=    '<div class="row">';
+                                table_tpa     +=    '<div class="col-lg-12">';                            
+                                table_tpa     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                table_tpa     +=    '</div>';
+                                table_tpa     +=    '</div>';
+                                table_tpa     +=    '</td>';
+                                //end
+                                table_tpa     +=    '<td>';
+                                table_tpa     +=    '<div class="row">';
+                                table_tpa     +=    '<div class="col-lg-12">';                            
+                                if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                                {
+                                    table_tpa     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'" >';
+                                } 
+                                else 
+                                {
+                                    table_tpa     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
+                                }                            
+                                table_tpa     +=    '</div>';
+                                table_tpa     +=    '</div>';
+                                table_tpa     +=    '</td>';
+                                // jumlah_box
+                                table_tpa     +=    '<td>';
+                                table_tpa     +=    '<div class="row">';
+                                table_tpa     +=    '<div class="col-lg-12">';                            
+                                if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
+                                {
+                                    table_tpa     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                } 
+                                else 
+                                {
+                                    table_tpa     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
+                                }
+                                table_tpa     +=    '</div>';
+                                table_tpa     +=    '</div>';
+                                table_tpa     +=    '</td>';
+                                table_tpa     +=    '</tr>';
+                                $table_tpa.html(table_tpa).on('change');
+                            }
+                        }    
                         $('.timepickernya').datetimepicker({
                             format: 'HH:mm:ss',
                             locale:'en',
@@ -528,7 +583,147 @@
                 }
             });   
         }
+        function jumlahbox(idpalet) 
+        {
+            $.ajax({
+                url     : '/sentul-apps/dekripsi/'+idpalet,
+                method  : 'GET',
+                dataType: 'JSON',
+                success : function(palet_id) 
+                {
+                    // return false;
+                    palet_id        = palet_id.toString();
+                    var box         = $('#box_palet_'+palet_id).val();
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url         : '{{ route('ubah-box-cpp') }}',
+                        method      : 'POST',
+                        dataType    : 'JSON',
+                        data        : 
+                        {
+                            jumlah_box   : box,
+                            id_palet    : idpalet
+                        },
+                        success      : function(data) 
+                        {
+                            refreshcpp();
 
+                            // if (data.success == true) 
+                            // {
+                            //     swal({
+                            //         title: "Proses Berhasil",
+                            //         text: data.message,
+                            //         type: "success",
+                            //     });
+                                refreshcpp();
+                            // } 
+                            // else 
+                            // {
+                            //     swal({
+                            //         title: "Proses Gagal",
+                            //         text: data.message,
+                            //         type: "error",
+                            //     });
+                            //     refreshcpp();
+
+                            // }
+                        }
+                    });
+                }
+            });   
+        }
+        function tambah_wo_batch(jenis_penambahan,cpp_head_id) 
+        {
+            $.ajax({
+                url     : '/sentul-apps/rollie-operator-produksi/tambah-wo-batch/'+jenis_penambahan+'/'+cpp_head_id,
+                method  : 'GET',
+                dataType: 'JSON',
+                success : function(data) 
+                {
+                    if (data.success == true) 
+                    {
+                        console.log(data);
+                        var optionwo = '<option disabled selected>-- PILIH Nomor Wo --</option>', $combowo = $('#nomor_wo_tambah');
+                        for (index = 0; index < data.data.length; index++) 
+                        {
+                            optionwo+='<option  value="'+data.data[index].nomor_wo+'" >'+data.data[index].nomor_wo+' - '+data.data[index].produk.nama_produk+'</option>';   
+
+                        }
+                        $combowo.html(optionwo).on('change');
+
+                    } 
+                    else 
+                    {
+                        swal({
+                            title   : "Proses Gagal",
+                            text    : data.message,
+                            type    : "error",
+                        });
+                        document.getElementById('close-button-tambah-wo').click();
+
+                    }
+                }
+            });
+        }
+        function close_popup_tambah_batch() 
+        {
+            $('#jenis_tambah option').prop('selected', function() {
+                return this.defaultSelected;
+            });
+            // $('#nomor_wo_tambah option').prop('selected', function() {
+            //     return this.defaultSelected;
+            // });
+            var select = document.getElementById("nomor_wo_tambah");
+            var length = select.options.length;
+            for (i = 0; i < length; i++) {
+              select.options[i] = null;
+            }
+
+        }
+
+        function pindahproduk(id_rpd_head) 
+        {
+            window.location.href = "/sentul-apps/rollie-operator-produksi/cpp/"+id_rpd_head.value; 
+        }
+
+        function close_cpp(id_cpp_head) 
+        {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url         : '{{ route('close-cpp-operator') }}',
+                method      : 'POST',
+                dataType    : 'JSON',
+                data        : 
+                {
+                    cpp_head_id : id_cpp_head
+                },
+                success      : function(data) 
+                {
+                    if (data.success == true) 
+                    {
+                        swal({
+                            title: "Proses Berhasil",
+                            text: data.message,
+                            type: "success",
+                        });   
+                        window.location.href='{{ route("dashboard-inspektor-qc") }}';
+                    } 
+                    else 
+                    {
+                        swal({
+                            title: "Proses Gagal",
+                            text: data.message,
+                            type: "error",
+                        });
+                        return false;
+                    }
+                }
+            });
+        }
     </script>  
 
                     

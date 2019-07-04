@@ -15,5 +15,9 @@ class palet extends Model
 	{
 		return $this->belongsTo('App\Models\productionData\cppDetail', 'cpp_detail_id','id');
 	}
+	public function ppq()
+	{
+		return $this->belongsTo('App\Models\productionData\ppqfg', 'ppq_id','id');
+	}
 
 }

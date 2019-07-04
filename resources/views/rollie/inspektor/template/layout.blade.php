@@ -1191,7 +1191,7 @@
                             text: data.message,
                             type: "success",
                         });   
-                        window.location.href='{{ route("dashboard-inspektor-qc") }}';
+                        window.location.href='{{ route("dashboard-operator-fillpack") }}';
                     } 
                     else 
                     {

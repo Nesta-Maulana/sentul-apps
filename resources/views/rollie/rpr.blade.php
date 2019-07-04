@@ -17,11 +17,9 @@
         <div class="col-lg-12">
             <div class="m-portlet">
                 <div>
-                    <table class="table table-striped">
+                    <table class="m-datatable table table-striped table-bordered" width="100%" id="table-rpr" >
                         <thead class="back-purple text-white">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">No</th>
                                 <th scope="col">Nama Produk</th>
                                 <th scope="col">Tanggal Produksi</th>
                                 <th scope="col">Nomor WO</th>
@@ -42,69 +40,62 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>                             
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                                <td>Mark</td>
-                            </tr>
+                            @php
+                                $i = 1;
+                            @endphp
+                            @foreach ($wos as $wo)
+                                @if (!is_null($wo->cppHead) && $wo->cpphead->status=='1')
+                                    @foreach ($wo->cppHead->cppDetail as $detail)
+                                        @foreach ($detail->palet as $palet)
+                                            <tr>
+                                                <th scope="row">{{ $i }}</th>
+                                                <td>{{ $wo->produk->nama_produk }}</td>
+                                                <td>{{ $wo->production_realisation_date }}</td>
+                                                <td>{{ $wo->nomor_wo }}</td>
+                                                <td>{{ $detail->nolot }}-{{ $palet->palet }}</td>
+                                                <td>{{ date('Y-m-d',strtotime($palet->end)) }}</td>
+                                                <td>{{ $detail->mesinFilling->kode_mesin }}</td>
+                                                <td>{{ $wo->produk->subBrand->sub_brand }}</td>
+                                                <td>Belum Analisa</td>
+                                                <td>Belum Analisa</td>
+                                                <td>Belum Analisa</td>
+                                                <td>-</td>
+                                                <td>
+                                                    @if (is_null($palet->ppq))
+                                                        Tidak Ada PPQ
+                                                    @else
+                                                        @switch($palet->ppq->status_akhir)
+                                                            @case('0')
+                                                                On Progress PPQ
+                                                            @break
+                                                            @case('0')
+                                                                OK
+                                                            @break
+                                                            @case('0')
+                                                                #OK
+                                                            @break
+                                                        @endswitch
+                                                        
+                                                    @endif
+                                                </td>
+                                                <td><?php
+                                                        $tanggalfilling = $palet->end;
+                                                        $sla = "+".$wo->produk->sla." day";
+                                                        $tanggalestimasi = strtotime($sla,strtotime($tanggalfilling));
+                                                        echo date('Y-m-d',$tanggalestimasi);
+                                                 ?></td>
+                                                <td>On Progress</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                            @php
+                                                $i++;
+                                            @endphp
+                                        @endforeach
+                                    @endforeach
+                                @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

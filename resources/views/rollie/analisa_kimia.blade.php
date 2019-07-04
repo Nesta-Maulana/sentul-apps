@@ -20,30 +20,26 @@
     <div class="m-portlet__body" style="background:#f0f0f0;">
         <div class="form-inline row p-3">
         	<label for="nama_produk_filter" class="col-lg-2">Nama Produk </label>
+                
             <select class="col-lg-4 form-control m-bootstrap-select " id="nama_produk_filter">
                 <option value="">
                     All
                 </option>
-                <option value="HiLo Orange">
-                    HiLo Orange
-                </option>
-                <option value="Heavenly Blush Orange">
-                    Heavenly Blush Orange
-                </option>
+                @foreach ($produks as $produk)
+                    <option value="{{ $produk->id }}">{{ $produk->nama_produk }}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-inline row p-3">
         	<label for="tanggal_produksi_filter" class="col-lg-2">Tanggal Produksi</label>
             <select class="col-lg-4 form-control m-bootstrap-select " id="tanggal_produksi_filter">
                 <option value="">
+                @foreach ($wo->unique('production_realisation_date') as $wosnya)
                     All
                 </option>
-                <option value="2019-04-15">
-                    2019-04-15
-                </option>
-                <option value="2019-04-23">
-                    2019-04-23
-                </option>
+                    <option value="{{ $wosnya->id }}">{{ $wosnya->production_realisation_date }}</option>
+                    }
+                @endforeach
             </select>
         </div>
         <div class="row p-3">
@@ -68,38 +64,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            	<tr>
-                            		<td>Heavenly Blush Orange</td>
-                            		<td>2019-04-15</td>
-                            		<td>Belum Analisa</td>
-                            		<td>
-                            			<input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
-									</td>
-                            	</tr>
-                            	<tr>
-                            		<td>HiLo Orange</td>
-                            		<td>2019-04-23</td>
-                            		<td>Belum Analisa</td>
-                            		<td>
-                                        <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
-                            		</td>
-                            	</tr>
-                                <tr>
-                                    <td>HiLo Orange</td>
-                                    <td>2019-04-23</td>
-                                    <td>Belum Analisa</td>
-                                    <td>
-                                        <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>HiLo Orange</td>
-                                    <td>2019-04-23</td>
-                                    <td>Belum Analisa</td>
-                                    <td>
-                                        <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>"1"]) }}'">
-                                    </td>
-                                </tr>
+                                @foreach ($cpps as $cpp)
+                                    @if ($cpp->status === '1')
+                                        <tr>
+                                            <td>{{ $cpp->wo[0]->produk->nama_produk }}</td>
+                                            <td>{{ $cpp->wo[0]->production_realisation_date }}</td>
+                                            <td>
+                                                @if ($cpp->analisa_kimia_id == null)
+                                                    Belum Analisa
+                                                @else
+                                                    Sudah Analisa
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -18,7 +18,17 @@
         <hr>
         <div class="form-group">
             <label for="produk">Nama Produk : </label>
-            <input type="text" value="{{ $cpps->wo[0]->produk->nama_produk }}" name="nama_produk" id="nama_produk" class="form-control" readonly>
+            @if (count($cpp_aktif) > 1)
+                <select name="nama_produk" id="nama_produk" onchange="pindahproduk(this)" class="form-control">
+                    @foreach ($cpp_aktif as $cpp)
+                        <option value="{{  app('App\Http\Controllers\resourceController')->enkripsi($cpp->id) }}" @if ($cpp->wo[0]->produk->id === $cpps->wo[0]->produk->id)
+                            selected
+                        @endif>{{ $cpp->wo[0]->produk->nama_produk }}</option>
+                    @endforeach
+                </select>
+            @else
+                <input type="text" value="{{ $cpps->wo[0]->produk->nama_produk }}" name="nama_produk" id="nama_produk" class="form-control" readonly>
+            @endif
         </div>
     </div>
 
@@ -43,6 +53,17 @@
         </div>
     </div>
 </div>
+
+<div class="row d-flex justify-content-center">
+    <div class="bg-white col-lg-6 rounded mt-2">
+        <hr>
+    </div>
+    <div class="bg-white col-lg-6 rounded mt-2">
+        <hr>
+        <a class="btn btn-info form-control text-white" data-toggle="modal" data-target="#tambah-batch-cpp">Tambah Batch / CPP</a>
+    </div>
+</div>
+
 <div class="form-group row bg-white mt-3 p-3 rounded" id="tambah_palet">
     @foreach ($cpps->wo[0]->produk->mesinFillingHead->mesinFillingDetail as $mesinfilling)
         <div class="col-lg-1"></div>
@@ -92,7 +113,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="text" value="{{ $detail_palet->jumlah_box }}" class="form-control">
+                                        <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
                                     </td>
                                 </tr>
                                 @endforeach
@@ -140,7 +161,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="text" value="{{ $detail_palet->jumlah_box }}" class="form-control">
+                                        <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
                                     </td>
                                    
                                 </tr>
@@ -152,9 +173,65 @@
             </div>
         </div>
     </div>    
+@else
+     <div class="row" id="ini_table_cpp">
+        <div class="col-lg-12">
+            <div class="row bg-white rounded" style="margin-top: -16px">
+                <table class="table" id="table-cppa">
+                    <thead class="bg-dark text-center text-white" >
+                        <tr>
+                            <th>Palet</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Box</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detail_tpa">
+                        @foreach ($cpps->cppDetail as $detail_cpp)
+                            <?php if (strpos($detail_cpp->nolot,'A')) { ?>
+                                @foreach ($detail_cpp->palet as $detail_palet)
+                                <tr>
+                                    <td>
+                                        <div class="form-inline row">
+                                                
+                                            <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
+                                            <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-lg-12">                            
+                                                <input type="text" class="datetimepickernya form-control" id="start_palet_{{ $detail_palet->id }}" onfocusout="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" value="{{ $detail_palet->start }}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-lg-12">                            <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
+                                    </td>
+                                </tr>
+                                @endforeach
+                            <?php } ?>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 @endif
+    <div class="row">
+        <div class="col-lg-10"></div>
+        <button class="btn btn-success col-lg-2" onclick="close_cpp($('#cpp_head_id').val())">Close CPP Head</button>
 
-<button onclick="ubahjamstart('1')">CEK CEK</button>
+    </div>
+@include('rollie.operator.tambahbatch')
+
+{{-- <button onclick="ubahjamstart('1')">CEK CEK</button> --}}
 
 
 <script>

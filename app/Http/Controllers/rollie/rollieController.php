@@ -8,12 +8,16 @@ use App\Models\userAccess\userAccess;
 use App\Models\userAccess\role;
 use App\Models\masterApps\hakAkses;
 use App\Models\masterApps\menu;
+use App\Models\productionData\wo;
 use App\Models\masterApps\aplikasi;
 use App\Models\masterApps\hakAksesAplikasi;
 use App\Models\masterApps\hakAksesUserAplikasi;
 use App\Http\Controllers\Controller;
 use App\Models\masterApps\karyawan;
 use App\Models\masterApps\produk;
+use App\Models\productionData\cppHead;
+use App\Models\productionData\cppDetail;
+use App\Models\productionData\palet;
 use DB;
 use Session;
 
@@ -81,6 +85,7 @@ class rollieController extends resourceController
             $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
             return redirect($aplikasi->link);
         }
+        $listcpp       = cppHead::all();
 
         $i = 0;
         foreach ($hakAksesUserAplikasi as $h) 
@@ -88,9 +93,11 @@ class rollieController extends resourceController
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
         }
-        return view('rollie.analisa_kimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        $produk     = produk::where('status','!=','0')->get();
+        $wo         = wo::all();
+        return view('rollie.analisa_kimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$listcpp,'produks'=>$produk,'wo'=>$wo]);
     }
-    public function analisaKimiaAnalisa()
+    public function analisaKimiaAnalisa($id_cpp_head)
     {
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
@@ -108,7 +115,8 @@ class rollieController extends resourceController
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
         }
-        return view('rollie.analisa_kimia_analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        $cpps       = cppHead::find(resourceController::dekripsi($id_cpp_head));
+        return view('rollie.analisa_kimia_analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$cpps]);
         // return view('');
     }
     public function rkj()
@@ -256,7 +264,8 @@ class rollieController extends resourceController
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
         }
-        return view('rollie.rpr',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        $wos        = wo::where('status','<>','6')->get();        
+        return view('rollie.rpr',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'wos'=>$wos]);
         // return view('');
     }
     public function report()

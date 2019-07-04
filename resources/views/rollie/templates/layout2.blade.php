@@ -194,14 +194,6 @@
 								</button>
 								<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light "  >
 									<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
-										<li class="m-menu__item @yield('active-cpp')"  aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/cpp" class="m-menu__link ">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													CPP
-												</span>
-											</a>
-										</li>
 										<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel @yield('active-analisa-kimia')"  m-menu-submenu-toggle="click" aria-haspopup="true">
 											<a href="/sentul-apps/rollie/analisa-kimia-fg" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
@@ -228,7 +220,7 @@
 												</div>
 											</div>
 										</li>
-										<li class="m-menu__item  m-menu__item--submenu @yield('active-package')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
+										{{-- <li class="m-menu__item  m-menu__item--submenu @yield('active-package')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
 											<a  href="/sentul-apps/rollie/package-integrity" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
@@ -241,7 +233,7 @@
 													
 												</div>
 											</div>
-										</li>
+										</li> --}}
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-ppq')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
 											<a  href="/sentul-apps/rollie/ppq-fg" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
@@ -312,7 +304,7 @@
 												</div>
 											</div>
 										</li>
-										<li class="m-menu__item  m-menu__item--submenu @yield('active-qa')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
+										<!-- <li class="m-menu__item  m-menu__item--submenu @yield('active-qa')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
 											<a  href="/sentul-apps/rollie/qa" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
@@ -324,7 +316,7 @@
 												<div class="m-menu__subnav">
 												</div>
 											</div>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</div>

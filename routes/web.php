@@ -257,9 +257,14 @@ Route::middleware('ceklogin')->group(function ()
 
     Route::post('/rollie-operator-produksi/cpp/ubah-jam-awal-cpp', 'rollie\rollieOperatorController@ubahJamAwal')->name('ubah-jam-awal-cpp');
     Route::post('/rollie-operator-produksi/cpp/ubah-jam-akhir-cpp', 'rollie\rollieOperatorController@ubahJamAkhir')->name('ubah-jam-end-cpp');
+    Route::post('/rollie-operator-produksi/cpp/ubah-box-cpp', 'rollie\rollieOperatorController@ubahBox')->name('ubah-box-cpp');
     
     Route::get('/rollie-operator-produksi/cpp/refresh-table-cpp/{cpp_head_id}', 'rollie\rollieOperatorController@refreshTableCpp')->name('refresh-table-cpp');
     Route::get('/rollie-operator-produksi/cpp/{id}', 'rollie\rollieOperatorController@cpp')->name('operator-cpp');
+    Route::get('/rollie-operator-produksi/tambah-wo-batch/{jenis_tambah}/{cpp_head_id}', 'rollie\rollieOperatorController@tambahWo')->name('tambah-wo-batch-cpp');
+    Route::post('/rollie-operator-produksi/rpd-filling/tambah-wo-batch-cpp', 'rollie\rollieOperatorController@tambahWoBatch')->name('tambah-wo-cpp');
+    Route::post('/rollie-operator-produksi/pindah-produk-cpp', 'rollie\rollieOperatorController@pindahCPP')->name('pindah-produk-cpp');
+    Route::post('/rollie-inspektor-qc/close-cpp', 'rollie\rollieOperatorController@closeCpp')->name('close-cpp-operator');
 
     // Rollie Inspektor
     Route::get('/rollie-inspektor-qc', 'rollie\inspektorController@index')->name('dashboard-inspektor-qc');
@@ -279,7 +284,7 @@ Route::middleware('ceklogin')->group(function ()
 
     // Route::post('/rollie-inspektor-qc/rpd-filling/proses-rpd', 'rollie\inspektorController@rpdfilling')->name('proses-rpd-filling');
     
-    Route::get('/rollie', 'rollie\rollieController@cpp');
+    Route::get('/rollie', 'rollie\rollieController@analisaKimia');
     Route::post('/rollie/cpp/import', 'rollie\CppController@importCpp')->name('import-cpp');
     Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia');
     Route::get('/rollie/analisa-kimia-fg/analisa-produk/{id}', 'rollie\rollieController@analisaKimiaAnalisa')->name('analisa-produk');

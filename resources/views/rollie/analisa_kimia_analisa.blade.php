@@ -21,19 +21,27 @@
                         <div class="p-2">
                             <div class="form-group">
                                 <label for="">Nama Produk</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value="{{ $cpps->wo[0]->produk->nama_produk }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="">Tgl Produksi</label>
-                                <input class="form-control" type="date">
+                                <input class="form-control" type="date" value="{{ $cpps->wo[0]->produk->production_realisation_date }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="">Nomor WO</label>
-                                <textarea class="form-control" name="" id="" rows="3"></textarea>
+                                <textarea class="form-control" name="" id="" rows="3" readonly>@foreach ($cpps->wo as $wo) <?=$wo->nomor_wo."&#13;&#10;"?> @endforeach</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="">Nomor LOT</label>
-                                <textarea class="form-control" name="" id="" rows="3"></textarea>
+                                <textarea class="form-control" name="" id="" rows="3" readonly><?php
+                                foreach ($cpps->cppDetail as $key => $cpp_detail) 
+                                {
+                                    foreach ($cpp_detail->palet as $kunci => $palet) 
+                                    {
+                                        echo $cpp_detail->nolot."-".$palet->palet." , ";
+                                    }
+                                }
+                                ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -41,23 +49,23 @@
                         <div class="p-2">
                             <div class="form-group">
                                 <label for="">Kode Oracle</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text"  value="{{ $cpps->wo[0]->produk->kode_oracle }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="">Spek TS Minimal</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value="{{ $cpps->wo[0]->produk->spek_ts_min }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="">Spek TS Maximal</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value="{{ $cpps->wo[0]->produk->spek_ts_max }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="">Spek TS PH Minimal</label>
-                                <input class="form-control" type="text">
+                                <label for="">Spek  PH Minimal</label>
+                                <input class="form-control" type="text" value="{{ $cpps->wo[0]->produk->spek_ph_min }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="">Spek TS Maximal</label>
-                                <input class="form-control" type="text">
+                                <label for="">Spek  Maximal</label>
+                                <input class="form-control" type="text" value="{{ $cpps->wo[0]->produk->spek_ph_max }}" readonly>
                             </div>
                         </div>
                     </div>

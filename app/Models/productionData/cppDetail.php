@@ -18,4 +18,8 @@ class cppDetail extends Model
 	{
 		return $this->belongsTo('App\Models\productionData\wo', 'wo_id','id');
 	}
+	public function mesinFilling()
+	{
+		return $this->belongsTo('App\Models\masterApps\mesinFilling', 'mesin_filling_id','id');
+	}
 }
