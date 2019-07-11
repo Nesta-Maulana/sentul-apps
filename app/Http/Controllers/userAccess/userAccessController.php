@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\masterApps\aplikasi;
 use App\Models\masterApps\menu;
 use App\Models\masterApps\karyawan;
-use App\Models\masterApps\agama;
+use App\Models\masterApps\departemen;
 use App\Models\masterApps\hakAksesAplikasi;
 use App\Models\masterApps\hakAksesUserAplikasi;
+use Illuminate\Support\Facades\Mail;
 use \Carbon\Carbon;
 use DB;
+use App\Mail\userAccess\VerifyUser;
 use Session;
 
 class userAccessController extends resourceController
@@ -22,16 +24,17 @@ class userAccessController extends resourceController
 
     public function index(){
         // dd(session()->all());
-        $agama = agama::all();
+        $departemen = departemen::all();
         $roles = role::all();
         if(Session::get('login'))   
         {
             return redirect(url()->previous())->with('error', 'Anda harus logout terlebih dahulu');
         }
         
-        return view('userAccess.loginRegister', ['agama' => $agama, 'roles' => $roles]);
+        return view('userAccess.loginRegister', ['departemen' => $departemen, 'roles' => $roles]);
     }
-    public function logout(){
+    public function logout()
+    {
         Session::pull('login', null);
         Session::pull('loginNoAkses', null);
         Session::pull('aplikasi', null);
@@ -41,8 +44,8 @@ class userAccessController extends resourceController
         Session::pull('lihat', null);
         return redirect('/');
     }
-    public function gantiPassword($id){
-        
+    public function gantiPassword($id)
+    {
         if(Session::get('ganti-password') != $id){
             return back()->with('failed', 'Dilarang mengakses menu ini');
         }
@@ -164,41 +167,45 @@ class userAccessController extends resourceController
             return redirect(route('halaman-login'))->with('failed', 'Username yang anda masukkan tidak terdaftar');
         }
     }
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $today = Carbon::today();
         $today = $today->addDay('-30');
         // Cek Username
         $checkUsername = userAccess::where('username', $request->username)->count();
-        if($checkUsername > 0){
+        if($checkUsername > 0)
+        {
             return back()->with('failed', 'Username Sudah Terdaftar');
         }
-        $oldCountUser =  userAccess::count();
-        $oldCountKaryawan = karyawan::count();
-        $password = Hash::make('sentulappuser');
-        $user = userAccess::create([
-                    'rolesId' => $request->role,
-                    'username' => $request->username,
-                    'password' => $password,
-                    'verified' => '0',
-                    'verifiedByAdmin' => '0',
-                    'lastUpdatePassword' => $today, 
-                    'passwordWrong' => '0',
-                    'status' => '0',
-                ]);
-        karyawan::create([
-            'nik' => $request->username,
-            'fullname' => $request->fullname,
-            'jk' => $request->jk,
-            'marital_status' => $request->status,
-            'tempat_lahir' => $request->tempatLahir,
-            'agama_id' => $request->agama,
-            'golongan_darah' => $request->golDarah,
-            'email' => $request->email,
-        ]);
+        
+        $oldCountUser       =   userAccess::count();
+        $oldCountKaryawan   =   karyawan::count();
+        $password           =   Hash::make('sentulappuser');
+        $user               =   userAccess::create([
+                                    'rolesId' => $request->role,
+                                    'username' => $request->username,
+                                    'password' => $password,
+                                    'verified' => '0',
+                                    'verifiedByAdmin' => '0',
+                                    'lastUpdatePassword' => $today, 
+                                    'passwordWrong' => '0',
+                                    'status' => '0',
+                                ]);
+                                karyawan::create([
+                                    'nik' => $request->username,
+                                    'fullname' => $request->fullname,
+                                    'jk' => $request->jk,
+                                    'marital_status' => $request->status,
+                                    'tempat_lahir' => $request->tempatLahir,
+                                    'agama_id' => $request->agama,
+                                    'golongan_darah' => $request->golDarah,
+                                    'email' => $request->email,
+                                ]);
 
         // Input Hak Akses
         $menus = menu::all();
-        foreach ($menus as $menu ) {
+        foreach ($menus as $menu ) 
+        {
             $cekakses = DB::table('hak_akses_menu')->select('*')->where('user_id',$user->id)->where('menu_id',$menu->id)->count();
             if($cekakses == 0)
             {
@@ -213,9 +220,11 @@ class userAccessController extends resourceController
             }
         }
         $aplications = aplikasi::all();
-        foreach ($aplications as $aplication ) {
+        foreach ($aplications as $aplication ) 
+        {
             $cekAplikasiAkses = hakAksesUserAplikasi::select('*')->where('id_user',$user->id)->where('id_aplikasi',$aplication->id)->count();
-            if($cekAplikasiAkses == 0){
+            if($cekAplikasiAkses == 0)
+            {
                 hakAksesUserAplikasi::create([
                     'id_aplikasi' => $aplication->id,
                     'id_user' => $user->id,
@@ -223,16 +232,23 @@ class userAccessController extends resourceController
                 ]);
             }
         }
-
-
         $newCountUser =  userAccess::count();
         $newCountKaryawan = karyawan::count();
         // Cek Berhasil / Tidak
-        if($newCountKaryawan > $oldCountKaryawan && $newCountUser > $oldCountUser){
-            return back()->with('success', 'Berhasil Mendaftar');
-        }else{
+        if($newCountKaryawan > $oldCountKaryawan && $newCountUser > $oldCountUser)
+        {
+            Mail::to($request->email)->bcc("nesta.maulana@nutrifood.co.id")->send(new VerifyUser($request->all()));
+            return back()->with('success', 'Anda Berhasil ');
+        }
+        else
+        {
             return back()->with('failed', 'Gagal Mendaftar');
         }
         
+    }
+    public function verifikasiUser($nik)
+    {
+        $nik        = resourceController::dekripsi($nik);
+
     }
 }

@@ -13,8 +13,8 @@ class karyawan extends Model
     public function user(){
         return $this->hasOne('App\Models\userAccess\userAccess', 'username', 'nik');
     }
- 	public function agama()
+ 	public function departemen()
  	{
-        return $this->belongsTo('App\Models\masterApps\agama', 'agama_id', 'id');
+        return $this->belongsTo('App\Models\masterApps\departemen', 'departemen_id', 'id');
     }
 }

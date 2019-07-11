@@ -41,7 +41,6 @@ class rollieOperatorController extends resourceController
             ->where('aplikasi', 'Rollie - Operator Produksi')
             ->orderBy('posisi', 'asc')
             ->get();
-            
             return $next($request);
         });
     }
@@ -50,7 +49,6 @@ class rollieOperatorController extends resourceController
     {
     	$hakAksesUserAplikasi      = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi          = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
-        
         if($hakAksesAplikasi == "1")
         {
             $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
@@ -63,7 +61,6 @@ class rollieOperatorController extends resourceController
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
         }
-        
         // mengambil jadwal wo diminggu ini saja dan wo yang statusnya WIP Filling di minggu-minggu sebelumnya 
         $wos        = wo::where('status','3')->orWhere('status','2')->whereNotIn('produk_id',['30','31','32'])->get();
         $cekyobase  = wo::where('status','3')->orWhere('status','2')->whereIn('produk_id',['30','31','32'])->get();
@@ -607,4 +604,5 @@ class rollieOperatorController extends resourceController
         }
         return ['success'=>true,'message'=>'CPP Packing sudah terselesaikan.'];
     }
+    
 }

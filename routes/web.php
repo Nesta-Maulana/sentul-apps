@@ -12,10 +12,9 @@
 */
 
 // Route::get('/login-form','generalController\userAccessController@index')->name('user.masuk');
+
 Route::post('/user/login','masterApps\generalController\userAccessController@loginUser');
 Route::post('/user/signup','masterApps\generalController\userAccessController@signupUser');
-
-
 
 //Route::resource('AdministratorAksi','Administrator\AdministratorController');
 
@@ -28,16 +27,20 @@ Route::get('/administrator/pmb','masterApps\generalController\Administrator\Admi
 /* Login */
 Route::get('/','userAccess\userAccessController@index')->name('halaman-login');
 Route::get('/login-form', 'userAccess\userAccessController@index')->name('halaman-login');
+
 Route::get('/register-form', 'userAccess\userAccessController@register')->name('halaman-daftar');
 Route::get('/ganti-password/{id}', 'userAccess\userAccessController@gantiPassword')->name('ganti-password');
 Route::post('/ganti-user-password', 'userAccess\userAccessController@gantiUserPassword');
+
 Route::post('/login-form', 'userAccess\userAccessController@login')->name('user-login');
+
 Route::post('/register', 'userAccess\userAccessController@register')->name('user-register');
+Route::get('/verifikasiUser/{nik}', 'userAccess\userAccessController@verifikasiUser')->name('user-verifikasi');
 
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
 Route::get('/logout', 'userAccess\userAccessController@logout');
-
 Route::get('/halaman-help', 'hakAkses\hakAksesController@hakAkses');
+
 Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
 Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
 Route::get('/home-nothing', 'userAccess\userAccessController@homeNothing')->name('home-no-hak-akses');
@@ -45,9 +48,7 @@ Route::get('/enkripsi/{enkripsiannya}','resourceController@enkripsi')->name('enk
 
 Route::get('/dekripsi/{dekripsi}','resourceController@dekripsi')->name('dekripsi');
 Route::middleware('ceklogin')->group(function ()
-{
-
-    
+{   
     Route::get('/home', 'masterApps\superAdminController@index');    
     Route::get('/master-apps', 'masterApps\superAdminController@home');
     Route::get('/master-apps/home', 'masterApps\superAdminController@home');

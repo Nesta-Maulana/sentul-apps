@@ -68,8 +68,7 @@ class penyeliaController extends resourceController
 
         // mengambil jadwal wo diminggu ini saja dan wo yang statusnya belum close di minggu-minggu sebelumnya 
 
-        $wos        = wo::whereBetween('production_plan_date',[$senin,$minggu])->orWhereNotIn('status',['5','6'])->get();
-
+        $wos        = wo::whereBetween('production_plan_date',[$senin,$minggu])->WhereNotIn('status',['5','6'])->get();
         return view('rollie.penyelia.mtol',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
 
 	}
@@ -97,11 +96,25 @@ class penyeliaController extends resourceController
                         if ($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][3] !== "" && !is_null($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][3]) && $uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9] && !is_null($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9]) && $uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8] !== "" && !is_null($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8])) 
                         {
                             // array_push($cektidaknull,$uploadjadwal['Mampu Telusur Produk Online (MT'][$i]);
-                            $cekproduk  = produk::where('kode_oracle',$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8])->first();
-                            if (is_null($cekproduk)) 
+                            if (strpos($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][3], '/')) 
                             {
-                                return redirect()->route('penyelia-jadwal-dashboard')->with('failed','Item '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9].' dengan kode oracle '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8].' belum terdaftar. Harap hubungi administrator untuk menyelesaikannya');
+                                $patahkan           = explode('/',$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][3]);
+                                $kode_trial         = end($patahkan);
+                                $cekproduk          = produk::where('kode_trial',$kode_trial)->first();
+                                if (is_null($cekproduk)) 
+                                {
+                                    return redirect()->route('penyelia-jadwal-dashboard')->with('failed','Item '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9].' dengan kode oracle '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8].' belum terdaftar. Harap hubungi administrator untuk menyelesaikannya');
+                                }                            } 
+                            else
+                            {
+                                $cekproduk  = produk::where('kode_oracle',$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8])->first();
+                                if (is_null($cekproduk)) 
+                                {
+                                    return redirect()->route('penyelia-jadwal-dashboard')->with('failed','Item '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9].' dengan kode oracle '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8].' belum terdaftar. Harap hubungi administrator untuk menyelesaikannya');
+                                }
+                                
                             }
+
                         }   
                     }
                     $uploadjadwal   =   Excel::import(new mtolUpload, $filejadwal);
@@ -115,12 +128,12 @@ class penyeliaController extends resourceController
             }
             else
             {
+                // apabila file attach
                 return back()->with('failed','Harap Attach File Excel Mtol');
             } 
         }
         else
         {
-            
             $cek = wo::all()->count();
             for ($i=0; $i < count($request->wo); $i++) { 
                 wo::create([
@@ -133,15 +146,18 @@ class penyeliaController extends resourceController
                 "revisi_formula" => $request->revisi_formula[$i],
                 ]);
             }   
-            if($cek <= $i){
+            if($cek <= $i)
+            {
                 return "Gagal";
-            }else{
+            }
+            else
+            {
                 return back()->with('success', "Berhasil Menambahkan");
             }
         }
     }
-    public function cancel(Request $request){
-        
+    public function cancel(Request $request)
+    {    
         $id = app('App\Http\Controllers\resourceController')->dekripsi($request->id);
         $wo = wo::find($id);
         $wo->status = '6';
@@ -154,13 +170,10 @@ class penyeliaController extends resourceController
         $idwo               = resourceController::dekripsi($request->proses_id);
         $nowo               = $request->nomor_wo_proses;
         $realisation_date   = $request->realisation_date;
-
         $wo                 = wo::find($idwo);
         $wo->production_realisation_date    = $realisation_date;
         $wo->status                         = '2';
         $wo->save();
         return redirect()->route('penyelia-jadwal-dashboard')->with('success','Produki dengan nomor wo '.$nowo.' sudah melakukan proses mixing');
-
-
     }
 }

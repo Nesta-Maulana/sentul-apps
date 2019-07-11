@@ -33,8 +33,7 @@
 								</h3>
 							</div>
 							<div class="m-login__desc" style="font-size:20px;text-align: justify;color:#260394">
-								Sentul integrated system is a system that connects all data of PT. Nutrifood
-								Indonesia which was developed by
+								Sentul integrated system is a system that connects all data of PT. Nutrifood Indonesia which was developed by
 								Nesta Maulana and his team.
 							</div>
 						</div>
@@ -77,54 +76,27 @@
 							<h3 class="m-login__title" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;color:#4a03a4;">
 								Sign Up
 							</h3>
-							<div class="m-login__desc" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;color:#4a03a4;">
+							<div class="m-login__desc" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;color:#4a03a4;font-weight: 600;">
 								Enter your details to create your account:
 							</div>
 						</div>
 						<form class="m-login__form m-form" action="register" method="POST">
 							{{ csrf_field() }}
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Fullname" name="fullname" required autocomplete="off">
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="NIK" name="username" required autocomplete="off">
 							</div>
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Username(NIK)" name="username" required autocomplete="off">
+								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Fullname" name="fullname" required autocomplete="off">
 							</div>
 							<div class="form-group m-form__group">
 								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Email" name="email" autocomplete="off" required >
 							</div>
 							<div class="form-group m-form__group">
-								<input class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " type="text" placeholder="Tempat Lahir" name="tempatLahir" autocomplete="off" required>
-							</div>
-							<div class="form-group m-form__group">
-								<select name="jk" id="jk" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
-									<option value="" selected disabled>-- PILIH JENIS KELAMIN --</option>
-									<option value="1">Laki - Laki</option>
-									<option value="2">Perempuan</option>
-								</select>
-							</div>
-							<div class="form-group m-form__group">
-								<select name="agama" id="agama" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
-									<option value="" selected disabled>-- PILIH AGAMA --</option>
-									@foreach($agama as $a)
-										<option value="{{$a->id}}">{{ $a->agama }}</option>
+								<select name="departemen" id="departemen" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
+									<option value="" selected disabled>-- PILIH Departemen --</option>
+									@foreach($departemen as $a)
+										<option value="{{$a->id}}">{{ $a->departemen }}</option>
 									@endforeach
-								</select>
-							</div>
-							<div class="form-group m-form__group">
-								<select name="status" id="status" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
-									<option value="" selected disabled>-- PILIH STATUS --</option>
-									<option value="0">Belum Menikah</option>
-									<option value="1">Sudah Menikah</option>
-									<option value="2">Duda / Janda</option>
-								</select>
-							</div>
-							<div class="form-group m-form__group">
-								<select name="golDarah" id="golDarah" class="form-control m-input" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; padding-top: 10px; padding-bottom: 10px">
-									<option value="" selected disabled>-- PILIH GOL DARAH --</option>
-									<option value="A">A</option>
-									<option value="AB">AB</option>
-									<option value="B">B</option>
-									<option value="O">O</option>
 								</select>
 							</div>
 							<div class="form-group m-form__group">

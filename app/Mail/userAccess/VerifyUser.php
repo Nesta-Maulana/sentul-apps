@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\UserAccess\role;
 
 class VerifyUser extends Mailable
 {
@@ -28,11 +29,12 @@ class VerifyUser extends Mailable
      */
     public function build()
     {
-        $user       = $this->user;
-        $fullname   = $user->fullname; 
-        $email      = $user->email; 
-        return $this->view('emails.verifikasiUser')
-                    ->subject("COBA")
-                    ->with(['email'=>$email,'fullname'=>$fullname]);
+        $user       = $this->user; 
+        $email      = $user['email']; 
+        $role       = role::find($user['role']);
+        $user['role']   = $role->role;
+        return $this->view('templateEmail.verifikasiEmail')
+                    ->subject("Sisy Menyapa - Verifikasi User")
+                    ->with(['email'=>$email,'user'=>$user]);
     }
 }

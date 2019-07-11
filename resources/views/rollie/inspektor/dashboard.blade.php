@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                             @foreach ($wos as $wo)
-                                @if ( ($wo->status == '2' || $wo->status == '3')  && $wo->rpdFillingHead->status =='1')
+                                @if ( ($wo->status === '2' || $wo->status === '3')  )
                                     <tr>
                                         <td>{{ $wo->nomor_wo }}</td>
                                         <td>{{ $wo->produk->nama_produk }}</td>
