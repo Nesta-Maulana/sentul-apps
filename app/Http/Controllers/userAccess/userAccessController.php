@@ -17,12 +17,14 @@ use Illuminate\Support\Facades\Mail;
 use \Carbon\Carbon;
 use DB;
 use App\Mail\userAccess\VerifyUser;
+use App\Mail\userAccess\verifiedUser;
 use Session;
 
 class userAccessController extends resourceController
 {
 
-    public function index(){
+    public function index()
+    {
         // dd(session()->all());
         $departemen = departemen::all();
         $roles = role::all();
@@ -54,15 +56,22 @@ class userAccessController extends resourceController
         
         return view('userAccess.gantiPassword', ['username' => $username->username]);
     }
-    public function gantiUserPassword(Request $request){
-        
+    public function gantiUserPassword(Request $request)
+    {    
         $user = userAccess::where('username', $request->username)->first();
-        if(!$user){
+        if(!$user)
+        {
             return back()->with('failed', 'Username tidak sesuai');
         }
-        if($request->newPassword !== $request->cNewPassword){
-            return back()->with('failed', 'Konfirmasi password tidak sesuai');
+        if($request->newPassword !== $request->cNewPassword)
+        {
+            return back()->with('failed', 'Konfirmasi password tidak sesuai')->withInput();
         }
+        if (strlen($request->newPassword) < 6) 
+        {
+            return back()->with('failed', 'Password harus terdiri dari minimal 6 karakter')->withInput();
+        }
+
         
         if(Hash::check($request->oldPassword, $user->password)){
             $today = Carbon::today();
@@ -81,19 +90,27 @@ class userAccessController extends resourceController
     // public function dashboard(){
     //     return view('userAccess.admin.index');
     // }
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         // dd(Hash::make('1234'));
         $username = $request->username;
         $password = $request->password;
         $data = new userAccess();
-        if($data = $data::where('username', $username)->first()){
-            if($username === $data->username){
-                if(Hash::check($password, $data->password)){
-                    if($data->status == 0){
-                        return redirect(route('halaman-login'))->with('failed', 'Hubungi admin untuk melakukan verifikasi');
-                    }else{
-                        if($data->verified == "1"){
-                            if($data->verifiedByAdmin == "1")
+        if($data = $data::where('username', $username)->first())
+        {
+            if($username === $data->username)
+            {
+                if($data->verified == "1")
+                {
+                    if($data->verifiedByAdmin == "1")
+                    {
+                        if($data->status == 0)
+                        {
+                            return redirect(route('halaman-login'))->with('failed', 'Hubungi admin untuk melakukan aktivasi akun anda');
+                        }
+                        else
+                        {
+                            if (Hash::check($password, $data->password)) 
                             {
                                 $to = \Carbon\Carbon::now('Asia/Jakarta');
                                 $from                   = $data->lastUpdatePassword;
@@ -114,7 +131,7 @@ class userAccessController extends resourceController
                                     $id = resourceController::enkripsi($data->id);
                                     
                                     session()->put('ganti-password', $id);
-                                    return redirect('ganti-password/' . $id)->with('failed', 'Pengguna baru harap ganti password anda');
+                                    return redirect('ganti-password/' . $id)->with('info', 'Selamat datang di Sentul Integrated System. Demi keamanan akun anda, harap ganti password anda untuk pertama kalinya.');
                                 }
                                 else
                                 {
@@ -132,35 +149,47 @@ class userAccessController extends resourceController
                                         return redirect('home')->with('success', "Selamat Datang" . $data->fullname);
                                     }
                                 }
-                            } else{
-                                return redirect(route('halaman-login'))->with('failed', 'Harap hubungi admin untuk melakukan verifikasi');
                             }
-                        } else {
-                            return redirect(route('halaman-login'))->with('failed', 'Harap Aktivasi akun anda terlebih dahulu !');
+                            else
+                            {
+                                if($data->passwordWrong >= 3)
+                                {
+                                    $data->status = "0";
+                                    $data->save();
+                                    return redirect(route('halaman-login'))->with('failed', 'Akun anda terkunci harap hubungi admin untuk aktivasi akun anda !');
+                                } 
+                                else
+                                {
+                                    $passwordWrong = $data->passwordWrong + 1;
+                                    $data->passwordWrong = $passwordWrong;
+                                    $data->save();
+                                    $kesempatan = 3 - $passwordWrong;
+                                    if($kesempatan == "0")
+                                    {
+                                        $data->status = "0";
+                                        $data->save();
+                                        $kesempatan = "sudah habis";
+                                        return redirect(route('halaman-login'))->with('failed', 'Password yang anda masukan salah, 3 Kesempatan anda sudah habis. Akun anda kami nonaktifkan untuk sementara waktu demi menjaga keamanan dan privasi anda. Harap hubungi Administrator untuk mengaktifkan akun anda kembali.');
+                                    }else{
+                                        $kesempatan = "tersisa " . $kesempatan . " lagi"; 
+                                        return redirect(route('halaman-login'))->with('failed', 'Password yang anda masukkan salah, kesempatan anda ' . $kesempatan);
+                                    }
+                                }
+                            }
                         }
                     }
-                } else 
-                {
-                    if($data->passwordWrong >= 3)
+                    else
                     {
-                        $data->status = "0";
-                        $data->save();
-                        return redirect(route('halaman-login'))->with('failed', 'Harap hubungi admin !');
-                    } 
-                    else{
-                        $passwordWrong = $data->passwordWrong + 1;
-                    $data->passwordWrong = $passwordWrong;
-                    $data->save();
-                        $kesempatan = 3 - $passwordWrong;
-                        if($kesempatan == "0"){
-                            $kesempatan = "sudah habis";
-                        }else{
-                            $kesempatan = "tersisa " . $kesempatan . " lagi"; 
-                        }
-                        return redirect(route('halaman-login'))->with('failed', 'Password yang anda masukkan salah, kesempatan anda ' . $kesempatan);
+                        return redirect(route('halaman-login'))->with('failed', 'Harap hubungi admin untuk melakukan verifikasi akun anda');
                     }
+                } 
+                else 
+                {   
+                    return redirect(route('halaman-login'))->with('failed', 'Harap verifikasi akun anda terlebih dahulu!');
                 }
-            }else{
+            }
+            else
+            {
                 return redirect(route('halaman-login'))->with('failed', 'Username yang anda masukkan tidak terdaftar');
             }
         }else{
@@ -182,26 +211,21 @@ class userAccessController extends resourceController
         $oldCountKaryawan   =   karyawan::count();
         $password           =   Hash::make('sentulappuser');
         $user               =   userAccess::create([
-                                    'rolesId' => $request->role,
-                                    'username' => $request->username,
-                                    'password' => $password,
-                                    'verified' => '0',
-                                    'verifiedByAdmin' => '0',
-                                    'lastUpdatePassword' => $today, 
-                                    'passwordWrong' => '0',
-                                    'status' => '0',
+                                    'rolesId'               => $request->role,
+                                    'username'              => $request->username,
+                                    'password'              => $password,
+                                    'verified'              => '0',
+                                    'verifiedByAdmin'       => '0',
+                                    'lastUpdatePassword'    => $today, 
+                                    'passwordWrong'         => '0',
+                                    'status'                => '0',
                                 ]);
                                 karyawan::create([
-                                    'nik' => $request->username,
-                                    'fullname' => $request->fullname,
-                                    'jk' => $request->jk,
-                                    'marital_status' => $request->status,
-                                    'tempat_lahir' => $request->tempatLahir,
-                                    'agama_id' => $request->agama,
-                                    'golongan_darah' => $request->golDarah,
-                                    'email' => $request->email,
+                                    'nik'                   => $request->username,
+                                    'fullname'              => $request->fullname,
+                                    'departemen_id'         => $request->departemen,
+                                    'email'                 => $request->email,
                                 ]);
-
         // Input Hak Akses
         $menus = menu::all();
         foreach ($menus as $menu ) 
@@ -237,8 +261,8 @@ class userAccessController extends resourceController
         // Cek Berhasil / Tidak
         if($newCountKaryawan > $oldCountKaryawan && $newCountUser > $oldCountUser)
         {
-            Mail::to($request->email)->bcc("nesta.maulana@nutrifood.co.id")->send(new VerifyUser($request->all()));
-            return back()->with('success', 'Anda Berhasil ');
+            Mail::to($request->email)->send(new VerifyUser($request->all()));
+            return back()->with('success', 'Anda berhasil mendaftar di portal Sisy. Harap cek inbox email anda untuk verifikasi akun anda.');
         }
         else
         {
@@ -249,6 +273,10 @@ class userAccessController extends resourceController
     public function verifikasiUser($nik)
     {
         $nik        = resourceController::dekripsi($nik);
-
+        $userdata   = userAccess::where('username',$nik)->first();
+        $userdata->verified     = '1';
+        $userdata->save();
+        Mail::to('nesta.maulana@nutrifood.co.id')->send(new verifiedUser($userdata));    
+        return redirect()->route('halaman-login')->with('success', 'Terima kasih sudah memverifikasi akun anda. Akun anda akan aktif setelah Administrator kami memverifikasi akun anda dan mengaktifkannya.');
     }
 }

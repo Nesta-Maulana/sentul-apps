@@ -24,13 +24,8 @@
 						<div class="m-login__content">
 							<div class="m-login__logo">
 								<a href="#">
-									<img src="{{ asset('userAccess/img/logos/logo-2.png')}}">
+									<img src="{{ asset('emailLogo/sisy.png')}}">
 								</a>
-							</div>
-							<div class="m-login__title">
-								<h3 style="font-weight: 600;text-align:center; color:#001682">
-									Sentul Integrated System
-								</h3>
 							</div>
 							<div class="m-login__desc" style="font-size:20px;text-align: justify;color:#260394">
 								Sentul integrated system is a system that connects all data of PT. Nutrifood
@@ -54,20 +49,19 @@
 						<form class="m-login__form m-form" action="/sentul-apps/ganti-user-password" method="post">
                     		{{ csrf_field() }}
                             <div class="form-group m-form__group">
-								<input style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " class="form-control m-input text-nesta" type="text" placeholder="Username" name="username"
-									autocomplete="off" readonly value="{{ $username }}" autofocus>
+								<input style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " class="form-control m-input text-nesta" type="text" placeholder="Username" name="username" autocomplete="off" readonly value="{{ $username }}"  autofocus>
 							</div>
 							<div class="form-group m-form__group">
 								<input class="form-control m-input text-nesta" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; "
-									type="Password" placeholder="Password Lama" name="oldPassword">
+									type="Password" placeholder="Password Lama" name="oldPassword" value="{{ old('oldPassword') }}">
 							</div>
                             <div class="form-group m-form__group">
 								<input class="form-control m-input text-nesta" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; "
-									type="Password" placeholder="Password Baru" name="newPassword">
+									type="Password" placeholder="Password Baru" name="newPassword" value="{{ old('newPassword') }}">
 							</div>
                             <div class="form-group m-form__group">
 								<input class="form-control m-input m-login__form-input--last text-nesta" style="background-color:transparent;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; "
-									type="Password" placeholder="Confirm Password Baru" name="cNewPassword">
+									type="Password" placeholder="Confirm Password Baru" name="cNewPassword" value="{{ old('cNewPassword') }}">
 							</div>
 							<div class="m-login__form-action">
 								<button id="" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
@@ -89,6 +83,10 @@
 	@if ($message = Session::get('success'))
         <div class="success" data-flashdatas="{{ $message }}"></div>
     @endif
+
+	@if ($message = Session::get('info'))
+  k  	<div class="info" data-flashdatak="{{ $message }}"></div>    
+	@endif
 	<!-- end:: Page -->
 	<!--begin::Base Scripts -->
 	<script src="{{ asset('userAccess/js/vendors.bundle.js') }}" type="text/javascript"></script>
@@ -114,6 +112,15 @@
                 type: "success",
             });
         }
+
+		const flashdatak = $('.info').data('flashdatak');
+		if(flashdatak){
+			swal({
+				title: "Info",
+				text: flashdatak,
+				type: "info",
+			});
+		}
     </script>
 </body>
 

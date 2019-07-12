@@ -38,9 +38,9 @@
 </head>
 
 <body>
- 	<h4>Dear {{$user['fullname']}},</h4>
+ 	<h4>Dear Administrator,</h4>
 	<br/>
-		Terima kasih sudah melakukan registrasi di aplikasi Sisy - Sentul Integrated System. Email anda yang tertaut pada Portal Sisy adalah {{$user['email']}} . Untuk pertama kali, Anda harus verifikasi data yang berikut adalah benar dan sesuai dengan data diri anda .  
+		User dengan data berikut,
 		<table>
 			<tr>
 				<td>NIK</td>
@@ -50,28 +50,26 @@
 			<tr>
 				<td>Fullname</td>
 				<td>:</td>
-				<td>{{ $user['fullname'] }}</td>
+				<td>{{ $user->karyawan['fullname'] }}</td>
 			</tr>
 			<tr>
 				<td>Email</td>
 				<td>:</td>
-				<td>{{ $user['email'] }}</td>
+				<td>{{ $user->karyawan['email'] }}</td>
 			</tr>
 			<tr>
 				<td>Role</td>
 				<td>:</td>
-				<td>{{ $user['role'] }}</td>
+				<td>{{ $user->role['role'] }}</td>
 			</tr>
 		</table>
+	<br/>
+		
+		Telah mendaftarkan diri di portal Sentul Integrated System, harap verifikasi dan aktivasi akun tersebut jika akun tersebut memang memiliki wewenang untuk mengakses Sentul Integrated System. 
 
-		Apabila data tersebut benar, Silahkan klik tautan Aktivasi dibawah ini untuk mengaktifkan. Apabila anda tidak merasa mengisi data tersebut silahkan hubungi administrator untuk memblokir akun tersebut. 
 	<br/>
 	<br/>
 	<br/>
-
-	<a href="{{ route('user-verifikasi',['nik'=> app('App\Http\Controllers\resourceController')->enkripsi($user['username']) ]) }}">Verifikasi Email</a> 
-
-	<br>
 
 	<img src="{{ asset('emailLogo/line.png') }}" alt="" class="line">
 	<br>

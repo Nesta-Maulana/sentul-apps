@@ -1,8 +1,9 @@
 /* Navbar */
-.navbar{
+.navbar
+{
     position: relative;
     z-index: 1;
-  }
+}
   .navbar-brand{
       font-family: Viga;
       font-size: 32px;
@@ -45,7 +46,13 @@
   .info-panel{
     padding: 30px;
     box-shadow: 0 3px 20px rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
+    border-radius: 8px;
+    background-color: white;
+    margin-top: -100px;
+  }
+  .info-kotak{
+    padding: 30px;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.5);
     background-color: white;
     margin-top: -100px;
   }
@@ -63,7 +70,7 @@
   }
   .info-panel p{
     font-size: 14px;
-    color: #acacac;
+    color: #828282;
     font-weight: 200;
     margin-top: -5px;
   }

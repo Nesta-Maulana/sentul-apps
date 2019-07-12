@@ -24,14 +24,14 @@
 						<div class="m-login__content">
 							<div class="m-login__logo">
 								<a href="#">
-									<img src="{{ asset('userAccess/img/logos/logo-2.png')}}">
+									<img src="{{ asset('emailLogo/sisy.png')}}">
 								</a>
 							</div>
-							<div class="m-login__title">
+{{-- 							<div class="m-login__title">
 								<h3 style="font-weight: 600;text-align:center; color:#001682">
 									Sentul Integrated System
 								</h3>
-							</div>
+							</div> --}}
 							<div class="m-login__desc" style="font-size:20px;text-align: justify;color:#260394">
 								Sentul integrated system is a system that connects all data of PT. Nutrifood Indonesia which was developed by
 								Nesta Maulana and his team.
@@ -129,6 +129,9 @@
 	@if ($message = Session::get('success'))
     <div class="success" data-flashdata="{{ $message }}"></div>    
 	@endif
+	@if ($message = Session::get('informasinya'))
+    	<div class="informasinya" data-flashdatak="{{ $message }}"></div>    
+	@endif
     
 	<!-- end:: Page -->
 	<!--begin::Base Scripts -->
@@ -153,6 +156,15 @@
 				title: "Success",
 				text: flashdata,
 				type: "success",
+			});
+		}
+
+		const flashdatak = $('.informasinya').data('flashdatak');
+		if(flashdatak){
+			swal({
+				title: "Info",
+				text: flashdatak,
+				type: "info",
 			});
 		}
     </script>

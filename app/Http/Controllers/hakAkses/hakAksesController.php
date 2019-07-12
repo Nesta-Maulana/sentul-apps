@@ -14,9 +14,15 @@ use DB;
 class hakAksesController extends resourceController
 {
 
-
-    public function hakAkses(){
-
+    public function index()
+    {
+        if(!Session::get('login')){
+            return back()->with('failed', 'Harap login terlebih dahulu');
+        }
+        return view('hakAkses.halaman-help');
+    }
+    public function hakAkses()
+    {
         if(!Session::get('login')){
             return back()->with('failed', 'Harap login terlebih dahulu');
         }

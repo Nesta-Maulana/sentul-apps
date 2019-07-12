@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
     <title>@yield('judul')</title>
     <link rel="stylesheet" href="{!! asset('generalStyle/css/bootstrap.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('generalStyle/css/hakAkses.css') !!}">
@@ -25,72 +25,30 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">User Guide</a>
-                    <a class="nav-item nav-link @yield('active-hak-akses')" href="#">Help</a>
+                    <a class="nav-item nav-link active" href="{{ route('home-aplikasi') }}">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="{{ route('user-guide') }}">User Guide</a>
+                    <a class="nav-item nav-link @yield('active-hak-akses')" href="{{ route('halaman-help') }}">Help</a>
+                    <a class="nav-item nav-link" href="{{ route('logout') }}">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
-    <!-- Akhir Navbar -->
-
-    <!-- Jumbotron -->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">@yield('slogan')</h1>
-            <a href="@yield('link-to-content')" style="scroll-behaviour: smooth" class="btn btn-primary tombol go-to-request">Request</a>
+            <a href="@yield('link-to-content')" style="scroll-behaviour: smooth" class="btn btn-primary tombol go-to-request">Let's Help</a>
         </div>
     </div>
-    <!-- Akhir Jumbotron -->
 
-
-    <!-- Container -->
     <div class="container">
-        <!-- Info Panel -->
-        <div class="row justify-content-center">
-            <div class="col-10 info-panel">
-                <div class="row">
-                    <div class="col-lg">
-                        <img src="{{ asset('generalStyle/images/logo/employee.png')}}" alt="Employee" class="float-left">
-                        <h4>24 Hours</h4>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="col-lg">
-                        <img src="{{ asset('generalStyle/images/logo/hires.png')}}" alt="Hires" class="float-left">
-                        <h4>Fastest</h4>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="col-lg">
-                        <img src="{{ asset('generalStyle/images/logo/security.png')}}" alt="Security" class="float-left">
-                        <h4>Security</h4>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Akhir Info Panel -->
-
         @yield('content')
-    
-        <!-- Testimonial -->
-        <section class="testimonial">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <h5>"Inspiring a Nutrious Life"</h5>
-                </div>
-            </div>
-        </section>
-        <!-- Akhir Testimonial -->
+    </div>
 
-        <!-- Footer -->
-        <div class="row footer">
-            <div class="col text-center">
-                <p>2019 All Rights Reserved by Nutrifood.</p>
-            </div>
+
+    <div class="footer">
+        <div class="text-center">
+            <p>2019 All Rights Reserved by Nutrifood.</p>
         </div>
-        <!-- Akhir Footer -->
-
-        <!-- Akhir Container -->
     </div>
     @if ($message = Session::get('success'))
     <div class="success" data-flashdata="{{ $message }}"></div>

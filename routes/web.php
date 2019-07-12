@@ -38,18 +38,23 @@ Route::post('/register', 'userAccess\userAccessController@register')->name('user
 Route::get('/verifikasiUser/{nik}', 'userAccess\userAccessController@verifikasiUser')->name('user-verifikasi');
 
 Route::get('/admin/dashboard', 'userAccess\userAccessController@dashboard');
-Route::get('/logout', 'userAccess\userAccessController@logout');
-Route::get('/halaman-help', 'hakAkses\hakAksesController@hakAkses');
 
-Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
-Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
-Route::get('/home-nothing', 'userAccess\userAccessController@homeNothing')->name('home-no-hak-akses');
+Route::get('/logout', 'userAccess\userAccessController@logout')->name('logout');
+Route::get('/user-guide', 'userAccess\userAccessController@userguide')->name('user-guide');
 Route::get('/enkripsi/{enkripsiannya}','resourceController@enkripsi')->name('enkripsi');
 
 Route::get('/dekripsi/{dekripsi}','resourceController@dekripsi')->name('dekripsi');
+
+Route::get('/home-nothing', 'userAccess\userAccessController@homeNothing')->name('home-no-hak-akses');
+Route::get('/halaman-help', 'hakAkses\hakAksesController@index')->name('halaman-help');
+Route::get('/halaman-help', 'hakAkses\hakAksesController@index')->name('halaman-help');
+Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
+Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
+
 Route::middleware('ceklogin')->group(function ()
 {   
-    Route::get('/home', 'masterApps\superAdminController@index');    
+
+    Route::get('/home', 'masterApps\superAdminController@index')->name('home-aplikasi');    
     Route::get('/master-apps', 'masterApps\superAdminController@home');
     Route::get('/master-apps/home', 'masterApps\superAdminController@home');
     

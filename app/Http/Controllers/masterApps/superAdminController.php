@@ -30,6 +30,10 @@ use App\Models\utilityOnline\rasioHead;
 use App\Models\utilityOnline\rasio;
 use App\Models\utilityOnline\kategoriPencatatan;
 use App\Models\utilityOnline\satuan;
+use App\Mail\userAccess\activateUser;
+use Illuminate\Support\Facades\Mail;
+
+
 use Session;
 use DB;
 
@@ -39,7 +43,8 @@ class superAdminController extends resourceController
     private $username;
 
     public function __construct(Request $request){
-        $this->middleware(function ($request, $next) {
+        $this->middleware(function ($request, $next)
+        {
             
 
             $this->user = resolve('usersData');
@@ -103,13 +108,15 @@ class superAdminController extends resourceController
         'countVerify' => $countVerify, 'countLogin' => $countLogin, 'menus' => $this->menu, 'username' => $this->username]);
     } 
 
-    public function brand(){
+    public function brand()
+    {
         $brands = brand::all();
         $company = company::all();
         return view('masterApps.formbrand', ['menus' => $this->menu, 'username' => $this->username, 'brands' => $brands, 'company' => $company]);
     }
 
-    public function editBrand($id){
+    public function editBrand($id)
+    {
         $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         $company = company::all();
         return [brand::find($id), $company];
@@ -712,11 +719,15 @@ class superAdminController extends resourceController
         $company = company::find($id);
         return $company;
     }
-    public function verify($id){
-        $data = DB::table('users')
-        ->where('id', $id)
-        ->update(['verifiedByAdmin' => "1"]);
+    public function verify($id)
+    {
 
+        $user_id                = resourceController::dekripsi($id);
+        $data                   = userAccess::find($user_id);
+        $data->verifiedByAdmin  = "1";  
+        $data->status           = "1";
+        $data->save();
+        Mail::to($data->karyawan->email)->send(new activateUser($data));    
         return redirect('master-apps/form-user');
     }
     public function edit($id)

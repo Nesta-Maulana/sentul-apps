@@ -80,7 +80,7 @@
                             @if($s->verifiedByAdmin == "1")
                             <td class="text-success"> <i class="fa fa-check"></i> Verified</td>
                             @else
-                            <form action="form-user/verify/{{ $s->id }}" method="get">
+                            <form action="form-user/verify/{{ app('App\Http\Controllers\resourceController')->enkripsi($s->id) }}" method="get">
                                 <td>
                                     <input type="submit" class="btn btn-danger" value="Verify">
                                 </td>
@@ -88,7 +88,7 @@
 
                             @endif
                             <td>
-                                <input type="submit" class="btn btn-primary edit isi {{ Session::get('ubah') }}" id="isi" data-toggle="modal" data-id="{{ $s->id }}" data-target="#exampleModal" value="Edit">
+                                <input type="submit" class="btn btn-primary edit isi {{ Session::get('ubah') }}" id="isi" data-toggle="modal" data-id="{{ app('App\Http\Controllers\resourceController')->enkripsi($s->id) }}" data-target="#exampleModal" value="Edit">
                             </td>
                 </tr>
                 @endforeach

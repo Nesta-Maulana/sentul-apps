@@ -19,7 +19,7 @@
     </div>
 @else
     <div class="container">
-        <h1 class="display-4">Harap Hubungi <span>Admin</span> Untuk <br> Meminta <span> Hak Akses </span></h1>
+        <h1 class="display-4">Harap Hubungi <span>Admin</span> Untuk <br> Request <span> Hak Akses Aplikasi</span> atau Klik Menu Help</h1>
     </div>
 @endif
 

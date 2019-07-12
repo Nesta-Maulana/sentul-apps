@@ -34,10 +34,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active" href="#">Home</a>
-                    <a class="nav-item nav-link" href="#">User Guide</a>
-                    <a class="nav-item nav-link" href="#">Help</a>
-                    <a class="nav-item nav-link" href="/sentul-apps/logout">Logout</a>
+                    <a class="nav-item nav-link active" href="{{ route('home-aplikasi') }}">Home</a>
+                    <a class="nav-item nav-link" href="{{ route('user-guide') }}">User Guide</a>
+                    <a class="nav-item nav-link" href="{{ route('halaman-help') }}">Help</a>
+                    <a class="nav-item nav-link" href="{{ route('logout') }}">Logout</a>
                 </div>
             </div>
         </div>
