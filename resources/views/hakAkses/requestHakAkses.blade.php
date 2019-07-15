@@ -6,12 +6,37 @@
     active
 @endsection
 @section('slogan')
-    Request your <span>Hak Akses</span>
+    Request your <span>Credential Access</span>
 @endsection
 @section('link-to-content')
     #hak-akses
 @endsection
+
+@section('href')
+    Let's Request
+@endsection
 @section('content')
+<div class="row justify-content-center">
+    <div class="col-12 info-panel">
+        <div class="row">
+            <div class="col-lg">
+                <img src="{{ asset('generalStyle/images/logo/user-credentials.png')}}" alt="Employee" class="float-left">
+                <h4>Request User Access</h4>
+                <p style="font-weight: 400;">Membutuhkan akses aplikasi atau menu-menu dalam aplikasi portal Sisy? Mari request akses yang kamu butuhkan <a href="{{ route('request-hak-akses-menu') }}">disini</a></p>
+            </div>
+            <div class="col-lg">
+                <img src="{{ asset('generalStyle/images/logo/hires.png')}}" alt="Hires" class="float-left">
+                <h4>Fastest</h4>
+                <p>Menyelesai masalah anda dengan waktu seefisien mungkin dan dengan penyelesaian yang tepat juga cepat.</p>
+            </div>
+            <div class="col-lg">
+                <img src="{{ asset('generalStyle/images/logo/security.png')}}" alt="Security" class="float-left">
+                <h4>Security</h4>
+                <p>Menjamin seluruh keamanan data anda dengan tingkat keamanan terbaik yang kami miliki.</p>
+            </div>
+        </div>
+    </div>
+</div>
 <?php $idUser = app('App\Http\Controllers\resourceController')->enkripsi(session()->get('login')) ?>
     <div class="row" id="hak-akses">
         <div class="col-lg-2"></div>

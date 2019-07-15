@@ -68,7 +68,7 @@ class penyeliaController extends resourceController
 
         // mengambil jadwal wo diminggu ini saja dan wo yang statusnya belum close di minggu-minggu sebelumnya 
 
-        $wos        = wo::whereBetween('production_plan_date',[$senin,$minggu])->WhereNotIn('status',['5','6'])->get();
+        $wos        = wo::whereBetween('production_plan_date',[$senin,$minggu])->orWhereNotIn('status',['5','6'])->get();
         return view('rollie.penyelia.mtol',['menus' => $this->menu,'username' => $this->username, 'hakAkses' => $data,'wos'=>$wos]);
 
 	}

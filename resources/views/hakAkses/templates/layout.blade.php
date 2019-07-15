@@ -36,7 +36,7 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">@yield('slogan')</h1>
-            <a href="@yield('link-to-content')" style="scroll-behaviour: smooth" class="btn btn-primary tombol go-to-request">Let's Help</a>
+            <a href="@yield('link-to-content')" style="scroll-behaviour: smooth" class="btn btn-primary tombol go-to-request">@yield('href')</a>
         </div>
     </div>
 

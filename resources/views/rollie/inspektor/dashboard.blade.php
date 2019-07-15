@@ -28,7 +28,44 @@
                         </thead>
                         <tbody>
                             @foreach ($wos as $wo)
-                                @if ( ($wo->status === '2' || $wo->status === '3')  )
+                                @if ( ($wo->status === '2' || is_null($wo->rpdFillingHead)))
+                                    <tr>
+                                        <td>{{ $wo->nomor_wo }}</td>
+                                        <td>{{ $wo->produk->nama_produk }}</td>
+                                        <td>{{ $wo->production_realisation_date }}</td>
+                                        <td class="text-center">{{ $wo->plan_batch_size }}</td>
+                                        <td>{{ $wo->revisi_formula }}</td>
+                                        @switch($wo->status)
+                                            @case('0')
+                                                <td>Waiting Mixing</td>
+                                            @break
+                                            @case('1')
+                                                <td>On Progress Mixing</td>
+                                            @break
+                                            @case('2')
+                                                <td>Waiting Fillpack</td>
+                                                <td>
+                                                    <a onclick="prosesrpd('<?=$wo->produk->nama_produk;?>','<?=$wo->nomor_wo?>')"> Proses Fillpack</a>
+                                                </td>
+                                            @break
+                                            @case('3')
+                                                <td>On Progress Fillpack</td>
+                                                <td>
+                                                    @php
+                                                        $rpd_id = app('App\Http\Controllers\resourceController')->enkripsi($wo->rpdFillingHead->id);
+                                                    @endphp
+                                                    <a href="{{ route('rpdfilling-inspektor-qc',['rpd_filling_head_id'=>$rpd_id]) }}"> Proses Fillpack</a>
+                                                </td>
+                                            @break
+                                            @case('4')
+                                                <td>Waiting For Close</td>
+                                            @break
+                                            @case('5')
+                                                <td>Closed</td>
+                                            @break
+                                        @endswitch
+                                    </tr>
+                                @elseif( ($wo->status === '3' && is_null($wo->rpdFillingHead->status=='0')) )
                                     <tr>
                                         <td>{{ $wo->nomor_wo }}</td>
                                         <td>{{ $wo->produk->nama_produk }}</td>

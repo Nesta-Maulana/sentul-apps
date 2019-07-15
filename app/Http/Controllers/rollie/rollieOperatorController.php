@@ -90,8 +90,16 @@ class rollieOperatorController extends resourceController
     {    
         $cpp_head_id                = resourceController::dekripsi($cpp_head_id);
         $cpp_head                   = cppHead::find($cpp_head_id);
-        $cpp_aktif                  = cppHead::where('status','0')->get();
-        return view('rollie.operator.cpp',['menus' => $this->menu,'username' => $this->username,'cpps'=>$cpp_head,'cpp_aktif'=>$cpp_aktif]);
+        if ($cpp_head->status == '0') 
+        {
+            $cpp_aktif                  = cppHead::where('status','0')->get();
+            return view('rollie.operator.cpp',['menus' => $this->menu,'username' => $this->username,'cpps'=>$cpp_head,'cpp_aktif'=>$cpp_aktif]);
+            
+        }
+        else
+        {
+            return redirect()->route('dashboard-operator-fillpack')->with('failed','CPP Produk '.$cpp_head->wo[0]->produk->nama_produk.' dengan tanggal produksi '.$cpp_head->wo[0]->production_realisation_date.' Telah diclose');
+        }
     }
 
     public function tambahCpp(Request $request)
@@ -247,19 +255,29 @@ class rollieOperatorController extends resourceController
         return ['success'=>true];
     }
 
-    public function refreshTableCpp($cpp_head_id)
+    public function refreshTableCpp($cpp_head_id,$wo_aktif)
     {
+
         $return     = array();
         $tampung    = array();
         $cpp_head_id    = resourceController::dekripsi($cpp_head_id);
-        $cpp_head     = cppHead::find($cpp_head_id);
+        $wo_id          = resourceController::dekripsi($wo_aktif);
+        $cpp_head       = cppHead::find($cpp_head_id);
         foreach ($cpp_head->cppDetail as $key => $detail) 
         {
-            foreach ($detail->palet as $key => $palet) 
+
+            if ($detail->wo_id == $wo_id) 
             {
-                $detail->palet              = $palet;    
-                $detail->palet->id_detail   = resourceController::enkripsi($palet->id);
-                array_push($return, $tampung);
+                foreach ($detail->palet as $key => $palet) 
+                {
+                    $detail->palet              = $palet;    
+                    $detail->palet->id_detail   = resourceController::enkripsi($palet->id);
+                    array_push($return, $tampung);
+                }
+            }
+            else
+            {
+                $detail->palet          = null; 
             }
             $cpp_head->cpp_detail       = $detail;
         }
@@ -411,6 +429,7 @@ class rollieOperatorController extends resourceController
             {
                 if ($jam_end <= $palet->start) 
                 {
+                    dd($request);
                     // ini jika jam start > dari jam end
                     return ['success'=>false,'message'=>'Jam Akhir palet tidak boleh lebih awal dari jam awal palet . Harap menyesuaikan jam awal palet terlebih dahulu'];
                 }
@@ -481,7 +500,7 @@ class rollieOperatorController extends resourceController
                                 array_push($arraywo, $value);
                             }
                         }
-                        return ['success'=>true,'data'=>$arraywo];
+                        // return ['success'=>true,'data'=>$arraywo];
                     }
                     else if ($cppheadaktif[0]->wo[0]->produk->mesinFillingHead->nama_kelompok == 'Prisma') 
                     {
@@ -494,7 +513,15 @@ class rollieOperatorController extends resourceController
                                 array_push($arraywo, $value);
                             }
                         }
-                        return ['success'=>true,'data'=>$arraywo];   
+                        // return ['success'=>true,'data'=>$arraywo];   
+                    }
+                    if (count($arraywo) == 0) 
+                    {
+                        return ['success'=>false,'message'=>'Tidak ada produk lain yang siap difilling'];
+                    }
+                    else
+                    {
+                        return ['success'=>true,'data'=>$arraywo];
                     }
                 }
             break;
@@ -560,7 +587,7 @@ class rollieOperatorController extends resourceController
         else if ($request->jenis_tambah == '2') 
         {
             $cpp_head_id                = resourceController::dekripsi($request->cpp_head_id_nya);
-            $datawo                     = wo::where('nomor_wo',$request->nomor_wo_f)->first();
+            $datawo                     = wo::where('nomor_wo',$request->nomor_wo_tambah)->first();
             $datawo                     = wo::find($datawo->id);
             $datawo->cpp_head_id        = $cpp_head_id;
             // $datawo->tanggal_fillpack   = $startfilling;

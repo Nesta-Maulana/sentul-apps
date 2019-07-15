@@ -76,9 +76,16 @@ class inspektorController extends resourceController
     {
         $id                 = app('App\Http\Controllers\resourceController')->dekripsi($rpdfillingheadid);
         $rpdfillinghead     = rpdFillingHead::find($id);
-        $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
-        $kode_sampel        = kodeSampelPi::where('jenis_produk_id',$rpdfillinghead->wo[0]->produk->jenis_produk_id)->get();
-        return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username,'rpd_filling'=>$rpdfillinghead,'rpd_filling_aktif'=>$rpdfillingaktif,'kode_sampel'=>$kode_sampel]);	
+        if ($rpdfillinghead->status == '1') 
+        {
+            $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
+            $kode_sampel        = kodeSampelPi::where('jenis_produk_id',$rpdfillinghead->wo[0]->produk->jenis_produk_id)->get();
+            return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username,'rpd_filling'=>$rpdfillinghead,'rpd_filling_aktif'=>$rpdfillingaktif,'kode_sampel'=>$kode_sampel]); 
+        }
+        else
+        {
+            return redirect()->route('dashboard-inspektor-qc')->with('failed','RPD Filling '.$rpdfillinghead->wo[0]->produk->nama_produk.' dengan tanggal produksi '.$rpdfillinghead->wo[0]->production_realisation_date.' Telah diclose');
+        }
     }
     public function prosesrpdfilling(Request $request)
     {    
@@ -841,7 +848,6 @@ class inspektorController extends resourceController
         {
             if (is_null($value->status_akhir)) 
             {
-                dd($value);
                 return ['success'=>false,'message'=>'Masih ada sampel yang belum dianalisa. Harap selesaikan semua draft analisa lalu close rpd filling.'];
             }
         }   

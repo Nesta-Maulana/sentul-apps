@@ -25,11 +25,10 @@
                         @php $batchke++; @endphp 
                         @endforeach                        
                     @else
-                        @foreach ($rpd_filling->detail_pi->unique('wo_id')->sortBy('jam_filling') as $detail_pi)
-                            <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->wo->id) }}" @if ($detail_pi->wo->id === $rpd_filling->wo[$hitungbatch-1]->id)
-                                selected 
-                            @endif>
-                            Batch Ke {{ $batchke }} - {{ $detail_pi->wo->nomor_wo }}</option>
+                        @foreach ($rpd_filling->wo as $detail_pi)  
+                            <option value="{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->id) }}" @if ($detail_pi->id === $rpd_filling->wo[$hitungbatch-1]->id)
+                                selected
+                            @endif>Batch Ke {{ $batchke }} - {{ $detail_pi->nomor_wo }}</option>
                         @php $batchke++; @endphp 
                         @endforeach
                     @endif
@@ -65,7 +64,7 @@
                 <div class="form-group row">
                     <label for="jamfillingsampel" class="col-lg-4">Jam Filling</label>
                     <div class='input-group date col-lg-7 timepickernya'  style="margin-left: -15px;">
-                        <input type='text' class="form-control" name="jamfillingsampel" id="jamfillingsampel" value="<?=date('H:i:s')?>">
+                        <input type='text' class="form-control" name="jamfillingsampel" id="jamfillingsampel" value="">
                         <span class="input-group-addon" style="margin-top: 5px; font-size: 20px; margin-left: 2px;">
                            <span class="glyphicon glyphicon-calendar"></span>
                         </span>

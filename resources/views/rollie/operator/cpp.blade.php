@@ -38,10 +38,11 @@
         <hr>
         <div class="form-group">
             <label for="noWo">No WO : </label>
-            <select name="no_wo" id="no_wo" class="form-control">
+            <select name="no_wo" id="no_wo" class="form-control" onchange="refreshcpp()">
                 @foreach ($cpps->wo as $wo)
                     <option value="{{  app('App\Http\Controllers\resourceController')->enkripsi($wo->id) }}">{{ $wo->nomor_wo }}</option>
                 @endforeach
+
             </select>
         </div>
     </div>
@@ -89,35 +90,37 @@
                     </thead>
                     <tbody id="detail_tbac">
                         @foreach ($cpps->cppDetail as $detail_cpp)
-                            <?php if (strpos($detail_cpp->nolot,'C')) { ?>
-                                @foreach ($detail_cpp->palet as $detail_palet)
-                                <tr>
-                                    <td>
-                                        <div class="form-inline row">
-                                                
-                                            <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
-                                            <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control" id="start_palet_{{ $detail_palet->id }}" onfocusout="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" value="{{ $detail_palet->start }}">
+                            @if ($detail_cpp->wo_id === $cpps->wo[0]->id)
+                                <?php if (strpos($detail_cpp->nolot,'C')) { ?>
+                                    @foreach ($detail_cpp->palet as $detail_palet)
+                                    <tr>
+                                        <td>
+                                            <div class="form-inline row">
+                                                    
+                                                <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
+                                                <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-lg-12">                            <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-lg-12">                            
+                                                    <input type="text" class="datetimepickernya form-control" id="start_palet_{{ $detail_palet->id }}" onfocusout="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" value="{{ $detail_palet->start }}">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
-                                    </td>
-                                </tr>
-                                @endforeach
-                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-lg-12">                            <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                <?php } ?>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -136,37 +139,39 @@
                     </thead>
                     <tbody id="detail_a3b">
                         @foreach ($cpps->cppDetail as $detail_cpp)
-                            <?php if (strpos($detail_cpp->nolot,'B')) { ?>
-                                @foreach ($detail_cpp->palet as $detail_palet)
-                                <tr>
-                                    <input type="hidden" id="palet_{{ $detail_palet->id }}" value="{{  app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}">
-                                    <td>
-                                        <div class="form-inline row">
-                                            <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
-                                            <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control"  value="{{ $detail_palet->start }}" id="start_palet_{{ $detail_palet->id }}" onblur="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')">
+                            @if ($detail_cpp->wo_id === $cpps->wo[0]->id)
+                                <?php if (strpos($detail_cpp->nolot,'B')) { ?>
+                                    @foreach ($detail_cpp->palet as $detail_palet)
+                                    <tr>
+                                        <input type="hidden" id="palet_{{ $detail_palet->id }}" value="{{  app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}">
+                                        <td>
+                                            <div class="form-inline row">
+                                                <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
+                                                <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-lg-12">                            
+                                                    <input type="text" class="datetimepickernya form-control"  value="{{ $detail_palet->start }}" id="start_palet_{{ $detail_palet->id }}" onblur="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
-                                    </td>
-                                   
-                                </tr>
-                                @endforeach
-                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-lg-12">                            
+                                                    <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
+                                        </td>
+                                       
+                                    </tr>
+                                    @endforeach
+                                <?php } ?>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -188,35 +193,37 @@
                     </thead>
                     <tbody id="detail_tpa">
                         @foreach ($cpps->cppDetail as $detail_cpp)
-                            <?php if (strpos($detail_cpp->nolot,'A')) { ?>
-                                @foreach ($detail_cpp->palet as $detail_palet)
-                                <tr>
-                                    <td>
-                                        <div class="form-inline row">
-                                                
-                                            <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
-                                            <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-lg-12">                            
-                                                <input type="text" class="datetimepickernya form-control" id="start_palet_{{ $detail_palet->id }}" onfocusout="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" value="{{ $detail_palet->start }}">
+                            @if ($detail_cpp->wo_id === $cpps->wo[0]->id)
+                                <?php if (strpos($detail_cpp->nolot,'A')) { ?>
+                                    @foreach ($detail_cpp->palet as $detail_palet)
+                                    <tr>
+                                        <td>
+                                            <div class="form-inline row">
+                                                    
+                                                <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
+                                                <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-lg-12">                            <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-lg-12">                            
+                                                    <input type="text" class="datetimepickernya form-control" id="start_palet_{{ $detail_palet->id }}" onfocusout="ubahjamstart('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" value="{{ $detail_palet->start }}">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
-                                    </td>
-                                </tr>
-                                @endforeach
-                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-lg-12">                            <input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}') " value="{{ $detail_palet->end }}" id="end_palet_{{ $detail_palet->id }}">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                <?php } ?>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

@@ -47,7 +47,7 @@ Route::get('/dekripsi/{dekripsi}','resourceController@dekripsi')->name('dekripsi
 
 Route::get('/home-nothing', 'userAccess\userAccessController@homeNothing')->name('home-no-hak-akses');
 Route::get('/halaman-help', 'hakAkses\hakAksesController@index')->name('halaman-help');
-Route::get('/halaman-help', 'hakAkses\hakAksesController@index')->name('halaman-help');
+Route::get('/request-hak-akses', 'hakAkses\hakAksesController@hakAkses')->name('request-hak-akses-menu');
 Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
 Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
 
@@ -265,7 +265,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::post('/rollie-operator-produksi/cpp/ubah-jam-akhir-cpp', 'rollie\rollieOperatorController@ubahJamAkhir')->name('ubah-jam-end-cpp');
     Route::post('/rollie-operator-produksi/cpp/ubah-box-cpp', 'rollie\rollieOperatorController@ubahBox')->name('ubah-box-cpp');
     
-    Route::get('/rollie-operator-produksi/cpp/refresh-table-cpp/{cpp_head_id}', 'rollie\rollieOperatorController@refreshTableCpp')->name('refresh-table-cpp');
+    Route::get('/rollie-operator-produksi/cpp/refresh-table-cpp/{cpp_head_id}/{wo_aktif}', 'rollie\rollieOperatorController@refreshTableCpp')->name('refresh-table-cpp');
+    
     Route::get('/rollie-operator-produksi/cpp/{id}', 'rollie\rollieOperatorController@cpp')->name('operator-cpp');
     Route::get('/rollie-operator-produksi/tambah-wo-batch/{jenis_tambah}/{cpp_head_id}', 'rollie\rollieOperatorController@tambahWo')->name('tambah-wo-batch-cpp');
     Route::post('/rollie-operator-produksi/rpd-filling/tambah-wo-batch-cpp', 'rollie\rollieOperatorController@tambahWoBatch')->name('tambah-wo-cpp');

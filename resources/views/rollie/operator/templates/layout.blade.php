@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container sbar_collapsed">
+    <div class="page-container">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -283,188 +283,200 @@
                 },
             }); 
         }
-
         function refreshcpp() 
         {
-            var $cpp_head_id = $('#cpp_head_id').val();
+            var $cpp_head_id    = $('#cpp_head_id').val();
+            var $wo_id          = $('#no_wo').val();
             $.ajax({
-                url     : '/sentul-apps/rollie-operator-produksi/cpp/refresh-table-cpp/'+$cpp_head_id,
+                url     : '/sentul-apps/rollie-operator-produksi/cpp/refresh-table-cpp/'+$cpp_head_id+'/'+$wo_id,
                 method  : 'GET',
                 dataType: 'JSON',
                 success : function(data) 
                 {
+                    $('#detail_tbac').empty();
+                    $('#detail_a3b').empty();
+                    $('#detail_tpa').empty();
                     for (var i = 0; i < data.cpp_detail.length; i++) 
                     {
                         if (data.cpp_detail[i].nolot.includes('TC')) 
                         {
-                            // ini untuk mesin TBA C
-                            var table_tba_c = '', $table_tba_c = $('#detail_tbac');
-                            for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
+                            if (data.cpp_detail[i].palet !== null) 
                             {
-                                table_tba_c     +=   '<tr>';
-                                // lot palet
-                                table_tba_c     +=   '<td>';
-                                table_tba_c     +=   '<div class="form-inline row">';
-                                table_tba_c     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
-                                table_tba_c     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
-                                table_tba_c     +=   '</div>';
-                                table_tba_c     +=   '</td>';
-                                //start
-                                table_tba_c     +=    '<td>';
-                                table_tba_c     +=    '<div class="row">';
-                                table_tba_c     +=    '<div class="col-lg-12">';                            
-                                table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
-                                table_tba_c     +=    '</div>';
-                                table_tba_c     +=    '</div>';
-                                table_tba_c     +=    '</td>';
-                                //end
-                                table_tba_c     +=    '<td>';
-                                table_tba_c     +=    '<div class="row">';
-                                table_tba_c     +=    '<div class="col-lg-12">';                            
-                                if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                                // ini untuk mesin TBA C
+                                var table_tba_c = '', $table_tba_c = $('#detail_tbac');
+                                for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
                                 {
-                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'" >';
-                                } 
-                                else 
-                                {
-                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
-                                }                            
-                                table_tba_c     +=    '</div>';
-                                table_tba_c     +=    '</div>';
-                                table_tba_c     +=    '</td>';
-                                // jumlah_box
-                                table_tba_c     +=    '<td>';
-                                table_tba_c     +=    '<div class="row">';
-                                table_tba_c     +=    '<div class="col-lg-12">';                            
-                                if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
-                                {
-                                    table_tba_c     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
-                                } 
-                                else 
-                                {
-                                    table_tba_c     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
+                                    table_tba_c     +=   '<tr>';
+                                    // lot palet
+                                    table_tba_c     +=   '<td>';
+                                    table_tba_c     +=   '<div class="form-inline row">';
+                                    table_tba_c     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                    table_tba_c     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
+                                    table_tba_c     +=   '</div>';
+                                    table_tba_c     +=   '</td>';
+                                    //start
+                                    table_tba_c     +=    '<td>';
+                                    table_tba_c     +=    '<div class="row">';
+                                    table_tba_c     +=    '<div class="col-lg-12">';                            
+                                    table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                    table_tba_c     +=    '</div>';
+                                    table_tba_c     +=    '</div>';
+                                    table_tba_c     +=    '</td>';
+                                    //end
+                                    table_tba_c     +=    '<td>';
+                                    table_tba_c     +=    '<div class="row">';
+                                    table_tba_c     +=    '<div class="col-lg-12">';                            
+                                    if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                                    {
+                                        table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="end_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'" >';
+                                    } 
+                                    else 
+                                    {
+                                        table_tba_c     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="end_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
+                                    }                            
+                                    table_tba_c     +=    '</div>';
+                                    table_tba_c     +=    '</div>';
+                                    table_tba_c     +=    '</td>';
+                                    // jumlah_box
+                                    table_tba_c     +=    '<td>';
+                                    table_tba_c     +=    '<div class="row">';
+                                    table_tba_c     +=    '<div class="col-lg-12">';                            
+                                    if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
+                                    {
+                                        table_tba_c     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                    } 
+                                    else 
+                                    {
+                                        table_tba_c     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
+                                    }
+                                    table_tba_c     +=    '</div>';
+                                    table_tba_c     +=    '</div>';
+                                    table_tba_c     +=    '</td>';
+                                    table_tba_c     +=    '</tr>';
+                                    $table_tba_c.html(table_tba_c).on('change');
                                 }
-                                table_tba_c     +=    '</div>';
-                                table_tba_c     +=    '</div>';
-                                table_tba_c     +=    '</td>';
-                                table_tba_c     +=    '</tr>';
-                                $table_tba_c.html(table_tba_c).on('change');
                             }
                         } 
                         else if (data.cpp_detail[i].nolot.includes('TB'))
-                        {
-                            // ini untuk mesin A 3B
-                            var table_a3b = '', $table_a3b = $('#detail_a3b');
-                            for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
+                        {   
+                            if (data.cpp_detail[i].palet !== null)
                             {
-                                table_a3b     +=   '<tr>';
-                                // lot palet
-                                table_a3b     +=   '<td>';
-                                table_a3b     +=   '<div class="form-inline row">';
-                                table_a3b     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
-                                table_a3b     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
-                                table_a3b     +=   '</div>';
-                                table_a3b     +=   '</td>';
-                                //start
-                                table_a3b     +=    '<td>';
-                                table_a3b     +=    '<div class="row">';
-                                table_a3b     +=    '<div class="col-lg-12">';                            
-                                table_a3b     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
-                                table_a3b     +=    '</div>';
-                                table_a3b     +=    '</div>';
-                                table_a3b     +=    '</td>';
-                                //end
-                                table_a3b     +=    '<td>';
-                                table_a3b     +=    '<div class="row">';
-                                table_a3b     +=    '<div class="col-lg-12">';
-                                if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                                // ini untuk mesin A 3B
+                                var table_a3b = '', $table_a3b = $('#detail_a3b');
+                                for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
                                 {
+                                    table_a3b     +=   '<tr>';
+                                    // lot palet
+                                    table_a3b     +=   '<td>';
+                                    table_a3b     +=   '<div class="form-inline row">';
+                                    table_a3b     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                    table_a3b     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
+                                    table_a3b     +=   '</div>';
+                                    table_a3b     +=   '</td>';
+                                    //start
+                                    table_a3b     +=    '<td>';
+                                    table_a3b     +=    '<div class="row">';
+                                    table_a3b     +=    '<div class="col-lg-12">';                            
+                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                    table_a3b     +=    '</div>';
+                                    table_a3b     +=    '</div>';
+                                    table_a3b     +=    '</td>';
+                                    //end
+                                    table_a3b     +=    '<td>';
+                                    table_a3b     +=    '<div class="row">';
+                                    table_a3b     +=    '<div class="col-lg-12">';
+                                    if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                                    {
 
-                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'">';
-                                } 
-                                else 
-                                {
-                                    table_a3b     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
-                                }                            
-                                table_a3b     +=    '</div>';
-                                table_a3b     +=    '</div>';
-                                table_a3b     +=    '</td>';
-                                // jumlah_box
-                                table_a3b     +=    '<td>';
-                                table_a3b     +=    '<div class="row">';
-                                table_a3b     +=    '<div class="col-lg-12">';
-                                if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
-                                {
-                                    table_a3b     +=    '<input type="text" class="form-control" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
-                                } 
-                                else 
-                                {
-                                    table_a3b     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
+                                        table_a3b     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="end_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'">';
+                                    } 
+                                    else 
+                                    {
+                                        table_a3b     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="end_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
+                                    }                            
+                                    table_a3b     +=    '</div>';
+                                    table_a3b     +=    '</div>';
+                                    table_a3b     +=    '</td>';
+                                    // jumlah_box
+                                    table_a3b     +=    '<td>';
+                                    table_a3b     +=    '<div class="row">';
+                                    table_a3b     +=    '<div class="col-lg-12">';
+                                    if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
+                                    {
+                                        table_a3b     +=    '<input type="text" class="form-control" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                    } 
+                                    else 
+                                    {
+                                        table_a3b     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
+                                    }
+                                    
+                                    table_a3b     +=    '</div>';
+                                    table_a3b     +=    '</div>';
+                                    table_a3b     +=    '</td>';
+                                    table_a3b     +=    '</tr>';
+                                    $table_a3b.html(table_a3b).on('change');
                                 }
-                                
-                                table_a3b     +=    '</div>';
-                                table_a3b     +=    '</div>';
-                                table_a3b     +=    '</td>';
-                                table_a3b     +=    '</tr>';
-                                $table_a3b.html(table_a3b).on('change');
+
                             }
                             
                         } 
                         else 
                         {
-
-                            // ini untuk mesin TBA C
-                            var table_tpa = '', $table_tpa = $('#detail_tpa');
-                            for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
+                            if (data.cpp_detail[i].palet !== null)
                             {
-                                table_tpa     +=   '<tr>';
-                                // lot palet
-                                table_tpa     +=   '<td>';
-                                table_tpa     +=   '<div class="form-inline row">';
-                                table_tpa     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
-                                table_tpa     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
-                                table_tpa     +=   '</div>';
-                                table_tpa     +=   '</td>';
-                                //start
-                                table_tpa     +=    '<td>';
-                                table_tpa     +=    '<div class="row">';
-                                table_tpa     +=    '<div class="col-lg-12">';                            
-                                table_tpa     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
-                                table_tpa     +=    '</div>';
-                                table_tpa     +=    '</div>';
-                                table_tpa     +=    '</td>';
-                                //end
-                                table_tpa     +=    '<td>';
-                                table_tpa     +=    '<div class="row">';
-                                table_tpa     +=    '<div class="col-lg-12">';                            
-                                if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                            // ini untuk mesin TBA C
+                                var table_tpa = '', $table_tpa = $('#detail_tpa');
+                                for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
                                 {
-                                    table_tpa     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'" >';
-                                } 
-                                else 
-                                {
-                                    table_tpa     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
-                                }                            
-                                table_tpa     +=    '</div>';
-                                table_tpa     +=    '</div>';
-                                table_tpa     +=    '</td>';
-                                // jumlah_box
-                                table_tpa     +=    '<td>';
-                                table_tpa     +=    '<div class="row">';
-                                table_tpa     +=    '<div class="col-lg-12">';                            
-                                if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
-                                {
-                                    table_tpa     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
-                                } 
-                                else 
-                                {
-                                    table_tpa     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
-                                }
-                                table_tpa     +=    '</div>';
-                                table_tpa     +=    '</div>';
-                                table_tpa     +=    '</td>';
-                                table_tpa     +=    '</tr>';
-                                $table_tpa.html(table_tpa).on('change');
+                                    table_tpa     +=   '<tr>';
+                                    // lot palet
+                                    table_tpa     +=   '<td>';
+                                    table_tpa     +=   '<div class="form-inline row">';
+                                    table_tpa     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                    table_tpa     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
+                                    table_tpa     +=   '</div>';
+                                    table_tpa     +=   '</td>';
+                                    //start
+                                    table_tpa     +=    '<td>';
+                                    table_tpa     +=    '<div class="row">';
+                                    table_tpa     +=    '<div class="col-lg-12">';                            
+                                    table_tpa     +=    '<input type="text" class="datetimepickernya form-control" id="start_palet_'+data.cpp_detail[i].palet[a].id+'" onfocusout="ubahjamstart(\''+data.cpp_detail[i].palet[a].id_detail+'\')"  value="'+data.cpp_detail[i].palet[a].start+'">';
+                                    table_tpa     +=    '</div>';
+                                    table_tpa     +=    '</div>';
+                                    table_tpa     +=    '</td>';
+                                    //end
+                                    table_tpa     +=    '<td>';
+                                    table_tpa     +=    '<div class="row">';
+                                    table_tpa     +=    '<div class="col-lg-12">';                            
+                                    if (data.cpp_detail[i].palet[a].end !== null && data.cpp_detail[i].palet[a].end !== '') 
+                                    {
+                                        table_tpa     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="end_palet_'+data.cpp_detail[i].palet[a].id+'" value="'+data.cpp_detail[i].palet[a].end+'" >';
+                                    } 
+                                    else 
+                                    {
+                                        table_tpa     +=    '<input type="text" class="datetimepickernya form-control" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" onfocusout="ubahjamend(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="end_palet_'+data.cpp_detail[i].palet[a].id+'" value="">';
+                                    }                            
+                                    table_tpa     +=    '</div>';
+                                    table_tpa     +=    '</div>';
+                                    table_tpa     +=    '</td>';
+                                    // jumlah_box
+                                    table_tpa     +=    '<td>';
+                                    table_tpa     +=    '<div class="row">';
+                                    table_tpa     +=    '<div class="col-lg-12">';                            
+                                    if (data.cpp_detail[i].palet[a].jumlah_box !== null && data.cpp_detail[i].palet[a].jumlah_box!=='') 
+                                    {
+                                        table_tpa     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="'+data.cpp_detail[i].palet[a].jumlah_box+'">';
+                                    } 
+                                    else 
+                                    {
+                                        table_tpa     +=    '<input type="text" onfocusout="jumlahbox(\''+data.cpp_detail[i].palet[a].id_detail+'\')" id="box_palet_'+data.cpp_detail[i].palet[a].id+'" class="form-control"  value="">';
+                                    }
+                                    table_tpa     +=    '</div>';
+                                    table_tpa     +=    '</div>';
+                                    table_tpa     +=    '</td>';
+                                    table_tpa     +=    '</tr>';
+                                    $table_tpa.html(table_tpa).on('change');
+                                }   
                             }
                         }    
                         $('.timepickernya').datetimepicker({
@@ -710,7 +722,7 @@
                             text: data.message,
                             type: "success",
                         });   
-                        window.location.href='{{ route("dashboard-inspektor-qc") }}';
+                        window.location.href='{{ route("dashboard-operator-fillpack") }}';
                     } 
                     else 
                     {

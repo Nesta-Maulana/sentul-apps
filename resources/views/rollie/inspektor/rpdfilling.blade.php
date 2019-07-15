@@ -26,7 +26,7 @@
 @section('content')
 	<hr>
 	<input type="hidden" id="idrpdfillinghead" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($rpd_filling->id) }}">
-
+	
 	<div class="card">
 		<div class="card-body">
 			<div class="row">
