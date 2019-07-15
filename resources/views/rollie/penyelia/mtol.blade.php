@@ -20,9 +20,9 @@ active
                     </div>
                     <div class="col-md-5"></div>
                     <div class="col-md-3">
-                        <h4 class="text-center text-danger" tool>
+                        <h5 class="text-center text-danger" tool>
                             <a data-toggle="modal" data-target="#tambah-jadwal">
-                                <i class="fa fa-plus-square-o"></i> Tambah WO
+                                <i class="fa fa-plus-square-o"></i> Tambah WO Produksi
                             </a>
                         </h4>
                     </div>

@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container">
+    <div class="page-container sbar_collapsed">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">

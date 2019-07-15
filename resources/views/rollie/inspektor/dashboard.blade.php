@@ -65,7 +65,7 @@
                                             @break
                                         @endswitch
                                     </tr>
-                                @elseif( ($wo->status === '3' && is_null($wo->rpdFillingHead->status=='0')) )
+                                @elseif( ($wo->status === '3' && $wo->rpdFillingHead->status=='1') )
                                     <tr>
                                         <td>{{ $wo->nomor_wo }}</td>
                                         <td>{{ $wo->produk->nama_produk }}</td>

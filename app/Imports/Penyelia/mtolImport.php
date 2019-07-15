@@ -71,93 +71,101 @@ class mtolImport implements WithMappedCells,ToModel,WithValidation
     	$jadwalinsert 	= array();
     	for ($i=1; $i < count($hasil) ; $i++) 
 		{ 
-			$plan 						= 	$hasil['baris_ke_'.$i][0];
-			$production_plan_date 		= 	Date::excelToDateTimeObject($hasil['baris_ke_'.$i][1]);
-			$nomor_wo 					= 	$hasil['baris_ke_'.$i][2];
-			$keterangan_1 				= 	$hasil['baris_ke_'.$i][3];
-			$keterangan_2 				= 	$hasil['baris_ke_'.$i][4];
-			$keterangan_3 				= 	$hasil['baris_ke_'.$i][5];
 			$kode_produk 				= 	$hasil['baris_ke_'.$i][6];
-			$nama_produk 				= 	$hasil['baris_ke_'.$i][7];
-			$status 					= 	$hasil['baris_ke_'.$i][8];
-			$revisi_formula 			= 	$hasil['baris_ke_'.$i][9];
-			$plan_batch_size 			= 	$hasil['baris_ke_'.$i][10];
-			if (!is_null($plan)) 
+			if ($kode_produk == '7500150M' || $kode_produk == '7500147M') 
 			{
-				if ($plan == 'PLG') 
+				continue;
+			}
+			else
+			{
+				$plan 						= 	$hasil['baris_ke_'.$i][0];
+				$production_plan_date 		= 	Date::excelToDateTimeObject($hasil['baris_ke_'.$i][1]);
+				$keterangan_1 				= 	$hasil['baris_ke_'.$i][3];
+				$keterangan_2 				= 	$hasil['baris_ke_'.$i][4];
+				$keterangan_3 				= 	$hasil['baris_ke_'.$i][5];
+				$nomor_wo 					= 	$hasil['baris_ke_'.$i][2];
+				$nama_produk 				= 	$hasil['baris_ke_'.$i][7];
+				$status 					= 	$hasil['baris_ke_'.$i][8];
+				$revisi_formula 			= 	$hasil['baris_ke_'.$i][9];
+				$plan_batch_size 			= 	$hasil['baris_ke_'.$i][10];
+				if (!is_null($plan)) 
 				{
-					$plan = '3';
+					if ($plan == 'PLG') 
+					{
+						$plan = '3';
+					}
 				}
-			}
 
-			if (!is_null($keterangan_1) || $keterangan_1 == "") 
-			{
-				$keterangan_1 = "-";
-			}
-			if (!is_null($keterangan_2) || $keterangan_2 == "") 
-			{
-				$keterangan_2 = "-";
-			}
-			if (!is_null($keterangan_3) || $keterangan_3 == "") 
-			{
-				$keterangan_3 = "-";
-			}
-			//mengambil data produk dengan dengan menyamakan nama produknya 
-			if ($kode_produk !== "" && $nama_produk !== "" || !is_null($kode_produk) && !is_null($nama_produk)) 
-			{
-				// PENGECEKAN APABILA WO YANG DIGUNAKAN ADALAH WO kode_trial
-				if (strpos($nomor_wo, '/')) 
+				if (!is_null($keterangan_1) || $keterangan_1 == "") 
 				{
-					$patahkan 		= explode('/',$nomor_wo);
-					$kode_trial 	= end($patahkan);
-					$produk 		= produk::where('kode_trial',$kode_trial)->first();
-					$produk_id 		= $produk->id;	
-				} 
-				else
+					$keterangan_1 = "-";
+				}
+				if (!is_null($keterangan_2) || $keterangan_2 == "") 
 				{
-					$produk 	= produk::where('kode_oracle',$kode_produk)->first();
-					$produk_id 	= $produk->id;
+					$keterangan_2 = "-";
+				}
+				if (!is_null($keterangan_3) || $keterangan_3 == "") 
+				{
+					$keterangan_3 = "-";
+				}
+				//mengambil data produk dengan dengan menyamakan nama produknya 
+				if ($kode_produk !== "" && $nama_produk !== "" || !is_null($kode_produk) && !is_null($nama_produk)) 
+				{
+					// PENGECEKAN APABILA WO YANG DIGUNAKAN ADALAH WO kode_trial
+					if (strpos($nomor_wo, '/')) 
+					{
+						$patahkan 		= explode('/',$nomor_wo);
+						$kode_trial 	= end($patahkan);
+						$produk 		= produk::where('kode_trial',$kode_trial)->first();
+						$produk_id 		= $produk->id;	
+					} 
+					else
+					{
+						$produk 	= produk::where('kode_oracle',$kode_produk)->first();
 					
+						$produk_id 	= $produk->id;
+						
+					}
 				}
-			}
-			// pengecekan status dari excel lalu di rubah sesuai indexing dalam database
-			if ($status == "Pending") 
-			{
-				$status = "0";
-			} 
-			else if ($status == "Cancelled") 
-			{
-				$status = "6";
-			}
-			else if($status == '')
-			{
-				$status = "0";
-			}
-			else if ($status == 'WIP') 
-			{
-				$status = '1';
-			} 
+				// pengecekan status dari excel lalu di rubah sesuai indexing dalam database
+				if ($status == "Pending") 
+				{
+					$status = "0";
+				} 
+				else if ($status == "Cancelled") 
+				{
+					$status = "6";
+				}
+				else if($status == '')
+				{
+					$status = "0";
+				}
+				else if ($status == 'WIP') 
+				{
+					$status = '1';
+				} 
 
-			if ($revisi_formula == "" || is_null($revisi_formula)) 
-			{
-				$revisi_formula = "-";
-			}
-			$arrayrow = array();
+				if ($revisi_formula == "" || is_null($revisi_formula)) 
+				{
+					$revisi_formula = "-";
+				}
+				$arrayrow = array();
 
-			//memasukan value kedalam array untuk insert multiple
-			$arrayrow['nomor_wo']					= $nomor_wo;
-			$arrayrow['produk_id']					= $produk_id;
-			$arrayrow['plan_id']					= $plan;
-			$arrayrow['production_plan_date']		= $production_plan_date;
-			$arrayrow['status']						= $status;
-			$arrayrow['keterangan_1']				= $keterangan_1;
-			$arrayrow['keterangan_2']				= $keterangan_2;
-			$arrayrow['keterangan_3']				= $keterangan_3;
-			$arrayrow['plan_batch_size']			= $plan_batch_size;
-			$arrayrow['revisi_formula']				= $revisi_formula;
-			// dd($arrayrow);
-			// satu variabel insert di push
-			array_push($jadwalinsert, $arrayrow);
+				//memasukan value kedalam array untuk insert multiple
+				$arrayrow['nomor_wo']					= $nomor_wo;
+				$arrayrow['produk_id']					= $produk_id;
+				$arrayrow['plan_id']					= $plan;
+				$arrayrow['production_plan_date']		= $production_plan_date;
+				$arrayrow['status']						= $status;
+				$arrayrow['keterangan_1']				= $keterangan_1;
+				$arrayrow['keterangan_2']				= $keterangan_2;
+				$arrayrow['keterangan_3']				= $keterangan_3;
+				$arrayrow['plan_batch_size']			= $plan_batch_size;
+				$arrayrow['revisi_formula']				= $revisi_formula;
+				// dd($arrayrow);
+				// satu variabel insert di push
+				array_push($jadwalinsert, $arrayrow);
+			}
     		
     	}
 

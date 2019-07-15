@@ -126,7 +126,6 @@
 				<button class="btn btn-success col-lg-2" onclick="close_rpd($('#idrpdfillinghead').val())">Close RPD Filling</button>
 				
 			</div>
-			<button onclick="reloadTablePi()">Cek </button>
 			@include('rollie.inspektor.popup-tambah-sample')
 			@include('rollie.inspektor.popup-tambah-batch')
 			@include('rollie.inspektor.popup-analisa-pi')

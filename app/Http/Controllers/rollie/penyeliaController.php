@@ -107,10 +107,13 @@ class penyeliaController extends resourceController
                                 }                            } 
                             else
                             {
-                                $cekproduk  = produk::where('kode_oracle',$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8])->first();
-                                if (is_null($cekproduk)) 
+                                if ($uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8] !== '7500147M' && $uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8] !== '7500150M') 
                                 {
-                                    return redirect()->route('penyelia-jadwal-dashboard')->with('failed','Item '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9].' dengan kode oracle '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8].' belum terdaftar. Harap hubungi administrator untuk menyelesaikannya');
+                                    $cekproduk  = produk::where('kode_oracle',$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8])->first();
+                                    if (is_null($cekproduk)) 
+                                    {
+                                        return redirect()->route('penyelia-jadwal-dashboard')->with('failed','Item '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][9].' dengan kode oracle '.$uploadjadwal['Mampu Telusur Produk Online (MT'][$i][8].' belum terdaftar. Harap hubungi administrator untuk menyelesaikannya');
+                                    }
                                 }
                                 
                             }
