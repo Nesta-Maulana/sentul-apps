@@ -346,7 +346,7 @@ class rollieOperatorController extends resourceController
                 {
                     return ['success'=>false,'message'=>'Jam awal palet tidak boleh kurang dari jam awal palet sebelumnya. Harap menyesuaikan jam palet lebih awal terlebih dahulu'];
                 }
-                else if($jam_start > $ambilsemua[$keyaktif-1]->start && $jam_start > $palet->start)
+                else if($jam_start > $ambilsemua[$keyaktif-1]->start)
                 {
                     $paletsebelum           = $ambilsemua[$keyaktif-1];
                     $paletsebelum->end      = $jam_start;
@@ -377,6 +377,7 @@ class rollieOperatorController extends resourceController
             }
             else
             {
+
                 $palet->start           = $jam_start;
                 $palet->save();
                 return ['success'=>true,'message'=>'Jam Awal Berhasil Diubah'];

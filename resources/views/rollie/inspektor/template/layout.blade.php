@@ -1035,11 +1035,11 @@
                         isitable    += '<td>'+data.detail_pi_nya[i].kode_sampel+'</td>';
                         if (data.detail_pi_nya[i].kodenya == 'Event') 
                         {
-                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-at-event" onclick="analisa_sampel_at_event(\''+data.detail_pi_nya[i].kode_sampel+'\',\''+data.detail_pi_nya[i].event+'\',\''+data.detail_pi_nya[i].mesin_filling+'\',\''+data.detail_pi_nya[i].tanggal_filling+'\',\''+data.detail_pi_nya[i].jam_filling+'\',\''+data.detail_pi_nya[i].detail_id_enkripsi+'\',\''+data.detail_pi_nya[i].wo_id+'\',\''+data.detail_pi_nya[i].mesin_filling_id+'\')">Analisa</a></td>';
+                            isitable    += '<td><a data-toggle="modal" class="btn btn-danger text-white" data-target="#analisa-sample-at-event" onclick="analisa_sampel_at_event(\''+data.detail_pi_nya[i].kode_sampel+'\',\''+data.detail_pi_nya[i].event+'\',\''+data.detail_pi_nya[i].mesin_filling+'\',\''+data.detail_pi_nya[i].tanggal_filling+'\',\''+data.detail_pi_nya[i].jam_filling+'\',\''+data.detail_pi_nya[i].detail_id_enkripsi+'\',\''+data.detail_pi_nya[i].wo_id+'\',\''+data.detail_pi_nya[i].mesin_filling_id+'\')">Analisa</a></td>';
                         } 
                         else if (data.detail_pi_nya[i].kodenya == 'Bukan Event') 
                         {
-                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-pi" onclick="analisa_sampel_pi(\''+data.detail_pi_nya[i].kode_sampel+'\',\''+data.detail_pi_nya[i].event+'\',\''+data.detail_pi_nya[i].mesin_filling+'\',\''+data.detail_pi_nya[i].tanggal_filling+'\',\''+data.detail_pi_nya[i].jam_filling+'\',\''+data.detail_pi_nya[i].detail_id_enkripsi+'\',\''+data.detail_pi_nya[i].nama_produk+'\',\''+data.detail_pi_nya[i].wo_id+'\',\''+data.detail_pi_nya[i].mesin_filling_id+'\')">Analisa</a></td>';
+                            isitable    += '<td><a data-toggle="modal" data-target="#analisa-sample-pi" class="btn btn-warning text-white" onclick="analisa_sampel_pi(\''+data.detail_pi_nya[i].kode_sampel+'\',\''+data.detail_pi_nya[i].event+'\',\''+data.detail_pi_nya[i].mesin_filling+'\',\''+data.detail_pi_nya[i].tanggal_filling+'\',\''+data.detail_pi_nya[i].jam_filling+'\',\''+data.detail_pi_nya[i].detail_id_enkripsi+'\',\''+data.detail_pi_nya[i].nama_produk+'\',\''+data.detail_pi_nya[i].wo_id+'\',\''+data.detail_pi_nya[i].mesin_filling_id+'\')">Analisa</a></td>';
                         }
                         isitable    += '</tr>';
                     }

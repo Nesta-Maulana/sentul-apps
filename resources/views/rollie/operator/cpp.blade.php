@@ -141,12 +141,14 @@
                         @foreach ($cpps->cppDetail as $detail_cpp)
                             @if ($detail_cpp->wo_id === $cpps->wo[0]->id)
                                 <?php if (strpos($detail_cpp->nolot,'B')) { ?>
+                                    
                                     @foreach ($detail_cpp->palet as $detail_palet)
-                                    <tr>
+                                    
+                                    <tr @if (count($detail_palet->atEvent) > 0) style="background-color: #ddd" @endif>
                                         <input type="hidden" id="palet_{{ $detail_palet->id }}" value="{{  app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}">
                                         <td>
                                             <div class="form-inline row">
-                                                <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
+                                                <label class="col-lg-6" style="font-size: 12px"> {{ $detail_cpp->nolot }}-</label>
                                                 <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
                                             </div>
                                         </td>
@@ -167,7 +169,6 @@
                                         <td>
                                             <input type="text" onfocusout="jumlahbox('{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}')" id="box_palet_{{ $detail_palet->id }}" value="{{ $detail_palet->jumlah_box }}" class="form-control">
                                         </td>
-                                       
                                     </tr>
                                     @endforeach
                                 <?php } ?>

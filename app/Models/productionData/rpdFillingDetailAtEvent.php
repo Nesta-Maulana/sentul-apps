@@ -25,4 +25,9 @@ class rpdFillingDetailAtEvent extends Model
 	{
 		return $this->belongsTo('App\Models\masterApps\mesinFilling');
 	}
+	public function palet()
+	{
+		return $this->belongsTo('App\Models\productionData\palet', 'palet_id','id');
+	}
+
 }

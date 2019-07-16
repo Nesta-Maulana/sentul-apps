@@ -102,7 +102,7 @@
                     			<td style="display: none;">{{ $detail_pi->tanggal_filling }}</td>
                     			<td>{{ $detail_pi->jam_filling }}</td>
                     			<td>{{ $detail_pi->kode_sampel->kode_sampel }}</td>
-                    			<td><a data-toggle="modal" data-target="#analisa-sample-pi" class="btn btn-warning white-text" onclick="analisa_sampel_pi('{{ $detail_pi->kode_sampel->kode_sampel }}','{{ ucwords($detail_pi->kode_sampel->event) }}','{{ $detail_pi->mesin_filling->kode_mesin }}','{{ $detail_pi->tanggal_filling }}','{{ $detail_pi->jam_filling }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->id) }}','{{ $detail_pi->wo->produk->nama_produk }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->wo->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->mesin_filling->id) }}')">ANALISA</a></td>
+                    			<td><a data-toggle="modal" data-target="#analisa-sample-pi" class="btn btn-warning text-white" onclick="analisa_sampel_pi('{{ $detail_pi->kode_sampel->kode_sampel }}','{{ ucwords($detail_pi->kode_sampel->event) }}','{{ $detail_pi->mesin_filling->kode_mesin }}','{{ $detail_pi->tanggal_filling }}','{{ $detail_pi->jam_filling }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->id) }}','{{ $detail_pi->wo->produk->nama_produk }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->wo->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_pi->mesin_filling->id) }}')">ANALISA</a></td>
                     		</tr>
                     		@endif
                     	@endforeach
@@ -114,7 +114,7 @@
                     			<td style="display: none;">{{ $detail_at_event->tanggal_filling }}</td>
                     			<td>{{ $detail_at_event->jam_filling }}</td>
                     			<td>{{ $detail_at_event->kode_sampel->kode_sampel }} ( Event )</td>
-                    			<td><a data-toggle="modal" data-target="#analisa-sample-at-event" class="btn btn-danger white-text" onclick="analisa_sampel_at_event('{{ $detail_at_event->kode_sampel->kode_sampel }}','{{ ucwords($detail_at_event->kode_sampel->event) }}','{{ $detail_pi->mesin_filling->kode_mesin }}','{{ $detail_at_event->tanggal_filling }}','{{ $detail_at_event->jam_filling }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->wo->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->mesin_filling->id) }}')">ANALISA</a></td>
+                    			<td><a data-toggle="modal" data-target="#analisa-sample-at-event" class="btn btn-danger text-white" onclick="analisa_sampel_at_event('{{ $detail_at_event->kode_sampel->kode_sampel }}','{{ ucwords($detail_at_event->kode_sampel->event) }}','{{ $detail_pi->mesin_filling->kode_mesin }}','{{ $detail_at_event->tanggal_filling }}','{{ $detail_at_event->jam_filling }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->wo->id) }}','{{ app('App\Http\Controllers\resourceController')->enkripsi($detail_at_event->mesin_filling->id) }}')">ANALISA</a></td>
                     		</tr>
                     	@endif
                     	@endforeach

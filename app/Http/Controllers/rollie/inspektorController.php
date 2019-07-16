@@ -206,7 +206,7 @@ class inspektorController extends resourceController
     }
     public function tambahSampel(Request $request)
     {
-        $wo_id           = app('App\Http\Controllers\resourceController')->dekripsi($request->nomor_wo);
+        $wo_id              = app('App\Http\Controllers\resourceController')->dekripsi($request->nomor_wo);
         $mesin_filling_id   = app('App\Http\Controllers\resourceController')->dekripsi($request->mesin_filling_id);
         $tanggal_filling    = $request->tanggal_filling;
         $jam_filling        = $request->jam_filling;
@@ -236,6 +236,21 @@ class inspektorController extends resourceController
             break;
             case '1':
                 // jika event maka akan input ke at event dan pi 
+                $jam_event      = $tanggal_filling.' '.$jam_filling;
+
+                $ambilpalet     = DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_event."' BETWEEN `start` AND `end`");
+                $cpp_detail     = cppDetail::where('wo_id',$wo_id)->where('mesin_filling_id',$mesin_filling_id)->get();
+                    // dd($cpp_detail);
+                foreach ($ambilpalet as $key => $palet) 
+                {
+                    foreach ($cpp_detail as $key => $cpp_detail_item) 
+                    {
+                        if ($palet->cpp_detail_id == $cpp_detail_item->id) 
+                        {
+                            $paletevent     = $palet;
+                        }
+                    }
+                }
                 $insertPi       = rpdFillingDetailPi::create([
                     'rpd_filling_head_id'       => $rpd_filling_head_id,
                     'wo_id'                     => $wo_id,
@@ -254,7 +269,8 @@ class inspektorController extends resourceController
                     'jam_filling'               => $jam_filling,
                     'mesin_filling_id'          => $mesin_filling_id,
                     'kode_sampel_id'            => $kode_analisa_id,
-                    'user_id_inputer'           => $user_id_inputer
+                    'user_id_inputer'           => $user_id_inputer,
+                    'palet_id'                  => $paletevent->id
                 ]);
 
                 return [ 'success'=>true,'message'=>'Permintaan Analisa Berhasil Diinput' ];

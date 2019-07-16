@@ -20,4 +20,9 @@ class palet extends Model
 		return $this->belongsTo('App\Models\productionData\ppqfg', 'ppq_id','id');
 	}
 
+	public function atEvent()
+	{
+		return $this->hasMany('App\Models\productionData\rpdFillingDetailAtEvent', 'palet_id','id');
+	}
+
 }
