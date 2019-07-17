@@ -93,11 +93,11 @@
                             @if ($detail_cpp->wo_id === $cpps->wo[0]->id)
                                 <?php if (strpos($detail_cpp->nolot,'C')) { ?>
                                     @foreach ($detail_cpp->palet as $detail_palet)
-                                    <tr>
+                                    <tr @if (count($detail_palet->atEvent) > 0) style="background-color: #ff5b5bcc" @endif>
                                         <td>
                                             <div class="form-inline row">
                                                     
-                                                <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
+                                                <label class="col-lg-6" style="font-size: 12px; "> {{ $detail_cpp->nolot }}-</label>
                                                 <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
                                             </div>
                                         </td>
@@ -141,14 +141,12 @@
                         @foreach ($cpps->cppDetail as $detail_cpp)
                             @if ($detail_cpp->wo_id === $cpps->wo[0]->id)
                                 <?php if (strpos($detail_cpp->nolot,'B')) { ?>
-                                    
                                     @foreach ($detail_cpp->palet as $detail_palet)
-                                    
-                                    <tr @if (count($detail_palet->atEvent) > 0) style="background-color: #ddd" @endif>
+                                    <tr @if (count($detail_palet->atEvent) > 0) style="background-color: #ff5b5bcc" @endif>
                                         <input type="hidden" id="palet_{{ $detail_palet->id }}" value="{{  app('App\Http\Controllers\resourceController')->enkripsi($detail_palet->id) }}">
                                         <td>
                                             <div class="form-inline row">
-                                                <label class="col-lg-6" style="font-size: 12px"> {{ $detail_cpp->nolot }}-</label>
+                                                <label class="col-lg-6" style="font-size: 12px; "> {{ $detail_cpp->nolot }}-</label>
                                                 <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
                                             </div>
                                         </td>
@@ -197,11 +195,10 @@
                             @if ($detail_cpp->wo_id === $cpps->wo[0]->id)
                                 <?php if (strpos($detail_cpp->nolot,'A')) { ?>
                                     @foreach ($detail_cpp->palet as $detail_palet)
-                                    <tr>
+                                    <tr @if (count($detail_palet->atEvent) > 0) style="background-color: #ff5b5bcc" @endif>
                                         <td>
                                             <div class="form-inline row">
-                                                    
-                                                <label class="col-lg-6"> {{ $detail_cpp->nolot }}-</label>
+                                                <label class="col-lg-6" style="font-size: 12px; "> {{ $detail_cpp->nolot }}-</label>
                                                 <input type="text" value="{{ $detail_palet->palet }}" style="width: 60px;" class="col-lg-6 form-control">
                                             </div>
                                         </td>
@@ -239,7 +236,7 @@
     </div>
 @include('rollie.operator.tambahbatch')
 
-{{-- <button onclick="ubahjamstart('1')">CEK CEK</button> --}}
+{{-- <button onclick="refreshcpp()">CEK CEK</button> --}}
 
 
 <script>

@@ -55,12 +55,12 @@
 
                 <div class="form-group has-warning row">
                     <label for="hasil_overlap" class="col-lg-3">Overlap (3.5-4.5)</label>
-                    <input type="number" name="hasil_overlap" id="hasil_overlap" class="form-control col-lg-8" maxlength="3" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" required>
+                    <input type="text" name="hasil_overlap" inputmode="decimal" pattern="[0-9]*" id="hasil_overlap" class="form-control col-lg-8" maxlength="3" max="5" min="3"  required>
                     <small class="form-text text-muted" style="margin-left: 216px">Batas Min. 3.5 Batas Max. 4.5</small>
                 </div>
                 <div class="form-group row">
                     <label for="hasil_ls_sa_proportion" class="col-lg-3">LS/SA Proportion</label>
-                    <input type="text" class="col-lg-8 form-control" id="hasil_ls_sa_proportion" name="hasil_ls_sa_proportion" maxlength="5" placeholder="Ex : 40:60" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 58">
+                    <input type="text" class="col-lg-8 form-control" inputmode="tel" id="hasil_ls_sa_proportion" name="hasil_ls_sa_proportion" maxlength="5" placeholder="Ex : 40:60" onfocusout="replaceproportion(this.value)">
                     <small class="form-text text-muted" style="margin-left: 216px">Di isi dengan Angka dengan format XX:XX</small>
                 </div>
 

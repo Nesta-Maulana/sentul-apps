@@ -1,6 +1,9 @@
 @extends('rollie.operator.templates.layout')
 @section('title')
-    ROLLIE | Dashboard
+    {{ $menus[0]->aplikasi }} | Dashboard
+@endsection
+@section('judul')
+    {{ $menus[0]->aplikasi }} | Dashboard
 @endsection
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}" />

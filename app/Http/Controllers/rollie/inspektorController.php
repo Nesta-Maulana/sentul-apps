@@ -769,7 +769,7 @@ class inspektorController extends resourceController
             }
         }
 
-        $paletakhir             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_akhir."' BETWEEN `start` AND `end`");
+        $paletakhir             =   DB::connection('mysql4')->select("SELECT * FROM palet where ('".$jam_filling_akhir."' BETWEEN `start` AND `end`) OR ('".$jam_filling_akhir."' >= `start` AND `end IS NULL ");
         foreach ($paletakhir as $key => $value) 
         {
             if ($value->cpp_detail_id === $cppdetail->id) 

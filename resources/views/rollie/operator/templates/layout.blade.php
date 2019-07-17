@@ -306,11 +306,18 @@
                                 var table_tba_c = '', $table_tba_c = $('#detail_tbac');
                                 for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
                                 {
-                                    table_tba_c     +=   '<tr>';
+                                    if (data.cpp_detail[i].palet[a].at_event.length > 0) 
+                                    {
+                                        table_tba_c     +=   '<tr style="background-color: #ff5b5bcc">';  
+                                    } 
+                                    else 
+                                    {
+                                        table_tba_c     +=   '<tr>';  
+                                    }
                                     // lot palet
                                     table_tba_c     +=   '<td>';
                                     table_tba_c     +=   '<div class="form-inline row">';
-                                    table_tba_c     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                    table_tba_c     +=   '<label class="col-lg-6" style="font-size: 12px"> '+data.cpp_detail[i].nolot+'-</label>';
                                     table_tba_c     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
                                     table_tba_c     +=   '</div>';
                                     table_tba_c     +=   '</td>';
@@ -365,11 +372,18 @@
                                 var table_a3b = '', $table_a3b = $('#detail_a3b');
                                 for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
                                 {
-                                    table_a3b     +=   '<tr>';
+                                    if (data.cpp_detail[i].palet[a].at_event.length > 0) 
+                                    {
+                                        table_a3b     +=   '<tr style="background-color: #ff5b5bcc">';  
+                                    } 
+                                    else 
+                                    {
+                                        table_a3b     +=   '<tr>';  
+                                    }
                                     // lot palet
                                     table_a3b     +=   '<td>';
                                     table_a3b     +=   '<div class="form-inline row">';
-                                    table_a3b     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                    table_a3b     +=   '<label class="col-lg-6" style="font-size: 12px"> '+data.cpp_detail[i].nolot+'-</label>';
                                     table_a3b     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
                                     table_a3b     +=   '</div>';
                                     table_a3b     +=   '</td>';
@@ -428,11 +442,19 @@
                                 var table_tpa = '', $table_tpa = $('#detail_tpa');
                                 for (var a = 0; a < data.cpp_detail[i].palet.length; a++) 
                                 {
+                                    if (data.cpp_detail[i].palet[a].at_event.length > 0) 
+                                    {
+                                        table_tpa     +=   '<tr style="background-color: #ff5b5bcc">';  
+                                    } 
+                                    else 
+                                    {
+                                        table_tpa     +=   '<tr>';  
+                                    }
                                     table_tpa     +=   '<tr>';
                                     // lot palet
                                     table_tpa     +=   '<td>';
                                     table_tpa     +=   '<div class="form-inline row">';
-                                    table_tpa     +=   '<label class="col-lg-6"> '+data.cpp_detail[i].nolot+'-</label>';
+                                    table_tpa     +=   '<label class="col-lg-6" style="font-size: 12px"> '+data.cpp_detail[i].nolot+'-</label>';
                                     table_tpa     +=   '<input type="text" value="'+data.cpp_detail[i].palet[a].palet+'" style="width: 60px;" class="col-lg-6 form-control">';
                                     table_tpa     +=   '</div>';
                                     table_tpa     +=   '</td>';

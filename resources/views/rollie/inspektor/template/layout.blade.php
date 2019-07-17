@@ -36,7 +36,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="page-container sbar_collapsed">
+    <div class="page-container">
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
@@ -317,6 +317,27 @@
                     });
                 return false;
             }
+            if (overlap.includes('.')) 
+            {
+                if (overlap.toString().split(".")[0].length != 1 | overlap.toString().split(".")[1].length > 2 )
+                {
+                    swal({
+                        title: "Proses Gagal",
+                        text : "Overlap di isi dengan maksimal 2 angka di belakang koma",
+                        type : "error",
+                    });
+                    return false;
+                }
+            } 
+            else 
+            {
+                swal({
+                    title: "Proses Gagal",
+                    text : "Overlap di isi dengan format maksimal 2 angka dibelakang koma ex. 3.87",
+                    type : "error",
+                });
+                return false;
+            }      
             if (hasil_air_gap == 'OK' && hasil_ts_accurate_kanan == 'OK' && hasil_ts_accurate_kiri == 'OK' && hasil_ls_accurate == 'OK' && hasil_sa_accurate == 'OK' && hasil_surface_check == 'OK' && hasil_pinching == 'OK' && hasil_strip_folding == 'OK' && hasil_konduktivity_kanan == 'OK' && hasil_konduktivity_kiri == 'OK' && hasil_design_kanan == 'OK' && hasil_design_kiri == 'OK' && hasil_dye_test == 'OK' && hasil_residu_h2o2 == 'OK' && hasil_prod_code_no_md == 'OK'  && (ls_sa_proportion !== '10:90' &&  ls_sa_proportion !== '90:10' &&  ls_sa_proportion !== '80:20' && ls_sa_proportion !== '70:30') && (volume_kanan <= 202 && volume_kanan >= 198) && (volume_kiri <= 202 && volume_kiri >= 198) && (overlap <= 4.5 && overlap >= 3.5))
             {
                 Swal.fire({
@@ -1204,6 +1225,39 @@
                     }
                 }
             });
+        }
+
+        function replaceproportion(ls_sa_proportion) 
+        {
+            if (ls_sa_proportion.includes(';'))
+            {  
+                alert('kesono');
+                if (ls_sa_proportion.toString().split(":")[1].length != 2 | ls_sa_proportion.toString().split(":")[0].length != 2)
+                {
+                    swal({
+                        title: "Proses Gagal",
+                        text : "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
+                        type : "error",
+                    });
+                    return false;
+                }
+                // else
+                // {
+                //     // var replacenya = ls_sa_proportion.replace(';',':');
+
+                //     // $('#hasil_ls_sa_proportion').val(replacenya);
+                // }
+            }
+            else
+            {
+                alert('kesinni');
+                // swal({
+                //     title: "Proses Gagal",
+                //     text : "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
+                //     type : "error",
+                // });
+                // return false;
+            }
         }
     </script>  
 

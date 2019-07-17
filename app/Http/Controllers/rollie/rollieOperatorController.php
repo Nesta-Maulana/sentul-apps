@@ -270,7 +270,11 @@ class rollieOperatorController extends resourceController
             {
                 foreach ($detail->palet as $key => $palet) 
                 {
-                    $detail->palet              = $palet;    
+                    $detail->palet              = $palet;
+                    foreach ($palet->atEvent as $key => $value) 
+                    {
+                        
+                    }
                     $detail->palet->id_detail   = resourceController::enkripsi($palet->id);
                     array_push($return, $tampung);
                 }
