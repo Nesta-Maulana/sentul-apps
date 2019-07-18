@@ -319,8 +319,9 @@
             }
             if (overlap.includes('.')) 
             {
-                if (overlap.toString().split(".")[0].length != 1 | overlap.toString().split(".")[1].length > 2 )
+                if (overlap.toString().split(".")[0].length != 1 || overlap.toString().split(".")[1].length > 2 )
                 {
+
                     swal({
                         title: "Proses Gagal",
                         text : "Overlap di isi dengan maksimal 2 angka di belakang koma",
@@ -537,14 +538,52 @@
                     var hasil_overlap_event                         =  $('#hasil_overlap_event').val();
                     var hasil_package_length_event                  =  $('#hasil_package_length_event').val();
                     var hasil_paper_splice_sealing_quality_event    =  $('#hasil_paper_splice_sealing_quality_event').val();
-                    if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 && hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event <= 17 && hasil_overlap_event >= 16) && (hasil_package_length_event >= 118.5 && hasil_package_length_event <= 119.5))
+                    if (hasil_ls_sa_proportion_event.includes('(') || hasil_ls_sa_proportion_event.includes('/') || hasil_ls_sa_proportion_event.includes(')') ||hasil_ls_sa_proportion_event.includes('N') || hasil_ls_sa_proportion_event.includes('.') || hasil_ls_sa_proportion_event.includes('-') ||hasil_ls_sa_proportion_event.includes(',') || hasil_ls_sa_proportion_event.includes(' ') || hasil_ls_sa_proportion_event.includes('*') || hasil_ls_sa_proportion_event.includes('#')) 
                     {
-                        document.getElementById('hasil_status_akhir_event').value = 'OK';
+                        swal({
+                            title: "Proses Gagal",
+                            text : "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
+                            type : "error",
+                        });
+                        return false;
                     }
                     else
                     {
-                        document.getElementById('hasil_status_akhir_event').value = '#OK';
+                        if (ls_sa_proportion.includes(';'))
+                        {  
+                            if (ls_sa_proportion.toString().split(";")[1].length != 2 || ls_sa_proportion.toString().split(";")[0].length != 2)
+                            {
+                                swal({
+                                    title: "Proses Gagal",
+                                    text : "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
+                                    type : "error",
+                                });
+                                return false;
+                            }
+                            else
+                            {
+                                if (hasil_ls_sa_sealing_quality_event !=='' && hasil_ls_sa_proportion_event !=='' && hasil_sideway_sealing_alignment_event !=='' && hasil_overlap_event !=='' && hasil_paper_splice_sealing_quality_event !=='' && hasil_no_kk_event !=='' && hasil_nomor_md_event !=='' && hasil_ls_sa_sealing_quality_event !== null && hasil_ls_sa_proportion_event !== null && hasil_sideway_sealing_alignment_event !== null && hasil_overlap_event !== null && hasil_paper_splice_sealing_quality_event !== null && hasil_no_kk_event !== null && hasil_nomor_md_event !== null && hasil_ls_sa_sealing_quality_event=='OK' && (hasil_ls_sa_proportion_event !== '10:90' || hasil_ls_sa_proportion_event !== '90:10' || hasil_ls_sa_proportion_event !== '80:20' ||hasil_ls_sa_proportion_event !== '70:30' ) && (hasil_sideway_sealing_alignment_event > 0 && hasil_sideway_sealing_alignment_event <= 0.5) && (hasil_overlap_event <= 17 && hasil_overlap_event >= 16) && (hasil_package_length_event >= 118.5 && hasil_package_length_event <= 119.5))
+                                {
+                                    document.getElementById('hasil_status_akhir_event').value = 'OK';
+                                }
+                                else
+                                {
+                                    document.getElementById('hasil_status_akhir_event').value = '#OK';
+                                }   
+                            }
+                        }
+                        else
+                        {
+                            swal({
+                                title: "Proses Gagal",
+                                text : "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
+                                type : "error",
+                            });
+                            return false;
+                        }
+
                     }
+                    
                 break;
                 case 'C':
                     var hasil_ls_sa_sealing_quality_event           =  $('#hasil_ls_sa_sealing_quality_event').val();
@@ -1227,38 +1266,6 @@
             });
         }
 
-        function replaceproportion(ls_sa_proportion) 
-        {
-            if (ls_sa_proportion.includes(';'))
-            {  
-                alert('kesono');
-                if (ls_sa_proportion.toString().split(":")[1].length != 2 | ls_sa_proportion.toString().split(":")[0].length != 2)
-                {
-                    swal({
-                        title: "Proses Gagal",
-                        text : "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
-                        type : "error",
-                    });
-                    return false;
-                }
-                // else
-                // {
-                //     // var replacenya = ls_sa_proportion.replace(';',':');
-
-                //     // $('#hasil_ls_sa_proportion').val(replacenya);
-                // }
-            }
-            else
-            {
-                alert('kesinni');
-                // swal({
-                //     title: "Proses Gagal",
-                //     text : "LS/SA Proportion Di isi dengan Angka dengan format XX:XX",
-                //     type : "error",
-                // });
-                // return false;
-            }
-        }
     </script>  
 
                     
