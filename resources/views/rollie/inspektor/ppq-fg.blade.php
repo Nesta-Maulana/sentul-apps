@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Alasan PPQ : </label>
-                                <textarea class="form-control" name="alasan_ppq" required></textarea>
+                                <textarea class="form-control" inputmode="url" name="alasan_ppq" required></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="">Detail Titik PPQ : </label>

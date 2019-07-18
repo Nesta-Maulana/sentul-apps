@@ -33,12 +33,10 @@
 				<div class="col-md-8">
 					<div class="row form-group left">
 						<label class="col-md-4">Nama Produk</label>
-						<label class="col-md-1">:</label>
 						<input type="text" value="{{ $rpd_filling->wo[0]->produk->nama_produk }}" class="form-control col-md-7" readonly>
 					</div>
 					<div class="row form-group left">
 						<label class="col-md-4">Tanggal Produksi</label>
-						<label class="col-md-1">:</label>
 						<textarea class="form-control col-md-7" readonly><?php
 							foreach ($rpd_filling->wo as $key => $value) 
 							{
@@ -49,7 +47,6 @@
 					</div>
 					<div class="row form-group left">
 						<label class="col-md-4">&Sigma; Batch</label>
-						<label class="col-md-1">:</label>
 						<input type="text" value="{{ $rpd_filling->wo->count() }} Batch" class="form-control col-md-7" readonly>
 					</div>
 				</div>
@@ -62,8 +59,6 @@
 								<img src="{{ asset('generalStyle/images/logo/plus.png') }}" width="50px" alt="">
 								Tambah Sample
 							</a>
-						</div>
-						<div class="col-md-6">
 							<a data-toggle="modal" data-target="#tambah-batch">
 								<img src="{{ asset('generalStyle/images/logo/plus-red.png') }}" width="50px" alt="">
 								Tambah Batch / Wo

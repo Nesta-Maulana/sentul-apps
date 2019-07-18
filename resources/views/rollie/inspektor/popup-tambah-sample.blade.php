@@ -1,6 +1,6 @@
-<div class="modal fade" id="tambah-sample" tabindex="-1" role="dialog" aria-labelledby="tambahSampleAnalisa" aria-hidden="true" style="margin-left: -144px;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 130%;">
+<div class="modal fade bd-example-modal-lg" id="tambah-sample" tabindex="-1" role="dialog" aria-labelledby="tambahSampleAnalisa" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content " >
             <div class="modal-header">
                 <h5>Tambah Sampel Analisa</h5>
                 <button type="button" id="close-button" class="close" onclick="hapusdatapopup()" data-dismiss="modal">&times;</button>

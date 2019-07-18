@@ -54,6 +54,11 @@
                     </div>
                     <hr>
                     <div class="form-group row">
+                        <label for="hasil_ls_sa_proportion" class="col-lg-3">LS/SA Proportion</label>
+                        <input type="text" inputmode="tel" class="col-lg-8 form-control" name="hasil_ls_sa_proportion" id="hasil_ls_sa_proportion_event" maxlength="5" placeholder="Ex : 40:60" onfocusout="status_akhir_at_event($('#sampel_at_event_kode').val())">
+                        <small class="form-text text-muted" style="margin-left: 216px">Di isi dengan Angka dengan format XX:XX</small>
+                    </div>
+                    <div class="form-group row">
                         <label for="hasil_ls_sa_sealing_quality" class="col-lg-3">LS/SA Sealing Quality</label>
                         <select onchange="status_akhir_at_event($('#sampel_at_event_kode').val())" name="hasil_ls_sa_sealing_quality" id="hasil_ls_sa_sealing_quality_event" class="select col-lg-8 form-control" style="padding: 0 .8rem;" required="true">
                             <option disabled selected>-- Status LS/SA Sealing Quality --</option>
@@ -62,11 +67,6 @@
                         </select>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="hasil_ls_sa_proportion" class="col-lg-3">LS/SA Proportion</label>
-                        <input type="text" class="col-lg-8 form-control" name="hasil_ls_sa_proportion" id="hasil_ls_sa_proportion_event" maxlength="5" placeholder="Ex : 40:60" onfocusout="status_akhir_at_event($('#sampel_at_event_kode').val())" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 58">
-                        <small class="form-text text-muted" style="margin-left: 216px">Di isi dengan Angka dengan format XX:XX</small>
-                    </div>
                 </div>
                 <div id="custom_input">
                     <div id="paper_splicing" class="sembunyi">

@@ -1,6 +1,6 @@
-<div class="modal fade" id="tambah-batch" tabindex="-1" role="dialog" aria-labelledby="tambahBatch" aria-hidden="true" style="margin-left: -144px;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 130%;">
+<div class="modal fade bd-example-modal-lg" id="tambah-batch" tabindex="-1" role="dialog" aria-labelledby="tambahBatch" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" >
             <div class="modal-header">
                 <h5>Tambah Batch</h5>
                 <button type="button" id="close-button-tambah-wo" class="close" data-dismiss="modal" onclick="close_popup_tambah_batch()">&times;</button>
