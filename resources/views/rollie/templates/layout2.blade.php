@@ -220,20 +220,6 @@
 												</div>
 											</div>
 										</li>
-										{{-- <li class="m-menu__item  m-menu__item--submenu @yield('active-package')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/package-integrity" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Package Integrity
-												</span>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													
-												</div>
-											</div>
-										</li> --}}
 										<li class="m-menu__item  m-menu__item--submenu @yield('active-ppq')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
 											<a  href="/sentul-apps/rollie/ppq-fg" class="m-menu__link m-menu__toggle">
 												<span class="m-menu__item-here"></span>
@@ -333,12 +319,12 @@
 									@yield('subheader')
 								</h3>
 							</div>
-						<div>
+						</div>
                     </div>
+		            <div class="m-content" style="padding: 0px" >
+		                @yield('content')    
+		            </div>
                 </div>
-            </div>
-            <div class="m-content" >
-                @yield('content')    
             </div>
             @if ($message = Session::get('success'))
 	    	    <div class="success" data-flashdata="{{ $message }}"></div>
@@ -358,8 +344,159 @@
     <script src="{{ asset('generalStyle/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('rollie/js/html-table.js') }}"></script>
     <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+    <script>
+    	function ts_awal() 
+    	{
+    		var ts_awal_1 = $('#ts_awal_1').val()*1;
+    		var ts_awal_2 = $('#ts_awal_2').val()*1;
+    		if(ts_awal_1 === '')
+    		{
+    			ts_awal_1 = 0;
+    		}
+    		if (ts_awal_2 === '') 
+    		{
+    			ts_awal_2 = 0 ;
+    		}
+    		var ts_awal_sum = (ts_awal_1+ts_awal_2)/2;
+    		document.getElementById('ts_awal_sum').value = ts_awal_sum.toFixed(3);
+    	}
 
+    	function ts_tengah() 
+    	{
+    		var ts_tengah_1 = $('#ts_tengah_1').val()*1;
+    		var ts_tengah_2 = $('#ts_tengah_2').val()*1;
+    		if(ts_tengah_1 === '')
+    		{
+    			ts_tengah_1 = 0;
+    		}
+    		if (ts_tengah_2 === '') 
+    		{
+    			ts_tengah_2 = 0 ;
+    		}
+    		var ts_tengah_sum = (ts_tengah_1+ts_tengah_2)/2;
+    		document.getElementById('ts_tengah_sum').value = ts_tengah_sum.toFixed(3);
+    	}
 
+    	function ts_akhir() 
+    	{
+    		var ts_akhir_1 = $('#ts_akhir_1').val()*1;
+    		var ts_akhir_2 = $('#ts_akhir_2').val()*1;
+    		if(ts_akhir_1 === '')
+    		{
+    			ts_akhir_1 = 0;
+    		}
+    		if (ts_akhir_2 === '') 
+    		{
+    			ts_akhir_2 = 0 ;
+    		}
+    		var ts_akhir_sum = (ts_akhir_1+ts_akhir_2)/2;
+    		document.getElementById('ts_akhir_sum').value = ts_akhir_sum.toFixed(3);
+    		ubah_status_akhir();
+    	}
+
+    	function ubah_status_akhir() 
+    	{
+    		var	ts_awal 		= $('#ts_awal_sum').val();
+    		var	ts_akhir 		= $('#ts_akhir_sum').val();
+    		var	ts_tengah 		= $('#ts_tengah_sum').val();
+    		var	ph_awal 		= $('#ph_awal_sum').val();
+    		var	ph_tengah 		= $('#ph_tengah_sum').val();
+    		var	ph_akhir 		= $('#ph_akhir_sum').val();
+    		var spek_ts_min 	= $('#spek_ts_min').val();
+    		var spek_ts_max 	= $('#spek_ts_max').val();
+    		var spek_ph_min 	= $('#spek_ph_min').val();
+    		var spek_ph_max 	= $('#spek_ph_max').val();
+    		var sensory_awal 	= $('#sensory_awal').val();
+    		var sensory_tengah 	= $('#sensory_tengah').val();
+    		var sensory_akhir 	= $('#sensory_akhir').val();
+    		// var status_akhir 	= ;
+    		if (ts_awal !== '' && ts_akhir !== '' && ts_tengah !== '' && ph_awal !== '' && ph_tengah !== '' && ph_akhir !== '' && sensory_awal !== '' && sensory_awal !== null && sensory_tengah !== '' && sensory_tengah !== null && sensory_akhir !== '' && sensory_akhir !== null ) 
+    		{
+    			if ( ts_awal < spek_ts_min || ts_tengah < spek_ts_min || ts_akhir < spek_ts_min || ts_awal > spek_ts_max || ts_tengah > spek_ts_max || ts_akhir > spek_ts_max) 
+				{
+					if ($('#status_akhir').val().includes('TS OK')) 
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('OK','#OK');
+					} 
+					else if($('#status_akhir').val().includes('TS #OK'))
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val();
+					}
+					else
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"TS #OK ";
+					}
+				}
+				else
+				{
+					if ($('#status_akhir').val().includes('TS #OK')) 
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('#OK','OK');
+					} 
+					else if($('#status_akhir').val().includes('TS OK'))
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val();
+					}
+					else
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"TS #OK ";
+					}	
+				}
+				if (ph_awal < spek_ph_min || ph_awal > spek_ph_max || ph_tengah < spek_ph_min || ph_tengah > spek_ph_max || ph_akhir < spek_ph_min || ph_akhir > spek_ph_max) 
+				{
+					// $('#status_akhir').val()
+
+					if ($('#status_akhir').val().includes('pH OK')) 
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('OK','#OK');
+					} 
+					else if ($('#status_akhir').val().includes('pH #OK'))
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val();
+					}	
+					else
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"pH #OK";
+					}
+				}
+				else
+				{
+
+					if ($('#status_akhir').val().includes('pH OK')) 
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val();
+					} 
+					else 
+					{
+						document.getElementById('status_akhir').value 	= status_akhir+"pH OK "
+					}		
+				}
+				
+				if (sensory_awal !== 'OK' || sensory_tengah !== 'OK' || sensory_akhir !== 'OK')
+				{
+					if (status_akhir.includes('Sensory #OK')) 
+					{
+						document.getElementById('status_akhir').value 	= status_akhir;
+					} 
+					else 
+					{
+						document.getElementById('status_akhir').value 	= status_akhir+"Sensory #OK"
+					}	
+				}
+				else
+				{
+					if (status_akhir.includes('Sensory OK')) 
+					{
+						document.getElementById('status_akhir').value 	= status_akhir;
+					} 
+					else 
+					{
+						document.getElementById('status_akhir').value 	= status_akhir+"Sensory OK"
+					}	
+				}
+    		} 
+    	}
+    </script>
     <script>
 		const flashdatas = $('.failed').data('flashdata');
 	    if(flashdatas){
@@ -381,6 +518,30 @@
             $('#myInput').trigger('focus')
         });
 		new WOW().init();
+    </script>
+
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
+    <script src="{{ asset('generalStyle/plugins/datetime-picker/js/jquery.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
+    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script>
+        $('.datetimepickernya').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        }); 
+        $('.timepickernya').datetimepicker({
+            format: 'HH:mm:ss',
+            locale:'en',
+            date: new Date()
+        }); 
+        $('.datepickernya').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale:'en',
+            date: new Date()
+        }); 
     </script>
 </body>
 <!-- end::Body -->

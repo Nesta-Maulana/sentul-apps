@@ -42,7 +42,14 @@ var Tableanalisakimia= {
                 }
             }
         }
-        )
+        ),
+        $("#nama_produk_filter_analisa_kimia").on("change", function() {
+            e.search($(this).val().toLowerCase(), "Nama Produk")
+        }
+        ),
+         $("#nama_produk_filter_analisa_kimia").select2()
+        // $("#nama_produk_filter_analisa_kimia").select2()
+
     }
 }
 
