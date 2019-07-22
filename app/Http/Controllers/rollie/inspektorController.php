@@ -23,6 +23,7 @@ use App\Models\productionData\kodeSampelPi;
 use App\Models\masterApps\mesinFilling;
 use App\Models\productionData\palet;
 use App\Models\productionData\ppqfg;
+use App\Models\productionData\paletPpq;
 use DB;
 use Session;
 
@@ -710,7 +711,7 @@ class inspektorController extends resourceController
         $ppqakhir       = $ppq->last();
         if ($ppqakhir !== null) 
         {      
-          $pecah      = explode('/', $ppqakhir->no_ppq);
+          $pecah      = explode('/', $ppqakhir->nomor_ppq);
         }
         else
         {
@@ -808,10 +809,11 @@ class inspektorController extends resourceController
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
         }
-        return view('rollie.inspektor.ppq-fg',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'data'=>$isi]);
+        return view('rollie.inspektor.ppq-fg',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'data'=>$isi])->with('info','COBA');
     }
     public function tambahPpq(Request $request)
     {
+        // dd($request->all());
         $nomor_ppq          = $request->nomor_ppq;
         $tanggal_ppq        = $request->tanggal_ppq;
         $jam_awal_ppq       = $request->jam_filling_mulai;
@@ -848,8 +850,10 @@ class inspektorController extends resourceController
                 $palet          = palet::find($idpalet);
                 if (!is_null($palet)) 
                 {
-                    $palet->ppq_id  = $ppq->id;
-                    $palet->save();
+                    $insertPaletPPQ     = paletPpq::create([
+                        'palet_id'  => $palet->id,
+                        'ppq_id'    => $ppq->id
+                    ]);
                 }
             }
             return redirect()->route('rpdfilling-inspektor-qc',['id'=>$request->rpd_filling_head_id]);

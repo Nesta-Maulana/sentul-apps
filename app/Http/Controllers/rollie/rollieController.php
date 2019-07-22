@@ -18,6 +18,8 @@ use App\Models\masterApps\produk;
 use App\Models\productionData\cppHead;
 use App\Models\productionData\cppDetail;
 use App\Models\productionData\palet;
+use App\Models\productionData\ppqfg;
+use App\Models\productionData\paletPpq;
 use App\Models\productionData\analisaKimia;
 use DB;
 use Session;
@@ -159,6 +161,15 @@ class rollieController extends resourceController
         $jam_filling_tengah             = $request->jam_filling_tengah;
         $jam_filling_akhir              = $request->jam_filling_akhir;
         $keterangan                     = $request->status_akhir;
+        $paletnya                       = array();
+        $cpp_head                       = cppHead::find($cpp_head_id);
+        foreach ($cpp_head->cppDetail as $key => $cpp_detail) 
+        {
+            foreach ($cpp_detail->palet as $key => $palet) 
+            {
+                array_push($paletnya,$palet);
+            }
+        }
         if (strpos($keterangan, '#OK')) 
         {
             $status_akhir                   = '#OK';
@@ -208,327 +219,594 @@ class rollieController extends resourceController
         }
         else if ($simpan == 'simpan')
         {
-            if (is_null($analisa_kimia_id)) 
+            /* Pengecekan Status PPQ*/
+            $ambil_palet         = '';
+            $keterangan_awal     = '';
+            $keterangan_tengah   = '';
+            $keterangan_akhir    = '';
+            if ($ts_awal_sum < $spek_ts_min ) 
             {
-                // ini tambah baru
+                if (strpos($ambil_palet,'Awal')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Awal ";
+                }
+
+                if (strpos($keterangan_awal,'TS DROP'))
+                {
+                    $keterangan_awal = $keterangan_awal;
+                }
+                else
+                {
+                    $keterangan_awal = $keterangan_awal."TS DROP ";
+                }
+            }
+            if ($ts_tengah_sum < $spek_ts_min ) 
+            {
+                if (strpos($ambil_palet,'Tengah')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Tengah ";
+                }
+
+                if (strpos($keterangan_tengah,'TS DROP'))
+                {
+                    $keterangan_tengah = $keterangan_tengah;
+                }
+                else
+                {
+                    $keterangan_tengah = $keterangan_tengah."TS DROP ";
+                }
+            }
+            if ($ts_akhir_sum < $spek_ts_min ) 
+            {
+                if (strpos($ambil_palet,'Akhir')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Akhir ";
+                }
+
+                if (strpos($keterangan_akhir,'TS DROP'))
+                {
+                    $keterangan_akhir = $keterangan_akhir;
+                }
+                else
+                {
+                    $keterangan_akhir = $keterangan_akhir."TS DROP ";
+                }
+            }
+
+            if ($ts_awal_sum > $spek_ts_max ) 
+            {
+                if (strpos($ambil_palet,'Awal')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Awal ";
+                }
+
+                if (strpos($keterangan_awal,'TS OVER'))
+                {
+                    $keterangan_awal = $keterangan_awal;
+                }
+                else
+                {
+                    $keterangan_awal = $keterangan_awal."TS OVER ";
+                }
+            }
+            if ($ts_tengah_sum > $spek_ts_max ) 
+            {
+                if (strpos($ambil_palet,'Tengah')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Tengah ";
+                }
+
+                if (strpos($keterangan_tengah,'TS OVER'))
+                {
+                    $keterangan_tengah = $keterangan_tengah;
+                }
+                else
+                {
+                    $keterangan_tengah = $keterangan_tengah."TS OVER ";
+                }
+            }
+            if ($ts_akhir_sum > $spek_ts_max ) 
+            {
+                if (strpos($ambil_palet,'Akhir')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Akhir ";
+                }
+
+                if (strpos($keterangan_akhir,'TS Akhir'))
+                {
+                    $keterangan_akhir = $keterangan_akhir;
+                }
+                else
+                {
+                    $keterangan_akhir = $keterangan_akhir."TS Akhir ";
+                }
+            }
+
+            if ($ph_awal < $spek_ph_min ) 
+            {
+                if (strpos($ambil_palet,'Awal')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Awal ";
+                }
+
+                if (strpos($keterangan_awal,'pH DROP'))
+                {
+                    $keterangan_awal = $keterangan_awal;
+                }
+                else
+                {
+                    $keterangan_awal = $keterangan_awal."pH DROP ";
+                }
+            }
+            if ($ph_tengah < $spek_ph_min ) 
+            {
+                if (strpos($ambil_palet,'Tengah')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Tengah ";
+                }
+
+                if (strpos($keterangan_tengah,'pH DROP'))
+                {
+                    $keterangan_tengah = $keterangan_tengah;
+                }
+                else
+                {
+                    $keterangan_tengah = $keterangan_tengah."pH DROP ";
+                }
+            }
+            if ($ph_akhir < $spek_ph_min ) 
+            {
+                if (strpos($ambil_palet,'Akhir')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Akhir ";
+                }
+
+                if (strpos($keterangan_akhir,'pH DROP'))
+                {
+                    $keterangan_akhir = $keterangan_akhir;
+                }
+                else
+                {
+                    $keterangan_akhir = $keterangan_akhir."pH DROP ";
+                }
+            }
+            
+            if ($ph_awal > $spek_ph_max ) 
+            {
+                if (strpos($ambil_palet,'Awal')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Awal ";
+                }
+
+                if (strpos($keterangan_awal,'pH OVER'))
+                {
+                    $keterangan_awal = $keterangan_awal;
+                }
+                else
+                {
+                    $keterangan_awal = $keterangan_awal."pH OVER ";
+                }
+            }
+            if ($ph_tengah > $spek_ph_max ) 
+            {
+                if (strpos($ambil_palet,'Tengah')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Tengah ";
+                }
+
+                if (strpos($keterangan_tengah,'pH OVER'))
+                {
+                    $keterangan_tengah = $keterangan_tengah;
+                }
+                else
+                {
+                    $keterangan_tengah = $keterangan_tengah."pH OVER ";
+                }
+            }
+            if ($ph_akhir > $spek_ph_max ) 
+            {
+                if (strpos($ambil_palet,'Akhir')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Akhir ";
+                }
+
+                if (strpos($keterangan_akhir,'pH Akhir'))
+                {
+                    $keterangan_akhir = $keterangan_akhir;
+                }
+                else
+                {
+                    $keterangan_akhir = $keterangan_akhir."pH Akhir ";
+                }
+            }
+
+            if ($sensory_awal === '#OK' ) 
+            {
+                if (strpos($ambil_palet,'Awal')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Awal ";
+                }
+
+                if (strpos($keterangan_awal,'Sensori Awal #OK'))
+                {
+                    $keterangan_awal = $keterangan_awal;
+                }
+                else
+                {
+                    $keterangan_awal = $keterangan_awal."Sensori Awal #OK ";
+                }
+            }
+            if ($sensory_tengah === '#OK' ) 
+            {
+                if (strpos($ambil_palet,'Tengah')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Tengah ";
+                }
+
+                if (strpos($keterangan_tengah,'Sensori Tengah #OK'))
+                {
+                    $keterangan_tengah = $keterangan_tengah;
+                }
+                else
+                {
+                    $keterangan_tengah = $keterangan_tengah."Sensori Tengah #OK ";
+                }
+            }
+            if ($sensory_akhir === '#OK' ) 
+            {
+                if (strpos($ambil_palet,'Akhir')) 
+                {
+                    $ambil_palet = $ambil_palet;
+                }
+                else
+                {
+                    $ambil_palet = $ambil_palet."Akhir ";
+                }
+
+                if (strpos($keterangan_akhir,'Sensori Akhir #OK'))
+                {
+                    $keterangan_akhir = $keterangan_akhir;
+                }
+                else
+                {
+                    $keterangan_akhir = $keterangan_akhir."Sensori Akhir #OK ";
+                }
+            }
+            /* Akhir Cek Apa Ada PPQ */
+            /*Pengambilan Nomor PPQ*/
+            $ppq            = ppqfg::all();
+            $ppqakhir       = $ppq->last();
+            if ($ppqakhir !== null) 
+            {      
+              $pecah      = explode('/', $ppqakhir->nomor_ppq);
             }
             else
             {
-                // ini update
-                $ambil_palet         = '';
-                $keterangan_awal     = '';
-                $keterangan_tengah   = '';
-                $keterangan_akhir    = '';
-                if ($ts_awal_sum < $spek_ts_min ) 
-                {
-                    if (strpos($ambil_palet,'Awal')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Awal ";
-                    }
+              $pecah = null;
+            }
 
-                    if (strpos($keterangan_awal,'TS DROP'))
-                    {
-                        $keterangan_awal = $keterangan_awal;
-                    }
-                    else
-                    {
-                        $keterangan_awal = $keterangan_awal."TS DROP ";
-                    }
+            if($pecah == null)
+            {
+              $x   = 1;
+            }
+            else
+            {
+              $x   = $pecah['0']+1;
+            }
+
+            if (strlen($x) == 1) 
+            {
+                $x = '00'.$x;
+            }
+            else if(strlen($x) == 2)
+            {
+                $x = '0'.$x;
+            }
+            else if (strlen($x) == 3) 
+            {
+                $x = $x;
+            }
+
+            $bulan          = ['01'=>'I','02'=>'II','03'=>'III','04'=>'IV','05'=>'V','06'=>'VI','07'=>'VII','08'=>'VIII','09'=>'IX','10'=>'X','11'=>'XI','12'=>'XII'];
+            $nomor_ppq      = $x.'/PPQ/'.$bulan[date('m')].'/'.date('Y');
+            /*Akhir Nomor PPQ*/
+
+            if (!is_null($analisa_kimia_id)) 
+            {
+                $analisaKimia       = analisaKimia::where('id',$analisa_kimia_id)->update([
+                    'kode_batch_standar'    => $kode_batch,
+                    'ts_awal_1'             => $ts_awal_1,
+                    'ts_awal_2'             => $ts_awal_2,
+                    'ts_awal_sum'           => $ts_awal_sum,
+                    'ts_tengah_1'           => $ts_tengah_1,
+                    'ts_tengah_2'           => $ts_tengah_2,
+                    'ts_tengah_sum'         => $ts_tengah_sum,
+                    'ts_akhir_1'            => $ts_akhir_1,
+                    'ts_akhir_2'            => $ts_akhir_2,
+                    'ts_akhir_sum'          => $ts_akhir_sum,
+                    'ph_awal'               => $ph_awal,
+                    'ph_tengah'             => $ph_tengah,
+                    'ph_akhir'              => $ph_akhir,
+                    'visco_awal'            => $visco_awal,
+                    'visco_tengah'          => $visco_tengah,
+                    'visco_akhir'           => $visco_akhir,
+                    'sensory_awal'          => $sensory_awal,
+                    'sensory_tengah'        => $sensory_tengah,
+                    'sensory_akhir'         => $sensory_akhir,
+                    'jam_filling_awal'      => $jam_filling_awal,
+                    'jam_filling_tengah'    => $jam_filling_tengah,
+                    'jam_filling_akhir'     => $jam_filling_akhir,
+                    'status'                => '1',
+                    'status_akhir'          => $status_akhir,
+                    'keterangan'            => $keterangan,
+                    'user_id_inputer'       => resourceController::dekripsi($user_inputer_id)
+                ]);
+            }
+            else
+            {
+                $analisaKimia       = analisaKimia::create([
+                    'kode_batch_standar'    => $kode_batch,
+                    'ts_awal_1'             => $ts_awal_1,
+                    'ts_awal_2'             => $ts_awal_2,
+                    'ts_awal_sum'           => $ts_awal_sum,
+                    'ts_tengah_1'           => $ts_tengah_1,
+                    'ts_tengah_2'           => $ts_tengah_2,
+                    'ts_tengah_sum'         => $ts_tengah_sum,
+                    'ts_akhir_1'            => $ts_akhir_1,
+                    'ts_akhir_2'            => $ts_akhir_2,
+                    'ts_akhir_sum'          => $ts_akhir_sum,
+                    'ph_awal'               => $ph_awal,
+                    'ph_tengah'             => $ph_tengah,
+                    'ph_akhir'              => $ph_akhir,
+                    'visco_awal'            => $visco_awal,
+                    'visco_tengah'          => $visco_tengah,
+                    'visco_akhir'           => $visco_akhir,
+                    'sensory_awal'          => $sensory_awal,
+                    'sensory_tengah'        => $sensory_tengah,
+                    'sensory_akhir'         => $sensory_akhir,
+                    'jam_filling_awal'      => $jam_filling_awal,
+                    'jam_filling_tengah'    => $jam_filling_tengah,
+                    'jam_filling_akhir'     => $jam_filling_akhir,
+                    'status'                => '1',
+                    'status_akhir'          => $status_akhir,
+                    'keterangan'            => $keterangan,
+                    'user_id_inputer'       => resourceController::dekripsi($user_inputer_id)
+                ]);
+                $cpp_head                   = cppHead::find($cpp_head_id);
+                $cpp_head->analisa_kimia_id = $analisaKimia->id;
+                $cpp_head->save();
+            }
+
+            if (( strpos($ambil_palet,"Awal") !== false && strpos($ambil_palet,"Akhir") !== false ) || strpos($ambil_palet,"Tengah") !== false ) 
+            {
+                // ini ppq palet semua
+                if (!is_null($keterangan_awal) && is_null($keterangan_tengah) && is_null($keterangan_akhir)) 
+                {
+                    $alasan_ppq = "Palet Awal : ".$keterangan_awal;
                 }
-                if ($ts_tengah_sum < $spek_ts_min ) 
+                else if(!is_null($keterangan_awal) && !is_null($keterangan_tengah) && is_null($keterangan_akhir) )
                 {
-                    if (strpos($ambil_palet,'Tengah')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Tengah ";
-                    }
-
-                    if (strpos($keterangan_tengah,'TS DROP'))
-                    {
-                        $keterangan_tengah = $keterangan_tengah;
-                    }
-                    else
-                    {
-                        $keterangan_tengah = $keterangan_tengah."TS DROP ";
-                    }
+                    $alasan_ppq = "Palet Awal : ".$keterangan_awal.", Palet Tengah : ".$keterangan_tengah;
                 }
-                if ($ts_akhir_sum < $spek_ts_min ) 
+                else if(!is_null($keterangan_awal) && !is_null($keterangan_tengah) && !is_null($keterangan_akhir) )
                 {
-                    if (strpos($ambil_palet,'Akhir')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Akhir ";
-                    }
-
-                    if (strpos($keterangan_akhir,'TS DROP'))
-                    {
-                        $keterangan_akhir = $keterangan_akhir;
-                    }
-                    else
-                    {
-                        $keterangan_akhir = $keterangan_akhir."TS DROP ";
-                    }
+                    $alasan_ppq = "Palet Awal : ".$keterangan_awal.", Palet Tengah : ".$keterangan_tengah.", Palet Akhir : ".$keterangan_akhir;
                 }
-
-                if ($ts_awal_sum > $spek_ts_max ) 
+                else if(!is_null($keterangan_awal) && is_null($keterangan_tengah) && !is_null($keterangan_akhir) )
                 {
-                    if (strpos($ambil_palet,'Awal')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Awal ";
-                    }
-
-                    if (strpos($keterangan_awal,'TS OVER'))
-                    {
-                        $keterangan_awal = $keterangan_awal;
-                    }
-                    else
-                    {
-                        $keterangan_awal = $keterangan_awal."TS OVER ";
-                    }
+                    $alasan_ppq = "Palet Awal : ".$keterangan_awal.", Palet Akhir : ".$keterangan_akhir;
                 }
-                if ($ts_tengah_sum > $spek_ts_max ) 
+                else if(is_null($keterangan_awal) && !is_null($keterangan_tengah) && !is_null($keterangan_akhir) )
                 {
-                    if (strpos($ambil_palet,'Tengah')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Tengah ";
-                    }
-
-                    if (strpos($keterangan_tengah,'TS OVER'))
-                    {
-                        $keterangan_tengah = $keterangan_tengah;
-                    }
-                    else
-                    {
-                        $keterangan_tengah = $keterangan_tengah."TS OVER ";
-                    }
-                }
-                if ($ts_akhir_sum > $spek_ts_max ) 
-                {
-                    if (strpos($ambil_palet,'Akhir')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Akhir ";
-                    }
-
-                    if (strpos($keterangan_akhir,'TS Akhir'))
-                    {
-                        $keterangan_akhir = $keterangan_akhir;
-                    }
-                    else
-                    {
-                        $keterangan_akhir = $keterangan_akhir."TS Akhir ";
-                    }
+                    $alasan_ppq = "Palet Tengah : ".$keterangan_tengah.", Palet Akhir : ".$keterangan_akhir;
                 }
 
-                 if ($ph_awal < $spek_ph_min ) 
+                foreach ($paletnya as $key => $inipalet) 
                 {
-                    if (strpos($ambil_palet,'Awal')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Awal ";
-                    }
+                    $cpp_detail             = cppDetail::find($inipalet->cpp_detail_id);
+                    $inipalet->cpp_detail   =  $cpp_detail;
+                    array_push($paletfix,$inipalet);
+                    $jumlah_pack            += $inipalet->jumlah_pack;
+                }
+                return view('rollie.ppq',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'data'=>$isi,'cpp_head'=>$cpp_head,'info'=>"Data analisa kimia produk ".$cpp_head->wo[0]->produk->nama_produk." #OK . Harap membuat dan melengkapi Form PPQ untuk tindakan Koreksi"]);
 
-                    if (strpos($keterangan_awal,'pH DROP'))
+            }
+            else if ( strpos($ambil_palet,'Awal')!== false && (strpos($ambil_palet, 'Akhir') !== true && strpos($ambil_palet,'Tengah') !== true ) )
+            {
+                // ini ppq palet awal aja
+                if ($keterangan_tengah !== '') 
+                {
+                    $alasan_ppq         = "Palet Tengah : ".$keterangan_tengah.', Palet Awal : '.$keterangan_awal;
+                }
+                else
+                {
+                    $alasan_ppq         = $keterangan_awal;
+                }
+                $paletfix       = array();
+                $jumlah_pack = 0;
+                foreach ($paletnya as $key => $inipalet) 
+                {
+                    if ( ($jam_filling_awal >= $inipalet->start && $jam_filling_awal <= $inipalet->end) || ($inipalet->start >= $jam_filling_awal && $inipalet->end <= $jam_filling_tengah) || ($jam_filling_tengah >= $inipalet->start && $jam_filling_tengah <= $inipalet->end) ) 
                     {
-                        $keterangan_awal = $keterangan_awal;
-                    }
-                    else
-                    {
-                        $keterangan_awal = $keterangan_awal."pH DROP ";
+                        $cpp_detail             = cppDetail::find($inipalet->cpp_detail_id);
+                        $inipalet->cpp_detail   =  $cpp_detail;
+                        array_push($paletfix,$inipalet);
+                        $jumlah_pack            += $inipalet->jumlah_pack;
                     }
                 }
-                if ($ph_tengah < $spek_ph_min ) 
-                {
-                    if (strpos($ambil_palet,'Tengah')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Tengah ";
-                    }
+                $isi    = array('nama_produk' => $cpp_head->wo[0]->produk->nama_produk, 'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$nomor_ppq,'kode_oracle'=>$cpp_head->wo[0]->produk->kode_oracle, 'palet'=>$paletfix,'jam_filling_mulai'=>$jam_filling_tengah,'jam_filling_akhir'=>$jam_filling_akhir,'jumlah_pack'=>$jumlah_pack,'jenis_ppq'=>'0','alasan_ppq'=>$alasan_ppq);
 
-                    if (strpos($keterangan_tengah,'pH DROP'))
-                    {
-                        $keterangan_tengah = $keterangan_tengah;
-                    }
-                    else
-                    {
-                        $keterangan_tengah = $keterangan_tengah."pH DROP ";
-                    }
-                }
-                if ($ph_akhir < $spek_ph_min ) 
+                $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+                $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+   
+                if($hakAksesAplikasi == "1")
                 {
-                    if (strpos($ambil_palet,'Akhir')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Akhir ";
-                    }
-
-                    if (strpos($keterangan_akhir,'pH DROP'))
-                    {
-                        $keterangan_akhir = $keterangan_akhir;
-                    }
-                    else
-                    {
-                        $keterangan_akhir = $keterangan_akhir."pH DROP ";
-                    }
-                }
-                
-                if ($ph_awal > $spek_ph_max ) 
-                {
-                    if (strpos($ambil_palet,'Awal')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Awal ";
-                    }
-
-                    if (strpos($keterangan_awal,'pH OVER'))
-                    {
-                        $keterangan_awal = $keterangan_awal;
-                    }
-                    else
-                    {
-                        $keterangan_awal = $keterangan_awal."pH OVER ";
-                    }
-                }
-                if ($ph_tengah > $spek_ph_max ) 
-                {
-                    if (strpos($ambil_palet,'Tengah')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Tengah ";
-                    }
-
-                    if (strpos($keterangan_tengah,'pH OVER'))
-                    {
-                        $keterangan_tengah = $keterangan_tengah;
-                    }
-                    else
-                    {
-                        $keterangan_tengah = $keterangan_tengah."pH OVER ";
-                    }
-                }
-                if ($ph_akhir > $spek_ph_max ) 
-                {
-                    if (strpos($ambil_palet,'Akhir')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Akhir ";
-                    }
-
-                    if (strpos($keterangan_akhir,'pH Akhir'))
-                    {
-                        $keterangan_akhir = $keterangan_akhir;
-                    }
-                    else
-                    {
-                        $keterangan_akhir = $keterangan_akhir."pH Akhir ";
-                    }
+                    $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+                    $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+                    return redirect($aplikasi->link);
                 }
 
-                if ($sensory_awal === '#OK' ) 
+                $i = 0;
+                foreach ($hakAksesUserAplikasi as $h) 
                 {
-                    if (strpos($ambil_palet,'Awal')) 
+                    $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+                    $i++;
+                }
+                return view('rollie.ppq',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'data'=>$isi,'cpp_head'=>$cpp_head,'info'=>"Data analisa kimia produk ".$cpp_head->wo[0]->produk->nama_produk." #OK . Harap membuat dan melengkapi Form PPQ untuk tindakan Koreksi"]);
+            }
+            else if (strpos($ambil_palet,'Akhir')!== false && ( strpos($ambil_palet, 'Awal') !== true && strpos($ambil_palet,'Tengah') != true) ) 
+            {
+                if ($keterangan_tengah !== '') 
+                {
+                    $alasan_ppq         = "Palet Tengah : ".$keterangan_tengah.', Palet Akhir : '.$keterangan_akhir;
+                }
+                else
+                {
+                    $alasan_ppq         = $keterangan_akhir;
+                }
+                $paletfix       = array();
+                $jumlah_pack = 0;
+                foreach ($paletnya as $key => $inipalet) 
+                {
+                    if ( ($jam_filling_tengah >= $inipalet->start && $jam_filling_tengah <= $inipalet->end) || ($inipalet->start >= $jam_filling_tengah && $inipalet->end <= $jam_filling_akhir) ) 
                     {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Awal ";
-                    }
-
-                    if (strpos($keterangan_awal,'Sensori Awal #OK'))
-                    {
-                        $keterangan_awal = $keterangan_awal;
-                    }
-                    else
-                    {
-                        $keterangan_awal = $keterangan_awal."Sensori Awal #OK ";
+                        $cpp_detail             = cppDetail::find($inipalet->cpp_detail_id);
+                        $inipalet->cpp_detail   =  $cpp_detail;
+                        array_push($paletfix,$inipalet);
+                        $jumlah_pack            += $inipalet->jumlah_pack;
                     }
                 }
-                if ($sensory_tengah === '#OK' ) 
-                {
-                    if (strpos($ambil_palet,'Tengah')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Tengah ";
-                    }
+                $isi    = array('nama_produk' => $cpp_head->wo[0]->produk->nama_produk, 'tanggal_ppq'=>date('Y-m-d'),'nomor_ppq'=>$nomor_ppq,'kode_oracle'=>$cpp_head->wo[0]->produk->kode_oracle, 'palet'=>$paletfix,'jam_filling_mulai'=>$jam_filling_tengah,'jam_filling_akhir'=>$jam_filling_akhir,'jumlah_pack'=>$jumlah_pack,'jenis_ppq'=>'0','alasan_ppq'=>$alasan_ppq);
 
-                    if (strpos($keterangan_tengah,'Sensori Tengah #OK'))
-                    {
-                        $keterangan_tengah = $keterangan_tengah;
-                    }
-                    else
-                    {
-                        $keterangan_tengah = $keterangan_tengah."Sensori Tengah #OK ";
-                    }
-                }
-                if ($sensory_akhir === '#OK' ) 
+                $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+                $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+   
+                if($hakAksesAplikasi == "1")
                 {
-                    if (strpos($ambil_palet,'Akhir')) 
-                    {
-                        $ambil_palet = $ambil_palet;
-                    }
-                    else
-                    {
-                        $ambil_palet = $ambil_palet."Akhir ";
-                    }
+                    $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+                    $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+                    return redirect($aplikasi->link);
+                }
 
-                    if (strpos($keterangan_akhir,'Sensori Akhir #OK'))
-                    {
-                        $keterangan_akhir = $keterangan_akhir;
-                    }
-                    else
-                    {
-                        $keterangan_akhir = $keterangan_akhir."Sensori Akhir #OK ";
-                    }
-                }
-                if (( strpos($ambil_palet,"Awal") !== false && strpos($ambil_palet,"Akhir") !== false ) || strpos($ambil_palet,"Tengah") !== false ) 
+                $i = 0;
+                foreach ($hakAksesUserAplikasi as $h) 
                 {
+                    $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+                    $i++;
+                }
+                return view('rollie.ppq',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'data'=>$isi,'cpp_head'=>$cpp_head,'info'=>"Data analisa kimia produk ".$cpp_head->wo[0]->produk->nama_produk." #OK . Harap membuat dan melengkapi Form PPQ untuk tindakan Koreksi"]);
+            }
+            else
+            {
+                return redirect()->route('analisa-kimia-fg')->with('success','Hasil Analisa Kimia Produk '.$cpp_head->wo[0]->nama_produk.' Berhasil Diinput');
                     
+            }
+            
+        }
+    }
+    public function inputPPQ(Request $request)
+    {
+        $nomor_ppq          = $request->nomor_ppq;
+        $tanggal_ppq        = $request->tanggal_ppq;
+        $jam_awal_ppq       = $request->jam_filling_mulai;
+        $jam_akhir_ppq      = $request->jam_filling_akhir;
+        $jumlah_pack        = $request->jumlah_pack;
+        $alasan             = $request->alasan_ppq;
+        $jenis_ppq          = $request->jenis_ppq;
+        $kategori_ppq       = $request->kategori_ppq_value;
+        $user_inputer_id    = $request->user_inputer_id;
+        $status_akhir       = '0';
+        
+        $nomor_lot_id       = $request->nomor_lot_id;
+        $pecah              = explode(',',$nomor_lot_id);
+        if (count($pecah) > 1) 
+        {
+            $nomor_lot_id   = rtrim($nomor_lot_id,',');
+        }
+        $ppq                = ppqfg::create([
+                                'nomor_ppq'     => $nomor_ppq,
+                                'tanggal_ppq'   => $tanggal_ppq,
+                                'jam_awal_ppq'  => $jam_awal_ppq,
+                                'jam_akhir_ppq' => $jam_akhir_ppq,
+                                'jumlah_pack'   => $jumlah_pack,
+                                'alasan'        => $alasan,
+                                'jenis_ppq'     => $jenis_ppq,
+                                'kategori_ppq'  => $kategori_ppq,
+                                'user_inputer_id'=> $user_inputer_id,
+                                'status_akhir'  => $status_akhir
+                            ]);
+        if ($ppq) 
+        {
+            foreach ($pecah as $key => $idpalet) 
+            {
+                $palet          = palet::find($idpalet);
+                if (!is_null($palet)) 
+                {
+                    $insertPaletPPQ     = paletPpq::create([
+                        'palet_id'  => $palet->id,
+                        'ppq_id'    => $ppq->id
+                    ]);
                 }
             }
+            return redirect()->route('analisa-kimia-fg')->with('success','PPQ Produk'.$request->nama_produk.' dengan Nomor PPQ : '.$nomor_ppq);
         }
+    
     }
     public function rkj()
     {

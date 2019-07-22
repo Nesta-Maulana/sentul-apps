@@ -300,6 +300,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie/rkj/input', 'rollie\rollieController@rkjInput');
     Route::get('/rollie/package-integrity', 'rollie\rollieController@packageIntegrity');
     Route::get('/rollie/ppq-fg', 'rollie\rollieController@ppq');
+    Route::post('/rollie/ppq-fg/input-ppq-fg', 'rollie\rollieController@inputPPQ')->name('ppq-kimia-input');
+
     Route::get('/rollie/analisa-mikro', 'rollie\rollieController@analisaMikro');
     Route::get('/rollie/sortasi', 'rollie\rollieController@sortasi');
     Route::get('/rollie/rpr', 'rollie\rollieController@rpr');

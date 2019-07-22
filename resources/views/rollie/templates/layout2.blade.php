@@ -35,6 +35,7 @@
 		</script>  
 
 
+
 		
 	</head>
 
@@ -332,6 +333,9 @@
 		    @if ($message = Session::get('failed'))
 		        <div class="failed" data-flashdata="{{ $message }}"></div>
 		    @endif
+		    @if ($message = Session::get('info'))
+		        <div class="info" data-flashdata="{{ $message }}"></div>
+		    @endif
 	<script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
 
 	<script src="{!! asset('rollie/js/select2.js') !!}"></script>
@@ -510,28 +514,37 @@
     		} 
     	}
     </script>
-    <script>
-		const flashdatas = $('.failed').data('flashdata');
-	    if(flashdatas){
-	        swal({
-	            title: "Proses Gagal",
-	            text: flashdatas,
-	            type: "error",
+    
+	 <script>
+	        const flashdatas = $('.failed').data('flashdata');
+	        if(flashdatas){
+	            swal({
+	                title: "Proses Gagal",
+	                text: flashdatas,
+	                type: "error",
+	            });
+	        }
+	        const flashdata = $('.success').data('flashdata');
+	        if(flashdata){
+	            swal({
+	                title: "Proses Berhasil",
+	                text: flashdata,
+	                type: "success",
+	            });
+	        }
+	        const flashdatai = $('.info').data('flashdata');
+	        if(flashdatai){
+	            swal({
+	                title: "Proses Berhasil",
+	                text: flashdatai,
+	                type: "info",
+	            });
+	        }
+	        $('#myModal').on('shown.bs.modal', function () {
+	            $('#myInput').trigger('focus')
 	        });
-	    }
-	    const flashdata = $('.success').data('flashdata');
-	    if(flashdata){
-	        swal({
-	            title: "Proses Berhasil",
-	            text: flashdata,
-	            type: "success",
-	        });
-	    }
-        $('#myModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
-        });
-		new WOW().init();
-    </script>
+	        new WOW().init();
+	    </script>
 	@if (Route::currentRouteName()==='analisa-produk')
 		<script src="{{ asset('generalStyle/plugins/datetime-picker/js/jquery.min.js') }}"></script>
 	    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
