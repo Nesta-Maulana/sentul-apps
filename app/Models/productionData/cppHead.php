@@ -17,4 +17,8 @@ class cppHead extends Model
 	{
 		return $this->hasMany('App\Models\productionData\cppDetail', 'cpp_head_id','id');
 	}
+	public function analisaKimia()
+	{
+		return $this->belongsTo('App\Models\productionData\analisaKimia', 'analisa_kimia_id','id');
+	}
 }

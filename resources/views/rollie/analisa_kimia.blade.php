@@ -22,7 +22,7 @@
                                 <i class="la la-gear"></i>
                             </span>
                             <h3 class="m-portlet__head-text text-white">
-                                Default Form Layout
+                                Draft Analisa Kimia 
                             </h3>
                         </div>
                     </div>
@@ -66,18 +66,27 @@
                                                     <tr>
                                                         <td>{{ $cpp->wo[0]->produk->nama_produk }}</td>
                                                         <td>{{ $cpp->wo[0]->production_realisation_date }}</td>
-                                                        <td>
+                                                        <td class="text-center">
                                                             @if ($cpp->analisa_kimia_id == null)
                                                                 Belum Analisa
                                                             @else
-                                                                Sudah Analisa
+                                                                @if ($cpp->analisaKimia->status == '0')
+                                                                    Draft Analisa
+                                                                @else
+                                                                    Sudah Analisa
+                                                                @endif
                                                             @endif
                                                         </td>
                                                         <td>
                                                             @if ($cpp->analisa_kimia_id == null)
-                                                                <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
+                                                                <input type="submit" class="btn m-btn btn-danger form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
                                                             @else
-                                                                <input type="submit" class="btn m-btn btn-warning form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
+                                                                @if ($cpp->analisaKimia->status == '0')
+                                                                    <input type="submit" class="btn m-btn btn-warning form-control text-white" value="Lengkapi Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
+                                                                @else
+                                                                    <input type="submit" class="btn m-btn btn-success form-control text-white" value="Lihat Hasil Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
+                                                                @endif
+                                                                
                                                             @endif
                                                         </td>
                                                     </tr>

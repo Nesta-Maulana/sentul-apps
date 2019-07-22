@@ -359,6 +359,8 @@
     		}
     		var ts_awal_sum = (ts_awal_1+ts_awal_2)/2;
     		document.getElementById('ts_awal_sum').value = ts_awal_sum.toFixed(3);
+    		ubah_status_akhir();
+
     	}
 
     	function ts_tengah() 
@@ -375,6 +377,7 @@
     		}
     		var ts_tengah_sum = (ts_tengah_1+ts_tengah_2)/2;
     		document.getElementById('ts_tengah_sum').value = ts_tengah_sum.toFixed(3);
+    		ubah_status_akhir();
     	}
 
     	function ts_akhir() 
@@ -416,7 +419,7 @@
 				{
 					if ($('#status_akhir').val().includes('TS OK')) 
 					{
-						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('OK','#OK');
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('TS OK','TS #OK');
 					} 
 					else if($('#status_akhir').val().includes('TS #OK'))
 					{
@@ -431,7 +434,7 @@
 				{
 					if ($('#status_akhir').val().includes('TS #OK')) 
 					{
-						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('#OK','OK');
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('TS #OK','TS OK');
 					} 
 					else if($('#status_akhir').val().includes('TS OK'))
 					{
@@ -439,16 +442,15 @@
 					}
 					else
 					{
-						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"TS #OK ";
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"TS OK ";
 					}	
 				}
 				if (ph_awal < spek_ph_min || ph_awal > spek_ph_max || ph_tengah < spek_ph_min || ph_tengah > spek_ph_max || ph_akhir < spek_ph_min || ph_akhir > spek_ph_max) 
 				{
 					// $('#status_akhir').val()
-
 					if ($('#status_akhir').val().includes('pH OK')) 
 					{
-						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('OK','#OK');
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('pH OK','pH #OK');
 					} 
 					else if ($('#status_akhir').val().includes('pH #OK'))
 					{
@@ -456,42 +458,53 @@
 					}	
 					else
 					{
-						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"pH #OK";
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"pH #OK ";
 					}
 				}
 				else
 				{
-
-					if ($('#status_akhir').val().includes('pH OK')) 
+					if ($('#status_akhir').val().includes('pH #OK')) 
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('pH #OK','pH OK');
+					} 
+					else if ($('#status_akhir').val().includes('pH OK'))
 					{
 						document.getElementById('status_akhir').value 	= $('#status_akhir').val();
-					} 
-					else 
+					}	
+					else
 					{
-						document.getElementById('status_akhir').value 	= status_akhir+"pH OK "
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"pH OK ";
 					}		
 				}
 				
 				if (sensory_awal !== 'OK' || sensory_tengah !== 'OK' || sensory_akhir !== 'OK')
 				{
-					if (status_akhir.includes('Sensory #OK')) 
+					if($('#status_akhir').val().includes('Sensory OK'))
 					{
-						document.getElementById('status_akhir').value 	= status_akhir;
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('Sensory OK','Sensory #OK');
+					}
+					else if ($('#status_akhir').val().includes('Sensory #OK')) 
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val();
 					} 
 					else 
 					{
-						document.getElementById('status_akhir').value 	= status_akhir+"Sensory #OK"
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"Sensory #OK "
 					}	
 				}
 				else
 				{
-					if (status_akhir.includes('Sensory OK')) 
+					if($('#status_akhir').val().includes('Sensory #OK'))
 					{
-						document.getElementById('status_akhir').value 	= status_akhir;
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val().replace('Sensory #OK','Sensory OK');
+					}
+					else if ($('#status_akhir').val().includes('Sensory OK')) 
+					{
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val();
 					} 
 					else 
 					{
-						document.getElementById('status_akhir').value 	= status_akhir+"Sensory OK"
+						document.getElementById('status_akhir').value 	= $('#status_akhir').val()+"Sensory OK"
 					}	
 				}
     		} 
@@ -519,30 +532,30 @@
         });
 		new WOW().init();
     </script>
-
+	@if (Route::currentRouteName()==='analisa-produk')
+		<script src="{{ asset('generalStyle/plugins/datetime-picker/js/jquery.min.js') }}"></script>
+	    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
+	    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
+	    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
+	    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+	    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
+	    <script>
+	        $('.datetimepickernya').datetimepicker({
+	            format: 'YYYY-MM-DD HH:mm:ss'
+	        }); 
+	        $('.timepickernya').datetimepicker({
+	            format: 'HH:mm:ss',
+	            locale:'en',
+	            date: new Date()
+	        }); 
+	        $('.datepickernya').datetimepicker({
+	            format: 'YYYY-MM-DD',
+	            locale:'en',
+	            date: new Date()
+	        }); 
+	    </script>
+	@endif
     {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
-    <script src="{{ asset('generalStyle/plugins/datetime-picker/js/jquery.min.js') }}"></script>
-
-    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">
-    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('generalStyle/plugins/datetime-picker/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script>
-        $('.datetimepickernya').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        }); 
-        $('.timepickernya').datetimepicker({
-            format: 'HH:mm:ss',
-            locale:'en',
-            date: new Date()
-        }); 
-        $('.datepickernya').datetimepicker({
-            format: 'YYYY-MM-DD',
-            locale:'en',
-            date: new Date()
-        }); 
-    </script>
 </body>
 <!-- end::Body -->
 </html>
