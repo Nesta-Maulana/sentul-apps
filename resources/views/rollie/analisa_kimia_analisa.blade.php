@@ -9,7 +9,7 @@
     m-menu__item--active
 @endsection
 @section('subheader')
-    <h2 class="text-center">ROLLIE | Analisa Kimia FG | Analisa</h2>
+    ROLLIE | Analisa Kimia FG {{ $analisa_kimia->cppHead->produk->nama_produk }} <hr>
 @endsection
 @section('content')
     {!! Form::open(['route'=>'input-analisa-kimia','enctype'=>'multipart/form-data','method'=>'post']) !!}

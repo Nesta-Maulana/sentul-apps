@@ -84,7 +84,7 @@
                                                                 @if ($cpp->analisaKimia->status == '0')
                                                                     <input type="submit" class="btn m-btn btn-warning form-control text-white" value="Lengkapi Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
                                                                 @else
-                                                                    <input type="submit" class="btn m-btn btn-success form-control text-white" value="Lihat Hasil Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
+                                                                    <input type="submit" class="btn m-btn btn-success form-control text-white" value="Lihat Hasil Analisa" onclick="document.location.href='{{ route("lihat-analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->analisaKimia->id)]) }}'">
                                                                 @endif
                                                                 
                                                             @endif

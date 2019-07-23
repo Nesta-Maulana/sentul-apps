@@ -11,6 +11,10 @@ class analisaKimia extends Model
 	protected $guarded 		= ['id'];
 	public function cppHead()
 	{
-		return $this->hasOne('App\Models\productionData\cpp_Head', 'analisa_kimia_id','id');
+		return $this->hasOne('App\Models\productionData\cppHead', 'analisa_kimia_id','id');
+	}
+	public function user()
+	{
+		return $this->belongsTo('App\Models\userAccess\userAccess', 'user_id_inputer','id');
 	}
 }

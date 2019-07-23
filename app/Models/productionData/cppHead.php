@@ -21,4 +21,9 @@ class cppHead extends Model
 	{
 		return $this->belongsTo('App\Models\productionData\analisaKimia', 'analisa_kimia_id','id');
 	}
+
+	public function produk()
+	{
+		return $this->belongsTo('App\Models\masterApps\produk', 'produk_id','id');
+	}
 }

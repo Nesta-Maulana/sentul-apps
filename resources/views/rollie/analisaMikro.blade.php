@@ -9,127 +9,97 @@
     m-menu__item--active
 @endsection
 @section('subheader')
-    <h2 class="text-center">ROLLIE | Analisa Mikro</h2>
+    ROLLIE | Analisa Mikro FG <hr>
 @endsection
 @section('content')
-
     <div class="row">
-    
         <div class="col-lg-12">
             <div class="m-portlet">
-                <h3 class="text-white back-purple p-3">
-                    Analisa Mikro
-                </h3>
-                <div class="p-3">
-                    <label for="">Nama Produk : </label>
-                    <select name="" id="" class="form-control">
-                        <option value=""></option>
-                    </select>
-                    <label for="">Tanggal Produksi : </label>
-                    <select name="" id="" class="form-control">
-                        <option value=""></option>
-                    </select>
-                    <label for="">No WO</label>
-                    <input type="text" class="form-control" readonly="true" placeholder="No WO">
-                    <hr class="back-purple">
-                    <div class="row mt-2">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="">Kode Oracle</label>
-                                <input type="text" readonly="true" class="form-control" placeholder="Kode Oracle">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tanggal Selesai Filling   </label>
-                                <input type="text" readonly="true" class="form-control" placeholder="Tgl Selesai Filling">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tanggal Analisa Mikro</label>
-                                <input type="text" readonly="true" class="form-control" placeholder="Tgl Analisa Mikro">
-                            </div>
+                <div class="m-portlet__head" style="background:linear-gradient(135deg, #5867dd 30%, #36a3f7 100%)">
+                    <div class="m-portlet__head-caption"  >
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon m--hide">
+                                <i class="la la-gear"></i>
+                            </span>
+                            <h3 class="m-portlet__head-text text-white">
+                                Draft Analisa Mikro 
+                            </h3>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="">Mesin Filling : </label>
-                                <input type="text" readonly="true" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="">No Batch Filling : </label>
-                                <input type="text" class="form-control" placeholder="Tgl Selesai Filling">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Inputer :</label>
-                                <input type="text" class="form-control" placeholder="Inputer">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="">PIC QC Filling :</label>
-                                <input type="text" readonly="true" class="form-control" placeholder="PIC QC Filling">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Import File :</label>
-                                <input type="file" class="form-control-file">
-                            </div>
-                            <div class="float-right mt-5">
-                                <button class="btn back-purple text-white">Save to Draft</button>
-                                <button class="btn back-purple text-white">Submit</button>
+                    </div>
+                </div>
+                <div class="m-portlet__body" style="background:#f0f0f0; padding: 0;">
+                    <div class="form-inline row p-3" style="margin-left: -60px">
+                        <label for="nama_produk_filter_analisa_kimia" class="col-lg-2">Nama Produk </label>
+                        <select class="col-lg-4 form-control m-bootstrap-select " id="nama_produk_filter_analisa_kimia">
+                            <option value="">
+                                All
+                            </option>
+                            @foreach ($produks as $produk)
+                                <option value="{{ $produk->nama_produk }}">{{ $produk->nama_produk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="row p-3">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body table-responsive">
+                                    <table class="m-datatable table-bordered" id="table-analisa-kimia" style="overflow-x: none;">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th title="Field #1">
+                                                    Nama Produk
+                                                </th>
+                                                <th title="Field #2">
+                                                    Tanggal Produksi
+                                                </th>
+                                                <th title="Field #3">
+                                                    Status Analisa Kimia
+                                                </th>
+                                                <th title="Field #4">
+                                                    Aksi
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($cpps as $cpp)
+                                                @if ($cpp->status === '1')
+                                                    <tr>
+                                                        <td>{{ $cpp->wo[0]->produk->nama_produk }}</td>
+                                                        <td>{{ $cpp->wo[0]->production_realisation_date }}</td>
+                                                        <td class="text-center">
+                                                            @if ($cpp->analisa_kimia_id == null)
+                                                                Belum Analisa
+                                                            @else
+                                                                @if ($cpp->analisaKimia->status == '0')
+                                                                    Draft Analisa
+                                                                @else
+                                                                    Sudah Analisa
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($cpp->analisa_kimia_id == null)
+                                                                <input type="submit" class="btn m-btn btn-danger form-control" value="Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
+                                                            @else
+                                                                @if ($cpp->analisaKimia->status == '0')
+                                                                    <input type="submit" class="btn m-btn btn-warning form-control text-white" value="Lengkapi Analisa" onclick="document.location.href='{{ route("analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
+                                                                @else
+                                                                    <input type="submit" class="btn m-btn btn-success form-control text-white" value="Lihat Hasil Analisa" onclick="document.location.href='{{ route("lihat-analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->analisaKimia->id)]) }}'">
+                                                                @endif
+                                                                
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="m-portlet">
-                <h3 class="d-flex justify-content-center pt-3">Analisa Mikro</h3>
-                <div class="p-2">
-                    <table class="table table-striped">
-                        <thead class="back-purple text-white">
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Kode Oracle</th>
-                            <th scope="col">Nama Produk</th>
-                            <th scope="col">Nomor WO</th>
-                            <th scope="col">Tanggal Produksi</th>
-                            <th scope="col">Mesin Filling</th>
-                            <th scope="col">Status Akhir</th>                     
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>                            
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
-    </div>
-
+    </div>  
 @endsection

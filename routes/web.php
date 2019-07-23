@@ -296,6 +296,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie/analisa-kimia-fg', 'rollie\rollieController@analisaKimia')->name('analisa-kimia-fg');
     Route::get('/rollie/analisa-kimia-fg/analisa-produk/{id}', 'rollie\rollieController@analisaKimiaAnalisa')->name('analisa-produk');
     Route::post('/rollie/analisa-kimia-fg/hasil-analisa-kimia', 'rollie\rollieController@inputAnalisaKimia')->name('input-analisa-kimia');
+    Route::get('/rollie/analisa-kimia-fg/lihat-hasil-analisa/{id}', 'rollie\rollieController@lihatAnalisaKimia')->name('lihat-analisa-produk');
+
     Route::get('/rollie/rkj', 'rollie\rollieController@rkj');
     Route::get('/rollie/rkj/input', 'rollie\rollieController@rkjInput');
     Route::get('/rollie/package-integrity', 'rollie\rollieController@packageIntegrity');

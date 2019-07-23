@@ -123,7 +123,23 @@ class rollieController extends resourceController
         {
         
         }
-        return view('rollie.analisa_kimia_analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$cpps]);
+        if (!is_null($cpps->analisaKimia)) 
+        {
+            if ($cpps->analisaKimia->status == 1) 
+            {
+                return redirect()->route('lihat-analisa-produk',['id'=>resourceController::enkripsi($cpps->analisaKimia->id)])->with('info','Produk telah melakukan analisa');
+            }
+            else
+            {
+                return view('rollie.analisa_kimia_analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$cpps]);
+
+            }
+        }
+        else
+        {
+            return view('rollie.analisa_kimia_analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$cpps]);
+
+        }
         // return view('');
     }
     public function inputAnalisaKimia(Request $request)
@@ -760,6 +776,28 @@ class rollieController extends resourceController
             
         }
     }
+    public function lihatAnalisaKimia($id_analisa_kimia)
+    {
+        $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+        $analisa_kimia_id   = resourceController::dekripsi($id_analisa_kimia);
+        $analisa_kimia      = analisaKimia::find($analisa_kimia_id);
+        return view('rollie.lihatAnalisaKimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'analisa_kimia'=>$analisa_kimia]);
+    }
     public function inputPPQ(Request $request)
     {
         $nomor_ppq          = $request->nomor_ppq;
@@ -904,6 +942,7 @@ class rollieController extends resourceController
             $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
             return redirect($aplikasi->link);
         }
+        $listcpp       = cppHead::all();
 
         $i = 0;
         foreach ($hakAksesUserAplikasi as $h) 
@@ -911,7 +950,9 @@ class rollieController extends resourceController
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
         }
-        return view('rollie.analisaMikro',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
+        $produk     = produk::where('status','!=','0')->get();
+        $wo         = wo::all();
+        return view('rollie.analisaMikro',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$listcpp,'produks'=>$produk,'wo'=>$wo]);
         // return view('rollie.analisaMikro');
     }
     public function sortasi(){
