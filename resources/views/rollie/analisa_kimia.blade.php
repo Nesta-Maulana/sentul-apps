@@ -5,7 +5,7 @@
 @section('active-home')
     m-menu__item--active
 @endsection
-@section('active-analisa-kimia')
+@section('active-analisa-kimia-fg')
     m-menu__item--active
 @endsection
 @section('subheader')

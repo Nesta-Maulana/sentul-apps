@@ -304,7 +304,8 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie/ppq-fg', 'rollie\rollieController@ppq');
     Route::post('/rollie/ppq-fg/input-ppq-fg', 'rollie\rollieController@inputPPQ')->name('ppq-kimia-input');
 
-    Route::get('/rollie/analisa-mikro', 'rollie\rollieController@analisaMikro');
+    Route::get('/rollie/analisa-mikro', 'rollie\rollieController@analisaMikro')->name('analisa-mikro');
+    Route::get('/rollie/analisa-mikro/{cpp_head_id}', 'rollie\rollieController@prosesAnalisaMikro')->name('proses-analisa-mikro');
     Route::get('/rollie/sortasi', 'rollie\rollieController@sortasi');
     Route::get('/rollie/rpr', 'rollie\rollieController@rpr');
     Route::get('/rollie/reports', 'rollie\rollieController@report');

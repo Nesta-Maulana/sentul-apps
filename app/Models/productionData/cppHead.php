@@ -22,6 +22,11 @@ class cppHead extends Model
 		return $this->belongsTo('App\Models\productionData\analisaKimia', 'analisa_kimia_id','id');
 	}
 
+	public function analisaMikro()
+	{
+		return $this->hasOne('App\Models\productionData\analisaMikro', 'id','cpp_head_id');
+	}
+
 	public function produk()
 	{
 		return $this->belongsTo('App\Models\masterApps\produk', 'produk_id','id');

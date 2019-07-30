@@ -21,6 +21,8 @@ use App\Models\productionData\palet;
 use App\Models\productionData\ppqfg;
 use App\Models\productionData\paletPpq;
 use App\Models\productionData\analisaKimia;
+use App\Models\productionData\analisaMikro;
+use App\Models\productionData\analisaMikroDetail;
 use DB;
 use Session;
 
@@ -912,7 +914,8 @@ class rollieController extends resourceController
         return view('rollie.packageIntegrity',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
         // return view('rollie.packageIntegrity');
     }
-    public function ppq(){
+    public function ppq()
+    {
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
         
@@ -931,8 +934,9 @@ class rollieController extends resourceController
         }
         return view('rollie.ppq',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
     }
-    public function analisaMikro(){
 
+    public function analisaMikro()
+    {
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
         
@@ -943,7 +947,6 @@ class rollieController extends resourceController
             return redirect($aplikasi->link);
         }
         $listcpp       = cppHead::all();
-
         $i = 0;
         foreach ($hakAksesUserAplikasi as $h) 
         {
@@ -955,6 +958,46 @@ class rollieController extends resourceController
         return view('rollie.analisaMikro',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$listcpp,'produks'=>$produk,'wo'=>$wo]);
         // return view('rollie.analisaMikro');
     }
+    public function prosesAnalisaMikro($cpp_head_id)
+    {
+        $cpp_head_id        = resourceController::dekripsi($cpp_head_id);
+        $analisaMikro       = analisaMikro::where('cpp_head_id',$cpp_head_id)->first();
+        if (is_null($analisaMikro)) 
+        {
+            $cppHead        = cppHead::find($cpp_head_id);
+            $counting       = 1;
+            $countingR      = 1;
+            $pi_biasa       = array();
+            $pi_R           = array();
+            foreach ($cppHead->wo as $key => $wo) 
+            {
+                foreach ($wo->rpdFillingDetail as $key => $rpd_filling_detail) 
+                {
+                    if (strpos($rpd_filling_detail->kode_sampel->kode_sampel, 'F') === false && strpos($rpd_filling_detail->kode_sampel->kode_sampel, 'R') === false) 
+                    {
+                        array_push($pi_biasa, $rpd_filling_detail->kode_sampel->kode_sampel[0].$counting);
+                        $counting++;
+                        array_push($pi_biasa, $rpd_filling_detail->kode_sampel->kode_sampel[0].$counting);
+                        $counting++;
+                    }
+                    else if (strpos($rpd_filling_detail->kode_sampel->kode_sampel, 'F') === false && strpos($rpd_filling_detail->kode_sampel->kode_sampel, 'R') !== false)
+                    {
+                        array_push($pi_R, $rpd_filling_detail->kode_sampel->kode_sampel[0].$countingR);
+                        $countingR++;
+                        array_push($pi_R, $rpd_filling_detail->kode_sampel->kode_sampel[0].$countingR);
+                        $countingR++;
+                    }
+                }
+                $hasil = array_merge($pi_biasa,$pi_R);
+                return $hasil;
+            }
+        }
+        else
+        {
+
+        }
+    }
+
     public function sortasi(){
 
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();

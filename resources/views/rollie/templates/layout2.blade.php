@@ -1,3 +1,11 @@
+@php
+	$host 				= env('DB_HOST');
+	$database 			= env('DB_DATABASE');
+	$uname 				= env('DB_USERNAME');
+	$pass 				= env('DB_PASSWORD');
+	$conn 				= mysqli_connect($host,$uname,$pass,$database); 
+	@endphp
+
 <!DOCTYPE html>
 <html lang="en" >
 	<head>
@@ -57,7 +65,7 @@
 											<ul class="m-menu__nav  m-menu__nav--submenu-arrow">
 												<li class="m-menu__item  m-menu__item--active  m-menu__item--submenu m-menu__item--rel"  m-menu-submenu-toggle="click" aria-haspopup="true">
 													<h3 class="m-subheader-search__title" style="color: #e71372;">
-														ROLLIE
+														ROLLIE 
 													</h3>
 												</li>
 												<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel @yield('active-home')"  m-menu-submenu-toggle="click" aria-haspopup="true">
@@ -195,115 +203,34 @@
 								</button>
 								<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light "  >
 									<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
-										<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel @yield('active-analisa-kimia')"  m-menu-submenu-toggle="click" aria-haspopup="true">
-											<a href="/sentul-apps/rollie/analisa-kimia-fg" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Analisa Kimia FG
-												</span>
-											</a>
-											<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel @yield('active-rkj')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/rkj" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													RKJ
-												</span>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed m-menu__submenu--left" style="width:600px">
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													
-												</div>
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu @yield('active-ppq')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/ppq-fg" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													PPQ-FG
-												</span>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													
-												</div>
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu @yield('active-mikro')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/analisa-mikro" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Analisa Mikro
-												</span>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													
-												</div>
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu @yield('active-sortasi')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/sortasi" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Sortasi
-												</span>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													
-												</div>
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu @yield('active-rpr')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/rpr" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													RPR
-												</span>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													
-												</div>
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu @yield('active-report')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/reports" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Reports
-												</span>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													
-												</div>
-											</div>
-										</li>
-										<!-- <li class="m-menu__item  m-menu__item--submenu @yield('active-qa')"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-											<a  href="/sentul-apps/rollie/qa" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													QA
-												</span>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-												</div>
-											</div>
-										</li> -->
+										
+										<?php $idUser = Session::get('login') ?>
+								        @foreach($menus as $menu)
+								            <?php  
+								                $cekchild 	= "SELECT COUNT(id) from v_hak_akses WHERE parent_id='$menu->id' AND lihat = '1'";
+								                $cekchild 	= mysqli_query($conn, $cekchild);
+								                $cekchilds 	= mysqli_fetch_array($cekchild); 
+								                $potong		= explode('/', $menu->link);
+								                $yield 		= 'active-'.$potong[1];
+								            ?>
+								            @if($cekchilds[0] == 0)
+								                <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel @yield($yield)"  m-menu-submenu-toggle="click" aria-haspopup="true">
+													<a href="{{ '/sentul-apps/'.$menu->link }}" class="m-menu__link m-menu__toggle">
+														<span class="m-menu__item-here"></span>
+														<span class="m-menu__link-text">
+															{{ $menu->menu }}
+														</span>
+													</a>
+													<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
+														<span class="m-menu__arrow m-menu__arrow--adjust"></span>
+														
+													</div>
+												</li>
+								            @endif
+		
+							            @endforeach
+										
+										
 									</ul>
 								</div>
 							</div>
