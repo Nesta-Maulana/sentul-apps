@@ -118,25 +118,21 @@ class userAccessController extends resourceController
                                 $diff_in_days           = $to->diffInDays($from);
                                 $diff_in_days_update    = $to->diffInDays($fromupdate);
                                 
-                                if($diff_in_days >= 30 && $diff_in_days_update >= 7)
-                                {
-                                    
-                                    $id = resourceController::enkripsi($data->id);
-                                    
-                                    session()->put('ganti-password', $id);
-                                    return redirect('ganti-password/' . $id)->with('failed', 'Password anda sudah lebih dari 30 hari, harap ganti password !');
-                                }
-                                else if($diff_in_days >= 30 && $diff_in_days_update < 7)
+                                if($password === 'sentulappuser')
                                 {
                                     $id = resourceController::enkripsi($data->id);
-                                    
                                     session()->put('ganti-password', $id);
                                     return redirect('ganti-password/' . $id)->with('info', 'Selamat datang di Sentul Integrated System. Demi keamanan akun anda, harap ganti password anda untuk pertama kalinya.');
+                                }
+                                else if($diff_in_days >= 30)
+                                {
+                                    $id = resourceController::enkripsi($data->id);
+                                    session()->put('ganti-password', $id);
+                                    return redirect('ganti-password/' . $id)->with('info', 'Password anda sudah lebih dari 30 hari, harap ganti password !');
                                 }
                                 else
                                 {
                                     $hak_aplikasi = DB::table('hak_akses_aplikasi')->where('id_user', $data->id)->get();
-                                    
                                     session()->put('login', $data->id);
                                     if(count($hak_aplikasi) >= "1"){ 
                                         $user = userAccess::find(Session::get('login'));

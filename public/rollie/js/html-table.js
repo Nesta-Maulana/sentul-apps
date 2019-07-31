@@ -74,6 +74,22 @@ var Tableanalisamikro= {
     }
 }
 
+
+var Tableanalisamikro= {
+    init:function() {
+        var e;
+        e = $("#proses-analisa-mikro").mDatatable({
+            data: {
+                saveState: {
+                    cookie: !1
+                }
+            }
+        }
+        )
+
+    }
+}
+
 var TableRPR= {
     init:function() {
         var e;

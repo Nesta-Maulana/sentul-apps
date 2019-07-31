@@ -306,6 +306,8 @@ Route::middleware('ceklogin')->group(function ()
 
     Route::get('/rollie/analisa-mikro', 'rollie\rollieController@analisaMikro')->name('analisa-mikro');
     Route::get('/rollie/analisa-mikro/{cpp_head_id}', 'rollie\rollieController@prosesAnalisaMikro')->name('proses-analisa-mikro');
+    Route::post('/rollie/analisa-mikro/hasil-analisa-mikro', 'rollie\rollieController@inputAnalisaMikro')->name('input-analisa-mikro');
+   
     Route::get('/rollie/sortasi', 'rollie\rollieController@sortasi');
     Route::get('/rollie/rpr', 'rollie\rollieController@rpr');
     Route::get('/rollie/reports', 'rollie\rollieController@report');
