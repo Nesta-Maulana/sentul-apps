@@ -73,9 +73,7 @@ var Tableanalisamikro= {
 
     }
 }
-
-
-var Tableanalisamikro= {
+var Tableprosesanalisamikro= {
     init:function() {
         var e;
         e = $("#proses-analisa-mikro").mDatatable({
@@ -86,7 +84,6 @@ var Tableanalisamikro= {
             }
         }
         )
-
     }
 }
 
@@ -128,6 +125,7 @@ jQuery(document).ready(function() {
     Tableanalisakimia.init();
     TableRPR.init();
     Tableanalisamikro.init();
+    Tableprosesanalisamikro.init();
 }
 
 );

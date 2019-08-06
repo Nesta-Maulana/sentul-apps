@@ -472,7 +472,7 @@
 	        });
 	        new WOW().init();
 	    </script>
-	@if (Route::currentRouteName()==='analisa-produk')
+	@if (Route::currentRouteName()==='analisa-produk' || Route::currentRouteName()==='proses-analisa-mikro' )
 		<script src="{{ asset('generalStyle/plugins/datetime-picker/js/jquery.min.js') }}"></script>
 	    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap.css') }}">
 	    <link rel="stylesheet" href="{{ asset('generalStyle/plugins/datetime-picker/css/bootstrap-datetimepicker.min.css') }}">

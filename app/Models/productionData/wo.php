@@ -26,4 +26,8 @@ class wo extends Model
     {
         return $this->belongsTo('App\Models\productionData\cppHead', 'cpp_head_id');
     }
+    public function cppDetail()
+    {
+        return $this->hasMany('App\Models\productionData\cppDetail', 'wo_id','id');
+    }
 }
