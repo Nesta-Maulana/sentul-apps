@@ -1115,29 +1115,48 @@ class rollieController extends resourceController
             if ($key !== '_token' && $key !== 'cekHakAkses') 
             {
                 $produk         = produk::find($data['produk_id']);
-                if ($data['ph'] >= $produk->spek_ph_min && $data['ph'] <= $produk->spek_ph_max && $data['tpc'] > 0 && $data['yeast'] > 0 && $data['mold'] > 0) 
+                $datapalet      = DB::connection('mysql4')->select("SELECT * FROM palet where '".$data['jam_filling']."' BETWEEN `start` AND `end`");
+                $cpp_details    = explode(',',$data['cpp_detail']);
+                $paletfix       = array();
+                foreach ($datapalet as $key => $palet)
                 {
-                    $datapalet      = DB::connection('mysql4')->select("SELECT * FROM palet where '".$data['jam_filling']."' BETWEEN `start` AND `end`");
-                    $cpp_details    = explode(',',$data['cpp_detail']);
-                    $paletfix       = array();
-                    foreach ($datapalet as $key => $palet)
+                    foreach ($cpp_details as $cpp_detail_id) 
                     {
-                        foreach ($cpp_details as $cpp_detail_id) 
+                        if ($cpp_detail_id !== '') 
                         {
-                            if ($cpp_detail_id !== '') 
+                            if ($palet->cpp_detail_id == $cpp_detail_id) 
                             {
-                                if ($palet->cpp_detail_id == $cpp_detail_id) 
-                                {
-                                    array_push($paletfix,$palet);
-                                }
+                                array_push($paletfix,$palet);
                             }
                         }
                     }
-                    foreach ($paletfix as $key => $palet) 
+                }
+                if (($data['ph'] >= $produk->spek_ph_min && $data['ph'] <= $produk->spek_ph_max) && $data['tpc'] == 0) 
+                {   
+                    if ($produk->kode_oracle == '7300861') 
                     {
-                        $ambil_palet    = palet::find($palet->id);
-                        $ambil_palet->status_analisa_mikro = 'OK';
-                        $ambil_palet->save();
+                        if ($data['yeast'] == 0 && $data['mold'] == 0)
+                        {
+                            
+                        }
+                        else
+                        {
+                            foreach ($paletfix as $key => $palet) 
+                            {
+                                $ambil_palet    = palet::find($palet->id);
+                                $ambil_palet->status_analisa_mikro = 'OK';
+                                $ambil_palet->save();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach ($paletfix as $key => $palet) 
+                        {
+                            $ambil_palet    = palet::find($palet->id);
+                            $ambil_palet->status_analisa_mikro = 'OK';
+                            $ambil_palet->save();
+                        }
                     }
                 }
                 

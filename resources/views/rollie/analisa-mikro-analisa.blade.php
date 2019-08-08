@@ -21,34 +21,32 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-body table-responsive" >
-                                <table class="table table-bordered" id="proses-analisa-mikro" style="overflow-x: none; @if ($analisaMikro->analisaMikroDetail[0]->rpdFillingDetailPi->wo->produk->kode_oracle !== '7300861')
-                                        margin-left: 100px;
-                                @endif">
+                                <table class="table table-bordered" id="proses-analisa-mikro" style="overflow-x: none; ">
                                     <thead class="text-center">
                                         <tr>
-                                            <th title="Field #1">
+                                            <th title="Field #1" style="width: 7%;">
                                                 Mesin
                                             </th>
-                                            <th title="Field #2">
+                                            <th title="Field #2" style="width: 10%;">
                                                 Kode Sampel
                                             </th>
-                                            <th title="Field #3">
+                                            <th title="Field #3" style="width: 16%;">
                                                 Jam Filling
                                             </th>
-                                            <th title="Field #4">
+                                            <th title="Field #4" style="width: 7%;">
                                                 Suhu
                                             </th>
-                                            <th title="Field #5">
+                                            <th title="Field #5" style="width: 7%;">
                                                 pH
                                             </th>
-                                            <th title="Field #6" >
+                                            <th title="Field #6" style="width: 7%;">
                                                 TPC
                                             </th>
                                             @if ($analisaMikro->analisaMikroDetail[0]->rpdFillingDetailPi->wo->produk->kode_oracle == '7300861')
-                                                <th title="Field #7" >
+                                                <th title="Field #7" style="width: 7%;">
                                                     Yeast
                                                 </th>
-                                                <th title="Field #8" >
+                                                <th title="Field #8" style="width: 7%;">
                                                     Mold
                                                 </th>
                                             @endif
@@ -71,8 +69,8 @@
 												<td style="text-align: center;">{{ $detail->kode_sampel }}</td>
 												<td><input type="text" class="datetimepickernya form-control" value="{{ $detail->jam_filling }}" name ="{{ $detail->id }}[jam_filling]"></td>
 												<td style="text-align: center;">{{ $detail->suhu_preinkubasi }}&deg;</td>
-												<td><input type="text" class="form-control" value="{{ $detail->ph }}" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" maxlength="4" name ="{{ $detail->id }}[ph]"></td>
-												<td><input type="text" class="form-control" value="{{ $detail->tpc }}" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" maxlength="2" name ="{{ $detail->id }}[tpc]"></td>
+												<td><input type="text" class="form-control" value="7.50" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" maxlength="4" name ="{{ $detail->id }}[ph]"></td>
+												<td><input type="text" class="form-control" value="0" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" maxlength="2" name ="{{ $detail->id }}[tpc]"></td>
 												@if ($detail->rpdFillingDetailPi->wo->produk->kode_oracle == '7300861')
                                                     <td>
                                                         <input type="text" class="form-control" value="{{ $detail->yeast }}" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode !== 47" maxlength="2" name ="{{ $detail->id }}[yeast]">
@@ -84,15 +82,17 @@
 											</tr>
 										@endforeach
                                             <tr>
-                                               <td></td> 
-                                               <td></td> 
-                                               <td></td> 
-                                               <td></td> 
-                                               <td></td> 
-                                               <td></td> 
-                                               <td></td> 
+                                                <td></td> 
+                                                <td></td> 
+                                                <td></td> 
+                                                <td></td> 
+                                                <td></td> 
+                                                @if ($detail->rpdFillingDetailPi->wo->produk->kode_oracle == '7300861')
+                                                    <td></td> 
+                                                    <td></td>
+                                                @endif 
                                                <td>
-                                                    <button class="btn btn-info form-control">Simpan Hasil Analisa</button>
+                                                    <button class="btn btn-info ">Simpan Hasil Analisa</button>
                                                </td> 
                                             </tr>
                                     </tbody>
