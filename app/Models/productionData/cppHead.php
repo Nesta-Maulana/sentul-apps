@@ -24,7 +24,7 @@ class cppHead extends Model
 
 	public function analisaMikro()
 	{
-		return $this->hasOne('App\Models\productionData\analisaMikro', 'id','cpp_head_id');
+		return $this->hasMany('App\Models\productionData\analisaMikro', 'cpp_head_id','id');
 	}
 
 	public function produk()

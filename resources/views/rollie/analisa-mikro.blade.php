@@ -67,24 +67,41 @@
                                                         <td>{{ $cpp->wo[0]->produk->nama_produk }}</td>
                                                         <td>{{ $cpp->wo[0]->production_realisation_date }}</td>
                                                         <td class="text-center">
-                                                            @if ($cpp->analisa_mikro_id == null)
+                                                            @if ($cpp->analisaMikro == null)
                                                                 Belum Analisa
                                                             @else
-                                                                @if ($cpp->analisaKimia->status == '0')
+                                                                @if ($cpp->analisaMikro[0]->status_analisa == 'On Progress')
                                                                     Draft Analisa
-                                                                @else
-                                                                    Sudah Analisa
+                                                                @elseif($cpp->analisaMikro[0]->status_analisa == 'OK')
+                                                                    OK 
+                                                                @elseif($cpp->analisaMikro[0]->status_analisa == 'Resampling')
+                                                                    @if ($cpp->analisaMikro[0]->analisaMikroResampling == [])
+                                                                        Resampling
+                                                                    @else
+                                                                        <?php
+                                                                            $status     = array();
+                                                                            foreach ($cpp->analisaMikro[0]->analisaMikroResampling as $key => $analisa_resampling) 
+                                                                            {
+                                                                                if ($analisa_resampling->status_analisa == 'OK') {
+                                                                                    # code...
+                                                                                } else {
+                                                                                    # code...
+                                                                                }
+                                                                                
+                                                                            }
+                                                                        ?>
+                                                                    @endif
                                                                 @endif
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            @if ($cpp->analisa_mikro_id == null)
+                                                            @if ($cpp->analisaMikro == null)
                                                                 <input type="submit" class="btn m-btn btn-danger form-control" value="Analisa" onclick="document.location.href='{{ route("proses-analisa-mikro",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
                                                             @else
-                                                                @if ($cpp->analisaKimia->status == '0')
+                                                                @if ($cpp->analisaMikro[0]->status_analisa == '0')
                                                                     <input type="submit" class="btn m-btn btn-warning form-control text-white" value="Lengkapi Analisa" onclick="document.location.href='{{ route("proses-analisa-mikro",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
                                                                 @else
-                                                                    <input type="submit" class="btn m-btn btn-success form-control text-white" value="Lihat Hasil Analisa" onclick="document.location.href='{{ route("lihat-analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->analisaKimia->id)]) }}'">
+                                                                    <input type="submit" class="btn m-btn btn-success form-control text-white" value="Lihat Hasil Analisa" onclick="document.location.href='{{ route("lihat-analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->analisaMikro[0]->id)]) }}'">
                                                                 @endif
                                                                 
                                                             @endif

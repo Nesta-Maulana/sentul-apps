@@ -13,6 +13,8 @@
 @endsection
 @section('content')
 	{!! Form::open(['route'=>'input-analisa-mikro','enctype'=>'multipart/form-data','method'=>'post']) !!}
+
+    <input type="hidden" value="{{ app('App\Http\Controllers\resourceController')->enkripsi($analisaMikro->id) }}" name="analisa_mikro_head_id">
 	<div class="row">
 		<div class="col-lg-12">
 			 <div class="m-portlet">

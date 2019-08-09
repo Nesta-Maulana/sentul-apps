@@ -34,17 +34,16 @@ class rollieController extends resourceController
     public function __construct(Request $request){
         $this->middleware(function ($request, $next)
         {
-        $this->user = resolve('usersData');
-        $this->username = karyawan::where('nik', $this->user->username)->first();            
-        // $this->username =  $this->username->fullname;
-        $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
-        ->where('parent_id', '0')
-        ->where('lihat', '1')
-        ->where('aplikasi', 'Rollie')
-        ->orderBy('posisi', 'asc')
-        ->get();
-        
-        return $next($request);
+            $this->user = resolve('usersData');
+            $this->username = karyawan::where('nik', $this->user->username)->first();            
+            // $this->username =  $this->username->fullname;
+            $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
+            ->where('parent_id', '0')
+            ->where('lihat', '1')
+            ->where('aplikasi', 'Rollie')
+            ->orderBy('posisi', 'asc')
+            ->get();
+            return $next($request);
         });
     }
     public function cpp()
@@ -1108,11 +1107,11 @@ class rollieController extends resourceController
 
     public function inputAnalisaMikro(Request $request)
     {
-        $data       = array();
-        $i          = '';
+        // $data               = array();
+        $status_akhir       = array();
         foreach ($request->all() as $key => $data) 
         {
-            if ($key !== '_token' && $key !== 'cekHakAkses') 
+            if ($key !== '_token' && $key !== 'cekHakAkses' && $key !== 'analisa_mikro_head_id') 
             {
                 $produk         = produk::find($data['produk_id']);
                 $datapalet      = DB::connection('mysql4')->select("SELECT * FROM palet where '".$data['jam_filling']."' BETWEEN `start` AND `end`");
@@ -1137,15 +1136,22 @@ class rollieController extends resourceController
                     {
                         if ($data['yeast'] == 0 && $data['mold'] == 0)
                         {
-                            
+                            foreach ($paletfix as $key => $palet) 
+                            {
+                                $ambil_palet    = palet::find($palet->id);
+                                $ambil_palet->status_analisa_mikro = '1';
+                                $ambil_palet->save();
+                                array_push($status_akhir,"#OK");
+                            }
                         }
                         else
                         {
                             foreach ($paletfix as $key => $palet) 
                             {
                                 $ambil_palet    = palet::find($palet->id);
-                                $ambil_palet->status_analisa_mikro = 'OK';
+                                $ambil_palet->status_analisa_mikro = '0';
                                 $ambil_palet->save();
+                                array_push($status_akhir,"OK");
                             }
                         }
                     }
@@ -1154,17 +1160,42 @@ class rollieController extends resourceController
                         foreach ($paletfix as $key => $palet) 
                         {
                             $ambil_palet    = palet::find($palet->id);
-                            $ambil_palet->status_analisa_mikro = 'OK';
+                            $ambil_palet->status_analisa_mikro = '0';
                             $ambil_palet->save();
+                            array_push($status_akhir,"OK");
+
                         }
                     }
                 }
-                
-                dd($data);
+                else
+                {
+                    foreach ($paletfix as $key => $palet) 
+                    {
+                        $ambil_palet    = palet::find($palet->id);
+                        $ambil_palet->status_analisa_mikro = '1';
+                        $ambil_palet->save();
+                        array_push($status_akhir,"#OK");
+
+                    }
+                }
                 // analisaMikroDetail::where('id',$key)->update($data);
             }
         }
-        return 'Berhasil';
+        if (in_array('#OK', $status_akhir)) 
+        {
+            $analisa_mikro_head_id          = resourceController::dekripsi($request->analisa_mikro_head_id);
+            $analisa_mikro                  = analisaMikro::find($analisa_mikro_head_id);
+            $analisa_mikro->status_analisa  = 'Resampling';
+            $analisa_mikro->save();
+        }
+        else
+        {
+            $analisa_mikro_head_id          = resourceController::dekripsi($request->analisa_mikro_head_id);
+            $analisa_mikro                  = analisaMikro::find($analisa_mikro_head_id);
+            $analisa_mikro->status_analisa  = 'OK';
+            $analisa_mikro->save();
+        }
+        return redirect()->route('analisa-mikro');
     }
 
     public function sortasi()
