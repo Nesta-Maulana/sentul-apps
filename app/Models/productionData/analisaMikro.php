@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class analisaMikro extends Model
 {
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'analisa_mikro';
 	protected $guarded 		= ['id'];
 	public function cppHead()
@@ -16,7 +16,7 @@ class analisaMikro extends Model
 
 	public function analisaMikroResampling()
 	{
-		return $this->hasMany('App\Models\productionData\analisaMikro', 'analisa_mikro_resampling','id');
+		return $this->hasMany('App\Models\productionData\analisaMikro', 'analisa_mikro_utama','id');
 	}
 
 	public function user()

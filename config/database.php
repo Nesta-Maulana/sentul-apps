@@ -39,7 +39,7 @@ return [
             'prefix' => '',
         ],
 
-        'mysql' => [
+        'master_apps' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
@@ -53,7 +53,7 @@ return [
             'strict' => true,
             'engine' => null,
         ],
-        'mysql2' => [
+        'utility_online' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
@@ -83,7 +83,7 @@ return [
             'strict' => true,
             'engine' => null,
         ],
-        'mysql4' => [
+        'production_data' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),

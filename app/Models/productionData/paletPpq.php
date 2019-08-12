@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class paletPpq extends Model
 {
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'palet_ppq';
 	protected $guarded 		= ['id'];
 	public function palet()

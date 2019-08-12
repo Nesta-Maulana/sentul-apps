@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class palet extends Model
 {
 
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'palet';
 	protected $guarded 		= ['id'];
 

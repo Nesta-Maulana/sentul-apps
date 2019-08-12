@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class analisaKimia extends Model
 {
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'analisa_kimia';
 	protected $guarded 		= ['id'];
 	public function cppHead()

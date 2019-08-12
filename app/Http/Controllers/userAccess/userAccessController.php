@@ -4,8 +4,8 @@ namespace App\Http\Controllers\userAccess;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\resourceController;
-use App\Models\UserAccess\userAccess;
-use App\Models\UserAccess\role;
+use App\Models\userAccess\userAccess;
+use App\Models\userAccess\role;
 use Illuminate\Support\Facades\Hash;
 use App\Models\masterApps\aplikasi;
 use App\Models\masterApps\menu;

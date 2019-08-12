@@ -1114,10 +1114,10 @@ class rollieController extends resourceController
             if ($key !== '_token' && $key !== 'cekHakAkses' && $key !== 'analisa_mikro_head_id') 
             {
                 $produk         = produk::find($data['produk_id']);
-                $datapalet      = DB::connection('mysql4')->select("SELECT * FROM palet where '".$data['jam_filling']."' BETWEEN `start` AND `end`");
+                $datapalet      = DB::connection('production_data')->select("SELECT * FROM palet where '".$data['jam_filling']."' BETWEEN `start` AND `end`");
                 $cpp_details    = explode(',',$data['cpp_detail']);
                 $paletfix       = array();
-                foreach ($datapalet as $key => $palet)
+                foreach ($datapalet as $kunci => $palet)
                 {
                     foreach ($cpp_details as $cpp_detail_id) 
                     {
@@ -1136,49 +1136,55 @@ class rollieController extends resourceController
                     {
                         if ($data['yeast'] == 0 && $data['mold'] == 0)
                         {
-                            foreach ($paletfix as $key => $palet) 
+                            foreach ($paletfix as $kuncilagi => $palet) 
                             {
                                 $ambil_palet    = palet::find($palet->id);
                                 $ambil_palet->status_analisa_mikro = '1';
                                 $ambil_palet->save();
                                 array_push($status_akhir,"#OK");
+                                $data['status'] = '2';
                             }
                         }
                         else
                         {
-                            foreach ($paletfix as $key => $palet) 
+                            foreach ($paletfix as $kunciterus => $palet) 
                             {
                                 $ambil_palet    = palet::find($palet->id);
                                 $ambil_palet->status_analisa_mikro = '0';
                                 $ambil_palet->save();
                                 array_push($status_akhir,"OK");
+                                $data['status'] = '1';
+
                             }
                         }
                     }
                     else
                     {
-                        foreach ($paletfix as $key => $palet) 
+                        foreach ($paletfix as $kuncifix => $palet) 
                         {
                             $ambil_palet    = palet::find($palet->id);
                             $ambil_palet->status_analisa_mikro = '0';
                             $ambil_palet->save();
                             array_push($status_akhir,"OK");
-
+                            $data['status'] = '1';    
                         }
                     }
                 }
                 else
                 {
-                    foreach ($paletfix as $key => $palet) 
+                    foreach ($paletfix as $kuncinya => $palet) 
                     {
                         $ambil_palet    = palet::find($palet->id);
                         $ambil_palet->status_analisa_mikro = '1';
                         $ambil_palet->save();
                         array_push($status_akhir,"#OK");
+                        $data['status'] = '2';
 
                     }
                 }
-                // analisaMikroDetail::where('id',$key)->update($data);
+                unset($data['cpp_detail']);
+                unset($data['produk_id']);
+                analisaMikroDetail::where('id',$key)->update($data);
             }
         }
         if (in_array('#OK', $status_akhir)) 
@@ -1197,7 +1203,37 @@ class rollieController extends resourceController
         }
         return redirect()->route('analisa-mikro');
     }
+    public function lihatAnalisaMikro($id_analisa_mikro)
+    {
+        # code...
+    }
+    public function resamplingAnalisaMikro($analisa_mikro_id)
+    {
+        $hakAksesUserAplikasi       = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi           = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
 
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+
+        $analisa_mikro_id           = resourceController::dekripsi($analisa_mikro_id);
+        $analisa_mikro              = analisaMikro::find($analisa_mikro_id);
+        /*foreach ($analisa_mikro as $key => $value)
+        {
+            $datapalet                  = DB::connection('production_data')->select("SELECT * FROM palet where '".$data['jam_filling']."' BETWEEN `start` AND `end`");
+        }*/
+        return view('rollie.analisa-mikro-resampling',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'analisaMikro'=>$analisa_mikro]);
+
+    }
     public function sortasi()
     {
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();

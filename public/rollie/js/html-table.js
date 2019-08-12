@@ -87,6 +87,20 @@ var Tableprosesanalisamikro= {
     }
 }
 
+var Tableprosesunokanalisamikro= {
+    init:function() {
+        var e;
+        e = $("#proses-unok-analisa-mikro").mDatatable({
+            data: {
+                saveState: {
+                    cookie: !1
+                }
+            }
+        }
+        )
+    }
+}
+
 var TableRPR= {
     init:function() {
         var e;
@@ -126,6 +140,7 @@ jQuery(document).ready(function() {
     TableRPR.init();
     Tableanalisamikro.init();
     Tableprosesanalisamikro.init();
+    Tableprosesunokanalisamikro.init();
 }
 
 );

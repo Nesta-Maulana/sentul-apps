@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class kategoriPencatatan extends Model
 {
-    protected $connection = 'mysql2';
+    protected $connection = 'utility_online';
     protected $table="kategori_pencatatan";
     protected $fillable=['kategori_pencatatan'];
 }

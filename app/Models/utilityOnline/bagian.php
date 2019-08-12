@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class bagian extends Model
 {
-    protected $connection = 'mysql2';
+    protected $connection = 'utility_online';
     protected $table = "bagian";
     protected $guarded = ['id'];
 

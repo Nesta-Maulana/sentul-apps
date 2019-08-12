@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class company extends Model
 {
-	protected $connection = 'mysql4';
+	protected $connection = 'production_data';
     protected $table = "company";
     protected $fillable = ['company', 'status', 'singkatan'];
     public function brand()

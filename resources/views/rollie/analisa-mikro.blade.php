@@ -70,22 +70,25 @@
                                                             @if ($cpp->analisaMikro == null)
                                                                 Belum Analisa
                                                             @else
-                                                                @if ($cpp->analisaMikro[0]->status_analisa == 'On Progress')
+                                                                @if ($cpp->analisaMikro->status_analisa == 'On Progress')
                                                                     Draft Analisa
-                                                                @elseif($cpp->analisaMikro[0]->status_analisa == 'OK')
+                                                                @elseif($cpp->analisaMikro->status_analisa == 'OK')
                                                                     OK 
-                                                                @elseif($cpp->analisaMikro[0]->status_analisa == 'Resampling')
-                                                                    @if ($cpp->analisaMikro[0]->analisaMikroResampling == [])
+                                                                @elseif($cpp->analisaMikro->status_analisa == 'Resampling')
+                                                                    @if (count($cpp->analisaMikro->analisaMikroResampling) == 0)
                                                                         Resampling
                                                                     @else
                                                                         <?php
                                                                             $status     = array();
                                                                             foreach ($cpp->analisaMikro[0]->analisaMikroResampling as $key => $analisa_resampling) 
                                                                             {
-                                                                                if ($analisa_resampling->status_analisa == 'OK') {
-                                                                                    # code...
-                                                                                } else {
-                                                                                    # code...
+                                                                                if ($analisa_resampling->status_analisa == 'OK') 
+                                                                                {
+                                                                                    echo "Resampling OK";
+                                                                                } 
+                                                                                else if($analisa_resampling->status_analisa == 'Resampling')
+                                                                                {
+                                                                                    echo "Resampling #OK";
                                                                                 }
                                                                                 
                                                                             }
@@ -98,10 +101,10 @@
                                                             @if ($cpp->analisaMikro == null)
                                                                 <input type="submit" class="btn m-btn btn-danger form-control" value="Analisa" onclick="document.location.href='{{ route("proses-analisa-mikro",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
                                                             @else
-                                                                @if ($cpp->analisaMikro[0]->status_analisa == '0')
-                                                                    <input type="submit" class="btn m-btn btn-warning form-control text-white" value="Lengkapi Analisa" onclick="document.location.href='{{ route("proses-analisa-mikro",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->id)]) }}'">
-                                                                @else
-                                                                    <input type="submit" class="btn m-btn btn-success form-control text-white" value="Lihat Hasil Analisa" onclick="document.location.href='{{ route("lihat-analisa-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->analisaMikro[0]->id)]) }}'">
+                                                                @if ($cpp->analisaMikro->status_analisa == 'Resampling')
+                                                                    <input type="submit" class="btn m-btn btn-warning form-control text-white" value="Resampling" onclick="document.location.href='{{ route("resampling-analisa-mikro",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->analisaMikro->id)]) }}'">
+                                                                @elseif($cpp->analisaMikro->status_analisa == 'OK')
+                                                                    <input type="submit" class="btn m-btn btn-success form-control text-white" value="Lihat Hasil Analisa" onclick="document.location.href='{{ route("lihat-analisa-mikro-produk",["id"=>app('App\Http\Controllers\resourceController')->enkripsi($cpp->analisaMikro->id)]) }}'">
                                                                 @endif
                                                                 
                                                             @endif

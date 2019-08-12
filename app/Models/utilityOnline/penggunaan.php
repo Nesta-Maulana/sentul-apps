@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class penggunaan extends Model
 {
-    protected $connection = 'mysql2';
+    protected $connection = 'utility_online';
     protected $table="penggunaan";
     protected $guarded=['id'];
 

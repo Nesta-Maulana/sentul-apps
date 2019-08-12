@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class wo extends Model
 {
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'wo';
 	protected $guarded 		= ['id'];
 	public function produk()

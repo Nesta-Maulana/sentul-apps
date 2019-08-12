@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class rpdFillingDetailAtEvent extends Model
 {
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'rpd_filling_detail_at_event';
 	protected $guarded 		= ['id'];
 	public function rpd_head()

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class analisaMikroDetail extends Model
 {
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'analisa_mikro_detail';
 	protected $guarded 		= ['id'];
 

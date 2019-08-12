@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class hariKerja extends Model
 {
-    protected $connection = 'mysql2';
+    protected $connection = 'utility_online';
     protected $table="hari_kerja";
     protected $guarded=['id'];
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class rpdFillingDetailPi extends Model
 {
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'rpd_filling_detail_pi';
 	protected $guarded 		= ['id'];
 	public function rpd_head()
