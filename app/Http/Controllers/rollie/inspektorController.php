@@ -65,7 +65,7 @@ class inspektorController extends resourceController
         {
             $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
-        }
+        }     
         
         // mengambil jadwal wo diminggu ini saja dan wo yang statusnya WIP Filling di minggu-minggu sebelumnya 
         $wos        = wo::where('status','3')->orWhere('status','2')->whereNotIn('produk_id',['30','31','32'])->get();
