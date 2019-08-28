@@ -45,12 +45,10 @@ class superAdminController extends resourceController
     public function __construct(Request $request){
         $this->middleware(function ($request, $next)
         {
-            
-
             $this->user = resolve('usersData');
             $this->username = karyawan::where('nik', $this->user->username)->first();            
             $this->username =  $this->username->fullname;
-            $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
+            $this->menu = DB::connection('master_apps')->table('v_hak_akses')->where('user_id',Session::get('login'))
             ->where('parent_id', '0')
             ->where('lihat', '1')
             ->where('aplikasi', 'Master Apps')
@@ -70,7 +68,7 @@ class superAdminController extends resourceController
         }
         $i = 0; 
         foreach ($hakAksesUserAplikasi as $h) {
-            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $data[$i] = DB::connection('master_apps')->table('aplikasi')->where('id', $h->id_aplikasi)->first();
             $i++;
         }
         return view('userAccess.home', ['hakAkses' => $data]);

@@ -4,7 +4,7 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+| 
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the 'web' middleware group. Now create something great!
@@ -51,9 +51,9 @@ Route::get('/request-hak-akses', 'hakAkses\hakAksesController@hakAkses')->name('
 Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
 Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
 
+
 Route::middleware('ceklogin')->group(function ()
 {   
-
     Route::get('/home', 'masterApps\superAdminController@index')->name('home-aplikasi');    
     Route::get('/master-apps', 'masterApps\superAdminController@home');
     Route::get('/master-apps/home', 'masterApps\superAdminController@home');

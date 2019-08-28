@@ -13,15 +13,14 @@ class CekLogin
     {
         
         $id = Session::get('login');
-        $userData = DB::table('users')->where('id', $id);
+        $userData = DB::connection('master_apps')->table('users')->where('id', $id);
         if($userData->count() > 0){
             $isi = url()->full();
-        
-
             $data = explode($_SERVER['HTTP_HOST']."/sentul-apps" , $isi);
             $data = explode('/',$data[1]);
             $i = 0;
-            foreach($data as $d){
+            foreach($data as $d)
+            {
                 $i++;
             }
             if($i == '1'){
@@ -44,9 +43,8 @@ class CekLogin
                 return redirect(url()->previous())->with('failed', 'Anda tidak memiliki akses terhadap aplikasi ini');
             }
             else
-            {    
-                
-                $cekHakAkses = DB::table('v_hak_akses')->where('link', $data[2])->where('user_id', $id);
+            {   
+                $cekHakAkses = DB::connection('master_apps')->table('v_hak_akses')->where('link', $data[2])->where('user_id', $id);
                 if($cekHakAkses->count() > 0){
                     
                     $cekHakAkses = $cekHakAkses->first();
@@ -118,7 +116,7 @@ class CekLogin
                 Session::put('aplikasi', $data[0]);
                 
                 app()->instance('usersData', $userData->first());
-                $cekHakAkses = DB::table('hak_akses_menu')->where('user_id', $id)->get();
+                $cekHakAkses = DB::connection('master_apps')->table('hak_akses_menu')->where('user_id', $id)->get();
                 
                 $request->merge(['cekHakAkses' => $cekHakAkses]);
                 return $next($request);

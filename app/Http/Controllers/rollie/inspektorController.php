@@ -77,6 +77,9 @@ class inspektorController extends resourceController
     {
         $id                 = app('App\Http\Controllers\resourceController')->dekripsi($rpdfillingheadid);
         $rpdfillinghead     = rpdFillingHead::find($id);
+        $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
+            $kode_sampel        = kodeSampelPi::where('jenis_produk_id',$rpdfillinghead->wo[0]->produk->jenis_produk_id)->get();
+            return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username,'rpd_filling'=>$rpdfillinghead,'rpd_filling_aktif'=>$rpdfillingaktif,'kode_sampel'=>$kode_sampel]);
         if ($rpdfillinghead->status == '1') 
         {
             $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();

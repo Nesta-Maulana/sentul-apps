@@ -161,7 +161,7 @@
                                 @endforeach
                                 <td>
                                     <button class="btn btn-primary edit" id="edit" data-id="{{ $id }}" data-aplikasi="{{$idAplikasi}}">Edit</button>
-                                    <a href="delete/mysql4/sub_brand/{{$menu->id}}" class="text-white btn btn-danger">Delete</a>
+                                    <a href="delete/production_data/sub_brand/{{$menu->id}}" class="text-white btn btn-danger">Delete</a>
                                 </td>
                                 <?php $i++ ?>
                             </tr>

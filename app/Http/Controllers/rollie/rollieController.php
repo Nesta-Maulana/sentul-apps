@@ -37,7 +37,7 @@ class rollieController extends resourceController
             $this->user = resolve('usersData');
             $this->username = karyawan::where('nik', $this->user->username)->first();            
             // $this->username =  $this->username->fullname;
-            $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
+            $this->menu = DB::connection('master_apps')->table('v_hak_akses')->where('user_id',Session::get('login'))
             ->where('parent_id', '0')
             ->where('lihat', '1')
             ->where('aplikasi', 'Rollie')

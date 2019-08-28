@@ -132,7 +132,7 @@ class userAccessController extends resourceController
                                 }
                                 else
                                 {
-                                    $hak_aplikasi = DB::table('hak_akses_aplikasi')->where('id_user', $data->id)->get();
+                                    $hak_aplikasi = DB::connection('master_apps')->table('hak_akses_aplikasi')->where('id_user', $data->id)->get();
                                     session()->put('login', $data->id);
                                     if(count($hak_aplikasi) >= "1"){ 
                                         $user = userAccess::find(Session::get('login'));

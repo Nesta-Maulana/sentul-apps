@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class hakAksesUserAplikasi extends Model
 {
+	protected $connection = 'master_apps';
     protected $table = 'hak_akses_aplikasi';
     protected $guarded = ['id'];
     public function aplikasi(){
