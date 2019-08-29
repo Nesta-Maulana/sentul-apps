@@ -53,6 +53,54 @@ var Tableanalisakimia= {
     }
 }
 
+var Tableanalisamikro= {
+    init:function() {
+        var e;
+        e = $("#table-analisa-mikro").mDatatable({
+            data: {
+                saveState: {
+                    cookie: !1
+                }
+            }
+        }
+        ),
+        $("#nama_produk_filter_analisa_mikro").on("change", function() {
+            e.search($(this).val().toLowerCase(), "Nama Produk")
+        }
+        ),
+         $("#nama_produk_filter_analisa_mikro").select2()
+        // $("#nama_produk_filter_analisa_kimia").select2()
+
+    }
+}
+var Tableprosesanalisamikro= {
+    init:function() {
+        var e;
+        e = $("#proses-analisa-mikro").mDatatable({
+            data: {
+                saveState: {
+                    cookie: !1
+                }
+            }
+        }
+        )
+    }
+}
+
+var Tableprosesunokanalisamikro= {
+    init:function() {
+        var e;
+        e = $("#proses-unok-analisa-mikro").mDatatable({
+            data: {
+                saveState: {
+                    cookie: !1
+                }
+            }
+        }
+        )
+    }
+}
+
 var TableRPR= {
     init:function() {
         var e;
@@ -90,6 +138,9 @@ jQuery(document).ready(function() {
     DatatableHtmlTableDemo.init();
     Tableanalisakimia.init();
     TableRPR.init();
+    Tableanalisamikro.init();
+    Tableprosesanalisamikro.init();
+    Tableprosesunokanalisamikro.init();
 }
 
 );

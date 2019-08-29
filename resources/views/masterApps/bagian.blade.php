@@ -102,7 +102,7 @@
                     <td>{{ $b->kategoriPencatatan->kategori_pencatatan }}</td>
                     <td>
                         <button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $id }}"><i class="fa fa-edit"></i> Edit</button>
-                    <a href="delete/mysql2/bagian/{{$b->id}}" class="text-white btn btn-danger">Delete</a>
+                    <a href="delete/utility_online/bagian/{{$b->id}}" class="text-white btn btn-danger">Delete</a>
                     </td>
                 </tr>
                 <?php $i++ ?>

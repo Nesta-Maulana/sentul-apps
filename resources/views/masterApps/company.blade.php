@@ -60,7 +60,7 @@
                             @endif
                             <td>
                                 <button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $id }}">Edit</button>
-                                <a href="delete/mysql4/company/{{$c->id}}" class="text-white btn btn-danger">Delete</a>    
+                                <a href="delete/production_data/company/{{$c->id}}" class="text-white btn btn-danger">Delete</a>    
                             </td>
                         </tr>
                         <?php $i++ ?>

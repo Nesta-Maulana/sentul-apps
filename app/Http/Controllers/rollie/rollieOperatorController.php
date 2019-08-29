@@ -536,7 +536,7 @@ class rollieOperatorController extends resourceController
                 $produk_id          = $cpp_head->wo[0]->produk_id;
                 $rangesebelum       = date('Y-m-d', strtotime($cpp_head->wo[0]->production_realisation_date. ' - 2 days'));
                 $rangesesudah       = date('Y-m-d', strtotime($cpp_head->wo[0]->production_realisation_date. ' + 2 days'));
-                $ambilproduk        = DB::connection('mysql4')->select("SELECT * FROM wo where `production_realisation_date` BETWEEN '".$rangesebelum."' AND '".$rangesesudah."'");
+                $ambilproduk        = DB::connection('production_data')->select("SELECT * FROM wo where `production_realisation_date` BETWEEN '".$rangesebelum."' AND '".$rangesesudah."'");
                 $arraywo    = array();
                 if ($ambilproduk !== []) 
                 {

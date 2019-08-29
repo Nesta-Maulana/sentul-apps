@@ -66,7 +66,7 @@
                                     <td>{{ $w->status }}</td>
                                     <td>
                                         <button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $id }}"><i class="fa fa-edit"></i> Edit</button>
-                                        <a href="delete/mysql2/workcenter/{{$w->id}}" class="text-white btn btn-danger">Delete</a>
+                                        <a href="delete/utility_online/workcenter/{{$w->id}}" class="text-white btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++ ?>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class produk extends Model
 {
-    protected $connection = 'mysql4';
+    protected $connection = 'production_data';
     protected $table = "produk";
     protected $guarded = ['id'];
     public function subbrand(){

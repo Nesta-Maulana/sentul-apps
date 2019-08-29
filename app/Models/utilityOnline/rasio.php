@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class rasio extends Model
 {
-    protected $connection = 'mysql2';
+    protected $connection = 'utility_online';
     protected $table="rasio_detail";
     protected $fillable=['rasio_head_id', 'company_id', 'nilai'];
 

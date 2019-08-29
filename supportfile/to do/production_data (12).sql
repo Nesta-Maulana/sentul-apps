@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Jul 2019 pada 03.32
+-- Waktu pembuatan: 30 Jul 2019 pada 11.16
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -65,8 +65,45 @@ CREATE TABLE `analisa_kimia` (
 --
 
 INSERT INTO `analisa_kimia` (`id`, `kode_batch_standar`, `ts_awal_1`, `ts_awal_2`, `ts_awal_sum`, `ts_tengah_1`, `ts_tengah_2`, `ts_tengah_sum`, `ts_akhir_1`, `ts_akhir_2`, `ts_akhir_sum`, `ph_awal`, `ph_tengah`, `ph_akhir`, `visco_awal`, `visco_tengah`, `visco_akhir`, `sensory_awal`, `sensory_tengah`, `sensory_akhir`, `jam_filling_awal`, `jam_filling_tengah`, `jam_filling_akhir`, `status`, `status_akhir`, `keterangan`, `user_id_inputer`, `created_at`, `updated_at`) VALUES
-(1, '-', 10.81, 10.82, 10.815, 10.84, 10.85, 10.845, 10.78, 10.79, 10.785, 7.04, 7.04, 7.05, '4.11', '3.93', '3.61', 'OK', 'OK', 'OK', '2019-07-15 23:53:10', '2019-07-16 00:52:53', '2019-07-16 01:31:15', '0', 'OK', 'TS OK pH OK Sensory OK', 24, '2019-07-21 09:57:47', '2019-07-21 09:57:47'),
-(2, '-', 10.81, 10.82, 10.815, 10.84, 10.85, 10.845, 10.78, 10.79, 10.785, 7.04, 7.04, 7.05, '4.11', '3.93', '3.61', 'OK', 'OK', 'OK', '2019-07-15 23:53:10', '2019-07-16 00:52:53', '2019-07-16 01:31:15', '0', 'OK', 'TS OK pH OK Sensory OK', 24, '2019-07-21 09:58:33', '2019-07-21 09:58:33');
+(1, '-', 10.81, 10.82, 10.815, 10.84, 10.85, 10.845, 10.78, 10.79, 10.785, 7.04, 7.04, 7.05, '4.11', '3.93', '3.61', 'OK', 'OK', 'OK', '2019-07-15 23:53:10', '2019-07-16 00:52:53', '2019-07-16 01:31:15', '1', 'OK', 'TS OK pH OK Sensory OK', 24, '2019-07-21 09:57:47', '2019-07-22 07:11:07');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `analisa_mikro`
+--
+
+CREATE TABLE `analisa_mikro` (
+  `id` int(11) NOT NULL,
+  `cpp_head_id` int(11) NOT NULL,
+  `tanggal_analisa` date NOT NULL,
+  `status_analisa` enum('OK','Resampling') NOT NULL,
+  `user_inputer_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `analisa_mikro_detail`
+--
+
+CREATE TABLE `analisa_mikro_detail` (
+  `id` int(11) NOT NULL,
+  `analisa_mikro_id` int(11) NOT NULL,
+  `kode_sampel` varchar(5) NOT NULL,
+  `jam_filling` datetime NOT NULL,
+  `rpd_filling_detail_id` int(11) NOT NULL,
+  `suhu_preinkubasi` enum('30','55') NOT NULL,
+  `tpc` int(3) DEFAULT NULL,
+  `yeast` int(3) DEFAULT NULL,
+  `mold` int(3) DEFAULT NULL,
+  `ph` double(5,2) DEFAULT NULL,
+  `status` enum('0','1','2','3') NOT NULL DEFAULT '0',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -158,7 +195,7 @@ CREATE TABLE `cpp_head` (
 --
 
 INSERT INTO `cpp_head` (`id`, `produk_id`, `tanggal_packing`, `status`, `analisa_kimia_id`, `created_at`, `updated_at`) VALUES
-(2, 35, '2019-07-15', '1', 2, '2019-07-21 09:58:33', '2019-07-21 09:58:33');
+(2, 35, '2019-07-15', '1', 1, '2019-07-22 07:10:58', '2019-07-21 09:58:33');
 
 -- --------------------------------------------------------
 
@@ -335,7 +372,6 @@ CREATE TABLE `palet` (
   `end` datetime DEFAULT NULL,
   `jumlah_box` int(11) DEFAULT NULL,
   `jumlah_pack` int(11) DEFAULT NULL,
-  `ppq_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -344,13 +380,34 @@ CREATE TABLE `palet` (
 -- Dumping data untuk tabel `palet`
 --
 
-INSERT INTO `palet` (`id`, `cpp_detail_id`, `palet`, `start`, `end`, `jumlah_box`, `jumlah_pack`, `ppq_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 'P01', '2019-07-15 23:53:10', '2019-07-16 00:12:30', 119, 2856, NULL, '2019-07-16 07:46:21', '2019-07-16 08:05:20'),
-(2, 1, 'P02', '2019-07-16 00:12:30', '2019-07-16 00:31:49', 119, 2856, NULL, '2019-07-16 07:47:49', '2019-07-16 08:05:23'),
-(3, 1, 'P03', '2019-07-16 00:31:49', '2019-07-16 00:51:52', 119, 2856, NULL, '2019-07-16 08:03:05', '2019-07-16 08:05:27'),
-(4, 1, 'P04', '2019-07-16 00:51:52', '2019-07-16 01:10:34', 119, 2856, 1, '2019-07-16 08:03:16', '2019-07-18 08:12:29'),
-(5, 1, 'P05', '2019-07-16 01:10:34', '2019-07-16 01:29:47', 119, 2856, 1, '2019-07-16 08:03:17', '2019-07-18 08:12:29'),
-(6, 1, 'P06', '2019-07-16 01:29:47', '2019-07-16 01:31:15', 9, 216, NULL, '2019-07-16 08:03:19', '2019-07-18 08:39:49');
+INSERT INTO `palet` (`id`, `cpp_detail_id`, `palet`, `start`, `end`, `jumlah_box`, `jumlah_pack`, `created_at`, `updated_at`) VALUES
+(1, 1, 'P01', '2019-07-15 23:53:10', '2019-07-16 00:12:30', 119, 2856, '2019-07-16 07:46:21', '2019-07-16 08:05:20'),
+(2, 1, 'P02', '2019-07-16 00:12:30', '2019-07-16 00:31:49', 119, 2856, '2019-07-16 07:47:49', '2019-07-16 08:05:23'),
+(3, 1, 'P03', '2019-07-16 00:31:49', '2019-07-16 00:51:52', 119, 2856, '2019-07-16 08:03:05', '2019-07-16 08:05:27'),
+(4, 1, 'P04', '2019-07-16 00:51:52', '2019-07-16 01:10:34', 119, 2856, '2019-07-16 08:03:16', '2019-07-22 06:29:46'),
+(5, 1, 'P05', '2019-07-16 01:10:34', '2019-07-16 01:29:47', 119, 2856, '2019-07-16 08:03:17', '2019-07-22 06:29:49'),
+(6, 1, 'P06', '2019-07-16 01:29:47', '2019-07-16 01:31:15', 9, 216, '2019-07-16 08:03:19', '2019-07-22 06:29:51');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `palet_ppq`
+--
+
+CREATE TABLE `palet_ppq` (
+  `id` int(11) NOT NULL,
+  `palet_id` int(11) NOT NULL,
+  `ppq_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `palet_ppq`
+--
+
+INSERT INTO `palet_ppq` (`id`, `palet_id`, `ppq_id`, `created_at`, `updated_at`) VALUES
+(10, 4, 1, '2019-07-22 06:30:37', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -700,6 +757,12 @@ ALTER TABLE `analisa_kimia`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `analisa_mikro`
+--
+ALTER TABLE `analisa_mikro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `brand`
 --
 ALTER TABLE `brand`
@@ -760,6 +823,12 @@ ALTER TABLE `palet`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `palet_ppq`
+--
+ALTER TABLE `palet_ppq`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `plan`
 --
 ALTER TABLE `plan`
@@ -815,7 +884,13 @@ ALTER TABLE `wo`
 -- AUTO_INCREMENT untuk tabel `analisa_kimia`
 --
 ALTER TABLE `analisa_kimia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `analisa_mikro`
+--
+ALTER TABLE `analisa_mikro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `brand`
@@ -876,6 +951,12 @@ ALTER TABLE `mesin_filling`
 --
 ALTER TABLE `palet`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `palet_ppq`
+--
+ALTER TABLE `palet_ppq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `plan`

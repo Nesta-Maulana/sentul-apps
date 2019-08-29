@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -11,10 +10,8 @@
 	<link href="{{ asset('userAccess/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
- 
 <body
 	class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
-	<!-- begin:: Page -->
 	<div class="m-grid m-grid--hor m-grid--root m-page">
 		<div class="m-login m-login--signin  m-login--5" id="m_login"
 			style="background-image: url('{{ asset('userAccess/img/bg/d.png') }}');background-position: center;background-repeat: no-repeat;background-size: cover;">
@@ -27,11 +24,6 @@
 									<img src="{{ asset('emailLogo/sisy.png')}}">
 								</a>
 							</div>
-{{-- 							<div class="m-login__title">
-								<h3 style="font-weight: 600;text-align:center; color:#001682">
-									Sentul Integrated System
-								</h3>
-							</div> --}}
 							<div class="m-login__desc" style="font-size:20px;text-align: justify;color:#260394">
 								Sentul integrated system is a system that connects all data of PT. Nutrifood Indonesia which was developed by
 								Nesta Maulana and his team.
@@ -133,15 +125,10 @@
     	<div class="informasinya" data-flashdatak="{{ $message }}"></div>    
 	@endif
     
-	<!-- end:: Page -->
-	<!--begin::Base Scripts -->
 	<script src="{{ asset('userAccess/js/vendors.bundle.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('userAccess/js/scripts.bundle.js') }}" type="text/javascript"></script>
-	<!--end::Base Scripts -->
-	<!--begin::Page Snippets -->
 	<script src="{{ asset('userAccess/js/login.js') }}" type="text/javascript"></script>
-	<!--end::Page Snippets -->
-    <script>
+	<script>
         const flashdatas = $('.failed').data('flashdata');
         if(flashdatas){
             swal({

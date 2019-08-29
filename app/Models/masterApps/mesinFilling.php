@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class mesinFilling extends Model
 {
-	protected $connection = 'mysql4';
+	protected $connection = 'production_data';
     protected $table = "mesin_filling";
     protected $guarded = ['id'];
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class pengamatan extends Model
 {
-    protected $connection = 'mysql2';
+    protected $connection = 'utility_online';
     protected $table="pengamatan";
     protected $fillable=['id_bagian', 'nilai_meteran', 'user_id', 'user_update'];
 

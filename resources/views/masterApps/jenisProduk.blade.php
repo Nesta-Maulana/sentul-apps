@@ -47,7 +47,7 @@
                                     <td>{{ $product->jenis_produk }}</td>
                                     <td>
                                         <a href="#" class="btn btn-primary edit" onclick="edit('{{ $id }}')">Edit</a>
-                                        <a href="delete/mysql4/jenis_produk/{{$product->id}}" class="text-white btn btn-danger">Delete</a>
+                                        <a href="delete/production_data/jenis_produk/{{$product->id}}" class="text-white btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++ ?>

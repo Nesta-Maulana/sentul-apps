@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class workcenter extends Model
 {
-    protected $connection = 'mysql2';
+    protected $connection = 'utility_online';
     protected $table="workcenter";
     protected $fillable = ['kategori_id', 'workcenter', 'status'];
 

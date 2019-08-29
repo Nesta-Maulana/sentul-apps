@@ -21,6 +21,8 @@ use App\Models\productionData\palet;
 use App\Models\productionData\ppqfg;
 use App\Models\productionData\paletPpq;
 use App\Models\productionData\analisaKimia;
+use App\Models\productionData\analisaMikro;
+use App\Models\productionData\analisaMikroDetail;
 use DB;
 use Session;
 
@@ -32,17 +34,16 @@ class rollieController extends resourceController
     public function __construct(Request $request){
         $this->middleware(function ($request, $next)
         {
-        $this->user = resolve('usersData');
-        $this->username = karyawan::where('nik', $this->user->username)->first();            
-        // $this->username =  $this->username->fullname;
-        $this->menu = DB::table('v_hak_akses')->where('user_id',Session::get('login'))
-        ->where('parent_id', '0')
-        ->where('lihat', '1')
-        ->where('aplikasi', 'Rollie')
-        ->orderBy('posisi', 'asc')
-        ->get();
-        
-        return $next($request);
+            $this->user = resolve('usersData');
+            $this->username = karyawan::where('nik', $this->user->username)->first();            
+            // $this->username =  $this->username->fullname;
+            $this->menu = DB::connection('master_apps')->table('v_hak_akses')->where('user_id',Session::get('login'))
+            ->where('parent_id', '0')
+            ->where('lihat', '1')
+            ->where('aplikasi', 'Rollie')
+            ->orderBy('posisi', 'asc')
+            ->get();
+            return $next($request);
         });
     }
     public function cpp()
@@ -98,7 +99,7 @@ class rollieController extends resourceController
         }
         $produk     = produk::where('status','!=','0')->get();
         $wo         = wo::all();
-        return view('rollie.analisa_kimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$listcpp,'produks'=>$produk,'wo'=>$wo]);
+        return view('rollie.analisa-kimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$listcpp,'produks'=>$produk,'wo'=>$wo]);
     }
     public function analisaKimiaAnalisa($id_cpp_head)
     {
@@ -131,13 +132,13 @@ class rollieController extends resourceController
             }
             else
             {
-                return view('rollie.analisa_kimia_analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$cpps]);
+                return view('rollie.analisa-kimia-analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$cpps]);
 
             }
         }
         else
         {
-            return view('rollie.analisa_kimia_analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$cpps]);
+            return view('rollie.analisa-kimia-analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$cpps]);
 
         }
         // return view('');
@@ -796,7 +797,7 @@ class rollieController extends resourceController
         }
         $analisa_kimia_id   = resourceController::dekripsi($id_analisa_kimia);
         $analisa_kimia      = analisaKimia::find($analisa_kimia_id);
-        return view('rollie.lihatAnalisaKimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'analisa_kimia'=>$analisa_kimia]);
+        return view('rollie.lihat-analisa-kimia',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'analisa_kimia'=>$analisa_kimia]);
     }
     public function inputPPQ(Request $request)
     {
@@ -912,7 +913,8 @@ class rollieController extends resourceController
         return view('rollie.packageIntegrity',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
         // return view('rollie.packageIntegrity');
     }
-    public function ppq(){
+    public function ppq()
+    {
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
         
@@ -931,11 +933,11 @@ class rollieController extends resourceController
         }
         return view('rollie.ppq',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data]);
     }
-    public function analisaMikro(){
 
+    public function analisaMikro()
+    {
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
-        
         if($hakAksesAplikasi == "1")
         {
             $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
@@ -943,7 +945,6 @@ class rollieController extends resourceController
             return redirect($aplikasi->link);
         }
         $listcpp       = cppHead::all();
-
         $i = 0;
         foreach ($hakAksesUserAplikasi as $h) 
         {
@@ -952,11 +953,289 @@ class rollieController extends resourceController
         }
         $produk     = produk::where('status','!=','0')->get();
         $wo         = wo::all();
-        return view('rollie.analisaMikro',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$listcpp,'produks'=>$produk,'wo'=>$wo]);
+        return view('rollie.analisa-mikro',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'cpps'=>$listcpp,'produks'=>$produk,'wo'=>$wo]);
         // return view('rollie.analisaMikro');
     }
-    public function sortasi(){
+    public function prosesAnalisaMikro($cpp_head_id)
+    {
+        $cpp_head_id        = resourceController::dekripsi($cpp_head_id);
+        $analisaMikro       = analisaMikro::where('cpp_head_id',$cpp_head_id)->first();
+        if (is_null($analisaMikro)) 
+        {
+            $tanggal_analisa    = date('Y-m-d');
+            $user_inputer       = $this->username;
+            $analisaMikroInput  = analisaMikro::create([
+                'cpp_head_id'       => $cpp_head_id,
+                'tanggal_analisa'   => $tanggal_analisa,
+                'status_analisa'    => 'On Progress',
+                'user_inputer_id'   => $user_inputer->user->id
+            ]);
+            $cppHead        = cppHead::find($cpp_head_id);
+            $counting       = 1;
+            $countingR      = 1;
+            $pi_biasa       = array();
+            $pi_R           = array();
+            foreach ($cppHead->wo as $key => $wo) 
+            {
+                foreach ($wo->rpdFillingDetail as $key => $rpd_filling_detail) 
+                {
+                    if (strpos($rpd_filling_detail->kode_sampel->kode_sampel, 'R') === false && $rpd_filling_detail->kode_sampel->mikro30 > 0) 
+                    {
+                        for ($i = $counting; $i < $counting+$rpd_filling_detail->kode_sampel->mikro30 ; $i++) 
+                        {
+                            if (strpos($rpd_filling_detail->kode_sampel->kode_sampel,'(') !== false) 
+                            {
+                                $pecah_kode_sampel      = explode('(',$rpd_filling_detail->kode_sampel->kode_sampel);
+                                $pecah_kode_sampel_2    = explode(')',$pecah_kode_sampel[1]);
+                                $kode_sampel            = $pecah_kode_sampel[0].$i.'-'.$pecah_kode_sampel_2[0];
+                            }
+                            else
+                            {
+                                $kode_sampel            = $rpd_filling_detail->kode_sampel->kode_sampel.$i;
+                            }
+                            $simpan = analisaMikroDetail::create([
+                                'analisa_mikro_id'         => $analisaMikroInput->id,
+                                'kode_sampel'              => $kode_sampel,
+                                'jam_filling'              => $rpd_filling_detail->tanggal_filling.' '.$rpd_filling_detail->jam_filling,
+                                'rpd_filling_detail_id'    => $rpd_filling_detail->id,
+                                'suhu_preinkubasi'         => '30', 
+                                'status'                   => '0', 
+                            ]);
+                        }
+                        $counting = $i;
+                    }
+                    else if (strpos($rpd_filling_detail->kode_sampel->kode_sampel, 'R') !== false && $rpd_filling_detail->kode_sampel->mikro30 > 0)
+                    {
 
+                        for ($i = $countingR; $i < $countingR+$rpd_filling_detail->kode_sampel->mikro30 ; $i++) 
+                        {
+                            if (strpos($rpd_filling_detail->kode_sampel->kode_sampel,'(') !== false) 
+                            {
+                                $pecah_kode_sampel      = explode('(',$rpd_filling_detail->kode_sampel->kode_sampel);
+                                $pecah_kode_sampel_2    = explode(')',$pecah_kode_sampel[1]);
+                                $kode_sampel            = $pecah_kode_sampel[0].$i.'-'.$pecah_kode_sampel_2[0];
+                            }
+                            else
+                            {
+                                $kode_sampel            = $rpd_filling_detail->kode_sampel->kode_sampel.$i;
+                            }
+                            analisaMikroDetail::create([
+                                'analisa_mikro_id'         => $analisaMikroInput->id,
+                                'kode_sampel'              => $kode_sampel,
+                                'jam_filling'              => $rpd_filling_detail->tanggal_filling.' '.$rpd_filling_detail->jam_filling,
+                                'rpd_filling_detail_id'    => $rpd_filling_detail->id,
+                                'suhu_preinkubasi'         => '30', 
+                                'status'                   => '0', 
+                            ]);
+                        }
+                        $countingR = $i;
+                    }
+                }
+                if ($wo->produk->jenisProduk->jenis_produk == 'susu') 
+                {
+                    foreach ($wo->rpdFillingDetail->unique('mesin_filling_id') as $key => $mesin_filling)
+                    {
+                        analisaMikroDetail::create([
+                            'analisa_mikro_id'         => $analisaMikroInput->id,
+                            'kode_sampel'              => 'AW',
+                            'jam_filling'              => $mesin_filling->wo->cppHead->analisaKimia->jam_filling_awal,
+                            'rpd_filling_detail_id'    => $mesin_filling->id,
+                            'suhu_preinkubasi'         => '55', 
+                            'status'                   => '0', 
+                        ]);
+
+                        analisaMikroDetail::create([
+                            'analisa_mikro_id'         => $analisaMikroInput->id,
+                            'kode_sampel'              => 'TG',
+                            'jam_filling'              => $mesin_filling->wo->cppHead->analisaKimia->jam_filling_tengah,
+                            'rpd_filling_detail_id'    => $mesin_filling->id,
+                            'suhu_preinkubasi'         => '55', 
+                            'status'                   => '0', 
+                        ]);
+
+                        analisaMikroDetail::create([
+                            'analisa_mikro_id'         => $analisaMikroInput->id,
+                            'kode_sampel'              => 'AK',
+                            'jam_filling'              => $mesin_filling->wo->cppHead->analisaKimia->jam_filling_tengah,
+                            'rpd_filling_detail_id'    => $mesin_filling->id,
+                            'suhu_preinkubasi'         => '55', 
+                            'status'                   => '0', 
+                        ]);
+                    }
+                }
+                // return $pi_biasa;
+            }
+
+            $hakAksesUserAplikasi       = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+            $hakAksesAplikasi           = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+            $dataanalisaMikro           = analisaMikro::find($analisaMikroInput->id);
+            if($hakAksesAplikasi == "1")
+            {
+                $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+                $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+                return redirect($aplikasi->link);
+            }
+
+            $i = 0;
+            foreach ($hakAksesUserAplikasi as $h) 
+            {
+                $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+                $i++;
+            }
+            return view('rollie.analisa-mikro-analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'analisaMikro'=>$dataanalisaMikro]);
+        }
+        else
+        {
+            $hakAksesUserAplikasi       = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+            $hakAksesAplikasi           = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+            if($hakAksesAplikasi == "1")
+            {
+                $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+                $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+                return redirect($aplikasi->link);
+            }
+
+            $i = 0;
+            foreach ($hakAksesUserAplikasi as $h) 
+            {
+                $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+                $i++;
+            }
+            return view('rollie.analisa-mikro-analisa',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'analisaMikro'=>$analisaMikro]);
+        }
+    }
+
+    public function inputAnalisaMikro(Request $request)
+    {
+        // $data               = array();
+        $status_akhir       = array();
+        foreach ($request->all() as $key => $data) 
+        {
+            if ($key !== '_token' && $key !== 'cekHakAkses' && $key !== 'analisa_mikro_head_id') 
+            {
+                $produk         = produk::find($data['produk_id']);
+                $datapalet      = DB::connection('production_data')->select("SELECT * FROM palet where '".$data['jam_filling']."' BETWEEN `start` AND `end`");
+                $cpp_details    = explode(',',$data['cpp_detail']);
+                $paletfix       = array();
+                foreach ($datapalet as $kunci => $palet)
+                {
+                    foreach ($cpp_details as $cpp_detail_id) 
+                    {
+                        if ($cpp_detail_id !== '') 
+                        {
+                            if ($palet->cpp_detail_id == $cpp_detail_id) 
+                            {
+                                array_push($paletfix,$palet);
+                            }
+                        }
+                    }
+                }
+                if (($data['ph'] >= $produk->spek_ph_min && $data['ph'] <= $produk->spek_ph_max) && $data['tpc'] == 0) 
+                {   
+                    if ($produk->kode_oracle == '7300861') 
+                    {
+                        if ($data['yeast'] == 0 && $data['mold'] == 0)
+                        {
+                            foreach ($paletfix as $kuncilagi => $palet) 
+                            {
+                                $ambil_palet    = palet::find($palet->id);
+                                $ambil_palet->status_analisa_mikro = '1';
+                                $ambil_palet->save();
+                                array_push($status_akhir,"#OK");
+                                $data['status'] = '2';
+                            }
+                        }
+                        else
+                        {
+                            foreach ($paletfix as $kunciterus => $palet) 
+                            {
+                                $ambil_palet    = palet::find($palet->id);
+                                $ambil_palet->status_analisa_mikro = '0';
+                                $ambil_palet->save();
+                                array_push($status_akhir,"OK");
+                                $data['status'] = '1';
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach ($paletfix as $kuncifix => $palet) 
+                        {
+                            $ambil_palet    = palet::find($palet->id);
+                            $ambil_palet->status_analisa_mikro = '0';
+                            $ambil_palet->save();
+                            array_push($status_akhir,"OK");
+                            $data['status'] = '1';    
+                        }
+                    }
+                }
+                else
+                {
+                    foreach ($paletfix as $kuncinya => $palet) 
+                    {
+                        $ambil_palet    = palet::find($palet->id);
+                        $ambil_palet->status_analisa_mikro = '1';
+                        $ambil_palet->save();
+                        array_push($status_akhir,"#OK");
+                        $data['status'] = '2';
+
+                    }
+                }
+                unset($data['cpp_detail']);
+                unset($data['produk_id']);
+                analisaMikroDetail::where('id',$key)->update($data);
+            }
+        }
+        if (in_array('#OK', $status_akhir)) 
+        {
+            $analisa_mikro_head_id          = resourceController::dekripsi($request->analisa_mikro_head_id);
+            $analisa_mikro                  = analisaMikro::find($analisa_mikro_head_id);
+            $analisa_mikro->status_analisa  = 'Resampling';
+            $analisa_mikro->save();
+        }
+        else
+        {
+            $analisa_mikro_head_id          = resourceController::dekripsi($request->analisa_mikro_head_id);
+            $analisa_mikro                  = analisaMikro::find($analisa_mikro_head_id);
+            $analisa_mikro->status_analisa  = 'OK';
+            $analisa_mikro->save();
+        }
+        return redirect()->route('analisa-mikro');
+    }
+    public function lihatAnalisaMikro($id_analisa_mikro)
+    {
+        # code...
+    }
+    public function resamplingAnalisaMikro($analisa_mikro_id)
+    {
+        $hakAksesUserAplikasi       = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
+        $hakAksesAplikasi           = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
+        if($hakAksesAplikasi == "1")
+        {
+            $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->first();
+            $aplikasi = aplikasi::find($hakAksesUserAplikasi->id_aplikasi)->first();
+            return redirect($aplikasi->link);
+        }
+
+        $i = 0;
+        foreach ($hakAksesUserAplikasi as $h) 
+        {
+            $data[$i] = DB::table('aplikasi')->where('id', $h->id_aplikasi)->first();
+            $i++;
+        }
+
+        $analisa_mikro_id           = resourceController::dekripsi($analisa_mikro_id);
+        $analisa_mikro              = analisaMikro::find($analisa_mikro_id);
+        /*foreach ($analisa_mikro as $key => $value)
+        {
+            $datapalet                  = DB::connection('production_data')->select("SELECT * FROM palet where '".$data['jam_filling']."' BETWEEN `start` AND `end`");
+        }*/
+        return view('rollie.analisa-mikro-resampling',['menus'=>$this->menu,'username'=>$this->username,'hakAkses'=>$data,'analisaMikro'=>$analisa_mikro]);
+
+    }
+    public function sortasi()
+    {
         $hakAksesUserAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->get();
         $hakAksesAplikasi = hakAksesUserAplikasi::where('id_user', Session::get('login'))->where('status', '1')->count();
         

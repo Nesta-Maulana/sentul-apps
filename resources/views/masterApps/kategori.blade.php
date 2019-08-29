@@ -47,7 +47,7 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-primary edit {{ Session::get('ubah') }}" id="edit" data-id="{{ $k->id }}">Edit</button>
-                                        <a href="delete/mysql2/kategori/{{$k->id}}" class="text-white btn btn-danger">Delete</a>
+                                        <a href="delete/utility_online/kategori/{{$k->id}}" class="text-white btn btn-danger">Delete</a>
                                     </td>
                                     <?php $i++ ?>
                                 </tr>

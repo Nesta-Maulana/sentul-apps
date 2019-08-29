@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class cppDetail extends Model
 {
-	protected $connection 	= 'mysql4';
+	protected $connection 	= 'production_data';
 	protected $table 		= 'cpp_detail';
 	protected $guarded 		= ['id'];
 

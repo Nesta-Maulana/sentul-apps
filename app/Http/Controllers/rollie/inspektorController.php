@@ -77,6 +77,9 @@ class inspektorController extends resourceController
     {
         $id                 = app('App\Http\Controllers\resourceController')->dekripsi($rpdfillingheadid);
         $rpdfillinghead     = rpdFillingHead::find($id);
+        $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
+            $kode_sampel        = kodeSampelPi::where('jenis_produk_id',$rpdfillinghead->wo[0]->produk->jenis_produk_id)->get();
+            return view('rollie.inspektor.rpdfilling',['menus' => $this->menu,'username' => $this->username,'rpd_filling'=>$rpdfillinghead,'rpd_filling_aktif'=>$rpdfillingaktif,'kode_sampel'=>$kode_sampel]);
         if ($rpdfillinghead->status == '1') 
         {
             $rpdfillingaktif    = rpdFillingHead::where('status','1')->get();
@@ -239,7 +242,7 @@ class inspektorController extends resourceController
                 // jika event maka akan input ke at event dan pi 
                 $jam_event      = $tanggal_filling.' '.$jam_filling;
 
-                $ambilpalet     = DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_event."' BETWEEN `start` AND `end`");
+                $ambilpalet     = DB::connection('production_data')->select("SELECT * FROM palet where '".$jam_event."' BETWEEN `start` AND `end`");
                 $cpp_detail     = cppDetail::where('wo_id',$wo_id)->where('mesin_filling_id',$mesin_filling_id)->get();
                     // dd($cpp_detail);
                 foreach ($ambilpalet as $key => $palet) 
@@ -627,7 +630,7 @@ class inspektorController extends resourceController
                 $produk_id          = $rpd_filling_head->wo[0]->produk_id;
                 $rangesebelum       = date('Y-m-d', strtotime($rpd_filling_head->wo[0]->production_realisation_date. ' - 2 days'));
                 $rangesesudah       = date('Y-m-d', strtotime($rpd_filling_head->wo[0]->production_realisation_date. ' + 2 days'));
-                $ambilproduk        = DB::connection('mysql4')->select("SELECT * FROM wo where `production_realisation_date` BETWEEN '".$rangesebelum."' AND '".$rangesesudah."'");
+                $ambilproduk        = DB::connection('production_data')->select("SELECT * FROM wo where `production_realisation_date` BETWEEN '".$rangesebelum."' AND '".$rangesesudah."'");
                 $arraywo    = array();
                 if ($ambilproduk !== []) 
                 {
@@ -761,7 +764,7 @@ class inspektorController extends resourceController
         $jam_filling_akhir      = $ambilsemua[$idaktif]->tanggal_filling.' '.$ambilsemua[$idaktif]->jam_filling;
         $cppdetail              = cppDetail::where('wo_id',$ambilsemua[$idaktif]->wo_id)->where('mesin_filling_id',$ambilsemua[$idaktif]->mesin_filling_id)->first();
         // $palet                  = palet::where('cpp_detail_id',$cppdetail->id)->get();
-        $paletmulai             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_mulai."' BETWEEN `start` AND `end`");
+        $paletmulai             =   DB::connection('production_data')->select("SELECT * FROM palet where '".$jam_filling_mulai."' BETWEEN `start` AND `end`");
         foreach ($paletmulai as $key => $value) 
         {
             if ($value->cpp_detail_id === $cppdetail->id) 
@@ -770,7 +773,7 @@ class inspektorController extends resourceController
             }
         }
 
-        $paletakhir             =   DB::connection('mysql4')->select("SELECT * FROM palet where '".$jam_filling_akhir."' BETWEEN `start` AND `end` OR '".$jam_filling_akhir."' >= `start` AND `end` IS NULL ");
+        $paletakhir             =   DB::connection('production_data')->select("SELECT * FROM palet where '".$jam_filling_akhir."' BETWEEN `start` AND `end` OR '".$jam_filling_akhir."' >= `start` AND `end` IS NULL ");
         foreach ($paletakhir as $key => $value) 
         {
             if ($value->cpp_detail_id === $cppdetail->id) 
@@ -779,7 +782,7 @@ class inspektorController extends resourceController
             }
         }
         
-        $ambilpalet             =   DB::connection('mysql4')->select("SELECT * FROM palet where SUBSTR(`palet`,2,2) BETWEEN SUBSTR('".$palet_mulai->palet."',2,2) AND SUBSTR('".$palet_akhir->palet."',2,2)");
+        $ambilpalet             =   DB::connection('production_data')->select("SELECT * FROM palet where SUBSTR(`palet`,2,2) BETWEEN SUBSTR('".$palet_mulai->palet."',2,2) AND SUBSTR('".$palet_akhir->palet."',2,2)");
         $paletfix               = array();
         $jumlahpack             = 0;
         foreach ($ambilpalet as $key => $paletnya) 

@@ -74,7 +74,7 @@
                             @endif
                             <td>
                                 <a class="btn  text-white btn-primary edit" data-id="{{ $id }}">Edit</a>
-                                <a href="delete/mysql4/sub_brand/{{$subBrand->id}}" class="text-white btn btn-danger">Delete</a>
+                                <a href="delete/production_data/sub_brand/{{$subBrand->id}}" class="text-white btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     @endforeach

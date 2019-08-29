@@ -8,7 +8,7 @@ class userAccess extends Model
 {
     protected $table    =   'users';
     protected $guarded  = ['id'];
-    protected $connection = 'mysql';
+    protected $connection = 'master_apps';
     
     public function role(){
         return $this->belongsTo('App\Models\userAccess\role', 'rolesId');

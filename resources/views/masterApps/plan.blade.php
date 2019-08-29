@@ -66,7 +66,7 @@
                                     <td>{{ $plan->company->company }}</td>
                                     <td>
                                         <a href="#" class="btn btn-primary edit" onclick="edit('{{$id}}')">Edit</a>
-                                        <a href="delete/mysql4/plan/{{$plan->id}}" class="text-white btn btn-danger">Delete</a>
+                                        <a href="delete/production_data/plan/{{$plan->id}}" class="text-white btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++ ?>

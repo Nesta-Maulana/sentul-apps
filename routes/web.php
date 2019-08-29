@@ -7,7 +7,7 @@ Route::get('/layout', function() {
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+| 
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the 'web' middleware group. Now create something great!
@@ -54,9 +54,9 @@ Route::get('/request-hak-akses', 'hakAkses\hakAksesController@hakAkses')->name('
 Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
 Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
 
+
 Route::middleware('ceklogin')->group(function ()
 {   
-
     Route::get('/home', 'masterApps\superAdminController@index')->name('home-aplikasi');    
     Route::get('/master-apps', 'masterApps\superAdminController@home');
     Route::get('/master-apps/home', 'masterApps\superAdminController@home');
@@ -307,7 +307,13 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie/ppq-fg', 'rollie\rollieController@ppq');
     Route::post('/rollie/ppq-fg/input-ppq-fg', 'rollie\rollieController@inputPPQ')->name('ppq-kimia-input');
 
-    Route::get('/rollie/analisa-mikro', 'rollie\rollieController@analisaMikro');
+    Route::get('/rollie/analisa-mikro', 'rollie\rollieController@analisaMikro')->name('analisa-mikro');
+    Route::get('/rollie/analisa-mikro/{cpp_head_id}', 'rollie\rollieController@prosesAnalisaMikro')->name('proses-analisa-mikro');
+    Route::get('/rollie/resampling-analisa-mikro/{cpp_head_id}', 'rollie\rollieController@resamplingAnalisaMikro')->name('resampling-analisa-mikro');
+    Route::post('/rollie/analisa-mikro/hasil-analisa-mikro', 'rollie\rollieController@inputAnalisaMikro')->name('input-analisa-mikro');
+    Route::get('/rollie/analisa-mikro/lihat-hasil-analisa/{id}', 'rollie\rollieController@lihatAnalisaMikro')->name('lihat-analisa-produk');
+   
+
     Route::get('/rollie/sortasi', 'rollie\rollieController@sortasi');
     Route::get('/rollie/rpr', 'rollie\rollieController@rpr');
     Route::get('/rollie/reports', 'rollie\rollieController@report');
