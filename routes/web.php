@@ -1,4 +1,7 @@
 <?php
+Route::get('/layout', function() {
+    return view('utilityOnline.admin.home');
+});
 
 /*
 |--------------------------------------------------------------------------
