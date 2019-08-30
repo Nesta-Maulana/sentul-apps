@@ -317,5 +317,12 @@ Route::middleware('ceklogin')->group(function ()
     // GoOffice
     Route::get('/go-office', 'goOffice\goOfficeController@index');
     
-
 });
+    Route::get('/activity', 'masterApps\ActivityController@index')->name('activity.index');
+    Route::post('/activity', 'masterApps\ActivityController@store')->name('activity.store');
+
+    Route::get('/follie', function() {
+        return view('follie.ckrfilling');
+    });
+
+    

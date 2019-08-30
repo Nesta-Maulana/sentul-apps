@@ -1043,4 +1043,5 @@ class superAdminController extends resourceController
         $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
         return [subBrand::find($id), brand::all()];
     }
+
 }
