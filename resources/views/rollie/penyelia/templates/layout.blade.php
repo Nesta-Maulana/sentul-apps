@@ -1,4 +1,4 @@
-<?php 
+<?php   
     $conn = mysqli_connect('localhost', "root", "", "master_apps");
 ?>
 <!DOCTYPE html>
@@ -18,26 +18,40 @@
     <link href="{{ asset('rollie/penyelia/lib/font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('rollie/penyelia/css/zabuto_calendar.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('rollie/penyelia/lib/gritter/css/jquery.gritter.css')}}" />
-    <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('masterApps/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
     <script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
     <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
     <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
     <link href="{{ asset('rollie/penyelia/css/style.css')}}" rel="stylesheet">
     <link href="{{ asset('rollie/penyelia/css/style-responsive.css')}}" rel="stylesheet">
-
+<!--BEGIN TEMP CHART FEBRI-->
+    <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/amchart/charts.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/amchart/core.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/amchart/themes/animated.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/ajx/globalize.min.js')}}"></script>
+        <!--HIGH CHART-->
+        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts.js')}}"></script>
+        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts-more.js')}}"></script>
+        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts-3d.js')}}"></script>
+        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/exporting.js')}}"></script>
+        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/export-data.js')}}"></script>
+        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/solid-gauge.js')}}"></script>
+        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/pareto.js')}}"></script>
+        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/series-label.js')}}"></script>
+<!-- END TEMP CHART FEBRI-->
 </head>
 
 <body>
-    <section id="container">
-        <header class="header black-bg">
-            <div class="sidebar-toggle-box">
-                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-            </div>
-            <a href="index.html" class="logo"><b>RO<span>LL</span>IE</b></a>
-            <div class="top-menu">
-            </div>
-        </header>
+        <section id="container">
+            <header class="header black-bg" style="background-color: black;">
+                  <div class="sidebar-toggle-box">
+                    <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+                </div>
+                <a href="index.html" class="logo"><b>RO<span>LL</span>IE</b></a>
+                <div class="top-menu">
+                </div>
+            </header>
         <aside>
             <div id="sidebar" class="nav-collapse ">
                 <ul class="sidebar-menu" id="nav-accordion">
@@ -51,7 +65,7 @@
                         <a href="" class="text-gray-dark">Logout</a>
                     </p>
                     <hr>
-                    <?php $idUser = Session::get('login') ?>
+                    <?php $idUser = Session::get('localeconv()gin') ?>
                     
                     @foreach ($menus as $menu)
                         <?php  
@@ -160,7 +174,20 @@
     <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/gritter/js/jquery.gritter.js')}}"></script>
     <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/gritter-conf.js')}}"></script>
     <script src="{{ asset('rollie/penyelia/js/table.js')}}"></script>
-
+    
+    <!--Febri templates-->
+    <!-- BEGIN VENDOR JS-->
+    <script src="{{ asset('rollie/penyelia/js/vendors.min.js')}}" type="text/javascript"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN CHAMELEON  JS-->
+    <script src="{{ asset('rollie/penyelia/js/core/app-menu-lite.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('rollie/penyelia/js/core/app-lite.js')}}" type="text/javascript"></script>
+    <!-- END CHAMELEON  JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <!-- END PAGE LEVEL JS-->
+    
     <!-- My JS -->
 
     <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
