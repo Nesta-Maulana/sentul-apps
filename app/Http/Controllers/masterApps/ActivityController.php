@@ -5,88 +5,89 @@ namespace App\Http\Controllers\masterApps;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\masterApps\Activity;
-
+use App\Models\masterApps\Kategoribd;
+use App\Models\masterApps\karyawan;
+use DB;
+use Session;
 class ActivityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $menu;
+    private $username;
+
+    public function __construct(Request $request){
+        $this->middleware(function ($request, $next)
+        {
+            $this->user = resolve('usersData');
+            $this->username = karyawan::where('nik', $this->user->username)->first();            
+            $this->username =  $this->username->fullname;
+            $this->menu = DB::connection('master_apps')->table('v_hak_akses')->where('user_id',Session::get('login'))
+            ->where('parent_id', '0')
+            ->where('lihat', '1')
+            ->where('aplikasi', 'Master Apps')
+            ->orderBy('posisi', 'asc')
+            ->get();
+            
+            return $next($request);
+        });
+    }
+    
     public function index()
     {
-        return view('masterApps.activity');
+        $show = Activity::all();
+        $username = $this->username;
+        $menus = $this->menu;
+        return view('masterApps.activity', compact('show', 'username', 'menus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        Activity::create(
-            $request->all()
-        );
+        Activity::create([
+            'activity' => $request->activity,
+            'status' => $request->status
+        ]);
 
         return redirect()->route('activity.index')->with('message', 'Berhasil di Simpan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        $activities = Activity::all();
-
-        return view('activity.index', ['activities'=>$activities]);
+        $show = Activity::all();
+        $aksi = Activity::findOrFail($id);
+        return view('masterApps.activity', compact('show', 'aksi'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        //
+        $show = Activity::findOrFail($id);
+
+        $data = $request->all();
+        $updateField['activity'] = $data['activity'];
+        $updateField['status'] = $data['status'];
+        $update = Activity::where('id', $id)->update($updateField);
+
+        return redirect()->route('activity.index')->with('message', 'Berhasil di Update');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $show = Activity::findOrFail($id);
+
+        $show->delete();
+
+        return redirect()->route('activity.index');
     }
 }

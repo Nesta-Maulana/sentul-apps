@@ -20,27 +20,32 @@
                         <label for="">Tanggal Produksi</label>
                         <input type="text" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="">No. WO</label>
+                        <input type="text" class="form-control">
+                    </div>
                     <div class="row">
                         <div class="form-group" style="margin-left:20px;">   
-                            <button class="btn btn-light shadow" >
-                                <img src="public/effort.png" style="width:50px; height:50px;" alt="">
-                            </button>
-                            <p>Proses</p>
+                            <a data-target="" href="">
+                                <i class="fa fa-circle fa-5x" style="color: green;"></i>
+                                <p style="font-family: calibri; font-size: 18px; margin-top:-48px; color:white;" align="center"><b>Proses</b></p>
+                            </a>
                         </div> 
                         <div class="form-group" style="margin-left:40px;">   
-                            <button data-target="#pdt-popup" data-toggle="modal" class="btn btn-light shadow">
-								<img src="public/confused.png"  style="width:50px; height:50px;" alt="">
-							</button>
-                            <p>PDT</p>
-                        </div> 
-                        <div class="form-group" style="margin-left:40px;">   
-                            <button data-target="#updt-popup" data-toggle="modal" class="btn btn-light shadow">
-								<img src="public/stop.png" href="#" style="width:50px; height:50px;" alt="">
-							</button>
-                            <p>UPDT</p>
+                            <a href="{{route('ckr.popup')}}" data-target="#pdt-popup" data-toggle="modal" >
+                                <i class="fa fa-circle fa-5x" style="color: orange;"></i>
+                                <p style="font-family: calibri; font-size: 18px; margin-top:-48px; color:white;" align="center"><b>PDT</b></p>
+                            </a>
+                        </div>  
+                        <div class="form-group" style="margin-left:40px;">
+                            <a href="" data-target="#updt-popup" data-toggle="modal" >
+                                <i class="fa fa-circle fa-5x" style="color: red;"></i>
+                                <p style="font-family: calibri; font-size: 18px; margin-top:-48px; color:white;" align="center"><b>UPDT</b></p>
+                            </a>
                         </div> 
                     </div>
-                <table class="table table-bordered" id="datatables">
+                    <br>
+                <table class="table table-bordered" id="datatables" >
                     <thead>
                         <tr>
                             <th>Activity</th>

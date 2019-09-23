@@ -309,20 +309,44 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie/resampling-analisa-mikro/{cpp_head_id}', 'rollie\rollieController@resamplingAnalisaMikro')->name('resampling-analisa-mikro');
     Route::post('/rollie/analisa-mikro/hasil-analisa-mikro', 'rollie\rollieController@inputAnalisaMikro')->name('input-analisa-mikro');
     Route::get('/rollie/analisa-mikro/lihat-hasil-analisa/{id}', 'rollie\rollieController@lihatAnalisaMikro')->name('lihat-analisa-produk');
-   
+
 
     Route::get('/rollie/sortasi', 'rollie\rollieController@sortasi');
     Route::get('/rollie/rpr', 'rollie\rollieController@rpr');
     Route::get('/rollie/reports', 'rollie\rollieController@report');
     // GoOffice
     Route::get('/go-office', 'goOffice\goOfficeController@index');
-    
+
+    //Activity CRUD
+    Route::get('/master-apps/activity', 'masterApps\ActivityController@index')->name('activity.index');
+    Route::get('/master-apps/activity/home', 'masterApps\ActivityController@home')->name('activity.home');
+    Route::post('/master-apps/activity', 'masterApps\ActivityController@store')->name('activity.store');
+    Route::get('/master-apps/activity/{id}', 'masterApps\ActivityController@edit')->name('activity.ubah');
+    Route::put('/master-apps/update/{id}', 'masterApps\ActivityController@update')->name('activity.update');
+    Route::get('/master-apps/hapus{id}', 'masterApps\ActivityController@destroy')->name('activity.destroy');
+
+    //Kategoribd CRUD
+    Route::get('/master-apps/kategoribd', 'masterApps\KategoribdController@index')->name('kategoribd.index');
+    Route::post('/master-apps/kategoribd', 'masterApps\KategoribdController@store')->name('kategoribd.store');
+    Route::get('/master-apps/kategoribd/{id}', 'masterApps\KategoribdController@edit')->name('kategoribd.edit');
+    Route::post('/master-apps/ubah', 'masterApps\KategoribdController@update')->name('kategoribd.update');
+    Route::get('/master-apps/hapus', 'masterApps\KategoribdController@destroy')->name('kategoribd.destroy');
+
+    //Detail CRUD
+    Route::get('/master-apps/detail', 'masterApps\DetailController@index')->name('detail.index');
+    Route::post('/master-apps/detail', 'masterApps\DetailController@store')->name('detail.store');
+    Route::get('/master-apps/detail/{id}', 'masterApps\DetailController@edit')->name('detail.edit');
+    Route::put('/master-apps/update', 'masterApps\DetailController@update')->name('detail.update');
+    Route::get('/master-apps/hapus/{id}', 'masterApps\DetailController@destroy')->name('detail.destroy');
 });
-    Route::get('/activity', 'masterApps\ActivityController@index')->name('activity.index');
-    Route::post('/activity', 'masterApps\ActivityController@store')->name('activity.store');
-
-    Route::get('/follie', function() {
-        return view('follie.ckrfilling');
-    });
+    
 
     
+
+
+
+    Route::get('/follie', 'follie\ckrFillingController@index')->name('ckr.index');
+    Route::get('/popup', 'follie\ckrFillingController@popup')->name('ckr.popup');
+    Route::get('getfill/{id}', 'follie\ckrFillingController@getfil');
+    Route::get('getkategoribd/{id}/{activity_id}', 'follie\ckrFillingController@getkategoribd');
+    Route::get('getdetail/{id}', 'follie\ckrFillingController@getdetail');

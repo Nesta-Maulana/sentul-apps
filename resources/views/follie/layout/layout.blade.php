@@ -65,7 +65,7 @@
                     <div class="col-md-6 col-sm-4 clearfix">
                         <ul class="notification-area pull-right">
                             <li>
-                                <h4 class="user-name dropdown-toggle text-dark" data-toggle="dropdown">Hello, dhiya<i class="fa fa-angle-down"></i></h4>
+                                <h4 class="user-name dropdown-toggle text-dark" data-toggle="dropdown">Hello, Operator<i class="fa fa-angle-down"></i></h4>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Log Out</a>
                                 </div>
