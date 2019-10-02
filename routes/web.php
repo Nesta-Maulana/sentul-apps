@@ -339,14 +339,18 @@ Route::middleware('ceklogin')->group(function ()
     Route::put('/master-apps/update', 'masterApps\DetailController@update')->name('detail.update');
     Route::get('/master-apps/hapus/{id}', 'masterApps\DetailController@destroy')->name('detail.destroy');
 });
-    
-
-    
-
-
 
     Route::get('/follie', 'follie\ckrFillingController@index')->name('ckr.index');
     Route::get('/popup', 'follie\ckrFillingController@popup')->name('ckr.popup');
     Route::get('getfill/{id}', 'follie\ckrFillingController@getfil');
     Route::get('getkategoribd/{id}/{activity_id}', 'follie\ckrFillingController@getkategoribd');
     Route::get('getdetail/{id}', 'follie\ckrFillingController@getdetail');
+
+    Route::get('/dwp', 'masterApps\dwpController@index')->name('dwp.index');
+    
+    Route::get('/dwpdatabase', function () {
+        return view ('masterApps.dwp-database');
+    });
+    Route::get('/dwpreviewer', function () {
+        return view ('masterApps.dwp-review');
+    });
