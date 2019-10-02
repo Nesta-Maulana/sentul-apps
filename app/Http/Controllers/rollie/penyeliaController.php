@@ -44,6 +44,19 @@ class penyeliaController extends resourceController
             return $next($request);
         });
     }
+     public function penyelia_ckr()
+    {
+        return view('rollie.penyelia.penyelia_ckr',['menus' => $this->menu,'username' => $this->username]); 
+    }
+      public function penyelia_ckr_edit()
+    {
+        return view('rollie.penyelia.penyelia_ckr-edit',['menus' => $this->menu,'username' => $this->username]); 
+    }
+     public function icon()
+    {
+        return view('rollie.penyelia.icon',['menus' => $this->menu,'username' => $this->username]); 
+    }
+
 
 	public function index()
 	{

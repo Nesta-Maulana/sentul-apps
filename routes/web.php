@@ -10,7 +10,6 @@
 | contains the 'web' middleware group. Now create something great!
 |
 */
-
 // Route::get('/login-form','generalController\userAccessController@index')->name('user.masuk');
 
 Route::post('/user/login','masterApps\generalController\userAccessController@loginUser');
@@ -316,6 +315,10 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/rollie/reports', 'rollie\rollieController@report');
     // GoOffice
     Route::get('/go-office', 'goOffice\goOfficeController@index');
+    //Rollie Febri
+    Route::get('/rollie-penyelia-penyelia_ckr','rollie\penyeliaController@penyelia_ckr')->name('rollie-penyelia-penyelia_ckr');
+    Route::get('/rollie-penyelia-penyelia_ckr-edit','rollie\penyeliaController@penyelia_ckr_edit')->name('rollie-penyelia-penyelia_ckr-edit');
+    Route::get('/rollie-penyelia-icon','rollie\penyeliaController@icon')->name('rollie-penyelia-icon');
 
     //Activity CRUD
     Route::get('/master-apps/activity', 'masterApps\ActivityController@index')->name('activity.index');
