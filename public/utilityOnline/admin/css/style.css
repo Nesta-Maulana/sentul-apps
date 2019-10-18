@@ -1884,10 +1884,10 @@ h6 .badge {
   right: 5px;
   position: absolute;
   z-index: 890;
-  background-color: transparent;
+  background-color: #fff;
 }
 .navbar.active {
-  background-color: #6777ef;
+  background-color: #fff;
   box-shadow: rgba(103, 119, 239, 0.2) rgba(0, 0, 0, 0.03);
 }
 
@@ -2166,6 +2166,7 @@ h6 .badge {
   .navbar-expand-lg .navbar-nav .dropdown-menu-right {
     right: 0;
     left: auto;
+    background-color: #FFFAFA;
   }
 }
 /* 3.19 Dropdown */

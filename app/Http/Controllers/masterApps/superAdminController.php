@@ -420,9 +420,10 @@ class superAdminController extends resourceController
             return back()->with('success', 'Berhasil Menambahkan');
         }else{
             $produk = produk::find($request->id);
-            $produk->brand_id = $request->brand;
+            $produk->sub_brand_id = $request->brand;
             $produk->nama_produk = $request->namaProduk;
             $produk->kode_oracle = $request->kodeOracle;
+            $produk->kode_trial = $request->kodeTrial;
             $produk->spek_ts_min = $request->spekTsMin;
             $produk->spek_ts_max = $request->spekTsMax;
             $produk->spek_ph_max = $request->spekPhMax;
@@ -491,7 +492,6 @@ class superAdminController extends resourceController
     }
     public function mesinFillingHeadDetailSave(Request $request)
     {
-        dd($request->all());
         $head = mesinFillingHead::create([
             'nama_kelompok' => $request->kelompok,
             'status' => $request->status

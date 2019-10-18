@@ -146,12 +146,42 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/master-apps/mesin-filling/edit/{id}', 'masterApps\superAdminController@editMesinFilling');
 
     Route::get('/master-apps/mesin-filling-head-detail', 'masterApps\superAdminController@mesinFillingHeadDetail');
+    
     Route::post('/master-apps/mesin-filling-head/save', 'masterApps\superAdminController@mesinFillingHeadSave');
+
     Route::post('/master-apps/mesin-filling-head-detail/save', 'masterApps\superAdminController@mesinFillingHeadDetailSave')->name('mesin-filling-head-detail-save');
+    
     Route::get('/master-apps/mesin-filling-head-detail/edit/{id}', 'masterApps\superAdminController@editMesinFillingHeadDetail');
 
     // Delete 
     Route::get('/master-apps/delete/{connection}/{table}/{id}', 'resourceController@deleteData');
+
+     //UTILITY LITE VERSION
+    Route::get('/utility-lite/pages/icons', 'utilityOnline\mainUtilityController@coba');
+    Route::get('/utility-lite', 'utilityOnline\mainUtilityController@index2');
+    Route::get('/utility-lite/water', 'utilityOnline\mainUtilityController@water');
+    Route::post('/utility-lite/water/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
+    Route::get('/utility-lite/water/workcenter/{id}', 'utilityOnline\mainUtilityController@showInput');
+    Route::get('/utility-lite/water/{id}', 'utilityOnline\mainUtilityController@waterId');
+    
+    Route::get('/utility-lite/database', 'utilityOnline\mainUtilityController@database'); 
+    Route::get('/utility-lite/database', 'utilityOnline\mainUtilityController@database');
+    Route::get('/utility-lite/database/workcenter/{id}', 'utilityOnline\mainUtilityController@databaseWorkcenter');
+    Route::get('/utility-lite/database/bagian/{id}/{tanggal}', 'utilityOnline\mainUtilityController@databaseBagian');
+    Route::get('/utility-lite/database/edit/{id}/{tgl}', 'utilityOnline\mainUtilityController@editDatabase');
+    Route::post('/utility-lite/database/update', 'utilityOnline\mainUtilityController@updateDatabase');
+    Route::post('/utility-lite/database/simpan', 'utilityOnline\mainUtilityController@simpanDatabase');
+    
+    Route::get('/utility-lite/listrik', 'utilityOnline\mainUtilityController@listrik');
+    Route::get('/utility-lite/listrik/{id}', 'utilityOnline\mainUtilityController@listrikId');
+    Route::get('/utility-lite/listrik/workcenter/{id}', 'utilityOnline\mainUtilityController@showInput');
+    Route::post('/utility-lite/listrik/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
+    
+    Route::get('/utility-lite/gas', 'utilityOnline\mainUtilityController@gas');
+    Route::get('/utility-lite/gas/{id}', 'utilityOnline\mainUtilityController@gasId');
+    Route::get('/utility-lite/gas/workcenter/{id}', 'utilityOnline\mainUtilityController@showInput');
+    Route::post('/utility-lite/gas/simpan', 'utilityOnline\mainUtilityController@bagianSimpan');
+    //END UTILITY LITE
 
     // Utility Online
     Route::get('/utility-online/admin/form-hari-kerja', 'utilityOnline\adminUtilityController@hariKerja');

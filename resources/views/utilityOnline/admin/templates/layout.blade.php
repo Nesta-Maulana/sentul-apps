@@ -23,30 +23,60 @@
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/style.css')}}">
   <link rel="stylesheet" href="{{ asset('utilityOnline/admin/css/components.css')}}">
   <link rel='stylesheet' href="{!! asset('generalStyle/plugins/select2/css/select2.min.css') !!}">
-
+ 
   <script src="{{ asset('utilityOnline/admin/js/jquery.min.js') }}"></script>
+  <!--
   <script src="{{ asset('utilityOnline/admin/modules/highcharts/highcharts.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/highcharts/data.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/highcharts/exporting.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/highcharts/export-data.js')}}"></script>
+  -->
+<!--Begin TEMP CHART FEBRI-->
+  <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts.js')}}"></script>
+  <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts-more.js')}}"></script>
+  <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts-3d.js')}}"></script>
+  <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/exporting.js')}}"></script>
+  <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/export-data.js')}}"></script>
+  <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/solid-gauge.js')}}"></script>
+  <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/pareto.js')}}"></script>
+  <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/series-label.js')}}"></script>
   
+  <script src="{{ asset('utilityOnline/admin/modules/highstocks/code/highstock.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highstocks/code/modules/data.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highstocks/code/modules/exporting.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highstocks/code/modules/export-data.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highstocks/code/data/aapl1-c.js')}}"></script>
+  <script src="{{ asset('utilityOnline/admin/modules/highstocks/code/data/aapl-c.json')}}"></script>
+<!-- END TEMP CHART FEBRI-->
+  <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script> 
+  <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
+  <script src="{!! asset('masterApps/dist/js/adminlte.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+
+  <script src="{!! asset('masterApps/js/datatable.min.js') !!}"></script>  
 </head>
 
 <body>
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
-        <div class="navbar-bg"></div>
-        <nav class="navbar navbar-expand-lg main-navbar">
+        <div class=""></div>
+        <nav class="navbar navbar-secondary navbar-expand main-navbar" style="background: #6777ef;" role="navigation">
             <form class="form-inline mr-auto">
                 <ul class="navbar-nav mr-3">
                     <li>
-                        <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fa fa-bars"></i></a>
+                        <a href="#" data-toggle="push-menu" class="sidebar-toggle hero" role="button">
+                          <i style="color:#fff;" class="fa fa-bars"></i>
+                          <span class="sr-only">Toggle Notification</span>
+                        </a>
                     </li>
                 </ul>
             </form>
         <ul class="navbar-nav navbar-right">
             <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg navigation-link-user">
                     <div class="d-sm-none d-lg-inline-block">Hi, {{$username}}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
@@ -64,42 +94,47 @@
       </nav>
     <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
-            <div class="sidebar-brand">
-                <a href="/sentul-apps/utility-online/admin">UTILITY ONLINE</a>
+            <div class="sidebar-brand" style="background: #6777ef; height: 70px">
+                <a href="/sentul-apps/utility-online/admin" class="text-white">UTILITY ONLINE</a>
             </div>
             <div class="sidebar-brand sidebar-brand-sm">
                 <a href="/sentul-apps/utility-online/admin">ULLIE</a>
             </div>
             <ul class="sidebar-menu">
-
                 <li class="menu-header">Main</li>
-                    <li class="dropdown @yield('active-report-penggunaan')">
-                        <a href="/sentul-apps/utility-online/admin/report" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Penggunaan</span></a>       
+                    <li class="dropdown @yield('')">
+                        <a href="/sentul-apps/utility-online/admin" class="nav-link"><i class="fa fa-columns"></i> <span>Home</span></a> 
                     </li>
-                    <li class="dropdown @yield('active-report-pengamatan')">
-                        <a href="/sentul-apps/utility-online/admin/report-2" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Pengamatan</span></a>       
+                    <ul class='treeview-menu'>
+                        <li class="dropdown @yield('active-report-grafik')">
+                              <a href="/sentul-apps/utility-online/admin/report-penggunaan/report-grafik-perbulan" data-toggle="dropdown" class="dropdown-toggle-link">Water</a>
+                            <div class="dropdown-item">
+                              <a href="/sentul-apps/utility-online/admin/" class="dropdown-item has-icon text-primary">Deepwell Compliance</a>
+                              <a href="/sentul-apps/" class="dropdown-item has-icon text-primary">Wtp Process</a>
+                              <a href="/sentul-apps/" class="dropdown-item has-icon text-primary">NFI Usage</a>
+                              <a href="/sentul-apps/" class="dropdown-item has-icon text-primary">HNI Usage</a>
+                              <a href="/sentul-apps/" class="dropdown-item has-icon text-primary">Water Productivity</a>
+                              <a href="/sentul-apps/" class="dropdown-item has-icon text-primary">Generate Reports</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <li class="dropdown @yield('active-report-grafik')">
+                        <a href="/sentul-apps-2/utility-online/admin/report-grafik-perhari/report-3" data-toggle="dropdown" class="nav-link dropdown-toggle">Gaskuy</a>
+                      <div class="dropdown-menu">
+                        <a href="features-profile.html" class="dropdown-item has-icon text-primary">Gas Productivity</a>
+                        <a href="/sentul-apps/logout" class="dropdown-item has-icon text-primary">Generate Reports</a>
+                      </div>       
                     </li>
-                    <li class="dropdown @yield('active-report-3')">
-                        <a href="/sentul-apps/utility-online/admin/report-3" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 3</span></a>       
-                    </li>
-                    <li class="dropdown @yield('active-report-4')">
-                        <a href="/sentul-apps/utility-online/admin/report-4" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 4</span></a>       
+                    <li class="dropdown @yield('active-report-grafik')">
+                        <a href="/sentul-apps-2/utility-online/admin/report-grafik-pertahun-bar/report-3" data-toggle="dropdown" class="nav-link dropdown-toggle">Listrik</a>
+                      <div class="dropdown-menu">
+                        <a href="features-profile.html" class="dropdown-item has-icon text-primary">NFI Usage</a>
+                        <a href="/sentul-apps/logout" class="dropdown-item has-icon text-primary">HNI Usage</a>
+                        <a href="/sentul-apps/logout" class="dropdown-item has-icon text-primary">Electricity Productivity</a>
+                        <a href="/sentul-apps/logout" class="dropdown-item has-icon text-primary">Generate Reports</a>
+                      </div>       
                     </li> 
-                    <li class="dropdown @yield('active-report-5')">
-                        <a href="/sentul-apps/utility-online/admin/report-5" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 5</span></a>       
-                    </li>
-                    <li class="dropdown @yield('active-report-grafik')">
-                        <a href="/sentul-apps/utility-online/admin/report-penggunaan/report-grafik-perbulan" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Penggunaan Grafik Perbulan</span></a>       
-                    </li>
-                    <li class="dropdown @yield('active-report-grafik')">
-                        <a href="/sentul-apps/utility-online/admin/report-penggunaan/report-grafik-perhari" class="nav-link"><i class="fa fa-columns"></i> <span>Reports Penggunaan Grafik Perhari</span></a>       
-                    </li>
-                    <li class="dropdown @yield('active-report-grafik')">
-                        <a href="/sentul-apps/utility-online/admin/report-grafik-perhari/report-3" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 3 Grafik Perhari</span></a>       
-                    </li>
-                    <li class="dropdown @yield('active-report-grafik')">
-                        <a href="/sentul-apps/utility-online/admin/report-grafik-pertahun-bar/report-3" class="nav-link"><i class="fa fa-columns"></i> <span>Reports 3 Grafik Perbulan</span></a>       
-                    </li>
+                    <!--
                 <li class="menu-header">Menu</li>
                 <?php $idUser = Session::get('login') ?>
                 @foreach($menus as $menu)
@@ -147,10 +182,11 @@
                         </ul>
                     @endif
                 @endforeach
+                -->
             </ul>
         </aside>
     </div>
-
+    
     <!-- Main Content -->
     <div class="main-content">
         <section class="section">
@@ -163,20 +199,21 @@
             @yield('content')
         </section>
     </div>
-      <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+    <br>
+      <footer class="main-footer d-inline">
+        <div class="footer d-inline">
+          Copyright &copy; 2019 <div class="bullet d-inline"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a> <p class="d-inline">Revisi By <a href="">Muhammad Febrianto</a></p>
         </div>
         <div class="footer-right">
-          v1.0.0
+          v1.1.1
         </div>
       </footer>
     </div>
   </div>
 
   <!-- General JS Scripts -->
-  <script src="{{ asset('generalStyle/js/popper.min.js')}}"></script>
-  <script src="{{ asset('utilityOnline/admin/js/tooltip.js')}}"></script>
+ <!-- <script src="{{ asset('generalStyle/js/popper.min.js')}}"></script> -->
+ <!-- <script src="{{ asset('utilityOnline/admin/js/tooltip.js')}}"></script> -->
   <script src="{{ asset('generalStyle/js/bootstrap.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
   <script src="{{ asset('utilityOnline/admin/js/stisla.js')}}"></script>
@@ -185,7 +222,7 @@
   <script src="{{ asset('utilityOnline/admin/js/chart.min.js')}}"></script>
 
   <!-- Page Specific JS File -->
-  <script src="{{ asset('utilityOnline/admin/js/page/dashboard-general.js')}}"></script>
+ <!-- <script src="{{ asset('utilityOnline/admin/js/page/dashboard-general.js')}}"></script> -->
   
     <!-- Template JS File -->
   <script src="{{ asset('utilityOnline/admin/js/scripts.js')}}"></script>
@@ -197,7 +234,7 @@
     <script src="{{ asset('utilityOnline/admin/modules/fullcalendar/fullcalendar.min.js')}}"></script>
     <script src="{{ asset('utilityOnline/admin/js/page/modules-calendar.js')}}"></script>
 
-    <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
+   <!-- <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script> -->
     <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('utilityOnline/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
 

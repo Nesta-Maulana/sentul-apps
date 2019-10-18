@@ -30,15 +30,15 @@
     <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/amchart/core.js')}}"></script>
     <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/amchart/themes/animated.js')}}"></script>
     <script type="text/javascript" src="{{ asset('rollie/penyelia/lib/ajx/globalize.min.js')}}"></script>
-        <!--HIGH CHART-->
-        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts.js')}}"></script>
-        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts-more.js')}}"></script>
-        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts-3d.js')}}"></script>
-        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/exporting.js')}}"></script>
-        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/export-data.js')}}"></script>
-        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/solid-gauge.js')}}"></script>
-        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/pareto.js')}}"></script>
-        <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/series-label.js')}}"></script>
+    <!--HIGH CHART-->
+    <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts.js')}}"></script>
+    <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts-more.js')}}"></script>
+    <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/highcharts-3d.js')}}"></script>
+    <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/exporting.js')}}"></script>
+    <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/export-data.js')}}"></script>
+    <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/solid-gauge.js')}}"></script>
+    <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/pareto.js')}}"></script>
+    <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/series-label.js')}}"></script>
 <!-- END TEMP CHART FEBRI-->
 </head>
 

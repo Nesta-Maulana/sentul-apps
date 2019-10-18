@@ -8,13 +8,16 @@
 @section('content')
 
 <div class="section-header">
-    <h1>Report Grafik Perbulan</h1>
+    <h1>Report Water</h1>
 </div>
 <div class="row">
-    <div class="col-lg-3">
-        <div class="bg-white p-2 rounded" style="box-shadow: 1px 1px 10px #000">
+    <div class="col-lg-6">
+        <div class="bg-white p-2 rounded" style="box-shadow: 1px 1px 10px #000; width: 49rem; height:60px">
+            <div class="card" style="width: 40rem; height: 50px;">
+                <div class="card-header">
             <div class="form-group">
-                <label for="">Tahun : </label>
+                <div class="">
+                
                 <select name="tahun" id="tahun" class="form-control">
                     <option value="" selected disabled>-- PILIH TAHUN --</option>
                     <option value="2016">2016</option>
@@ -22,26 +25,34 @@
                     <option value="2018">2018</option>
                     <option value="2019">2019</option>
                 </select>
+                </div>
             </div>
             <div class="form-group">
-                <label for="">Kategori : </label>
+                <div class="">
+                
                 <select name="kategori" id="kategori" class="form-control">
                     <option value="" selected disabled>-- PILIH KATEGORI --</option>
                     @foreach($kategori as $k)
                         <option value="{{ $k->id }}">{{ $k->kategori }}</option>
                     @endforeach
                 </select>
+                </div>
             </div>
+            <br>
             <div class="form-group">
-                <label for="">Workcenter : </label>
+                <div class="">
+                
                 <select name="workcenter" id="workcenter" class="form-control ">
                     <option value="" selected disabled>-- PILIH WORKCENTER --</option>
                     @foreach($workcenter as $w)
                         <option value="{{ $w->id }}">{{ $w->workcenter }}</option>
                     @endforeach
                 </select>
+                </div>
             </div>
         </div>
+    </div>
+</div>
     </div>
     <div class="col-lg-9">
         <div id="pertahun" class="mt-4 p-2 rounded" style="box-shadow: 1px 1px 5px #000"></div>

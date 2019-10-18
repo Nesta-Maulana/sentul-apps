@@ -54,7 +54,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
       </a>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-custom-menunav">
             
         </ul>
             <div class="dropdown text-white">
@@ -196,13 +196,13 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 
 <!-- REQUIRED JS SCRIPTS -->
  
-<script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
-<script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
-<script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
-<script src="{!! asset('masterApps/dist/js/adminlte.min.js') !!}"></script>
-<script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
-<script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
-<script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+  <script src="{!! asset('masterApps/js/jquery-3.3.1.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/js/bootstrap.min.js') !!}"></script>
+  <script src="{!! asset('masterApps/dist/js/adminlte.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/js/bootstrap.bundle.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
+  <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
 
   <script src="{!! asset('masterApps/js/datatable.min.js') !!}"></script>
   <link rel="stylesheet" href="{{ asset('masterApps/css/datatable.min.css') }}">

@@ -111,6 +111,7 @@
                             <th>Brand</th>
                             <th>Nama Produk</th>
                             <th>Kode Oracle</th>
+                            <th>Kode Trial</th>
                             <th>Spek TS Min</th>
                             <th>Spek TS Max</th>
                             <th>Spek PH Min</th>
@@ -132,6 +133,7 @@
                                 <td>{{ $product->subbrand->sub_brand }}</td>
                                 <td>{{ $product->nama_produk }}</td>
                                 <td>{{ $product->kode_oracle }}</td>
+                                <td>{{ $product->kode_trial  }}</td>
                                 <td>{{ $product->spek_ts_min }}</td>
                                 <td>{{ $product->spek_ts_max }}</td>
                                 <td>{{ $product->spek_ph_min }}</td>
@@ -173,9 +175,9 @@
             method: 'GET',
             dataType: 'JSON',
             success: function (data) {
-                
                 $('#namaProduk').val(data[0].nama_produk);
                 $('#kodeOracle').val(data[0].kode_oracle);
+                $('#kodeTrial').val(data[0].kode_trial);
                 $('#spekTsMin').val(data[0].spek_ts_min);
                 $('#spekTsMax').val(data[0].spek_ts_max);
                 $('#spekPhMin').val(data[0].spek_ph_min);
