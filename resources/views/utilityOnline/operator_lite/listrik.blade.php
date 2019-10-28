@@ -122,7 +122,7 @@
                     $(simpan).text('Tersimpan');
                     $(simpan).attr('disabled', true);
                 }
-                else 
+                else if (data <= 767) {$(simpan == false)}
                 {
                     swal({
                         title: "Failed",

@@ -14,6 +14,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
         <!-- Icons -->
         <link href="{{ asset('utilityOnline/assets') }}/css/nucleo-icons.css" rel="stylesheet" />
         <!-- CSS -->
@@ -96,9 +97,18 @@
         {{-- <script src="{{ asset('utilityOnline/assets') }}/js/plugins/chartjs.min.js"></script> --}}
         <!--  Notifications Plugin    -->
         <script src="{{ asset('utilityOnline/assets') }}/js/plugins/bootstrap-notify.js"></script>
-
         <script src="{{ asset('utilityOnline/assets') }}/js/black-dashboard.min.js?v=1.0.0"></script>
         <script src="{{ asset('utilityOnline/assets') }}/js/theme.js"></script>
+        <!--Tambahan-->
+        <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
+        <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+        <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
+        <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+        <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+        <script src="{{ asset('generalStyle/js/popper.min.js') }}"></script>
+        <script src="{{ asset('generalStyle/js/bootstrap.min.js') }}"></script>
 
         @stack('js')
 

@@ -9,75 +9,57 @@
         </div>
         <ul class="nav">
             <li class="active">
-                <a href="#">
-                    <i class="tim-icons icon-minimal-down"></i>
+                    <i class="tim-icons icon-minimal-down text-primary"></i>
                     <p></p>
-                </a>
             </li>
         </ul>
         <ul class="nav">
             <li class="active">
-                <a href="#">
-                    <i class="tim-icons icon-chart-pie-36" hidden="true"></i>
+                    <i class="tim-icons icon-chart-pie-36 text-primary" hidden="true"></i>
                     <p></p>
-                </a>
             </li>
         </ul>
         <ul class="nav">  
             <li class="active">
-                <a href="utility-lite/pages/icons">
-                    <i class="tim-icons icon-atom" hidden="true"></i>
+                    <i class="tim-icons icon-atom text-primary" hidden="true"></i>
                     <p></p>
-                </a>
             </li>
         </ul>
         <ul class="nav">
             <li class="active">
-                <a href="pages.maps">
-                    <i class="tim-icons icon-double-left"></i>
+                    <i class="tim-icons icon-double-left text-primary"></i>
                     <p></p>
-                </a>
             </li>
         </ul>
         <div style="font-size: 20px"><p class="text-success">Utility Online</p></div>
         <ul class="nav">    
             <li class="active">
-                <a href="pages.notifications">
-                    <i class="tim-icons icon-double-right"></i>
+                    <i class="tim-icons icon-double-right text-primary"></i>
                     <p></p>
-                </a>
             </li>
         </ul>    
         <ul class="nav">
             <li class="active">
-                <a href="pages.tables">
-                    <i class="tim-icons icon-puzzle-10" hidden="true"></i>
+                    <i class="tim-icons icon-puzzle-10 text-primary" hidden="true"></i>
                     <p></p>
-                </a>
             </li>
         </ul>
         <ul class="nav">    
             <li class="active">
-                <a href="pages.typography">
-                    <i class="tim-icons icon-align-center" hidden="true"></i>
+                    <i class="tim-icons icon-align-center text-primary" hidden="true"></i>
                     <p></p>
-                </a>
             </li>
         </ul>    
         <ul class="nav">    
             <li class="active">
-                <a href="pages.rtl">
-                    <i class="tim-icons icon-minimal-down"></i>
+                    <i class="tim-icons icon-minimal-down text-primary"></i>
                     <p></p>
-                </a>
             </li>
         </ul>
         <ul class="nav">    
             <li class="">
-                <a href="pages.upgrade">
-                    <i class="tim-icons icon-spaceship" hidden="true"></i>
+                    <i class="tim-icons icon-spaceship text-primary" hidden="true"></i>
                     <p></p>
-                </a>
             </li>
         </ul>
     </div>
@@ -176,7 +158,7 @@
                 </div>
                 <div class="card-body ">
                     <div class="table-full-width table-responsive">
-                        <table class="table">
+                        <table class="table text-white">
                             <tbody>
                                  <tr>
                                     <th>
