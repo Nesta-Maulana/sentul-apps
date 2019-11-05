@@ -40,6 +40,10 @@
         <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/pareto.js')}}"></script>
         <script src="{{ asset('rollie/penyelia/lib/Highcharts/code/modules/series-label.js')}}"></script>
 <!-- END TEMP CHART FEBRI-->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.dataTables.min.css">
 </head>
 
 <body>
@@ -190,6 +194,8 @@
     
     <!-- My JS -->
 
+    <script src="{{ asset('rollie/js/webcam.min.js')}}"></script>
+
     <script src="{!! asset('generalStyle/js/popper.min.js') !!}"></script>
     <script src="{!! asset('generalStyle/plugins/select2/js/select2.min.js') !!}"></script>
     <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
@@ -240,6 +246,12 @@
             $('#proses_produk').val(namaproduk);
         }
     </script>
+    <!-- Datatables Column Visibility -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+    
 </body>
 
 </html>

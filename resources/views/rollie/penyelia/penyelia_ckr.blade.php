@@ -7,6 +7,8 @@ active
 @endsection
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/w/dt/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/datatables.min.css"/>
+
 <br>
     <div class="app-content content">
       <div class="content-wrapper">
@@ -27,10 +29,10 @@ active
 				<div class="heading-elements">
 					<ul class="list-inline mb-1">
 						<li><a data-action="show">Signed as, {{ $username->user->role->role }}<i class="fa fa-user"></i></a></li>
-						<li><a data-action="collapse"><i class="fa fa-minus"></i></a></li>
+						<!-- <li><a data-action="collapse"><i class="fa fa-minus"></i></a></li>
 						<li><a data-action="reload"><i class="fa fa-refresh"></i></a></li>
 						<li><a data-action="expand"><i class="fa fa-arrows-alt"></i></a></li>
-						<li><a data-action="close"><i class="fa fa-close"></i></a></li>
+						<li><a data-action="close"><i class="fa fa-close"></i></a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -38,7 +40,7 @@ active
 			<div class="card-content show">
 				<div class="card-body">	
 					<div class="table-responsive">
-						<table class="table table-bordered table-dark mb-0" width="100%">
+						<table class="table table-bordered table-dark mb-0" width="100%" id="example">
 							<thead class="thead-dark" align="center">
 								<tr>
 									<th>Tanggal</th>
@@ -81,7 +83,7 @@ active
 								</thead>
 								<tbody>
 									<tr>
-										<th><input type="date" name=""></th>
+										<td><input type="date" class="form-control" name=""></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -99,7 +101,7 @@ active
 										</td>
 									</tr>
 									<tr>
-										<th><input type="date" name=""></th>
+										<td><input type="date" class="form-control" name=""></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -112,9 +114,12 @@ active
 										<td></td>
 										<td>=(Stop=start)</td>
 										<td></td>
+                                        <td>
+											<div class="btn-group btn-group-sm"><a href="rollie-penyelia-penyelia_ckr-edit" class="btn btn-warning" value="edit"><i class="fa fa-edit"></i> Edit</a></div>
+										</td>
 									</tr>
 									<tr>
-										<th><input type="date" name=""></th>
+										<td><input type="date" class="form-control" name=""></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -127,9 +132,12 @@ active
 										<td></td>
 										<td>=(Stop=start)</td>
 										<td></td>
+                                        <td>
+											<div class="btn-group btn-group-sm"><a href="rollie-penyelia-penyelia_ckr-edit" class="btn btn-warning" value="edit"><i class="fa fa-edit"></i> Edit</a></div>
+										</td>
 									</tr>
 									<tr>
-										<th><input type="date" name=""></th>
+										<td><input type="date" class="form-control" name=""></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -142,6 +150,9 @@ active
 										<td></td>
 										<td>=(Stop=start)</td>
 										<td></td>
+                                        <td>
+											<div class="btn-group btn-group-sm"><a href="rollie-penyelia-penyelia_ckr-edit" class="btn btn-warning" value="edit"><i class="fa fa-edit"></i> Edit</a></div>
+										</td>
 									</tr>
 								</tbody>
 						</table>		
@@ -1020,8 +1031,29 @@ Highcharts.chart('container-combos', {
                     }]
                 });
                 </script>
+
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#example').DataTable( {
+                        dom: 'Bfrtip',
+                        columnDefs: [
+                            {
+                                targets: 1,
+                                className: 'noVis'
+                            }
+                        ],
+                        buttons: [
+                            {
+                                extend: 'colvis',
+                                columns: ':not(.noVis)'
+                            }
+                        ]
+                    });
+                });
+                </script>
+
         </div>
 </div>  
             <!--END BASIC COLUMN-->
-<!--////////////////////////////////END CHART/////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////END CHART///////////////////////////////////////-->
 @endsection	

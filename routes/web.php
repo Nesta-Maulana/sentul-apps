@@ -341,6 +341,14 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/master-apps/detail/{id}', 'masterApps\DetailController@edit')->name('detail.edit');
     Route::put('/master-apps/update', 'masterApps\DetailController@update')->name('detail.update');
     Route::get('/master-apps/hapus/{id}', 'masterApps\DetailController@destroy')->name('detail.destroy');
+
+    //Generate Table
+    Route::get('/master-apps/generate', 'masterApps\GenerateController@index')->name('form.index');
+    Route::get('/master-apps/generate/{id}/readonly','masterApps\GenerateController@readonly');
+    Route::post('/master-apps/generate', 'masterApps\GenerateController@store')->name('form.store');
+    Route::get('/master-apps/cek-wo/{id}', 'masterApps\GenerateController@cekwo')->name('cek_wo');
+    Route::get('/master-apps/parameter/{id}', 'masterApps\GenerateController@generate')->name('parameter');
+
 });
 
     Route::get('/follie', 'follie\ckrFillingController@index')->name('ckr.index');
@@ -357,3 +365,19 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/dwpreviewer', function () {
         return view ('masterApps.dwp-review');
     });
+
+    // Route::get('/upload', 'masterApps\UploadController@index')->name('upload.index');
+    // Route::post('/upload', 'masterApps\UploadController@store')->name('upload.store');
+    Route::get('/form', 'masterApps\FormController@index')->name('form.index');
+    Route::get('/download', 'masterApps\UploadController@getDownload')->name('upload.download');
+    Route::get('/export', 'masterApps\FormController@export_excel')->name('form.export');
+
+    Route::post('/import', 'masterApps\FormController@import_excel')->name('form.import');
+
+
+    Route::get('/verifikasi', function(){
+        return view('masterApps.form-verifikasi');
+    });
+
+
+

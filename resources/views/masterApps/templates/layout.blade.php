@@ -249,7 +249,7 @@ $conn = mysqli_connect('localhost', "root", "", "master_apps");
 
     } 
   );
- 
+
   new WOW().init();
   const flashdatas = $('.failed').data('flashdata');
     if(flashdatas){

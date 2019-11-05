@@ -75,7 +75,7 @@ class superAdminController extends resourceController
     }
 
     public function home(){
-        
+
         return view('masterApps.home', ['menus' => $this->menu, 'username' => $this->username]);
     }
 

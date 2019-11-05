@@ -9,6 +9,7 @@ use App\Models\masterApps\Kategoribd;
 use App\Models\masterApps\karyawan;
 use DB;
 use Session;
+
 class ActivityController extends Controller
 {
     private $menu;

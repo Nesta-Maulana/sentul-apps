@@ -38,6 +38,7 @@ class mtolImport implements WithMappedCells,ToModel,WithValidation
 	}
 	public function model(array $row)
     {
+		dd($row);
     	$baris_asli = 1; // untuk deklarasi baris asli yang akan digunakan datanya
     	// pengecekan row 5 sampe 50 
     	for ($i=5; $i <= 50 ; $i++)  
@@ -61,7 +62,8 @@ class mtolImport implements WithMappedCells,ToModel,WithValidation
     					}
     				}
     			}
-    		}
+			}
+			dd($hasil['baris_ke_'.$baris_asli]);
     		// pengecekan apabila array dari baris aslinya tidak hanya array kosong maka dia akan menambah baris baru
     		if ($hasil['baris_ke_'.$baris_asli] !== []) 
     		{
