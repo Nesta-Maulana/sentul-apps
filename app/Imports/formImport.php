@@ -6,6 +6,8 @@ use App\Models\masterApps\formHead;
 use App\Models\masterApps\formDetail;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithMappedCells;
+use App\Notifications\Email;
+
 
 class formImport implements WithMappedCells, ToModel
 {
@@ -49,6 +51,10 @@ class formImport implements WithMappedCells, ToModel
             'nama'=>$row['nama'],
             'req_no_wo'=>$row['req_no_wo']
         ]);
+        
+        $head->email = "luthfeniaaa@gmail.com";
+        $head->notify(new Email($head));
+
         $insert = array();
         foreach($hasil as $value){
             if(!is_null($value[0])&&!is_null($value[1])&&!is_null($value[2])&&!is_null($value[3])){

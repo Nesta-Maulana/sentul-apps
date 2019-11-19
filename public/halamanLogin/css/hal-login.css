@@ -1,0 +1,15 @@
+
+body{
+    background: rgb(0,35,36);
+    background: linear-gradient(90deg, rgba(0,35,36,1) 0%, rgba(9,105,121,1) 0%, rgba(206,255,0,0.804359243697479) 100%);
+}
+.card{
+    width: 18rem;
+}
+.card-body{
+    background-color: rgb(255, 255, 255);
+}
+.form-group{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;   
+}

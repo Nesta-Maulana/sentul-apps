@@ -371,7 +371,6 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/form', 'masterApps\FormController@index')->name('form.index');
     Route::get('/download', 'masterApps\UploadController@getDownload')->name('upload.download');
     Route::get('/export', 'masterApps\FormController@export_excel')->name('form.export');
-
     Route::post('/import', 'masterApps\FormController@import_excel')->name('form.import');
 
 
@@ -379,5 +378,15 @@ Route::middleware('ceklogin')->group(function ()
         return view('masterApps.form-verifikasi');
     });
 
+    Route::get('/login', 'halamanLogin\LoginController@index')->name('hal.login');
+    Route::get('/daftar', 'halamanLogin\LoginController@daftar')->name('hal.daftar');
 
+    Route::get('/daftar', function(){
+        return view('halamanLogin.hal-daftar');
+    });
 
+    // Route::get('/notif', function() {
+    //     $user = new \Models\masterApps\User();
+    //     $user-> email = 'luthfeniaaa@gmail.com';
+    //     $user->notify(new \App\Notifications\masterApps\Notif);
+    // });

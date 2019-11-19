@@ -61,22 +61,7 @@
                     
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Requested No WO</th>
-                                        <th>Kriteria</th>
-                                        <th>Parameter</th>
-                                        <th>If #OK</th>
-                                        <th>Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    </tr>
-                                </tbody>
-                            </table>
+                           
                         </div>
                     </div>
                     
@@ -84,8 +69,7 @@
             </div>
         </div>
     </form>
-            
-            
+           
                 <!-- <div id="my_camera"></div>
                 <input type=button value="Take Snapshot" onClick="take_snapshot()">
                 <div id="results"></div> -->
