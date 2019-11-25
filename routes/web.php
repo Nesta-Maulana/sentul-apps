@@ -343,22 +343,19 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/master-apps/hapus/{id}', 'masterApps\DetailController@destroy')->name('detail.destroy');
 
     //Generate Table
-    Route::get('/master-apps/generate', 'masterApps\GenerateController@index')->name('form.index');
-    Route::get('/master-apps/generate/{id}/readonly','masterApps\GenerateController@readonly');
-    Route::post('/master-apps/generate', 'masterApps\GenerateController@store')->name('form.store');
-    Route::get('/master-apps/cek-wo/{id}', 'masterApps\GenerateController@cekwo')->name('cek_wo');
-    Route::get('/master-apps/parameter/{id}', 'masterApps\GenerateController@generate')->name('parameter');
+
 
 });
 
+    //Follie
     Route::get('/follie', 'follie\ckrFillingController@index')->name('ckr.index');
     Route::get('/popup', 'follie\ckrFillingController@popup')->name('ckr.popup');
     Route::get('getfill/{id}', 'follie\ckrFillingController@getfil');
     Route::get('getkategoribd/{id}/{activity_id}', 'follie\ckrFillingController@getkategoribd');
     Route::get('getdetail/{id}', 'follie\ckrFillingController@getdetail');
 
+    //DWP
     Route::get('/dwp', 'masterApps\dwpController@index')->name('dwp.index');
-    
     Route::get('/dwpdatabase', function () {
         return view ('masterApps.dwp-database');
     });
@@ -366,27 +363,24 @@ Route::middleware('ceklogin')->group(function ()
         return view ('masterApps.dwp-review');
     });
 
-    // Route::get('/upload', 'masterApps\UploadController@index')->name('upload.index');
-    // Route::post('/upload', 'masterApps\UploadController@store')->name('upload.store');
+    //Generate Table
+    Route::get('/generate', 'masterApps\GenerateController@index')->name('form.index');
+    Route::get('/generate/{id}/readonly','masterApps\GenerateController@readonly');
+    Route::post('/generate', 'masterApps\GenerateController@store')->name('form.store');
+    Route::get('/cek-wo/{id}', 'masterApps\GenerateController@cekwo')->name('cek_wo');
+    Route::get('/parameter/{id}', 'masterApps\GenerateController@generate')->name('parameter');
+
+    //Import Table
     Route::get('/form', 'masterApps\FormController@index')->name('form.index');
     Route::get('/download', 'masterApps\UploadController@getDownload')->name('upload.download');
     Route::get('/export', 'masterApps\FormController@export_excel')->name('form.export');
     Route::post('/import', 'masterApps\FormController@import_excel')->name('form.import');
 
-
+    //Verifikasi Email
     Route::get('/verifikasi', function(){
         return view('masterApps.form-verifikasi');
     });
 
+    //Halaman Login
     Route::get('/login', 'halamanLogin\LoginController@index')->name('hal.login');
-    Route::get('/daftar', 'halamanLogin\LoginController@daftar')->name('hal.daftar');
 
-    Route::get('/daftar', function(){
-        return view('halamanLogin.hal-daftar');
-    });
-
-    // Route::get('/notif', function() {
-    //     $user = new \Models\masterApps\User();
-    //     $user-> email = 'luthfeniaaa@gmail.com';
-    //     $user->notify(new \App\Notifications\masterApps\Notif);
-    // });

@@ -7,6 +7,7 @@
 </head>
 <body>
     <div class="container" style="margin-top: 9%;">
+    <div class="login" id="login">
         <br><br>
         <h1>Login</h1>
             <div class="card">
@@ -20,22 +21,60 @@
                         <input type="password" name="password" class="form-control" >
                     </div>
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                            </div>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
                         </div>
-                            <input type="text" class="form-control" name="remember"aria-label="Text input with checkbox"placeholder="Remember Me">
                     </div>
-                    <button type="submit" name="login" class="btn btn-success float-right">Login</button>
-                    <a href="/sentul-apps/daftar" name="daftar" class="btn btn-success float-left">Daftar</a>
+                        <input type="text" class="form-control" name="remember"aria-label="Text input with checkbox"placeholder="Remember Me">
                 </div>
+                <button type="submit" name="login" class="btn btn-success float-right">Login</button>
+                <button class="btn btn-success float-left" id="daftarr">Daftar</button>
             </div>
         </div>
-    </form>
+    </div>
+    <div class="daftar d-none" id="daftar">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" >Masukan Username</label>
+                    <input type="text" name ="username"class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1" >Masukan Password</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1" >Masukan Nama Anda</label>
+                    <input type="text" name="nama" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                    <input type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                </div>
+                    <input type="text" class="form-control" name="remember"aria-label="Text input with checkbox"placeholder="Remember Me">
+                </div>
+                <button type="submit" name="daftar" class="btn btn-success float-right">Daftar</button>
+                <button name="login" class="btn btn-success float-left">Login</button>
+            </div>
+        </div>
+    </div>
+    </div>
 </body>
+
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    $('#daftarr').click(function(){
+       $('#daftar').removeClass('d-none');
+       $('#login').addClass('d-none');
+});
+</script>
+
 </html>

@@ -16,34 +16,13 @@ use Session;
 
 class GenerateController extends Controller
 {
-    private $menu;
-    private $username;
-
-    public function __construct(Request $request){
-        $this->middleware(function ($request, $next)
-        {
-            $this->user = resolve('usersData');
-            $this->username = karyawan::where('nik', $this->user->username)->first();            
-            $this->username =  $this->username->fullname;
-            $this->menu = DB::connection('master_apps')->table('v_hak_akses')->where('user_id',Session::get('login'))
-            ->where('parent_id', '0')
-            ->where('lihat', '1')
-            ->where('aplikasi', 'Master Apps')
-            ->orderBy('posisi', 'asc')
-            ->get();
-            
-            return $next($request);
-        });
-    }
     
     public function index()
     {
         $formhead = formHead::all();
         $head = formHead::with('formDetail')->get();
-        $username = $this->username;
-        $menus = $this->menu;
         $formdetail = formDetail::all();
-        return view('masterApps.form-generate', compact('formhead', 'head','username', 'menus', 'formdetail'));
+        return view('masterApps.form-generate', compact('formhead', 'head','formdetail'));
     }
 
 
