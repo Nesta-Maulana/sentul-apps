@@ -1,6 +1,6 @@
 @extends('utilityOnline.admin.templates.layout')
 @section('title')
-    Utility Online | Admin | Home
+    
 @endsection
 @section('content')
     <div class="row mt-5 d-flex justify-content-center">
@@ -531,46 +531,50 @@
             <div class="outer">
                 <div id="container-hs" class="chart-container"></div>
             </div>
-                <script type="text/javascript">
-                    Highcharts.getJSON('utilityOnline/admin/modules/highstocks/code/data/aapl-c.json', function (data) {
-
-                            // split the data set into ohlc and volume
-                            Highcharts.stockChart('container-hs', {
-
-                                rangeSelector: {
-                                    selected: 1
+               <script type="text/javascript">
+                    Highcharts.chart('container-hs', {
+                        chart: {
+                            type: 'pie',
+                            options3d: {
+                                enabled: true,
+                                alpha: 45,
+                                beta: 0
+                            }
+                        },
+                        title: {
+                            text: 'Pie chart'
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                depth: 35,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.name}'
+                                }
+                            }
+                        },
+                        series: [{
+                            type: 'pie',
+                            name: 'Browser share',
+                            data: [
+                                ['Water', 45.0],
+                                ['Steam', 26.8],
+                                {
+                                    name: 'Listrik',
+                                    y: 12.8,
+                                    sliced: true,
+                                    selected: true
                                 },
-
-                                title: {
-                                    text: 'AAPL Stock Price'
-                                },
-
-                                series: [{
-                                    name: 'AAPL Stock Price',
-                                    data: data,
-                                    type: 'area',
-                                    threshold: null,
-                                    tooltip: {
-                                        valueDecimals: 2
-                                    },
-                                    fillColor: {
-                                        linearGradient: {
-                                            x1: 0,
-                                            y1: 0,
-                                            x2: 0,
-                                            y2: 1
-                                        },
-                                        stops: [
-                                            [0, Highcharts.getOptions().colors[0]],
-                                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                                        ]
-                                    }
-                                }]
-                            });
-                        });
-                    // Apply the theme
-                   //Highcharts.setOptions(Highcharts.theme);
-                </script>
+                                ['Gas', 8.5]
+                            ]
+                        }]
+                    });
+        </script>
             </div>
         </div>
     </div>

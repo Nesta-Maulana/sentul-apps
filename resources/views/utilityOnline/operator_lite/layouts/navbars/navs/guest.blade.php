@@ -22,7 +22,7 @@
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link">
-                        <i class="tim-icons icon-single-02"></i> Hello, Muhammad Febrianto
+                        <i class="tim-icons icon-single-02"></i> Hello, {{ ($username) }}
                     </a>
                 </li>
             </ul>

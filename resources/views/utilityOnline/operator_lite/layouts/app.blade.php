@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Black Dashboard</title>
+        <title>Utility Lite</title>
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('utilityOnline/assets') }}/img/apple-icon.png">
         <link rel="icon" type="image/png" href="{{ asset('utilityOnline/assets') }}/img/favicon.png">
@@ -65,150 +65,150 @@
                     </a>
                 </li>
                 <li class="button-container">
-                    <a href="/sentul-apps/utility-lite/listrik" target="_blank" class="btn btn-primary btn-block btn-round">Listrik</a>
-                    <a href="/sentul-apps/utility-lite/water" target="_blank" class="btn btn-success btn-block btn-round">
+                    <a href="utility-lite/listrik" class="btn btn-primary btn-block btn-round">Listrik</a>
+                    <a href="utility-lite/water" class="btn btn-success btn-block btn-round">
                     Air
                     </a>
-                    <a href="/sentul-apps/utility-lite/gas" target="_blank" class="btn btn-info btn-block btn-round">
+                    <a href="utility-lite/gas" class="btn btn-info btn-block btn-round">
                     Gas
                     </a>
-                    <a href="/sentul-apps/utility-lite/database" target="_blank" class="btn btn-secondary btn-block btn-round">
+                    <a href="utility-lite/database" class="btn btn-secondary btn-block btn-round">
                     Database
                     </a>
-                </li>
-                <li class="header-title">Thank you for job!</li>
-                <li class="button-container text-center d-inline">
-                    <button id="twitter" class="btn btn-block btn-secondary d-inline"><i class="tim-icons icon-settings-gear-63"></i>Engineering Plant Sentul</button>
-                    <br>
-                    <br>
-                    <a class="github-button" href="/sentul-apps/utility-lite" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Home</a>
-                </li>
-                </ul>
-            </div>
+            </li>
+            <li class="header-title">Thank you for job!</li>
+            <li class="button-container text-center d-inline">
+                <button id="twitter" class="btn btn-block btn-secondary d-inline"><i class="tim-icons icon-settings-gear-63"></i>Engineering Plant Sentul</button>
+                <br>
+                <br>
+                <a class="github-button" href="/sentul-apps/utility-lite" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Home</a>
+            </li>
+            </ul>
         </div>
-        <script src="{{ asset('utilityOnline/assets') }}/js/core/jquery.min.js"></script>
-        <script src="{{ asset('utilityOnline/assets') }}/js/core/popper.min.js"></script>
-        <script src="{{ asset('utilityOnline/assets') }}/js/core/bootstrap.min.js"></script>
-        <script src="{{ asset('utilityOnline/assets') }}/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-        <!--  Google Maps Plugin    -->
-        <!-- Place this tag in your head or just before your close body tag. -->
-        {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> --}}
-        <!-- Chart JS -->
-        {{-- <script src="{{ asset('utilityOnline/assets') }}/js/plugins/chartjs.min.js"></script> --}}
-        <!--  Notifications Plugin    -->
-        <script src="{{ asset('utilityOnline/assets') }}/js/plugins/bootstrap-notify.js"></script>
-        <script src="{{ asset('utilityOnline/assets') }}/js/black-dashboard.min.js?v=1.0.0"></script>
-        <script src="{{ asset('utilityOnline/assets') }}/js/theme.js"></script>
-        <!--Tambahan-->
-        <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
-        <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
-        <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
-        <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
-        <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
-        <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
-        <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
-        <script src="{{ asset('generalStyle/js/popper.min.js') }}"></script>
-        <script src="{{ asset('generalStyle/js/bootstrap.min.js') }}"></script>
+    </div>
+    <script src="{{ asset('utilityOnline/assets') }}/js/core/jquery.min.js"></script>
+    <script src="{{ asset('utilityOnline/assets') }}/js/core/popper.min.js"></script>
+    <script src="{{ asset('utilityOnline/assets') }}/js/core/bootstrap.min.js"></script>
+    <script src="{{ asset('utilityOnline/assets') }}/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <!-- Place this tag in your head or just before your close body tag. -->
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> --}}
+    <!-- Chart JS -->
+    {{-- <script src="{{ asset('utilityOnline/assets') }}/js/plugins/chartjs.min.js"></script> --}}
+    <!--  Notifications Plugin    -->
+    <script src="{{ asset('utilityOnline/assets') }}/js/plugins/bootstrap-notify.js"></script>
+    <script src="{{ asset('utilityOnline/assets') }}/js/black-dashboard.min.js?v=1.0.0"></script>
+    <script src="{{ asset('utilityOnline/assets') }}/js/theme.js"></script>
+    <!--Tambahan-->
+    <link rel="stylesheet" href="{!!asset('utilityOnline/fonts/icon/font-awesome.min.css')!!}">
+    <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/datatables.min.js')}}"></script>
+    <script src="{{ asset('utilityOnline/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('generalStyle/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+    <script src="{!! asset('generalStyle/plugins/sweetalert/wow.min.js') !!}"></script>
+    <script src="{{ asset('generalStyle/js/popper.min.js') }}"></script>
+    <script src="{{ asset('generalStyle/js/bootstrap.min.js') }}"></script>
 
-        @stack('js')
+    @stack('js')
 
-        <script>
-            $(document).ready(function() {
-                $().ready(function() {
-                    $sidebar = $('.sidebar');
-                    $navbar = $('.navbar');
-                    $main_panel = $('.main-panel');
+    <script>
+        $(document).ready(function() {
+            $().ready(function() {
+                $sidebar = $('.sidebar');
+                $navbar = $('.navbar');
+                $main_panel = $('.main-panel');
 
-                    $full_page = $('.full-page');
+                $full_page = $('.full-page');
 
-                    $sidebar_responsive = $('body > .navbar-collapse');
-                    sidebar_mini_active = true;
-                    white_color = false;
+                $sidebar_responsive = $('body > .navbar-collapse');
+                sidebar_mini_active = true;
+                white_color = false;
 
-                    window_width = $(window).width();
+                window_width = $(window).width();
 
-                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-                    $('.fixed-plugin a').click(function(event) {
-                        if ($(this).hasClass('switch-trigger')) {
-                            if (event.stopPropagation) {
-                                event.stopPropagation();
-                            } else if (window.event) {
-                                window.event.cancelBubble = true;
-                            }
+                $('.fixed-plugin a').click(function(event) {
+                    if ($(this).hasClass('switch-trigger')) {
+                        if (event.stopPropagation) {
+                            event.stopPropagation();
+                        } else if (window.event) {
+                            window.event.cancelBubble = true;
                         }
-                    });
+                    }
+                });
 
-                    $('.fixed-plugin .background-color span').click(function() {
-                        $(this).siblings().removeClass('active');
-                        $(this).addClass('active');
+                $('.fixed-plugin .background-color span').click(function() {
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
 
-                        var new_color = $(this).data('color');
+                    var new_color = $(this).data('color');
 
-                        if ($sidebar.length != 0) {
-                            $sidebar.attr('data', new_color);
-                        }
+                    if ($sidebar.length != 0) {
+                        $sidebar.attr('data', new_color);
+                    }
 
-                        if ($main_panel.length != 0) {
-                            $main_panel.attr('data', new_color);
-                        }
+                    if ($main_panel.length != 0) {
+                        $main_panel.attr('data', new_color);
+                    }
 
-                        if ($full_page.length != 0) {
-                            $full_page.attr('filter-color', new_color);
-                        }
+                    if ($full_page.length != 0) {
+                        $full_page.attr('filter-color', new_color);
+                    }
 
-                        if ($sidebar_responsive.length != 0) {
-                            $sidebar_responsive.attr('data', new_color);
-                        }
-                    });
+                    if ($sidebar_responsive.length != 0) {
+                        $sidebar_responsive.attr('data', new_color);
+                    }
+                });
 
-                    $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+                $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+                    var $btn = $(this);
+
+                    if (sidebar_mini_active == true) {
+                        $('body').removeClass('sidebar-mini');
+                        sidebar_mini_active = false;
+                        blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+                    } else {
+                        $('body').addClass('sidebar-mini');
+                        sidebar_mini_active = true;
+                        blackDashboard.showSidebarMessage('Sidebar mini activated...');
+                    }
+
+                    // we simulate the window Resize so the charts will get updated in realtime.
+                    var simulateWindowResize = setInterval(function() {
+                        window.dispatchEvent(new Event('resize'));
+                    }, 180);
+
+                    // we stop the simulation of Window Resize after the animations are completed
+                    setTimeout(function() {
+                        clearInterval(simulateWindowResize);
+                    }, 1000);
+                });
+
+                $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
                         var $btn = $(this);
 
-                        if (sidebar_mini_active == true) {
-                            $('body').removeClass('sidebar-mini');
-                            sidebar_mini_active = false;
-                            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+                        if (white_color == true) {
+                            $('body').addClass('change-background');
+                            setTimeout(function() {
+                                $('body').removeClass('change-background');
+                                $('body').removeClass('white-content');
+                            }, 900);
+                            white_color = false;
                         } else {
-                            $('body').addClass('sidebar-mini');
-                            sidebar_mini_active = true;
-                            blackDashboard.showSidebarMessage('Sidebar mini activated...');
+                            $('body').addClass('change-background');
+                            setTimeout(function() {
+                                $('body').removeClass('change-background');
+                                $('body').addClass('white-content');
+                            }, 900);
+
+                            white_color = true;
                         }
-
-                        // we simulate the window Resize so the charts will get updated in realtime.
-                        var simulateWindowResize = setInterval(function() {
-                            window.dispatchEvent(new Event('resize'));
-                        }, 180);
-
-                        // we stop the simulation of Window Resize after the animations are completed
-                        setTimeout(function() {
-                            clearInterval(simulateWindowResize);
-                        }, 1000);
-                    });
-
-                    $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
-                            var $btn = $(this);
-
-                            if (white_color == true) {
-                                $('body').addClass('change-background');
-                                setTimeout(function() {
-                                    $('body').removeClass('change-background');
-                                    $('body').removeClass('white-content');
-                                }, 900);
-                                white_color = false;
-                            } else {
-                                $('body').addClass('change-background');
-                                setTimeout(function() {
-                                    $('body').removeClass('change-background');
-                                    $('body').addClass('white-content');
-                                }, 900);
-
-                                white_color = true;
-                            }
-                    });
                 });
             });
-        </script>
-        @stack('js')
-    </body>
+        });
+    </script>
+    @stack('js')
+</body>
 </html>

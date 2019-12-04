@@ -1,5 +1,5 @@
 @extends('utilityOnline.operator_lite.layouts.app')
-
+    
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="container">
@@ -123,7 +123,7 @@
                     $(simpan).text('Tersimpan');
                     $(simpan).attr('disabled', true);    
                 }
-                else 
+                else if(data <= 767) {$(simpan.function(false))}
                 {
                     swal({
                         title: "Failed",
@@ -131,9 +131,7 @@
                         type: 'error'
                     })
                 }
-            },
-        
-            
+            }, 
         });
     }
     function cek(id) {

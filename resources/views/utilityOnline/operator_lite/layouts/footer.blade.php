@@ -23,7 +23,7 @@
             </li>
         </ul>
         <div class="copyright">
-            &copy; <a href="#" target="_blank">PT.Nutrifood Indonesia</a> {{ now()->year }} {{ ('made with') }} <i class="tim-icons icon-heart-2"></i> {{ ('by') }}
+            &copy; <a href="#" target="_blank">PT.Nutrifood Indonesia</a> {{ now()->year }} {{ ('made') }} <i class=""></i> {{ ('by') }}
             <a href="https://creative-tim.com" target="_blank">{{ ('Nesta Maulana') }}</a> &amp;
             <a href="https://updivision.com" target="_blank">{{ ('M.Febrianto') }}</a> {{ ('for a better web') }}.
         </div>

@@ -65,96 +65,11 @@
     </div>
 </div>
 <!--END SB-->
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-chart">
-                <div class="card-header ">
-                    <div class="row">
-                        <div class="col-sm-6 text-left">
-                            <h5 class="card-category"></h5>
-                            <h2 class="card-title"></h2>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                            <label class="btn btn-sm btn-primary btn-simple active" id="0">
-                                <input type="radio" name="options" checked>
-                                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Accounts</span>
-                                <span class="d-block d-sm-none">
-                                    <i class="tim-icons icon-single-02"></i>
-                                </span>
-                            </label>
-                            <label class="btn btn-sm btn-primary btn-simple" id="1">
-                                <input type="radio" class="d-none d-sm-none" name="options">
-                                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Purchases</span>
-                                <span class="d-block d-sm-none">
-                                    <i class="tim-icons icon-gift-2"></i>
-                                </span>
-                            </label>
-                            <label class="btn btn-sm btn-primary btn-simple" id="2">
-                                <input type="radio" class="d-none" name="options">
-                                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Sessions</span>
-                                <span class="d-block d-sm-none">
-                                    <i class="tim-icons icon-tap-02"></i>
-                                </span>
-                            </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="chartBig1"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="card card-chart">
-                <div class="card-header">
-                    <h5 class="card-category">Listrik</h5>
-                    <h3 class="card-title"><i class="tim-icons icon-sound-wave text-primary"></i> 763,215</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="chartLinePurple"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card-chart">
-                <div class="card-header">
-                    <h5 class="card-category">Air</h5>
-                    <h3 class="card-title"><i class="tim-icons icon-vector text-info"></i> 3,500€</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="CountryChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card-chart">
-                <div class="card-header">
-                    <h5 class="card-category">Gas</h5>
-                    <h3 class="card-title"><i class="tim-icons icon-molecule-40 text-success"></i> 12,100K</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="chartLineGreen"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!---->
         <div class="">
             <div class="card card-tasks">
                 <div class="card-header ">
-                    <h3 class="title d-inline">Listrik</h3>
+                    <h3 class="title d-inline text-primary">Listrik</h3>
                 </div>
                 <div class="card-body ">
                     <div class="table-full-width table-responsive">
@@ -198,11 +113,11 @@
         <div class="">
             <div class="card card-tasks">
                 <div class="card-header ">
-                    <h3 class="title d-inline">Gas</h3>
+                    <h3 class="title d-inline text-success">Gas</h3>
                 </div>
                 <div class="card-body ">
                     <div class="table-full-width table-responsive">
-                        <table class="table">
+                        <table class="table text-white">
                             <tbody>
                                  <tr>
                                     <th>
@@ -243,11 +158,11 @@
         <div class="">
             <div class="card card-tasks">
                 <div class="card-header ">
-                    <h3 class="title d-inline">Air</h3>
+                    <h3 class="title d-inline text-info">Air</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-full-width table-responsive">
-                        <table class="table">
+                        <table class="table text-white">
                             <tbody>
                                  <tr>
                                     <th>
@@ -285,6 +200,46 @@
         </div>
         <!---->
     </div>
+    <div class="row" style="width: 100%;margin-top: 20px">
+    <div class="col-md-4 col-xs-4">
+        <a href="utility-lite/water" class="text-white">
+            <button class="btn btn-success tombol" style="width: 100%; height: 100%">
+                <h1 class="judul">
+                    Air
+                </h1>
+            </button>
+        </a>
+    </div>
+    <div class="col-md-4 col-xs-4">
+        <a href="utility-lite/listrik" class="text-white">
+            <button class="btn btn-success tombol" style="width: 100%; height: 100%">
+                <h1 class="judul">
+                    Listrik
+                </h1>
+            </button>
+        </a>
+    </div>
+    <div class="col-md-4 col-xs-4">
+        <a href="utility-lite/gas" class="text-white">
+            <button class="btn btn-success tombol" style="width: 100%; height: 100%">
+                <h1 class="judul">
+                    Gas
+                </h1>
+            </button>
+        </a>
+    </div>
+</div>
+<div class="row" style="width: 100%;margin-top: 20px">
+    <div class="col-md-12 col-xs-12">
+        <a href="utility-lite/database" class="text-white">
+            <button class="btn btn-success tombol" style="width: 100%; height: 100%">
+                <h1 class="judul">
+                    Database
+                </h1>
+            </button>
+        </a>
+    </div>
+</div>
 @endsection
 
 @push('js')
