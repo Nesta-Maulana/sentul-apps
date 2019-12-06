@@ -1,5 +1,7 @@
 @extends('masterApps.template.index')
-
+@section('title')
+    Buat dan Upload Form Baru
+@endsection
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +28,6 @@
                 </div>
             </div>
         </div>
-        
 
         <!-- Import Excel -->
         <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

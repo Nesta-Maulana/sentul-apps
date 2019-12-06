@@ -1,5 +1,7 @@
 @extends('masterApps.template.index')
-
+@section('title')
+    Update Actions
+@endsection 
 @section('content')
 <!DOCTYPE html>
 <html lang="en">

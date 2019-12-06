@@ -367,11 +367,11 @@ Route::middleware('ceklogin')->group(function ()
     Route::get('/generate', 'masterApps\GenerateController@index')->name('form.index');
     Route::get('/generate/{id}/readonly','masterApps\GenerateController@readonly');
     Route::post('/generate', 'masterApps\GenerateController@store')->name('form.store');
-    Route::get('/cek-wo/{id}', 'masterApps\GenerateController@cekwo')->name('cek_wo');
+    Route::get('/master-apps/cek-wo/{id}', 'masterApps\GenerateController@cekwo')->name('cek_wo');
     Route::get('/parameter/{id}', 'masterApps\GenerateController@generate')->name('parameter');
 
     //Import Table
-    Route::get('/form', 'masterApps\FormController@index')->name('form.index');
+    Route::get('/form', 'masterApps\FormController@index')->name('form.index')->name('form.verifikasi');
     Route::get('/download', 'masterApps\UploadController@getDownload')->name('upload.download');
     Route::get('/export', 'masterApps\FormController@export_excel')->name('form.export');
     Route::post('/import', 'masterApps\FormController@import_excel')->name('form.import');
@@ -379,8 +379,22 @@ Route::middleware('ceklogin')->group(function ()
     //Verifikasi Email
     Route::get('/verifikasi', function(){
         return view('masterApps.form-verifikasi');
-    });
+    })->name('form.verifikasi');
 
     //Halaman Login
     Route::get('/login', 'halamanLogin\LoginController@index')->name('hal.login');
 
+    //transformers
+    Route::get('/dashboard', function(){
+        return view('masterApps.dashboard');
+    })->name('dashboard');
+    Route::get('/approval', function(){
+        return view('masterApps.approval');
+    })->name('approval');
+    Route::get('/form-berlaku', function(){
+        return view('masterApps.form-berlaku');
+    })->name('berlaku');
+
+    Route::get('/pengajuan', 'masterApps\pengajuanController@index')->name('pengajuan');
+    Route::post('/pengajuan', 'masterApps\pengajuanController@store')->name('pengajuan.store');
+    

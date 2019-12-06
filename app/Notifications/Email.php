@@ -42,8 +42,8 @@ class Email extends Notification
     {
         return (new MailMessage)
             ->subject('New Form Added')
-            ->line('New Form added, need to be approve ')
-            ->action('Notification Action', url('/'))
+            ->line('New form added. Need to be approve ')
+            ->action('Notification Action', url('/localhost/sentul-apps'))
             ->line('Thank you for using our application!');
     }
 
