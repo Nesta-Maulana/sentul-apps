@@ -17,7 +17,7 @@ class UploadController extends Controller
 
     public function getDownload()
     {
-        $file= "template_verifikasi.xlsx";
+        $file = "template_verifikasi.xlsx";
 
         $headers = array(
                 'Content-Type: application/pdf',

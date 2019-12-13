@@ -10,7 +10,6 @@
                 <th>No Perubahan</th>
                 <th>Dept</th>
                 <th>Nama Form</th>
-                <th>Detail Kategori</th>
                 <th>Tanggal Pengajuan</th>
                 <th>Tanggal Berlaku</th>
                 <th>Nama Pengaju</th>
@@ -18,32 +17,33 @@
                 <th>Kriteria Perubahan</th>
                 <th>No Revisi Form</th>
                 <th>File Attachment</th>
-                <th>File Revisi Sebelumnya</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
+        @foreach($tampil as $s)
             <tr>
-                <td>1/I/FQC/2019</td>
-                <td>FQC</td>
-                <td>VMF</td>
-                <td>Form Filling</td>
-                <td>07/11/2019</td>
-                <td>11/11/2019</td>
-                <td>Paula Wulandari</td>
-                <td>Hilda Utami</td>
-                <td>Inspeksi Tambahan</td>
-                <td>2</td>
-                <td>Dapat di Download</td>
-                <td>Dapat di Dowmload</td>
+                <td>{{$s->no_perubahan}}</td>
+                <td>{{$s->departemen}}</td>
+                <td>{{$s->nama_form}}</td>
+                <td>{{$s->tgl_pengajuan}}</td>
+                <td>{{$s->tgl_berlaku}}</td>
+                <td>{{$s->nama_pengaju}}</td>
+                <td>{{$s->manager_approval}}</td>
+                <td>{{$s->kriteria_perubahan}}</td>
+                <td>{{$s->no_revisi_form}}</td>
                 <td>
-                    <button class="btn btn-primary">Approve</button>
-                    <button class="btn btn-danger">Reject</button>                    
+                    <a href="{{route('download')}}" class="btn btn-primary">Download Form</a>
+                </td>
+                <td>
+                    <a href="" class="btn btn-primary">Approve</a>
+                    <br>
+                    <a href="" class="btn btn-danger">Reject</a>
                 </td>
             </tr>
+        @endforeach
         </tbody>
     </table>
 
 </div>
-
 @endsection

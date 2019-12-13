@@ -3,7 +3,7 @@
     Form Pengajuan Perubahan Form
 @endsection
 @section('content')
-<form action="{{route('pengajuan.store')}}" method="post">
+<form action="{{route('pengajuan.store')}}" method="post" enctype="multipart/form-data">
 {{ csrf_field() }}
 <div class="row"> 
     <div class="col-md-4">

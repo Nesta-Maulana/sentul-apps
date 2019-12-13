@@ -5,85 +5,83 @@ namespace App\Http\Controllers\masterApps;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\masterApps\Pengajuan;
+use App\Imports\formImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Response;
+
+
+
 
 class pengajuanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function download(){
+
+        $file = '';
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        return Response::download($file, '' , $headers);
+    }
+
+    public function approve(){
+        $tampil = Pengajuan::all();
+        return view('masterApps.approval', compact('tampil'));
+    }
+
+    public function tampil(){
+        $show = Pengajuan::all();
+        return view('masterApps.dashboard', compact('show'));
+    }
+
     public function index()
     {
         return view ('masterApps.pengajuan');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        $pengajuan = Pengajuan::create($request->all());
+        // return $request->all();
+        $filejadwal     = $request->file('file_attachment');
+        $uploadjadwal   = Excel::import( new formImport, $filejadwal);
+
+        $pengajuan = Pengajuan::create( $request->all());
+
 
         return redirect()->route('pengajuan', compact('pengajuan'));
-
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         //
     }
 }
+
+

@@ -10,25 +10,6 @@
 @endif
 @endif
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>
-        <table>
-            <thead>
-                t
-            </thead>
-        </table>
-    </h1>
-</body>
-</html>
-
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
 {{ $line }}
@@ -63,7 +44,6 @@
 {{ $salutation }}
 @else
 @lang('Regards'),<br>{{ config('app.name') }}
-    {{config('app.name')}}
 @endif
 
 {{-- Subcopy --}}

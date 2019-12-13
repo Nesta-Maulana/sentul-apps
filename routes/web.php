@@ -384,17 +384,11 @@ Route::middleware('ceklogin')->group(function ()
     //Halaman Login
     Route::get('/login', 'halamanLogin\LoginController@index')->name('hal.login');
 
+    
     //transformers
-    Route::get('/dashboard', function(){
-        return view('masterApps.dashboard');
-    })->name('dashboard');
-    Route::get('/approval', function(){
-        return view('masterApps.approval');
-    })->name('approval');
-    Route::get('/form-berlaku', function(){
-        return view('masterApps.form-berlaku');
-    })->name('berlaku');
-
+    Route::get('/approval', 'masterApps\pengajuanController@approve')->name('approval');
     Route::get('/pengajuan', 'masterApps\pengajuanController@index')->name('pengajuan');
     Route::post('/pengajuan', 'masterApps\pengajuanController@store')->name('pengajuan.store');
-    
+    Route::get('/form-berlaku', 'masterApps\formBerlakuController@index')->name('berlaku');
+    Route::get('/dashboard', 'masterApps\pengajuanController@tampil')->name('dashboard');
+    Route::get('/unduh', 'masterApps\pengajuanController@download')->name('download');

@@ -119,7 +119,11 @@
         <div id="collapseGuide" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menus :</h6>
-            <a class="collapse-item" href="{{route('form.verifikasi')}}">Form Import</a>
+            <a class="collapse-item" href="">Alur Proses</a>
+            <a class="collapse-item" href="{{route('form.verifikasi')}}">Download Form Kosong</a>
+            <a class="collapse-item" href="">Download Form Berlaku</a>
+            <a class="collapse-item" href="">FAQ</a>
+
             <div class="collapse-divider"></div>
           </div>
         </div>
