@@ -1,18 +1,9 @@
 @extends('masterApps.template.index')
 @section('title')
-    Buat dan Upload Form Baru
+    Download Form Baru
 @endsection
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Form Import</title>
-</head>
+x
 <body>
     <div class="container-fluid">
         <br>
@@ -20,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <label style="font-size:25px; font-weight:bold;">Download Template berikut untuk pengisian Form</label> <br>
-                    <a href="{{route('upload.download')}}" style="font-weight:bold;">> Template Form Excel <</a>
+                    <a href="{{route('upload.download')}}" class="btn btn-primary" ">Template Form Excel</a>
                     <br><br>
                     
 

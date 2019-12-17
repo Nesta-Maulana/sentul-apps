@@ -1,6 +1,6 @@
 @extends('masterApps.template.index')
 @section('title')
-    Form Berlaku
+    Download Form Berlaku 
 @endsection
 @section('content')
 

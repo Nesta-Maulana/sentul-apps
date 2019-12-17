@@ -3,6 +3,7 @@
     Form Approval
 @endsection
 @section('content')
+<form action="{{route('pengajuan.store')}}" method="post">
 <div class="row">
     <table class="table table-bordered">
         <thead>
@@ -36,14 +37,14 @@
                     <a href="{{route('download')}}" class="btn btn-primary">Download Form</a>
                 </td>
                 <td>
-                    <a href="" class="btn btn-primary">Approve</a>
+                    <a href="" name="approve" class="btn btn-primary">Approve</a>
                     <br>
-                    <a href="" class="btn btn-danger">Reject</a>
+                    <a href="" name="reject" class="btn btn-danger">Reject</a>
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
-
+    </form>
 </div>
 @endsection

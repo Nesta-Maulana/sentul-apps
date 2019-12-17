@@ -386,6 +386,7 @@ Route::middleware('ceklogin')->group(function ()
 
     
     //transformers
+    Route::get('/approval', 'masterApps\pengajuanController@store')->name('approve');
     Route::get('/approval', 'masterApps\pengajuanController@approve')->name('approval');
     Route::get('/pengajuan', 'masterApps\pengajuanController@index')->name('pengajuan');
     Route::post('/pengajuan', 'masterApps\pengajuanController@store')->name('pengajuan.store');

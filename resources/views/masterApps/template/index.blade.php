@@ -34,7 +34,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <!-- <i class="fas fa-laugh-wink"></i> -->
         </div>
-        <div class="sidebar-brand-text mx-3">Logo<sup>pangkat</sup></div>
+        <div class="sidebar-brand-text mx-3">Transformers<sup></sup></div>
       </a>
 
       <!-- Divider -->
@@ -54,20 +54,24 @@
         Interface
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Form Berlaku</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGuide" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>User Guide</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseGuide" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menus :</h6>
-            <a class="collapse-item" href="{{route('berlaku')}}">Form Berlaku</a>
-            <a class="collapse-item" href="{{route('form.index')}}">Forms</a>
+            <a class="collapse-item" href="">Alur Proses</a>
+            <a class="collapse-item" href="{{route('form.verifikasi')}}">Download Form Kosong</a>
+            <a class="collapse-item" href="{{route('berlaku')}}">Downlaod Form Berlaku</a>
+            <a class="collapse-item" href="">FAQ</a>
+
+            <div class="collapse-divider"></div>
           </div>
         </div>
       </li>
+
 
        <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
@@ -97,6 +101,20 @@
         </div>
       </li>
 
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Form Berlaku</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Menus :</h6>
+            <a class="collapse-item" href="{{route('form.index')}}">Forms</a>
+          </div>
+        </div>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
@@ -111,23 +129,7 @@
         </div>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGuide" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>User Guide</span>
-        </a>
-        <div id="collapseGuide" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Menus :</h6>
-            <a class="collapse-item" href="">Alur Proses</a>
-            <a class="collapse-item" href="{{route('form.verifikasi')}}">Download Form Kosong</a>
-            <a class="collapse-item" href="">Download Form Berlaku</a>
-            <a class="collapse-item" href="">FAQ</a>
-
-            <div class="collapse-divider"></div>
-          </div>
-        </div>
-      </li>
+      
 
 
       <!-- Nav Item - Charts -->

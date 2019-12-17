@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Response;
 
 class pengajuanController extends Controller
 {
+
     public function download(){
 
         $file = '';
@@ -50,8 +51,10 @@ class pengajuanController extends Controller
     public function store(Request $request)
     {
         // return $request->all();
-        $filejadwal     = $request->file('file_attachment');
-        $uploadjadwal   = Excel::import( new formImport, $filejadwal);
+
+            $filejadwal     = $request->file('file_attachment');
+            $uploadjadwal   = Excel::import( new formImport, $filejadwal);
+        
 
         $pengajuan = Pengajuan::create( $request->all());
 
