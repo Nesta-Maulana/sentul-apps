@@ -1,9 +1,6 @@
-@extends('masterApps.templates.layout')
+@extends('utilityOnline.admin.templates.layouts')
 @section('title')
-    Master Apps
-@endsection
-@section('subtitle')
-    Satuan
+    Form Satuan
 @endsection
 @section('content')
     <input id="interval" type="hidden" data-tambah="{{ Session::get('tambah') }}"/>
@@ -53,7 +50,7 @@
                         @endif
                         <td>
                             <Button class="btn btn-primary edit {{ Session::get('ubah') }}" data-id="{{ $id }}">Edit</Button>
-                            <a href="delete/utility_online/satuan/{{$s->id}}" class="text-white btn btn-danger">Delete</a>
+                            <a href="master-apps/delete/utility_online/satuan/{{$s->id}}" class="text-white btn btn-danger">Delete</a>
                         </td>
                     </tr>
                     <?php $i++ ?>

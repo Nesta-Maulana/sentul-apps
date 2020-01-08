@@ -50,7 +50,6 @@ Route::get('/request-hak-akses', 'hakAkses\hakAksesController@hakAkses')->name('
 Route::post('/request-hak-akses/request', 'hakAkses\hakAksesController@requestHakAkses')->name('request-hak-akses');
 Route::get('/request-hak-akses/aplication/{id}/{idUser}', 'hakAkses\hakAksesController@allMenu');
 
-
 Route::middleware('ceklogin')->group(function ()
 {   
     Route::get('/home', 'masterApps\superAdminController@index')->name('home-aplikasi');    
@@ -155,8 +154,29 @@ Route::middleware('ceklogin')->group(function ()
 
     // Delete 
     Route::get('/master-apps/delete/{connection}/{table}/{id}', 'resourceController@deleteData');
+    Route::get('/delete/{connection}/{table}/{id}', 'resourceController@deleteData'); 
 
-     //UTILITY LITE VERSION
+    //edit bagian
+    Route::get('/edit-bagian', 'utilityOnline\mainUtilityController@bagian');
+    Route::get('/edit-bagian/edit/{id}', 'utilityOnline\mainUtilityController@editBagian');
+    Route::post('/edit-bagian/data', 'utilityOnline\mainUtilityController@dataBagian');
+
+    //satuan
+    Route::get('/satuan', 'utilityOnline\mainUtilityController@satuan');
+    Route::get('/satuan/edit/{id}', 'utilityOnline\mainUtilityController@editSatuan');
+    Route::post('/satuan/data', 'utilityOnline\mainUtilityController@dataSatuan');
+ 
+    //kategori
+    Route::get('/kategori', 'utilityOnline\mainUtilityController@kategori');
+    Route::get('/kategori/edit/{id}', 'utilityOnline\mainUtilityController@editKategori');
+    Route::post('/kategori/data', 'utilityOnline\mainUtilityController@dataKategori');
+
+    //workcenter
+    Route::get('/workcenter','utilityOnline\mainUtilityController@workcenter');
+    Route::get('/workcenter/edit/{id}','utilityOnline\mainUtilityController@editWorkcenter');
+    Route::post('/workcenter/data','utilityOnline\mainUtilityController@dataWorkcenter');
+
+     //UTILITY LITE VERSION     
     Route::get('/utility-lite/pages/icons', 'utilityOnline\mainUtilityController@coba');
     Route::get('/utility-lite', 'utilityOnline\mainUtilityController@index2');
     Route::get('/utility-lite/water', 'utilityOnline\mainUtilityController@water');

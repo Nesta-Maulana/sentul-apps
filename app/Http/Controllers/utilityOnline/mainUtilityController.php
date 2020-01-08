@@ -82,6 +82,125 @@ class mainUtilityController extends Controller
         }
 
         return view('utilityOnline.operator_lite.pages.icons', ['username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter, 'kategoriPencatatan' => $kategoriPencatatan, 'water' => $water, 'gas' => $gas, 'listrik' => $listrik,]);
+    }   
+    public function bagian(){
+        $workcenter = workcenter::all();
+        $bagian = bagian::all();
+        $satuan = satuan::all();
+        $kategoriPencatatan = kategoriPencatatan::all();
+        return view("utilityOnline.operator_lite.edit-bagian", ['username' => $this->username, 'workcenter' => $workcenter, 'bagian' => $bagian, 'satuan' => $satuan, 'kategoriPencatatan' => $kategoriPencatatan]);
+    }
+    public function editBagian($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        $editBagian = bagian::find($id);
+        $workcenter = workcenter::all();
+        $kategoriPencatatan = kategoriPencatatan::all();
+        $satuan = satuan::all();
+        $output = [$editBagian, $workcenter, $kategoriPencatatan, $satuan];
+        return $output;
+    }
+    public function dataBagian(Request $request){
+        if($request->id){
+            $bagian = bagian::find($request->id);
+            $bagian->workcenter_id = $request->workcenter;
+            $bagian->status = $request->status;
+            $bagian->kategori_pencatatan_id = $request->kategori_pencatatan;
+            $bagian->bagian = $request->bagian;
+            $bagian->satuan_id = $request->satuan;
+            $bagian->spek_min = $request->spek_min;
+            $bagian->spek_max = $request->spek_max;
+            $bagian->save();
+            return redirect('/edit-bagian')->with('success', 'Data Berhasil DiUpdate');
+        }else{
+           bagian::create([
+               'workcenter_id' => $request->workcenter,
+               'kategori_pencatatan_id' => $request->kategori_pencatatan,
+               'status' => $request->status,
+               'bagian' => $request->bagian,
+               'satuan_id' => $request->satuan,
+               'spek_min' => $request->spek_min,
+               'spek_max' => $request->spek_max,
+           ]);
+           return redirect('/edit-bagian')->with('success', 'Data Berhasil ditambahkan');
+        }
+    }
+    public function satuan(){
+        $satuan = satuan::all();
+        return view('utilityOnline.operator_lite.satuan', ['username' => $this->username, 'satuan' => $satuan]);
+    }
+    public function editSatuan($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        $editSatuan = satuan::find($id);
+        return $editSatuan;
+    }
+    public function dataSatuan(Request $request){
+        if($request->id){
+            $satuan = satuan::find($request->id);
+            $satuan->satuan = $request->satuan;
+            $satuan->status = $request->status;
+            $satuan->save();
+            return redirect('/satuan')->with('success', 'Data Berhasil DiUpdate');
+        }else{
+           satuan::create([
+               'satuan' => $request->satuan,
+               'status' => $request->status,
+           ]);
+           return redirect('/satuan')->with('success', 'Data Berhasil ditambahkan');
+        }
+    }
+
+    public function kategori(){
+        $kategori = kategori::all();
+        return view("utilityOnline.operator_lite.kategori", ['kategori' => $kategori, 'username' => $this->username]);
+    }
+     public function dataKategori(Request $request){
+        if($request->id){
+            $kategori = kategori::find($request->id);
+            $kategori->kategori = $request->kategori;
+            $kategori->save();
+            return redirect('/kategori')->with('success', 'Data Berhasil DiUpdate');
+        }else{
+            kategori::create([
+                'kategori' => $request->kategori
+            ]);
+            return redirect('/kategori')->with('success', 'Data Berhasil Ditambahkan');
+        }
+    }
+    public function editKategori($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        $editKategori = kategori::find($id);
+        $output = [$editKategori];
+        return $editKategori;
+    }
+    public function workcenter(){
+        $kategori = kategori::all();
+        $workcenter = workcenter::all();
+        return view("utilityOnline.operator_lite.workcenter", ['username' => $this->username, 'kategori' => $kategori, 'workcenter' => $workcenter]);
+    }
+    public function dataWorkcenter(Request $request){
+        if($request->id){
+            $workcenter = workcenter::find($request->id);
+            $workcenter->workcenter = $request->workcenter;
+            $workcenter->kategori_id = $request->kategori;
+            $workcenter->status = $request->status;
+            $workcenter->save();
+            return redirect('/workcenter')->with('success', 'Data Berhasil DiUpdate');
+        }else{
+            workcenter::create([
+                'workcenter' => $request->workcenter,
+                'status' => $request->status,
+                'kategori_id' => $request->kategori
+            ]);
+            return redirect('/workcenter')->with('success', 'Data Berhasil Ditambahkan');
+        }
+    }
+    public function editWorkcenter($id){
+        $id = app('App\Http\Controllers\resourceController')->dekripsi($id);
+        $editWorkcenter = workcenter::find($id);
+        $kategori = kategori::all();
+        $output = [$editWorkcenter, $kategori];
+        return $output;
+        
     }
     public function index2()
     {
