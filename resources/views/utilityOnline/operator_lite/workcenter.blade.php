@@ -176,7 +176,5 @@ $(".edit").click(function () {
     });
 });
 
-
-
 </script>
 @endsection
