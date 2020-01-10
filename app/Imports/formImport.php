@@ -51,9 +51,8 @@ class formImport implements WithMappedCells, ToModel
             'nama'=>$row['nama'],
             'req_no_wo'=>$row['req_no_wo']
         ]);
+       
         
-        $head->email = "luthfeniaaa@gmail.com";
-        $head->notify(new Email($head));
 
         $insert = array();
         foreach($hasil as $value){

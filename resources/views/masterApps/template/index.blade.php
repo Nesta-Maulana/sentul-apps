@@ -62,16 +62,16 @@
         <div id="collapseGuide" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menus :</h6>
-            <a class="collapse-item" href="">Alur Proses</a>
+            <a class="collapse-item" href="{{route('alur.proses')}}">Alur Proses</a>
             <a class="collapse-item" href="{{route('form.verifikasi')}}">Download Form Kosong</a>
-            <a class="collapse-item" href="{{route('berlaku')}}">Downlaod Form Berlaku</a>
-            <a class="collapse-item" href="">FAQ</a>
-
+            <a class="collapse-item" href="{{route('departemen')}}">Download Form Berlaku</a>
+            <a class="collapse-item" href="{{route('faq')}}">FAQ</a>
             <div class="collapse-divider"></div>
           </div>
         </div>
       </li>
 
+      
 
        <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
@@ -114,7 +114,6 @@
           </div>
         </div>
       </li>
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
@@ -123,7 +122,7 @@
         <div id="collapseReport" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menus:</h6>
-            <a class="collapse-item" href="the things that i didnt ">Form Report</a>
+            <a class="collapse-item" href="{{route('report')}}">Form Report</a>
             <div class="collapse-divider"></div>
           </div>
         </div>
@@ -310,7 +309,7 @@
   <!-- Page level custom scripts -->
   <script src="{!! asset('js/demo/chart-area-demo.js') !!}"></script>
   <script src="{!! asset('js/demo/chart-pie-demo.js') !!}"></script>
-
+  @yield('script')
 </body>
 
 </html>

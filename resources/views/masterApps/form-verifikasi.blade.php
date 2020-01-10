@@ -3,7 +3,7 @@
     Download Form Baru
 @endsection
 @section('content')
-x
+
 <body>
     <div class="container-fluid">
         <br>
@@ -13,8 +13,8 @@ x
                     <label style="font-size:25px; font-weight:bold;">Download Template berikut untuk pengisian Form</label> <br>
                     <a href="{{route('upload.download')}}" class="btn btn-primary" ">Template Form Excel</a>
                     <br><br>
-                    
 
+    
 
     <script type="text/javascript" src="webcamjs/webcam.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -25,7 +25,7 @@
         @foreach($tampil as $s)
             <tr>
                 <td>{{$s->no_perubahan}}</td>
-                <td>{{$s->departemen}}</td>
+                <td>{{$s->departemen->departemen}}</td>
                 <td>{{$s->nama_form}}</td>
                 <td>{{$s->tgl_pengajuan}}</td>
                 <td>{{$s->tgl_berlaku}}</td>
@@ -34,10 +34,10 @@
                 <td>{{$s->kriteria_perubahan}}</td>
                 <td>{{$s->no_revisi_form}}</td>
                 <td>
-                    <a href="{{route('download')}}" class="btn btn-primary">Download Form</a>
+                    <a href="{{ asset('masterApps/import/'.$s->file_attachment) }}" class="btn btn-primary">Download Form</a>
                 </td>
                 <td>
-                    <a href="" name="approve" class="btn btn-primary">Approve</a>
+                    <a href="{{route('approve',$s->id)}}" name="approve" class="btn btn-primary">Approve</a>
                     <br>
                     <a href="" name="reject" class="btn btn-danger">Reject</a>
                 </td>

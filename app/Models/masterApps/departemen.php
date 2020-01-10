@@ -13,5 +13,10 @@ class departemen extends Model
     {
         return $this->hasMany('App\Models\masterApps\karyawan', 'id', 'departemen_id');
     }
+
+    public function pengajuan()
+    {
+        return $this->hasMany('App\Models\masterApps\Pengajuan', 'id','departemen_id' );
+    }
 }
  

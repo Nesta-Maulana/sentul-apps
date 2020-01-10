@@ -81,6 +81,7 @@
     <!-- Custom scripts for all pages-->
     <script src="{!! asset('public/masterApps/js/sb-admin-2.min.js') !!}  "></script>  
 
+    
 
     <script>
         $('#nama').on('change', function(){
@@ -109,7 +110,7 @@
                                 isitable    += '<td>'+'<input type="radio" name="not_ok">'+'#OK'+'<input type="radio" name="ok">'+'OK'+'</td>';
                             }
                             
-                            isitable    += '<td>'+'<textarea class="form-control" name="keterangan" id="keterangan" cols="30" rows="10"></textarea>'+'</td>';
+                            isitable    += '<td>'+'<textarea class="form-control" name="keterangan" id="keterangan" ></textarea>'+'</td>';
                             isitable    += '</tr>';
                             
                         }

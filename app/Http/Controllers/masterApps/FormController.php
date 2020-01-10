@@ -16,7 +16,7 @@ class FormController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     *controller a
      * @return \Illuminate\Http\Response
      */
     public function index()

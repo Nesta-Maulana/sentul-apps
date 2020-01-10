@@ -17,13 +17,13 @@ class UploadController extends Controller
 
     public function getDownload()
     {
-        $file = "template_verifikasi.xlsx";
+        $file = public_path().'/masterApps/file/template_verifikasi.xlsx';;
 
         $headers = array(
                 'Content-Type: application/pdf',
                 );
 
-        return Response::download($file, 'template_verifikasi.xlsx', $headers);
+        return response()->download($file, 'template_verifikasi.xlsx', $headers);
     }
 
     public function create()

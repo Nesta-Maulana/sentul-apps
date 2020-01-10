@@ -23,7 +23,7 @@
         @foreach($show as $s)
             <tr>
                 <td>{{$s->no_perubahan}}</td>
-                <td>{{$s->departemen}}</td>
+                <td>{{$s->departemen->departemen}}</td>
                 <td>{{$s->nama_form}}</td>
                 <td>{{$s->tgl_pengajuan}}</td>
                 <td>{{$s->tgl_berlaku}}</td>

@@ -386,10 +386,25 @@ Route::middleware('ceklogin')->group(function ()
 
     
     //transformers
-    Route::get('/approval', 'masterApps\pengajuanController@store')->name('approve');
+    // Route::get('/approval', 'masterApps\pengajuanController@store')->name('approve');
+    Route::get('/approve/{id}', 'masterApps\pengajuanController@approval')->name('approve');
     Route::get('/approval', 'masterApps\pengajuanController@approve')->name('approval');
     Route::get('/pengajuan', 'masterApps\pengajuanController@index')->name('pengajuan');
     Route::post('/pengajuan', 'masterApps\pengajuanController@store')->name('pengajuan.store');
-    Route::get('/form-berlaku', 'masterApps\formBerlakuController@index')->name('berlaku');
     Route::get('/dashboard', 'masterApps\pengajuanController@tampil')->name('dashboard');
-    Route::get('/unduh', 'masterApps\pengajuanController@download')->name('download');
+    Route::get('/unduh', 'masterApps\pengajuanController@download')->name('download');  
+    Route::get('/alur-proses', function(){
+        return view('masterApps.alur-proses');
+    })->name('alur.proses');
+    Route::get('/report', function(){
+        return view('masterApps.report');
+    })->name('report');
+    Route::get('/faq', function(){
+        return view('masterApps.faq');
+    })->name('faq');
+
+    Route::get('/form-berlaku', 'masterApps\pengajuanController@departemen')->name('departemen');
+    Route::get('/master-apps/departemen/{id}', 'masterAppspengajuanController@dpt')->name('dpt');
+    Route::get('/form-berlaku/getJsonData', 'masterApps\pengajuanController@getJsonData')->name('getDepartemenData');
+
+
